@@ -1,0 +1,10 @@
+.DS_Store
+
+vim/viminfo
+vim/bundle
+vim/swap
+vim/undo
+vim/tmp
+vim/doc/tags
+vim/spell/*.spl
+vim/vim*
