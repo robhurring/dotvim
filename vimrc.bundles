@@ -26,9 +26,10 @@ Bundle 'tpope/vim-surround'
 Bundle 'godlygeek/tabular'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle "mattn/emmet-vim"
+Bundle 'mattn/emmet-vim'
+Bundle 'Lokaltog/vim-easymotion'
 
-if filereadable(expand("~/.vimrc.bundles.local"))
+if filereadable(expand('~/.vimrc.bundles.local'))
   source ~/.vimrc.bundles.local
 endif
 

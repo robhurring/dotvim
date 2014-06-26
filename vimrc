@@ -74,6 +74,7 @@ let localmapleader=","
 map <Leader>/ :nohlsearch<cr>
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
+map <space> zz
 vnoremap . :normal .<CR>
 vnoremap @ :normal! @
 " map <T-j> :bn<cr>
@@ -154,6 +155,11 @@ noremap <leader>a> :Tabularize /=><CR>
 noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
 noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
+
+" easymotion plugin
+let g:EasyMotion_smartcase = 1
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
 
 " splits and such
 nnoremap <C-J> <C-W><C-J>
