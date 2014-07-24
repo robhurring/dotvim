@@ -14,6 +14,8 @@ set showcmd
 set number
 set list                       " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
+set shell=zsh\ -i
+
 if $TERM =~ '256color'
   set t_Co=256
 elseif $TERM =~ '^xterm$'
@@ -33,6 +35,7 @@ set directory=~/.vim/swap       " Directory to use for the swap file
 set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and align unchanged lines
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
+set guifont=Menlo\ Regular:h14
 
 " use relative line numbers
 autocmd InsertEnter * set number
@@ -100,11 +103,11 @@ imap <S-CR> <CR><CR>end<Esc>-cc
 " Plugins
 """""""""""""""""""""
 
-nnoremap <Leader>g :NERDTreeToggle<cr>
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
-let NERDTreeHighlightCursorline=1
-let NERDTreeShowBookmarks=1
-let NERDTreeShowFiles=1
+nnoremap <leader>g :nerdtreetoggle<cr>
+let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
+let nerdtreehighlightcursorline=1
+let nerdtreeshowbookmarks=1
+let nerdtreeshowfiles=1
 
 nnoremap <C-y> :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
@@ -118,6 +121,7 @@ let g:miniBufExplSplitBelow=1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplVSplit = 20
 
+" syntastic
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
@@ -168,6 +172,11 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 set splitbelow
 set splitright
+
+" js lib syntax plugin
+let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine'
+
+
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
