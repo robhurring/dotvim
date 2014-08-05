@@ -103,7 +103,7 @@ imap <S-CR> <CR><CR>end<Esc>-cc
 " Plugins
 """""""""""""""""""""
 
-nnoremap <leader>g :nerdtreetoggle<cr>
+nnoremap <leader>g :NERDTreeToggle<cr>
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
 let nerdtreehighlightcursorline=1
 let nerdtreeshowbookmarks=1
@@ -112,6 +112,8 @@ let nerdtreeshowfiles=1
 nnoremap <C-y> :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
+
+nnoremap <leader>b :TagbarToggle<cr>
 
 map <Leader>l :MBEToggle<cr>
 let g:miniBufExplorerMoreThanOne = 10000
