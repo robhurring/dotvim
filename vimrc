@@ -14,8 +14,7 @@ set showcmd
 set number
 set list                       " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
-set shell=zsh                  " FIXME: zsh -i is giving me troubles. fix this
-"set shellcmdflag=-ic
+set shell=zsh\ -l
 
 if $TERM =~ '256color'
   set t_Co=256
@@ -37,6 +36,8 @@ set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and al
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
 set guifont=Menlo\ Regular:h14
+set undofile
+set undodir=~/.vim/undo
 
 " use relative line numbers
 autocmd InsertEnter * set number
@@ -61,6 +62,25 @@ set hlsearch
 set incsearch
 set showmatch
 
+" bubbling lines
+if has("gui_running")
+  nnoremap <C-D-Up> ddkP
+  nnoremap <C-D-Down> ddp
+  vnoremap <C-D-Up> xkP`[v`]
+  vnoremap <C-D-Down> xp`[v`]
+else
+  "nnoremap <Esc>j :m .+1<CR>==
+  "nnoremap <Esc>k :m .-2<CR>==
+  nnoremap <esc>k ddkp
+  nnoremap <Esc>j ddp
+
+  vnoremap <Esc>k xkP`[v`]
+  vnoremap <Esc>j xp`[v`]
+end
+
+" CTags
+set tags=./.git/tags,./tags
+
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
 "   %    : saves and restores the buffer list
@@ -83,6 +103,11 @@ vnoremap . :normal .<CR>
 vnoremap @ :normal! @
 " map <T-j> :bn<cr>
 " map <T-k> :bp<cr>
+inoremap ;<cr> <end>;<cr>
+inoremap .<cr> <end>.
+inoremap ;;<cr> <down><end>;<cr>
+inoremap ..<cr> <down><end>.
+imap jj <esc>
 
 " When opening a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -110,7 +135,7 @@ let nerdtreehighlightcursorline=1
 let nerdtreeshowbookmarks=1
 let nerdtreeshowfiles=1
 
-nnoremap <C-y> :YRShow<cr>
+nnoremap <leader>y :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
 
@@ -128,13 +153,22 @@ let g:miniBufExplVSplit = 20
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['c', 'scss'] }
+                           \ 'passive_filetypes': ['html', 'c', 'scss'] }
 
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
 
 " let g:Powerline_symbols = 'unicode'
 set laststatus=2
 
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+
+nnoremap <leader>. :CtrlPTag<cr>
 let g:ctrlp_map = '<Leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
@@ -164,9 +198,9 @@ noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
 
 " easymotion plugin
-let g:EasyMotion_smartcase = 1
-nmap s <Plug>(easymotion-s2)
-nmap t <Plug>(easymotion-t2)
+"let g:EasyMotion_smartcase = 1
+"nmap s <Plug>(easymotion-s2)
+"nmap t <Plug>(easymotion-t2)
 
 " splits and such
 nnoremap <C-J> <C-W><C-J>
@@ -179,7 +213,9 @@ set splitright
 " js lib syntax plugin
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine'
 
-
+" jshint
+let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
+"let g:syntastic_debug = 3
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
