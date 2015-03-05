@@ -15,6 +15,7 @@ set number
 set list                       " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
 set shell=zsh                  " FIXME: zsh -i is giving me troubles. fix this
+"set shellcmdflag=-ic
 
 if $TERM =~ '256color'
   set t_Co=256
