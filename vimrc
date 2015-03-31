@@ -79,7 +79,7 @@ else
 end
 
 " CTags
-set tags=./.git/tags,./tags
+set tags=.git/tags;,./tags;
 
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
