@@ -5,6 +5,11 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" support bundles
+Bundle 'mattn/webapi-vim'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails.git'
 Bundle 'airblade/vim-gitgutter'
@@ -17,8 +22,6 @@ Bundle 'sjl/gundo.vim'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'Townk/vim-autoclose'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
 Bundle "honza/vim-snippets"
 Bundle "garbas/vim-snipmate"
 Bundle "ervandew/supertab"
@@ -31,11 +34,11 @@ Bundle 'mattn/emmet-vim'
 Bundle 'rizzatti/dash.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/gist-vim'
-Bundle 'mattn/webapi-vim'
 Bundle 'bling/vim-airline'
-Bundle 'wookiehangover/jshint.vim'
 Bundle 'ngmy/vim-rubocop'
+
 "Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'wookiehangover/jshint.vim'
 "Bundle 'tpope/vim-dispatch'
 "Bundle 'Lokaltog/vim-powerline'
 "Bundle 'terryma/vim-multiple-cursors'
