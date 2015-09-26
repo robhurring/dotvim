@@ -71,7 +71,7 @@ if has("gui_running")
 else
   "nnoremap <Esc>j :m .+1<CR>==
   "nnoremap <Esc>k :m .-2<CR>==
-  nnoremap <esc>k ddkp
+  nnoremap <Esc>k ddkP
   nnoremap <Esc>j ddp
 
   vnoremap <Esc>k xkP`[v`]
