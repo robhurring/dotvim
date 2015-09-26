@@ -1,15 +1,12 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
 
+filetype on
+filetype plugin on
 filetype plugin indent on     " required!
 
 " Display options
@@ -42,7 +39,11 @@ set scrolloff=3                 " Start scrolling 3 lines before the horizontal 
 set noerrorbells                " Disable error bells
 set guifont=Menlo\ Regular:h14
 set undofile
+set clipboard=unnamed
 set undodir=~/.vim/undo
+if has('mouse')
+  set mouse=a
+end
 
 " use relative line numbers
 autocmd InsertEnter * set number
@@ -59,6 +60,8 @@ set smarttab
 set tabstop=2
 set expandtab
 set shiftwidth=2
+set shiftround
+set ruler
 
 " Search settings
 set ignorecase
@@ -66,6 +69,7 @@ set smartcase
 set hlsearch
 set incsearch
 set showmatch
+nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 
 " bubbling lines
 if has("gui_running")
@@ -100,7 +104,6 @@ set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " Keybindings to native vim features
 let mapleader=","
 let localmapleader=","
-map <Leader>/ :nohlsearch<cr>
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
 map <space> zz
@@ -113,6 +116,13 @@ inoremap .<cr> <end>.
 inoremap ;;<cr> <down><end>;<cr>
 inoremap ..<cr> <down><end>.
 imap jj <esc>
+map \ :
+map Q gq
+map <C-f> /
+inoremap <C-c> <Esc>
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+vmap <C-m> gc
 
 " When opening a file, always jump to the last cursor position
 autocmd BufReadPost *
@@ -202,6 +212,14 @@ noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
 noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
 
+" emmet
+let g:user_emmet_leader_key='<C-E>'
+
+" matchit
+runtime macros/matchit.vim
+
+let g:vimrubocop_config = $HOME.'/.rubocop.yml'
+
 " easymotion plugin
 "let g:EasyMotion_smartcase = 1
 "nmap s <Plug>(easymotion-s2)
@@ -216,7 +234,7 @@ set splitbelow
 set splitright
 
 " js lib syntax plugin
-let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine'
+let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
 
 " jshint
 let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'

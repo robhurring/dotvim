@@ -1,7 +1,7 @@
 .DS_Store
 
 vim/bundle/*
-!vim/bundle/vundle
+!vim/bundle/Vundle
 vim/swap
 vim/undo
 vim/tmp

@@ -1,14 +1,13 @@
 set nocompatible
-
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-dispatch'
-"Bundle 'Lokaltog/vim-powerline'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -25,21 +24,26 @@ Bundle "garbas/vim-snipmate"
 Bundle "ervandew/supertab"
 Bundle 'tpope/vim-surround'
 Bundle 'godlygeek/tabular'
+Bundle 'tmhedberg/matchit'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'mattn/emmet-vim'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rizzatti/dash.vim'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/gist-vim'
 Bundle 'mattn/webapi-vim'
-"Bundle 'terryma/vim-multiple-cursors'
 Bundle 'bling/vim-airline'
 Bundle 'wookiehangover/jshint.vim'
+Bundle 'ngmy/vim-rubocop'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'tpope/vim-dispatch'
+"Bundle 'Lokaltog/vim-powerline'
+"Bundle 'terryma/vim-multiple-cursors'
+"Bundle 'kchmck/vim-coffee-script'
 
 if filereadable(expand('~/.vimrc.bundles.local'))
   source ~/.vimrc.bundles.local
 endif
 
-filetype on
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
