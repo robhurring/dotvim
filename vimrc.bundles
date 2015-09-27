@@ -10,6 +10,7 @@ Bundle 'mattn/webapi-vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails.git'
 Bundle 'airblade/vim-gitgutter'
@@ -36,8 +37,11 @@ Bundle 'majutsushi/tagbar'
 Bundle 'mattn/gist-vim'
 Bundle 'bling/vim-airline'
 Bundle 'ngmy/vim-rubocop'
+Bundle 'Chiel92/vim-autoformat'
+Bundle 'tpope/vim-repeat'
 
 "Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'erniebrodeur/ruby-beautify'
 "Bundle 'wookiehangover/jshint.vim'
 "Bundle 'tpope/vim-dispatch'
 "Bundle 'Lokaltog/vim-powerline'

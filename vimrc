@@ -6,8 +6,6 @@ if filereadable(expand("~/.vimrc.bundles"))
 endif
 
 filetype on
-filetype plugin on
-filetype plugin indent on     " required!
 
 " Display options
 syntax on
@@ -37,7 +35,11 @@ set directory=~/.vim/swap       " Directory to use for the swap file
 set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and align unchanged lines
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
-set guifont=Menlo\ Regular:h14
+set eol
+set fixeol
+set enc="utf-8"
+"set guifont=Menlo\ Regular:h14
+set guifont=Hack:h15
 set undofile
 set clipboard=unnamed
 set undodir=~/.vim/undo
@@ -69,26 +71,15 @@ set smartcase
 set hlsearch
 set incsearch
 set showmatch
-nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+map <leader>/ :nohlsearch<cr>
 
 " bubbling lines
-if has("gui_running")
-  nnoremap <C-D-Up> ddkP
-  nnoremap <C-D-Down> ddp
-  vnoremap <C-D-Up> xkP`[v`]
-  vnoremap <C-D-Down> xp`[v`]
-else
-  "nnoremap <Esc>j :m .+1<CR>==
-  "nnoremap <Esc>k :m .-2<CR>==
-  nnoremap <Esc>k ddkP
-  nnoremap <Esc>j ddp
-
-  vnoremap <Esc>k xkP`[v`]
-  vnoremap <Esc>j xp`[v`]
-end
+nnoremap <M-Up>k ddkP
+nnoremap <M-Down>j ddp
 
 " CTags
-set tags=.git/tags;,./tags;
+set tags+=.git/tags
+set tags+=./tags
 
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
@@ -116,7 +107,6 @@ inoremap .<cr> <end>.
 inoremap ;;<cr> <down><end>;<cr>
 inoremap ..<cr> <down><end>.
 imap jj <esc>
-map \ :
 map Q gq
 map <C-f> /
 inoremap <C-c> <Esc>
@@ -126,9 +116,14 @@ vmap <C-m> gc
 
 " When opening a file, always jump to the last cursor position
 autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \     exe "normal g'\"" |
-    \ endif |
+      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+      \     exe "normal g'\"" |
+      \ endif |
+
+autocmd BufNewFile,BufRead *.less set filetype=less
+
+" autocmd stuff
+autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 
 " Always edit file, even when swap file is found
 set shortmess+=A
@@ -136,13 +131,27 @@ set shortmess+=A
 " Toggle paste mode while in insert mode with F12
 set pastetoggle=<F12>
 
-au BufNewFile,BufRead *.less set filetype=less
-
 imap <S-CR> <CR><CR>end<Esc>-cc
+
+" http://vimcasts.org/episodes/tidying-whitespace/
+function! <SID>StripTrailingWhitespaces()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
 
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
+
+map <silent> <leader>r :Autoformat ff=unix<cr>
+let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
 nnoremap <leader>g :NERDTreeToggle<cr>
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
@@ -167,8 +176,8 @@ let g:miniBufExplVSplit = 20
 " syntastic
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['html', 'c', 'scss'] }
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': ['html', 'c', 'scss'] }
 
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
 
@@ -180,11 +189,11 @@ let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+let g:airline_powerline_fonts = 1
 let g:airline_symbols.space = "\ua0"
 
-
 nnoremap <leader>. :CtrlPTag<cr>
-let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
@@ -243,3 +252,4 @@ let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
