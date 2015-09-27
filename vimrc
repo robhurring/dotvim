@@ -128,7 +128,6 @@ vnoremap <S-Tab> <
 vmap <C-m> gc
 
 if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
   " When opening a file, always jump to the last cursor position
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line ("'\"") <= line("$") |
@@ -238,7 +237,7 @@ noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
 
 " emmet
-let g:user_emmet_leader_key='<C-E>'
+let g:user_emmet_leader_key='<C-e>'
 
 " matchit
 runtime macros/matchit.vim

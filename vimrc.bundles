@@ -23,7 +23,6 @@ Bundle 'sjl/gundo.vim'
 Bundle 'fholgado/minibufexpl.vim'
 Bundle 'vim-scripts/YankRing.vim'
 Bundle 'Townk/vim-autoclose'
-Bundle "honza/vim-snippets"
 Bundle "garbas/vim-snipmate"
 Bundle "ervandew/supertab"
 Bundle 'tpope/vim-surround'
@@ -39,8 +38,9 @@ Bundle 'bling/vim-airline'
 Bundle 'ngmy/vim-rubocop'
 Bundle 'Chiel92/vim-autoformat'
 Bundle 'tpope/vim-repeat'
-Bundle 'Valloric/YouCompleteMe'
 
+"Bundle 'Valloric/YouCompleteMe'
+"Bundle 'honza/vim-snippets'
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'erniebrodeur/ruby-beautify'
 "Bundle 'wookiehangover/jshint.vim'
