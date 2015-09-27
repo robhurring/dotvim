@@ -39,6 +39,7 @@ Bundle 'bling/vim-airline'
 Bundle 'ngmy/vim-rubocop'
 Bundle 'Chiel92/vim-autoformat'
 Bundle 'tpope/vim-repeat'
+Bundle 'Valloric/YouCompleteMe'
 
 "Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'erniebrodeur/ruby-beautify'
