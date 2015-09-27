@@ -37,8 +37,6 @@ set scrolloff=3                 " Start scrolling 3 lines before the horizontal 
 set noerrorbells                " Disable error bells
 set eol
 set fixeol
-set enc="utf-8"
-"set guifont=Menlo\ Regular:h14
 set guifont=Hack:h15
 set undofile
 set clipboard=unnamed
@@ -47,10 +45,25 @@ if has('mouse')
   set mouse=a
 end
 
+" delete into blackhole register
+nnoremap x "_x
+nnoremap D "_D
+nnoremap d "_d
+vnoremap d "_d
+nnoremap <leader>d ""d
+nnoremap <leader>D ""D
+vnoremap <leader>d ""d
+
+" tabs
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
+
 " use relative line numbers
-autocmd InsertEnter * set number
-autocmd InsertLeave * set relativenumber
-autocmd BufEnter * set relativenumber
+"autocmd InsertEnter * set number
+"autocmd InsertLeave * set relativenumber
+"autocmd BufEnter * set relativenumber
 
 " up/down on displayed lines, not real lines. More useful than painful.
 noremap k gk
@@ -114,17 +127,20 @@ vnoremap <Tab> >
 vnoremap <S-Tab> <
 vmap <C-m> gc
 
-" When opening a file, always jump to the last cursor position
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-      \     exe "normal g'\"" |
-      \ endif |
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+  " When opening a file, always jump to the last cursor position
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \     exe "normal g'\"" |
+        \ endif |
 
-autocmd BufNewFile,BufRead *.less set filetype=less
+  autocmd BufNewFile,BufRead *.less set filetype=less
 
-" autocmd stuff
-autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
-
+  " autocmd stuff
+  autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
+endif
+  
 " Always edit file, even when swap file is found
 set shortmess+=A
 
