@@ -9,11 +9,13 @@ filetype on
 
 " Display options
 syntax on
+set enc=utf-8
+set fileencoding=utf-8
 set cursorline
 set showcmd
 set number
 set list                       " Display unprintable characters
-set listchars=tab:▸\ ,extends:»,precedes:«
+set listchars=tab:▸\ ,extends:»,precedes:«,trail:•
 set shell=zsh\ -l
 
 if $TERM =~ '256color'
@@ -107,21 +109,17 @@ let localmapleader=","
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
 map <space> zz
+
 vnoremap . :normal .<CR>
 vnoremap @ :normal! @
-" map <T-j> :bn<cr>
-" map <T-k> :bp<cr>
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+
 inoremap ;<cr> <end>;<cr>
 inoremap .<cr> <end>.
 inoremap ;;<cr> <down><end>;<cr>
 inoremap ..<cr> <down><end>.
-imap jj <esc>
-map Q gq
-map <C-f> /
 inoremap <C-c> <Esc>
-vnoremap <Tab> >
-vnoremap <S-Tab> <
-vmap <C-m> gc
 
 if has("autocmd")
   " When opening a file, always jump to the last cursor position
@@ -141,8 +139,6 @@ set shortmess+=A
 
 " Toggle paste mode while in insert mode with F12
 set pastetoggle=<F12>
-
-imap <S-CR> <CR><CR>end<Esc>-cc
 
 " http://vimcasts.org/episodes/tidying-whitespace/
 function! <SID>StripTrailingWhitespaces()
@@ -174,12 +170,16 @@ end
 " Plugins
 """""""""""""""""""""
 
+" comment
+map <C-_> gcc
+
+" bubbling lines vim-exchange
 nmap <C-Up> [e
 nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-map <silent> <leader>r :Autoformat ff=unix<cr>
+map <silent> <leader>r :Autoformat<cr>
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
 nnoremap <leader>g :NERDTreeToggle<cr>
