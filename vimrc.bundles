@@ -9,6 +9,7 @@ call vundle#begin()
 Bundle 'mattn/webapi-vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
+Bundle 'tmhedberg/matchit'
 
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-unimpaired'
@@ -29,7 +30,6 @@ Bundle "garbas/vim-snipmate"
 Bundle "ervandew/supertab"
 Bundle 'tpope/vim-surround'
 Bundle 'godlygeek/tabular'
-Bundle 'tmhedberg/matchit'
 Bundle 'kana/vim-textobj-user'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'mattn/emmet-vim'
