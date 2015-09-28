@@ -172,6 +172,11 @@ end
 """""""""""""""""""""
 
 let g:jellybeans_use_lowcolor_black = 0
+
+" map ruby block movement
+nmap m ]m
+nmap M [m
+
 " comment
 map <C-_> gcc
 
