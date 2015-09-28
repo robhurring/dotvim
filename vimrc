@@ -5,7 +5,7 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-filetype plugin indent on     " required!
+filetype on
 
 " Display options
 syntax on
@@ -35,14 +35,35 @@ set directory=~/.vim/swap       " Directory to use for the swap file
 set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and align unchanged lines
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
-set guifont=Menlo\ Regular:h14
+set eol
+set fixeol
+set guifont=Hack:h15
 set undofile
+set clipboard=unnamed
 set undodir=~/.vim/undo
+if has('mouse')
+  set mouse=a
+end
+
+" delete into blackhole register
+nnoremap x "_x
+nnoremap D "_D
+nnoremap d "_d
+vnoremap d "_d
+nnoremap <leader>d ""d
+nnoremap <leader>D ""D
+vnoremap <leader>d ""d
+
+" tabs
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
 
 " use relative line numbers
-autocmd InsertEnter * set number
-autocmd InsertLeave * set relativenumber
-autocmd BufEnter * set relativenumber
+"autocmd InsertEnter * set number
+"autocmd InsertLeave * set relativenumber
+"autocmd BufEnter * set relativenumber
 
 " up/down on displayed lines, not real lines. More useful than painful.
 noremap k gk
@@ -54,6 +75,8 @@ set smarttab
 set tabstop=2
 set expandtab
 set shiftwidth=2
+set shiftround
+set ruler
 
 " Search settings
 set ignorecase
@@ -61,25 +84,11 @@ set smartcase
 set hlsearch
 set incsearch
 set showmatch
-
-" bubbling lines
-if has("gui_running")
-  nnoremap <C-D-Up> ddkP
-  nnoremap <C-D-Down> ddp
-  vnoremap <C-D-Up> xkP`[v`]
-  vnoremap <C-D-Down> xp`[v`]
-else
-  "nnoremap <Esc>j :m .+1<CR>==
-  "nnoremap <Esc>k :m .-2<CR>==
-  nnoremap <Esc>k ddkP
-  nnoremap <Esc>j ddp
-
-  vnoremap <Esc>k xkP`[v`]
-  vnoremap <Esc>j xp`[v`]
-end
+map <leader>/ :nohlsearch<cr>
 
 " CTags
-set tags=.git/tags;,./tags;
+set tags+=.git/tags
+set tags+=./tags
 
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
@@ -95,7 +104,6 @@ set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " Keybindings to native vim features
 let mapleader=","
 let localmapleader=","
-map <Leader>/ :nohlsearch<cr>
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
 map <space> zz
@@ -108,12 +116,25 @@ inoremap .<cr> <end>.
 inoremap ;;<cr> <down><end>;<cr>
 inoremap ..<cr> <down><end>.
 imap jj <esc>
+map Q gq
+map <C-f> /
+inoremap <C-c> <Esc>
+vnoremap <Tab> >
+vnoremap <S-Tab> <
+vmap <C-m> gc
 
-" When opening a file, always jump to the last cursor position
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-    \     exe "normal g'\"" |
-    \ endif |
+if has("autocmd")
+  " When opening a file, always jump to the last cursor position
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+        \     exe "normal g'\"" |
+        \ endif |
+
+  autocmd BufNewFile,BufRead *.less set filetype=less
+
+  " autocmd stuff
+  autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
+endif
 
 " Always edit file, even when swap file is found
 set shortmess+=A
@@ -121,13 +142,32 @@ set shortmess+=A
 " Toggle paste mode while in insert mode with F12
 set pastetoggle=<F12>
 
-au BufNewFile,BufRead *.less set filetype=less
-
 imap <S-CR> <CR><CR>end<Esc>-cc
+
+" http://vimcasts.org/episodes/tidying-whitespace/
+function! <SID>StripTrailingWhitespaces()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
 
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
+
+nmap <C-Up> [e
+nmap <C-Down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+map <silent> <leader>r :Autoformat ff=unix<cr>
+let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
 nnoremap <leader>g :NERDTreeToggle<cr>
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
@@ -139,6 +179,7 @@ nnoremap <leader>y :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
 
+" bubbling lines
 nnoremap <leader>b :TagbarToggle<cr>
 
 map <Leader>l :MBEToggle<cr>
@@ -152,8 +193,8 @@ let g:miniBufExplVSplit = 20
 " syntastic
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': ['html', 'c', 'scss'] }
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': ['html', 'c', 'scss'] }
 
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
 
@@ -165,11 +206,11 @@ let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+let g:airline_powerline_fonts = 1
 let g:airline_symbols.space = "\ua0"
 
-
 nnoremap <leader>. :CtrlPTag<cr>
-let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
@@ -197,6 +238,14 @@ noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
 noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
 
+" emmet
+let g:user_emmet_leader_key='<C-e>'
+
+" matchit
+runtime macros/matchit.vim
+
+let g:vimrubocop_config = $HOME.'/.rubocop.yml'
+
 " easymotion plugin
 "let g:EasyMotion_smartcase = 1
 "nmap s <Plug>(easymotion-s2)
@@ -211,7 +260,7 @@ set splitbelow
 set splitright
 
 " js lib syntax plugin
-let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine'
+let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
 
 " jshint
 let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
@@ -220,3 +269,4 @@ let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+

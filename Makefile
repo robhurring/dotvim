@@ -7,9 +7,9 @@ $(HOME)/.%: %
 	@echo "Installing $<"
 	@ln -sf $(CWD)/$< $@
 
-install: $(TARGETS)
+install: $(TARGETS) 
 	git submodule update --init --recursive
-	vim +BundleInstall +qall
+	vim +:BundleInstall +qall
 
 uninstall:
 	rm -f $(TARGETS)
