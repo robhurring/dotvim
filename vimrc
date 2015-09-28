@@ -171,6 +171,7 @@ end
 " Plugins
 """""""""""""""""""""
 
+let g:jellybeans_use_lowcolor_black = 0
 " comment
 map <C-_> gcc
 
