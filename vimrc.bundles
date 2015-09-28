@@ -2,7 +2,7 @@ set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
-call plug#begin('~/.vim/plugged') 
+call plug#begin('~/.vim/plugged')
 
 " support bundles
 Plug 'mattn/webapi-vim'
@@ -40,6 +40,12 @@ Plug 'bling/vim-airline'
 Plug 'ngmy/vim-rubocop'
 Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-repeat'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ecomba/vim-ruby-refactoring'
+Plug 'plasticboy/vim-markdown'
+Plug 'elzr/vim-json'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
 
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'honza/vim-snippets'
@@ -56,5 +62,5 @@ if filereadable(expand('~/.vimrc.bundles.local'))
 endif
 
 " All of your Plugins must be added before the following line
-call plug#end() 
+call plug#end()
 

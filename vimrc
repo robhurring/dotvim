@@ -129,6 +129,7 @@ if has("autocmd")
         \ endif |
 
   autocmd BufNewFile,BufRead *.less set filetype=less
+  autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
 
   " autocmd stuff
   autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
@@ -204,6 +205,7 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplVSplit = 20
 
 " syntastic
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_signs=1
 let g:syntastic_mode_map = { 'mode': 'active',
       \ 'active_filetypes': [],
@@ -259,10 +261,14 @@ runtime macros/matchit.vim
 
 let g:vimrubocop_config = $HOME.'/.rubocop.yml'
 
-" easymotion plugin
-"let g:EasyMotion_smartcase = 1
-"nmap s <Plug>(easymotion-s2)
-"nmap t <Plug>(easymotion-t2)
+" gundo
+nnoremap <leader>u :GundoToggle<cr>
+
+" multi cursor
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 
 " splits and such
 nnoremap <C-J> <C-W><C-J>
