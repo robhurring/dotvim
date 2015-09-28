@@ -7,7 +7,7 @@ $(HOME)/.%: %
 	@echo "Installing $<"
 	@ln -sf $(CWD)/$< $@
 
-install: $(TARGETS) 
+install: $(TARGETS)
 	vim +:PlugInstall +qall
 
 uninstall:
