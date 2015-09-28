@@ -15,7 +15,7 @@ set cursorline
 set showcmd
 set number
 set list                       " Display unprintable characters
-set listchars=tab:▸\ ,extends:»,precedes:«,trail:•
+set listchars=tab:▸\ ,extends:»,precedes:«
 set shell=zsh\ -l
 
 if $TERM =~ '256color'
@@ -170,6 +170,9 @@ end
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
+
+" vim-jsx
+let g:jsx_ext_required = 0
 
 let g:jellybeans_use_lowcolor_black = 0
 
