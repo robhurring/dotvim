@@ -157,6 +157,19 @@ function! <SID>StripTrailingWhitespaces()
   call cursor(l, c)
 endfunction
 
+if executable('fzf')
+  set rtp+=~/.fzf
+
+  nnoremap <silent> <Leader>s :call fzf#run({
+        \   'down': '40%',
+        \   'sink': 'botright split' })<CR>
+
+  " Open files in vertical horizontal split
+  nnoremap <silent> <Leader>v :call fzf#run({
+        \   'right': winwidth('.') / 2,
+        \   'sink':  'vertical botright split' })<CR>
+end
+
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
