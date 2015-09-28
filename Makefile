@@ -7,19 +7,17 @@ $(HOME)/.%: %
 	@echo "Installing $<"
 	@ln -sf $(CWD)/$< $@
 
-install: $(TARGETS) bundle ycm
+install: $(TARGETS) 
+	git submodule update --init --recursive
+	vim +:BundleInstall +qall
 
 uninstall:
 	rm -f $(TARGETS)
 
 update:
 	git pull
+	git submodule sync
+	git submodule update --init --recursive
 	vim +BundleInstall +qall
-
-bundle:
-	vim +BundleInstall +qall
-
-ycm:
-	vim/bundle/YouCompleteMe/install.py --gocode-completer --clang-completer
 
 .PHONY: install uninstall update
