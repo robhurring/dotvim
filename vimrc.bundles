@@ -11,6 +11,8 @@ Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tommcdo/vim-exchange'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails.git'
 Bundle 'airblade/vim-gitgutter'

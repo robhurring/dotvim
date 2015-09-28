@@ -86,10 +86,6 @@ set incsearch
 set showmatch
 map <leader>/ :nohlsearch<cr>
 
-" bubbling lines
-nnoremap <M-Up>k ddkP
-nnoremap <M-Down>j ddp
-
 " CTags
 set tags+=.git/tags
 set tags+=./tags
@@ -139,7 +135,7 @@ if has("autocmd")
   " autocmd stuff
   autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 endif
-  
+
 " Always edit file, even when swap file is found
 set shortmess+=A
 
@@ -165,6 +161,11 @@ endfunction
 " Plugins
 """""""""""""""""""""
 
+nmap <C-Up> [e
+nmap <C-Down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
 map <silent> <leader>r :Autoformat ff=unix<cr>
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
@@ -178,6 +179,7 @@ nnoremap <leader>y :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
 
+" bubbling lines
 nnoremap <leader>b :TagbarToggle<cr>
 
 map <Leader>l :MBEToggle<cr>
