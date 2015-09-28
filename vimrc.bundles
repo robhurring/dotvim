@@ -47,6 +47,7 @@ Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
+Plug 'christoomey/vim-titlecase'
 
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'honza/vim-snippets'
