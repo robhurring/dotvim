@@ -2,58 +2,58 @@ set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged') 
 
 " support bundles
-Bundle 'mattn/webapi-vim'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle 'tmhedberg/matchit'
+Plug 'mattn/webapi-vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'tmhedberg/matchit'
 
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tommcdo/vim-exchange'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails.git'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'kien/ctrlp.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'vim-scripts/YankRing.vim'
-Bundle 'Townk/vim-autoclose'
-Bundle "garbas/vim-snipmate"
-Bundle "ervandew/supertab"
-Bundle 'tpope/vim-surround'
-Bundle 'godlygeek/tabular'
-Bundle 'kana/vim-textobj-user'
-Bundle 'nelstrom/vim-textobj-rubyblock'
-Bundle 'mattn/emmet-vim'
-Bundle 'rizzatti/dash.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'mattn/gist-vim'
-Bundle 'bling/vim-airline'
-Bundle 'ngmy/vim-rubocop'
-Bundle 'Chiel92/vim-autoformat'
-Bundle 'tpope/vim-repeat'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-unimpaired'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'airblade/vim-gitgutter'
+Plug 'nanotech/jellybeans.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'kien/ctrlp.vim'
+Plug 'sjl/gundo.vim'
+Plug 'fholgado/minibufexpl.vim'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'Townk/vim-autoclose'
+Plug 'garbas/vim-snipmate'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular'
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'mattn/emmet-vim'
+Plug 'rizzatti/dash.vim'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/gist-vim'
+Plug 'bling/vim-airline'
+Plug 'ngmy/vim-rubocop'
+Plug 'Chiel92/vim-autoformat'
+Plug 'tpope/vim-repeat'
 
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'honza/vim-snippets'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'erniebrodeur/ruby-beautify'
-"Bundle 'wookiehangover/jshint.vim'
-"Bundle 'tpope/vim-dispatch'
-"Bundle 'Lokaltog/vim-powerline'
-"Bundle 'terryma/vim-multiple-cursors'
-"Bundle 'kchmck/vim-coffee-script'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'honza/vim-snippets'
+"Plug 'Lokaltog/vim-easymotion'
+"Plug 'erniebrodeur/ruby-beautify'
+"Plug 'wookiehangover/jshint.vim'
+"Plug 'tpope/vim-dispatch'
+"Plug 'Lokaltog/vim-powerline'
+"Plug 'terryma/vim-multiple-cursors'
+"Plug 'kchmck/vim-coffee-script'
 
 if filereadable(expand('~/.vimrc.bundles.local'))
   source ~/.vimrc.bundles.local
 endif
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end() 
+
