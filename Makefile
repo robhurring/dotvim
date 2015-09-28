@@ -17,4 +17,7 @@ update:
 	git pull
 	vim +PlugInstall +qall
 
+plug:
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 .PHONY: install uninstall update
