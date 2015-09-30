@@ -167,6 +167,10 @@ if executable('fzf')
         \   'sink':  'vertical botright split' })<CR>
 end
 
+" change cursor shapes
+let &t_SI .= "\<Esc>[6 q"
+let &t_EI .= "\<Esc>[2 q"
+
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
