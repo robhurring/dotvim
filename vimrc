@@ -16,7 +16,7 @@ set showcmd
 set number
 set list                       " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
-set shell=zsh\ -l
+set shell=zsh\ -lc
 
 if $TERM =~ '256color'
   set t_Co=256
@@ -31,7 +31,8 @@ filetype plugin indent on       " Do filetype detection and load custom file plu
 set hidden                      " Don't abandon buffers moved to the background
 set wildmenu                    " Enhanced completion hints in command line
 set backspace=eol,start,indent  " Allow backspacing over indent, eol, & start
-set complete=.,w,b,u,U,t,i,d    " Do lots of scanning on tab completion
+" set complete=.,w,b,u,U,t,i,d    " Do lots of scanning on tab completion
+set complete-=i
 set updatecount=100             " Write swap file to disk every 100 chars
 set directory=~/.vim/swap       " Directory to use for the swap file
 set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and align unchanged lines
@@ -45,13 +46,14 @@ set undodir=~/.vim/undo
 set laststatus=2
 if has('mouse')
   set mouse=a
-end
+end 
 
 " delete into blackhole register
 nnoremap x "_x
 nnoremap D "_D
 nnoremap d "_d
 vnoremap d "_d
+nnoremap <leader>dd ""dd
 nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
@@ -175,6 +177,7 @@ endfunction
 if executable('fzf')
   set rtp+=~/.fzf
 
+  nnoremap <silent> <leader><leader> :FZF -m<cr>
   nnoremap <silent> <Leader>s :call fzf#run({
         \   'down': '40%',
         \   'sink': 'botright split' })<CR>
@@ -189,6 +192,10 @@ end
 let &t_SI .= "\<Esc>[6 q"
 let &t_EI .= "\<Esc>[2 q"
 
+" change background on insert mode
+autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
+autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
+
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
@@ -197,8 +204,6 @@ let &t_EI .= "\<Esc>[2 q"
 let g:jsx_ext_required = 0
 
 let g:jellybeans_use_lowcolor_black = 0
-
-" let g:insert_mode_background_color = "#18434E"
 
 " map ruby block movement
 nmap m ]m

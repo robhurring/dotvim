@@ -44,7 +44,7 @@ Plug 'christoomey/vim-titlecase'
 Plug 'tpope/vim-cucumber'
 Plug 'quentindecock/vim-cucumber-align-pipes'
 Plug 'Blackrush/vim-gocode'
-Plug 'Peeja/insert_mode_background_color'
+Plug 'malithsen/trello-vim'
 
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'honza/vim-snippets'
