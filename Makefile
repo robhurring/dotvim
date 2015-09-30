@@ -1,4 +1,4 @@
-FILES = vimrc vimrc.bundles vim
+FILES = vimrc bundles.vim vim
 TARGETS=$(FILES:%=$(HOME)/.%)
 CWD=$(shell pwd)
 

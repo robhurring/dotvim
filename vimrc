@@ -1,16 +1,16 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+call plug#begin('~/.vim/plugged')
+if filereadable(expand("~/.bundles.vim"))
+  source ~/.bundles.vim
 endif
+call plug#end()
 
 filetype on
 
 " Display options
 syntax on
-set enc=utf-8
-set fileencoding=utf-8
 set cursorline
 set showcmd
 set number
@@ -38,11 +38,11 @@ set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and al
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
 set eol
-set fixeol
 set guifont=Hack:h15
 set undofile
 set clipboard=unnamed
 set undodir=~/.vim/undo
+set laststatus=2
 if has('mouse')
   set mouse=a
 end
@@ -56,20 +56,14 @@ nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
 
-" tabs
-map <C-1> 1gt
-map <C-2> 2gt
-map <C-3> 3gt
-map <C-4> 4gt
-
 " use relative line numbers
 "autocmd InsertEnter * set number
 "autocmd InsertLeave * set relativenumber
 "autocmd BufEnter * set relativenumber
 
 " up/down on displayed lines, not real lines. More useful than painful.
-noremap k gk
-noremap j gj
+nnoremap k gk
+nnoremap j gj
 
 " Indentation and tabbing
 set autoindent smartindent
@@ -86,11 +80,38 @@ set smartcase
 set hlsearch
 set incsearch
 set showmatch
-map <leader>/ :nohlsearch<cr>
+nmap <leader>/ :set hlsearch! hlsearch?<CR>
 
 " CTags
 set tags+=.git/tags
 set tags+=./tags
+
+" uppper/lower word
+" nmap <leader>u mQviwU`Q
+" nmap <leader>l mQviwu`Q
+" nmap <leader>U mQgewvU`Q
+" nmap <leader>L mQgewvu`Q
+
+" Some helpers to edit mode
+" http://vimcasts.org/e/14
+nmap <leader>ew :e <C-R>=expand('%:h').'/'<cr>
+nmap <leader>es :sp <C-R>=expand('%:h').'/'<cr>
+nmap <leader>ev :vsp <C-R>=expand('%:h').'/'<cr>
+nmap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
+
+" splits and such
+set splitbelow
+set splitright
+map <C-j> <C-w><C-j>
+map <C-k> <C-w><C-k>
+map <C-l> <C-w><C-l>
+map <C-h> <C-w><C-h>
+
+" text wrapping toggle
+nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
+
+" find conflicts
+nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
@@ -109,30 +130,27 @@ let localmapleader=","
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
 map <space> zz
+inoremap <C-c> <Esc>
 
 vnoremap . :normal .<CR>
 vnoremap @ :normal! @
-vnoremap <Tab> >
-vnoremap <S-Tab> <
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 inoremap ;<cr> <end>;<cr>
 inoremap .<cr> <end>.
-inoremap ;;<cr> <down><end>;<cr>
-inoremap ..<cr> <down><end>.
-inoremap <C-c> <Esc>
 
 if has("autocmd")
-  " When opening a file, always jump to the last cursor position
-  autocmd BufReadPost *
-        \ if line("'\"") > 0 && line ("'\"") <= line("$") |
-        \     exe "normal g'\"" |
-        \ endif |
+  " Remember last location in file, but not for commit messages.
+  " see :help last-position-jump
+  autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g`\"" | endif
 
   autocmd BufNewFile,BufRead *.less set filetype=less
   autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
-
-  " autocmd stuff
-  autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
+  autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
+  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
+  autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
 endif
 
 " Always edit file, even when swap file is found
@@ -142,7 +160,7 @@ set shortmess+=A
 set pastetoggle=<F12>
 
 " http://vimcasts.org/episodes/tidying-whitespace/
-function! <SID>StripTrailingWhitespaces()
+function! StripTrailingWhitespaces()
   " Preparation: save last search, and cursor position.
   let _s=@/
   let l = line(".")
@@ -180,12 +198,15 @@ let g:jsx_ext_required = 0
 
 let g:jellybeans_use_lowcolor_black = 0
 
+" let g:insert_mode_background_color = "#18434E"
+
 " map ruby block movement
 nmap m ]m
 nmap M [m
 
 " comment
 map <C-_> gcc
+imap <C-_> <Esc>gccA
 
 " bubbling lines vim-exchange
 nmap <C-Up> [e
@@ -220,14 +241,12 @@ let g:miniBufExplVSplit = 20
 " syntastic
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_signs=1
-let g:syntastic_mode_map = { 'mode': 'active',
+" let g:syntastic_mode_map =  'mode': 'active',
       \ 'active_filetypes': [],
-      \ 'passive_filetypes': ['html', 'c', 'scss'] }
+      \;`q`
 
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
 
-" let g:Powerline_symbols = 'unicode'
-set laststatus=2
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
@@ -282,14 +301,6 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
-
-" splits and such
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-set splitbelow
-set splitright
 
 " js lib syntax plugin
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'

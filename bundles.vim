@@ -1,10 +1,3 @@
-set nocompatible
-filetype off
-
-" set the runtime path to include Vundle and initialize
-call plug#begin('~/.vim/plugged')
-
-" support bundles
 Plug 'mattn/webapi-vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -51,6 +44,7 @@ Plug 'christoomey/vim-titlecase'
 Plug 'tpope/vim-cucumber'
 Plug 'quentindecock/vim-cucumber-align-pipes'
 Plug 'Blackrush/vim-gocode'
+Plug 'Peeja/insert_mode_background_color'
 
 "Plug 'Valloric/YouCompleteMe'
 "Plug 'honza/vim-snippets'
@@ -62,10 +56,7 @@ Plug 'Blackrush/vim-gocode'
 "Plug 'terryma/vim-multiple-cursors'
 "Plug 'kchmck/vim-coffee-script'
 
-if filereadable(expand('~/.vimrc.bundles.local'))
-  source ~/.vimrc.bundles.local
+if filereadable(expand('~/.bundles.local'))
+  source ~/.bundles.local
 endif
-
-" All of your Plugins must be added before the following line
-call plug#end()
 
