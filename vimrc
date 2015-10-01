@@ -8,6 +8,8 @@ endif
 call plug#end()
 
 filetype on
+let mapleader=','
+let localmapleader=','
 
 " Display options
 syntax on
@@ -24,8 +26,6 @@ elseif $TERM =~ '^xterm$'
   set t_Co=256
 endif
 
-colorscheme jellybeans
-
 " Misc
 filetype plugin indent on       " Do filetype detection and load custom file plugins and indent files
 set hidden                      " Don't abandon buffers moved to the background
@@ -38,6 +38,7 @@ set directory=~/.vim/swap       " Directory to use for the swap file
 set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and align unchanged lines
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
+set shortmess+=A                " Toggle paste mode while in insert mode with F12
 set eol
 set guifont=Hack:h15
 set undofile
@@ -53,15 +54,10 @@ nnoremap x "_x
 nnoremap D "_D
 nnoremap d "_d
 vnoremap d "_d
-nnoremap <leader>dd ""dd
-nnoremap <leader>d ""d
-nnoremap <leader>D ""D
-vnoremap <leader>d ""d
-
-" use relative line numbers
-"autocmd InsertEnter * set number
-"autocmd InsertLeave * set relativenumber
-"autocmd BufEnter * set relativenumber
+nnoremap <leader>d "*d
+nnoremap <leader>dd "*dd
+nnoremap <leader>D "*D
+vnoremap <leader>d "*d
 
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
@@ -104,10 +100,10 @@ nmap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
 " splits and such
 set splitbelow
 set splitright
-map <C-j> <C-w><C-j>
-map <C-k> <C-w><C-k>
-map <C-l> <C-w><C-l>
-map <C-h> <C-w><C-h>
+nmap <C-j> <C-w><C-j>
+nmap <C-k> <C-w><C-k>
+nmap <C-l> <C-w><C-l>
+nmap <C-h> <C-w><C-h>
 
 " text wrapping toggle
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
@@ -127,11 +123,8 @@ nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 
 " Keybindings to native vim features
-let mapleader=","
-let localmapleader=","
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
-map <space> zz
 inoremap <C-c> <Esc>
 
 vnoremap . :normal .<CR>
@@ -148,18 +141,18 @@ if has("autocmd")
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
 
+  autocmd BufWritePost {.vimrc,vimcr} source %
+
   autocmd BufNewFile,BufRead *.less set filetype=less
   autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
   autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
+
+  " change background on insert mode
+  autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
+  autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
 endif
-
-" Always edit file, even when swap file is found
-set shortmess+=A
-
-" Toggle paste mode while in insert mode with F12
-set pastetoggle=<F12>
 
 " http://vimcasts.org/episodes/tidying-whitespace/
 function! StripTrailingWhitespaces()
@@ -192,18 +185,33 @@ end
 let &t_SI .= "\<Esc>[6 q"
 let &t_EI .= "\<Esc>[2 q"
 
-" change background on insert mode
-autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
-autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
-
 """""""""""""""""""""
 " Plugins
 """""""""""""""""""""
+
+colorscheme jellybeans
+
+" neocomplete
+let g:acp_enableatstartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+
+" git-gutter
+" let g:gitgutter_realtime = 0
+" let g:gitgutter_eager = 0
+" nmap ]h <Plug>GitGutterNextHunk
+" nmap [h <Plug>GitGutterPrevHunk
+" nmap <Leader>ha <Plug>GitGutterStageHunk
+" nmap <Leader>hu <Plug>GitGutterRevertHunk
 
 " vim-jsx
 let g:jsx_ext_required = 0
 
 let g:jellybeans_use_lowcolor_black = 0
+
+" Utilsnips
+let g:UltiSnipsExpandTrigger       = "<Tab>"
+let g:UltiSnipsListSnippets        = "<C-h>"
 
 " map ruby block movement
 nmap m ]m

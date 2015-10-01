@@ -112,17 +112,17 @@ snippet until
 		${0}
 	end
 snippet cla class .. end
-	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	class ${1:Klass}
 		${0}
 	end
 snippet cla class .. initialize .. end
-	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	class ${1:Klass}
 		def initialize(${2:args})
 			${0}
 		end
 	end
 snippet cla< class .. < ParentClass .. initialize .. end
-	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} < ${2:ParentClass}
+	class ${1:Klass} < ${2:ParentClass}
 		def initialize(${3:args})
 			${0}
 		end
@@ -135,21 +135,12 @@ snippet claself class << self .. end
 	class << ${1:self}
 		${0}
 	end
-# class .. < DelegateClass .. initialize .. end
-snippet cla-
-	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} < DelegateClass(${2:ParentClass})
-		def initialize(${3:args})
-			super(${4:del_obj})
-
-			${0}
-		end
-	end
 snippet mod module .. end
-	module ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	module ${1:Concern}
 		${0}
 	end
 snippet mod module .. ClassMethods .. end
-	module ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+	module ${1:Concern}
 		def self.included(base)
 			base.extend ClassMethods
 		end
@@ -158,9 +149,9 @@ snippet mod module .. ClassMethods .. end
 			${0}
 		end
 	end
-snippet ctx ActiveSupport::Context
-	module ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
-		extend ActiveSupport::Context
+snippet ctx ActiveSupport::Concern
+	module ${1:Concern}
+		extend ActiveSupport::Concern
 
 		included do
 			${1}
@@ -583,7 +574,7 @@ snippet clafn
 snippet sinc
 	class << self; self end
 snippet nam
-	namespace :${1:`vim_snippets#Filename()`} do
+	namespace :${1} do
 		${0}
 	end
 snippet tas
