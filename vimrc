@@ -1,5 +1,7 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+if !has('nvim')
+  set nocompatible
+endif
+filetype off
 
 call plug#begin('~/.vim/plugged')
 if filereadable(expand('~/.vim/plugins.vim'))
@@ -12,12 +14,72 @@ let mapleader=','
 let localmapleader=','
 
 inoremap <C-c> <Esc>
-inoremap jk <Esc>
+inoremap jk <Esc>l
 
 if $TERM =~ '256color'
   set t_Co=256
 elseif $TERM =~ '^xterm$'
   set t_Co=256
+endif
+
+" Options
+" http://vimdoc.sourceforge.net/htmldoc/quickref.html
+filetype plugin indent on                  " Do filetype detection and load custom file plugins and indent files
+syntax on
+
+" set hidden                                 " Don't abandon buffers moved to the background
+set autoindent
+set backspace=eol,start,indent             " Allow backspacing over indent, eol, & start
+set clipboard=unnamed
+set colorcolumn=80
+set complete-=i
+set cursorline
+set cursorline
+set diffopt=filler,iwhite                  " In diff mode, ignore whitespace changes and align unchanged lines
+set directory=~/.vim/swap                  " Directory to use for the swap file
+set eol
+set expandtab
+set guifont=Hack:h15
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set list                                   " Display unprintable characters
+set listchars=tab:▸\ ,extends:»,precedes:«
+set noerrorbells                           " Disable error bells
+set nowrap
+set number
+set scrolloff=3                            " Start scrolling 3 lines before the horizontal window border
+set shiftround
+set shiftwidth=2
+set shortmess+=A                           " Toggle paste mode while in insert mode with F12
+set showcmd
+set showmatch
+set smartcase
+set smartindent
+set smarttab
+set splitbelow
+set splitright
+set tabstop=2
+set tags+=./tags
+set tags+=.git/tags
+set undodir=~/.vim/undo
+set undofile
+set updatecount=100                        " Write swap file to disk every 100 chars
+set wildmenu                               " Enhanced completion hints in command line
+
+" use zsh on where available
+if executable('zsh')
+  set shell=zsh
+endif
+set shellcmdflag=-lc
+
+" set ruler
+if has('mouse')
+  set mouse=a
+endif
+
+if has('gui_running')
 endif
 
 " change cursor shapes
@@ -30,66 +92,6 @@ endif
 if has('nvim')
   nmap <BS> <C-W>h
 endif
-
-" Options
-" http://vimdoc.sourceforge.net/htmldoc/quickref.html
-filetype plugin indent on       " Do filetype detection and load custom file plugins and indent files
-syntax on
-
-set autoindent smartindent
-set backspace=eol,start,indent             " Allow backspacing over indent, eol, & start
-set clipboard=unnamed
-set colorcolumn=80
-set complete-=i
-set cursorline
-set cursorline
-set diffopt=filler,iwhite                  " In diff mode, ignore whitespace changes and align unchanged lines
-set directory=~/.vim/swap                  " Directory to use for the swap file
-set eol
-set expandtab
-set hidden                                 " Don't abandon buffers moved to the background
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set list                                   " Display unprintable characters
-set listchars=tab:▸\ ,extends:»,precedes:«
-set noerrorbells                           " Disable error bells
-set nowrap
-set number
-set numberwidth=4
-set scrolloff=3                            " Start scrolling 3 lines before the horizontal window border
-if executable('zsh')
-  set shell=zsh
-else
-  set shell=bash
-end
-set shellcmdflag=-lc
-set shiftround
-set shiftwidth=2
-set shortmess+=A                           " Toggle paste mode while in insert mode with F12
-set showcmd
-set showmatch
-set smartcase
-set smarttab
-set splitbelow
-set splitright
-set tabstop=2
-set tags+=./tags
-set tags+=.git/tags
-set undodir=~/.vim/undo
-set undofile
-set updatecount=100                        " Write swap file to disk every 100 chars
-set wildmenu                               " Enhanced completion hints in command line
-
-" set ruler
-if has('mouse')
-  set mouse=a
-end
-
-if has('gui_running')
-  set guifont=Hack:h15
-end
 
 " viminfo: remember certain things when we exit
 " (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
@@ -188,7 +190,7 @@ if executable('fzf')
   nnoremap <silent> <Leader>v :call fzf#run({
         \   'right': winwidth('.') / 2,
         \   'sink':  'vertical botright split' })<CR>
-end
+endif
 
 """""""""""""""""""""
 " Plugins
@@ -229,7 +231,7 @@ nmap m ]mzz
 nmap M [mzz
 
 " comment
-map <C-_> gcc
+map <C-_> gcc<Esc>
 imap <C-_> :normal gccA
 
 " bubbling lines vim-exchang
