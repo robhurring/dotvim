@@ -1,11 +1,11 @@
-FILES=vimrc plug.vim vim nvim nvimrc
+FILES=vimrc vim nvim nvimrc
 TARGETS=$(FILES:%=$(HOME)/.%)
 CWD=$(shell pwd)
 
 $(HOME)/.%: %
 	@if [ -e $@ ]; then mv $@ $@.bak; fi
 	@echo "Installing $<"
-	@ln -sf $(CWD)/$< $@
+	@ln -snf $(CWD)/$< $@
 
 install: $(TARGETS) 
 	vim +:PlugInstall +qall

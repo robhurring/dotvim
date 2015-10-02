@@ -2,8 +2,8 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
-if filereadable(expand("~/.plug.vim"))
-  source ~/.plug.vim
+if filereadable(expand('~/.vim/plugins.vim'))
+  source ~/.vim/plugins.vim
 endif
 call plug#end()
 
