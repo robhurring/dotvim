@@ -11,6 +11,9 @@ filetype on
 let mapleader=','
 let localmapleader=','
 
+inoremap <C-c> <Esc>
+inoremap jk <Esc>
+
 " Display options
 syntax on
 set cursorline
@@ -47,7 +50,7 @@ set undodir=~/.vim/undo
 set laststatus=2
 if has('mouse')
   set mouse=a
-end 
+end
 
 " delete into blackhole register
 nnoremap x "_x
@@ -125,7 +128,6 @@ set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " Keybindings to native vim features
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
-inoremap <C-c> <Esc>
 
 vnoremap . :normal .<CR>
 vnoremap @ :normal! @
@@ -133,7 +135,8 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 inoremap ;<cr> <end>;<cr>
-inoremap .<cr> <end>.
+inoremap ,<cr> <end>,<cr>
+" inoremap .<cr> <end>.
 
 if has("autocmd")
   " Remember last location in file, but not for commit messages.
@@ -141,7 +144,7 @@ if has("autocmd")
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
 
-  autocmd BufWritePost {.vimrc,vimcr} source %
+  "autocmd BufWritePost {.vimrc,vimcr} source %
 
   autocmd BufNewFile,BufRead *.less set filetype=less
   autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
@@ -152,20 +155,10 @@ if has("autocmd")
   " change background on insert mode
   autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
   autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
-endif
 
-" http://vimcasts.org/episodes/tidying-whitespace/
-function! StripTrailingWhitespaces()
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  %s/\s\+$//e
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
+  " auto formatting
+  autocmd BufWritePre *.go :Autoformat
+endif
 
 if executable('fzf')
   set rtp+=~/.fzf
@@ -191,6 +184,12 @@ let &t_EI .= "\<Esc>[2 q"
 
 colorscheme jellybeans
 
+" Fix trailing whitespace
+nnoremap <leader>fw :FixWhitespace<cr>
+
+" JSON
+let g:vim_json_syntax_conceal = 0
+
 " neocomplete
 let g:acp_enableatstartup = 0
 let g:neocomplete#enable_at_startup = 1
@@ -212,10 +211,12 @@ let g:jellybeans_use_lowcolor_black = 0
 " Utilsnips
 let g:UltiSnipsExpandTrigger       = "<Tab>"
 let g:UltiSnipsListSnippets        = "<C-h>"
+" Utilsnips maps this and ruins nvim's buffer jumping
+" sunmap <C-h>
 
 " map ruby block movement
-nmap m ]m
-nmap M [m
+nmap m ]mzz
+nmap M [mzz
 
 " comment
 map <C-_> gcc
@@ -254,12 +255,7 @@ let g:miniBufExplVSplit = 20
 " syntastic
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_signs=1
-" let g:syntastic_mode_map =  'mode': 'active',
-      \ 'active_filetypes': [],
-      \;`q`
-
 let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
-
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1

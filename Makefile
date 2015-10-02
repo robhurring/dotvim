@@ -1,4 +1,4 @@
-FILES = vimrc bundles.vim vim
+FILES=vimrc bundles.vim vim nvim nvimrc
 TARGETS=$(FILES:%=$(HOME)/.%)
 CWD=$(shell pwd)
 
@@ -7,7 +7,7 @@ $(HOME)/.%: %
 	@echo "Installing $<"
 	@ln -sf $(CWD)/$< $@
 
-install: $(TARGETS) .lua .vim
+install: $(TARGETS) 
 	vim +:PlugInstall +qall
 
 uninstall:
@@ -23,10 +23,15 @@ clean:
 plug:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-.lua:
+deps:
+	brew unlink lua
 	brew install lua
-
-.vim:
+	brew link lua
 	brew install vim --with-lua
+
+# https://neovim.io/doc/user/nvim_python.html
+nvim: install
+	[[ $(shell which pip2) ]] && sudo pip2 install neovim
+	[[ $(shell which pip3) ]] && sudo pip3 install neovim
 
 .PHONY: install uninstall update
