@@ -59,7 +59,12 @@ set nowrap
 set number
 set numberwidth=4
 set scrolloff=3                            " Start scrolling 3 lines before the horizontal window border
-set shell=zsh\ -lc
+if executable('zsh')
+  set shell=zsh
+else
+  set shell=bash
+end
+set shellcmdflag=-lc
 set shiftround
 set shiftwidth=2
 set shortmess+=A                           " Toggle paste mode while in insert mode with F12
