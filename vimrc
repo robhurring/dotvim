@@ -14,15 +14,6 @@ let localmapleader=','
 inoremap <C-c> <Esc>
 inoremap jk <Esc>
 
-" Display options
-syntax on
-set cursorline
-set showcmd
-set number
-set list                       " Display unprintable characters
-set listchars=tab:▸\ ,extends:»,precedes:«
-set shell=zsh\ -lc
-
 if $TERM =~ '256color'
   set t_Co=256
 elseif $TERM =~ '^xterm$'
@@ -40,28 +31,59 @@ if has('nvim')
   nmap <BS> <C-W>h
 endif
 
-" Misc
+" Options
+" http://vimdoc.sourceforge.net/htmldoc/quickref.html
 filetype plugin indent on       " Do filetype detection and load custom file plugins and indent files
-set hidden                      " Don't abandon buffers moved to the background
-set wildmenu                    " Enhanced completion hints in command line
-set backspace=eol,start,indent  " Allow backspacing over indent, eol, & start
-" set complete=.,w,b,u,U,t,i,d    " Do lots of scanning on tab completion
-set complete-=i
-set updatecount=100             " Write swap file to disk every 100 chars
-set directory=~/.vim/swap       " Directory to use for the swap file
-set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and align unchanged lines
-set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
-set noerrorbells                " Disable error bells
-set shortmess+=A                " Toggle paste mode while in insert mode with F12
-set nowrap
-set eol
-set guifont=Hack:h15
-set undofile
+syntax on
+
+set autoindent smartindent
+set backspace=eol,start,indent             " Allow backspacing over indent, eol, & start
 set clipboard=unnamed
-set undodir=~/.vim/undo
+set colorcolumn=80
+set complete-=i
+set cursorline
+set cursorline
+set diffopt=filler,iwhite                  " In diff mode, ignore whitespace changes and align unchanged lines
+set directory=~/.vim/swap                  " Directory to use for the swap file
+set eol
+set expandtab
+set hidden                                 " Don't abandon buffers moved to the background
+set hlsearch
+set ignorecase
+set incsearch
 set laststatus=2
+set list                                   " Display unprintable characters
+set listchars=tab:▸\ ,extends:»,precedes:«
+set noerrorbells                           " Disable error bells
+set nowrap
+set number
+set numberwidth=4
+set scrolloff=3                            " Start scrolling 3 lines before the horizontal window border
+set shell=zsh\ -lc
+set shiftround
+set shiftwidth=2
+set shortmess+=A                           " Toggle paste mode while in insert mode with F12
+set showcmd
+set showmatch
+set smartcase
+set smarttab
+set splitbelow
+set splitright
+set tabstop=2
+set tags+=./tags
+set tags+=.git/tags
+set undodir=~/.vim/undo
+set undofile
+set updatecount=100                        " Write swap file to disk every 100 chars
+set wildmenu                               " Enhanced completion hints in command line
+
+" set ruler
 if has('mouse')
   set mouse=a
+end
+
+if has('gui_running')
+  set guifont=Hack:h15
 end
 
 " viminfo: remember certain things when we exit
@@ -75,26 +97,12 @@ end
 "   n... : where to save the viminfo files
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo,h
 
-" Indentation and tabbing
-set autoindent smartindent
-set smarttab
-set tabstop=2
-set expandtab
-set shiftwidth=2
-set shiftround
-set ruler
+" change column marker
+highlight ColorColumn ctermbg=234 guibg=#222222
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
 " Search settings
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-set showmatch
 nmap <leader>/ :set hlsearch! hlsearch?<CR>
-
-" CTags
-set tags+=.git/tags
-set tags+=./tags
 
 " delete into blackhole register
 nnoremap x "_x
@@ -118,8 +126,6 @@ nmap <leader>ev :vsp <C-R>=expand('%:h').'/'<cr>
 nmap <leader>et :tabe <C-R>=expand('%:h').'/'<cr>
 
 " splits and such
-set splitbelow
-set splitright
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
