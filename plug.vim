@@ -48,7 +48,7 @@ Plug 'bronson/vim-trailing-whitespace'
 
 Plug 'Shougo/unite.vim'
 " Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neocomplete.vim'
+" Plug 'Shougo/neocomplete.vim'
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer' }
 "Plug 'honza/vim-snippets'

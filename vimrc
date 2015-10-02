@@ -2,8 +2,8 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
-if filereadable(expand("~/.bundles.vim"))
-  source ~/.bundles.vim
+if filereadable(expand("~/.plug.vim"))
+  source ~/.plug.vim
 endif
 call plug#end()
 
@@ -142,10 +142,6 @@ vnoremap <S-Tab> <gv
 
 inoremap ;<cr> <end>;<cr>
 inoremap ,<cr> <end>,<cr>
-if has("mac")
-  " <S-CR> on mac
-  inoremap  <end><cr>
-end
 
 if has("autocmd")
   " Remember last location in file, but not for commit messages.
@@ -162,8 +158,8 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
 
   " change background on insert mode
-  autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
-  autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
+  " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
+  " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
 
   " auto formatting
   autocmd BufWritePre *.go :Autoformat
@@ -216,8 +212,6 @@ let g:jellybeans_use_lowcolor_black = 0
 " Utilsnips
 let g:UltiSnipsExpandTrigger       = "<Tab>"
 let g:UltiSnipsListSnippets        = "<C-h>"
-" Utilsnips maps this and ruins nvim's buffer jumping
-" sunmap <C-h>
 
 " map ruby block movement
 nmap m ]mzz
@@ -225,9 +219,9 @@ nmap M [mzz
 
 " comment
 map <C-_> gcc
-imap <C-_> <Esc>gccA
+imap <C-_> :normal gccA
 
-" bubbling lines vim-exchange
+" bubbling lines vim-exchang
 nmap <C-Up> [e
 nmap <C-Down> ]e
 vmap <C-Up> [egv
@@ -259,8 +253,8 @@ let g:miniBufExplVSplit = 20
 
 " syntastic
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_enable_signs=1
-let g:quickfixsigns_classes=['qfl', 'vcsdiff', 'breakpoints']
+let g:syntastic_enable_signs = 1
+let g:quickfixsigns_classes = ['qfl', 'vcsdiff', 'breakpoints']
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1

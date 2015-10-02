@@ -1,4 +1,4 @@
-FILES=vimrc bundles.vim vim nvim nvimrc
+FILES=vimrc plug.vim vim nvim nvimrc
 TARGETS=$(FILES:%=$(HOME)/.%)
 CWD=$(shell pwd)
 
