@@ -7,7 +7,7 @@ $(HOME)/.%: %
 	@echo "Installing $<"
 	@ln -snf $(CWD)/$< $@
 
-install: $(TARGETS) 
+install: $(TARGETS)
 	vim +:PlugInstall +qall
 
 uninstall:
@@ -15,7 +15,7 @@ uninstall:
 
 update:
 	git pull
-	vim +PlugInstall +qall
+	vim +PlugInstall +PlugClean! +qall
 
 clean:
 	vim +PlugClean! +qall
