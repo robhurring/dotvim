@@ -100,7 +100,7 @@ end
 "   "500 : save up to 500 lines for each register
 "   :100 : up to 100 lines of command-line history will be remembered
 "   n... : where to save the viminfo files
-set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo,h
+set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 
 " change column marker
 highlight ColorColumn ctermbg=234 guibg=#222222
