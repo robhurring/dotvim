@@ -29,6 +29,17 @@ elseif $TERM =~ '^xterm$'
   set t_Co=256
 endif
 
+" change cursor shapes
+if has("mac")
+  let &t_SI .= "\<Esc>[6 q"
+  let &t_EI .= "\<Esc>[2 q"
+endif
+
+" fix nvim's <C-h>
+if has('nvim')
+  nmap <BS> <C-W>h
+endif
+
 " Misc
 filetype plugin indent on       " Do filetype detection and load custom file plugins and indent files
 set hidden                      " Don't abandon buffers moved to the background
@@ -42,6 +53,7 @@ set diffopt=filler,iwhite       " In diff mode, ignore whitespace changes and al
 set scrolloff=3                 " Start scrolling 3 lines before the horizontal window border
 set noerrorbells                " Disable error bells
 set shortmess+=A                " Toggle paste mode while in insert mode with F12
+set nowrap
 set eol
 set guifont=Hack:h15
 set undofile
@@ -52,19 +64,16 @@ if has('mouse')
   set mouse=a
 end
 
-" delete into blackhole register
-nnoremap x "_x
-nnoremap D "_D
-nnoremap d "_d
-vnoremap d "_d
-nnoremap <leader>d "*d
-nnoremap <leader>dd "*dd
-nnoremap <leader>D "*D
-vnoremap <leader>d "*d
-
-" up/down on displayed lines, not real lines. More useful than painful.
-nnoremap k gk
-nnoremap j gj
+" viminfo: remember certain things when we exit
+" (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
+"   %    : saves and restores the buffer list
+"   '100 : marks will be remembered for up to 30 previously edited files
+"   /100 : save 100 lines from search history
+"   h    : disable hlsearch on start
+"   "500 : save up to 500 lines for each register
+"   :100 : up to 100 lines of command-line history will be remembered
+"   n... : where to save the viminfo files
+set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo,h
 
 " Indentation and tabbing
 set autoindent smartindent
@@ -87,11 +96,19 @@ nmap <leader>/ :set hlsearch! hlsearch?<CR>
 set tags+=.git/tags
 set tags+=./tags
 
-" uppper/lower word
-" nmap <leader>u mQviwU`Q
-" nmap <leader>l mQviwu`Q
-" nmap <leader>U mQgewvU`Q
-" nmap <leader>L mQgewvu`Q
+" delete into blackhole register
+nnoremap x "_x
+nnoremap D "_D
+nnoremap d "_d
+vnoremap d "_d
+nnoremap <leader>d "*d
+nnoremap <leader>dd "*dd
+nnoremap <leader>D "*D
+vnoremap <leader>d "*d
+
+" up/down on displayed lines, not real lines. More useful than painful.
+nnoremap k gk
+nnoremap j gj
 
 " Some helpers to edit mode
 " http://vimcasts.org/e/14
@@ -114,17 +131,6 @@ nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 " find conflicts
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
-" viminfo: remember certain things when we exit
-" (http://vimdoc.sourceforge.net/htmldoc/usr_21.html)
-"   %    : saves and restores the buffer list
-"   '100 : marks will be remembered for up to 30 previously edited files
-"   /100 : save 100 lines from search history
-"   h    : disable hlsearch on start
-"   "500 : save up to 500 lines for each register
-"   :100 : up to 100 lines of command-line history will be remembered
-"   n... : where to save the viminfo files
-set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
-
 " Keybindings to native vim features
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
@@ -136,7 +142,10 @@ vnoremap <S-Tab> <gv
 
 inoremap ;<cr> <end>;<cr>
 inoremap ,<cr> <end>,<cr>
-" inoremap .<cr> <end>.
+if has("mac")
+  " <S-CR> on mac
+  inoremap  <end><cr>
+end
 
 if has("autocmd")
   " Remember last location in file, but not for commit messages.
@@ -173,10 +182,6 @@ if executable('fzf')
         \   'right': winwidth('.') / 2,
         \   'sink':  'vertical botright split' })<CR>
 end
-
-" change cursor shapes
-let &t_SI .= "\<Esc>[6 q"
-let &t_EI .= "\<Esc>[2 q"
 
 """""""""""""""""""""
 " Plugins
@@ -306,10 +311,10 @@ let g:vimrubocop_config = $HOME.'/.rubocop.yml'
 nnoremap <leader>u :GundoToggle<cr>
 
 " multi cursor
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+let g:multi_cursor_next_key = '<C-n>'
+let g:multi_cursor_prev_key = '<C-p>'
+let g:multi_cursor_skip_key = '<C-x>'
+let g:multi_cursor_quit_key = '<Esc>'
 
 " js lib syntax plugin
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
