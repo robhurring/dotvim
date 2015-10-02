@@ -6,3 +6,4 @@ vim/undo
 vim/tmp
 vim/doc/tags
 vim/vim*
+vim/.netrw*
