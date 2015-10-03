@@ -170,6 +170,9 @@ if has("autocmd")
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
 
+  " fix JS {} completion like endwise
+  autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o>
+
   " change background on insert mode
   " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
   " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
