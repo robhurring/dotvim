@@ -4,7 +4,7 @@ CWD=$(shell pwd)
 
 $(HOME)/.%: %
 	@if [ -e $@ ]; then mv $@ $@.bak; fi
-	@echo "Installing $<"
+	@echo "Linking $<"
 	@ln -snf $(CWD)/$< $@
 
 install: $(TARGETS)
@@ -22,6 +22,10 @@ clean:
 
 bundle:
 	vim +PlugInstall +PlugClean! +qall
+
+snapshot:
+	@mkdir -p ~/.vim/snapshots
+	vim +"PlugSnapshot ~/.vim/snapshots/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
 bootstrap: .deps
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

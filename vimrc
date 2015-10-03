@@ -203,6 +203,10 @@ endif
 
 colorscheme jellybeans
 
+" markdown preview
+let g:instant_markdown_autostart = 0
+let g:instant_markdown_slow = 1
+
 " Signify
 let g:signify_vcs_list = ['git']
 

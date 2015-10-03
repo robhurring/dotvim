@@ -42,6 +42,7 @@ Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'mhinz/vim-signify'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 Plug 'Shougo/unite.vim'
 " Plug 'Shougo/neosnippet.vim'
