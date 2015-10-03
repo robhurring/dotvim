@@ -29,17 +29,19 @@ Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'mattn/emmet-vim'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'edkolev/promptline.vim'
 Plug 'bling/vim-airline'
 Plug 'ngmy/vim-rubocop'
 Plug 'Chiel92/vim-autoformat'
-
+Plug 'mkitt/tabline.vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'plasticboy/vim-markdown'
 Plug 'elzr/vim-json'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'mhinz/vim-signify'
 
 Plug 'Shougo/unite.vim'
 " Plug 'Shougo/neosnippet.vim'
@@ -62,8 +64,4 @@ Plug 'Shougo/unite.vim'
 " Plug 'Lokaltog/vim-powerline'
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'kchmck/vim-coffee-script'
-
-if filereadable(expand('~/.plugins.local.vim'))
-  source ~/.plugins.local.vim
-endif
 

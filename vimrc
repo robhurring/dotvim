@@ -4,9 +4,11 @@ endif
 filetype off
 
 call plug#begin('~/.vim/plugged')
-if filereadable(expand('~/.vim/plugins.vim'))
   source ~/.vim/plugins.vim
-endif
+
+  if filereadable(expand('~/.plugins.local.vim'))
+    source ~/.plugins.local.vim
+  endif
 call plug#end()
 
 let mapleader=','
@@ -40,6 +42,7 @@ set eol
 set expandtab
 set guifont=Hack:h15
 set hlsearch
+set hidden
 set ignorecase
 set incsearch
 set laststatus=2
@@ -200,6 +203,9 @@ endif
 
 colorscheme jellybeans
 
+" Signify
+let g:signify_vcs_list = ['git']
+
 " Fix trailing whitespace
 nnoremap <leader>fw :FixWhitespace<cr>
 
@@ -272,6 +278,8 @@ let g:syntastic_enable_signs = 1
 let g:quickfixsigns_classes = ['qfl', 'vcsdiff', 'breakpoints']
 
 " Airline
+" tagbar is super laggy on load. this will lazy load it
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
