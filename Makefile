@@ -15,13 +15,16 @@ uninstall:
 
 update:
 	git pull
-	$(MAKE) bundle
+	$(MAKE) bundle-update
 
 clean:
 	vim +PlugClean! +qall
 
 bundle:
 	vim +PlugInstall +PlugClean! +qall
+
+bundle-update:
+	vim +PlugUpdate +PlugClean! +qall
 
 snapshot:
 	@mkdir -p ~/.vim/snapshots

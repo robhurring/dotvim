@@ -1,0 +1,11 @@
+set nocompatible
+
+let mapleader=','
+let localmapleader=','
+
+inoremap <C-c> <Esc>
+inoremap jk <Esc>l
+
+" begin plugin tests
+set runtimepath+=~/.vim/plugged/unite.vim
+
