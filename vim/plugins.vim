@@ -17,16 +17,16 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-repeat'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'scrooloose/syntastic'
 Plug 'kien/ctrlp.vim'
-Plug 'sjl/gundo.vim'
-Plug 'fholgado/minibufexpl.vim'
+Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
+Plug 'fholgado/minibufexpl.vim', {'on': 'MBEToggle'}
 Plug 'vim-scripts/YankRing.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'mattn/emmet-vim'
 Plug 'majutsushi/tagbar'

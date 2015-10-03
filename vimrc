@@ -9,7 +9,6 @@ if filereadable(expand('~/.vim/plugins.vim'))
 endif
 call plug#end()
 
-filetype on
 let mapleader=','
 let localmapleader=','
 

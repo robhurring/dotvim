@@ -8,22 +8,25 @@ $(HOME)/.%: %
 	@ln -snf $(CWD)/$< $@
 
 install: $(TARGETS)
-	vim +:PlugInstall +qall
+	$(MAKE) bundle
 
 uninstall:
 	rm -f $(TARGETS)
 
 update:
 	git pull
-	vim +PlugInstall +PlugClean! +qall
+	$(MAKE) bundle
 
 clean:
 	vim +PlugClean! +qall
 
-plug:
+bundle:
+	vim +PlugInstall +PlugClean! +qall
+
+bootstrap: .deps
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-deps:
+.deps:
 	brew unlink lua
 	brew install lua
 	brew link lua
