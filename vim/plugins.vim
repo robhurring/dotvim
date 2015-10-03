@@ -45,8 +45,8 @@ Plug 'mhinz/vim-signify'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/neocomplete.vim'
 " Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/neocomplete.vim'
 
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'ervandew/supertab'
