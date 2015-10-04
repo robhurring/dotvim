@@ -70,6 +70,7 @@ set undodir=~/.vim/undo
 set undofile
 set updatecount=100                        " Write swap file to disk every 100 chars
 set wildmenu                               " Enhanced completion hints in command line
+set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
 
 " use zsh on where available
 if executable('zsh')
@@ -213,6 +214,7 @@ endif
 " colorscheme jellybeans
 colorscheme wombat
 highlight clear SignColumn
+" let g:jellybeans_use_lowcolor_black = 0
 
 " sessions
 let g:session_directory = '~/.vim/sessions'
@@ -226,6 +228,9 @@ let g:instant_markdown_slow = 1
 
 " Signify
 let g:signify_vcs_list = ['git']
+highlight SignifySignAdd    cterm=bold ctermbg=none  ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=none  ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=none  ctermfg=227
 
 " Fix trailing whitespace
 nnoremap <leader>fw :FixWhitespace<cr>
@@ -238,18 +243,8 @@ let g:acp_enableatstartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 
-" git-gutter
-" let g:gitgutter_realtime = 0
-" let g:gitgutter_eager = 0
-" nmap ]h <Plug>GitGutterNextHunk
-" nmap [h <Plug>GitGutterPrevHunk
-" nmap <Leader>ha <Plug>GitGutterStageHunk
-" nmap <Leader>hu <Plug>GitGutterRevertHunk
-
 " vim-jsx
 let g:jsx_ext_required = 0
-
-let g:jellybeans_use_lowcolor_black = 0
 
 " Utilsnips
 let g:UltiSnipsExpandTrigger       = "<Tab>"
@@ -298,104 +293,48 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplVSplit = 20
 
 " syntastic
-let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_signs = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:quickfixsigns_classes = ['qfl', 'vcsdiff', 'breakpoints']
+" let syntastic_ruby_rubocop_exec = '~/bin/rubocop'
 " let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
 " let g:syntastic_debug = 3
 
 " rubocop
 " let g:vimrubocop_config = $HOME.'/.rubocop.yml'
 
-" lightline
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [[ 'mode', 'paste' ], [ 'fugitive', 'filename' ]],
-      \   'right': [[ 'syntastic', 'lineinfo' ], [ 'fileformat', 'fileencoding', 'filetype' ]]
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'LightLineFugitive',
-      \   'readonly': 'LightLineReadonly',
-      \   'modified': 'LightLineModified',
-      \   'filename': 'LightLineFilename'
-      \ },
-      \ 'component_expand': {
-      \   'syntastic': 'SyntasticStatuslineFlag',
-      \ },
-      \ 'component_type': {
-      \   'syntastic': 'error',
-      \ }
-      \ }
-
-let g:unite_force_overwrite_statusline = 0
-let g:vimfiler_force_overwrite_statusline = 0
-let g:vimshell_force_overwrite_statusline = 0
-
-function! LightLineModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "⭤"
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineFugitive()
-  return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
-
-function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-let g:tagbar_status_func = 'TagbarStatusFunc'
-
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
-
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
-function! s:syntastic()
-  SyntasticCheck
-  call lightline#update()
-endfunction
-
 " airline
 " tagbar is super laggy on load. this will lazy load it
-" let g:airline#extensions#tagbar#enabled = 0
-" let g:airline#extensions#tabline#enabled = 1
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-" let g:airline_powerline_fonts = 1
-" let g:airline_symbols.space = "\ua0"
+let g:airline#extensions#tagbar#enabled = 0
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#hunks#enabled = 0
+
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_detect_paste = 1
+let g:airline_theme = 'bubblegum'
+
+function! MyAirline()
+  let spc = g:airline_symbols.space
+  let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
+  let g:airline_section_c = ''
+  let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
+  let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+endfunction
+autocmd Vimenter * call MyAirline()
 
 " ctrp-p
 nnoremap <leader>. :CtrlPTag<cr>
 let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
 let g:ctrlp_open_new_file = 'h'
 let g:ctrlp_open_multiple_files = 'h'
 "let g:ctrlp_custom_ignore = '\.o\|\.so'
