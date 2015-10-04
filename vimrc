@@ -208,7 +208,7 @@ if executable('fzf')
 endif
 
 """""""""""""""""""""
-" Plugins
+" Plugins           "
 """""""""""""""""""""
 
 " colorscheme jellybeans
@@ -225,6 +225,9 @@ let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 let g:gist_show_privates = 1
+
+" ag
+let g:ag_working_path_mode = 'r'
 
 " sessions
 let g:session_directory = '~/.vim/sessions'
@@ -348,19 +351,6 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_new_file = 'h'
 let g:ctrlp_open_multiple_files = 'h'
 "let g:ctrlp_custom_ignore = '\.o\|\.so'
-"let g:ctrlp_user_command = 'find %s -type f'
-
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
@@ -387,6 +377,16 @@ let g:multi_cursor_quit_key = '<Esc>'
 
 " js lib syntax plugin
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
+
+"""""""""""""""""""""
+" External          "
+"""""""""""""""""""""
+
+" ag
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local

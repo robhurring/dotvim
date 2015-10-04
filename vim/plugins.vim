@@ -47,6 +47,7 @@ Plug 'xolox/vim-session'
 Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 Plug 'bling/vim-airline'
 Plug 'mattn/gist-vim', {'on': 'Gist'}
+Plug 'rking/ag.vim', {'on': 'Ag'}
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplete.vim'
