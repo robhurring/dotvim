@@ -2,6 +2,7 @@
 
 vim/plugged/*
 vim/snapshots/*
+vim/sessions/*
 vim/swap
 vim/undo
 vim/tmp

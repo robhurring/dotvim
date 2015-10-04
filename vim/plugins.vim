@@ -4,6 +4,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'tmhedberg/matchit'
 Plug 'kana/vim-textobj-user'
+Plug 'xolox/vim-misc'                   " used for vim-sessions
 
 " color schemes
 Plug 'nanotech/jellybeans.vim'
@@ -43,6 +44,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'mhinz/vim-signify'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'xolox/vim-session'
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplete.vim'

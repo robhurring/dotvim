@@ -28,7 +28,6 @@ endif
 filetype plugin indent on                  " Do filetype detection and load custom file plugins and indent files
 syntax on
 
-" set hidden                                 " Don't abandon buffers moved to the background
 set autoindent
 set backspace=eol,start,indent             " Allow backspacing over indent, eol, & start
 set clipboard=unnamed
@@ -41,8 +40,8 @@ set directory=~/.vim/swap                  " Directory to use for the swap file
 set eol
 set expandtab
 set guifont=Hack:h15
+set hidden                                 " Don't abandon buffers moved to the background
 set hlsearch
-set hidden
 set ignorecase
 set incsearch
 set laststatus=2
@@ -52,6 +51,7 @@ set noerrorbells                           " Disable error bells
 set nowrap
 set number
 set scrolloff=3                            " Start scrolling 3 lines before the horizontal window border
+set sessionoptions-=help                   " don't restore help windows
 set shiftround
 set shiftwidth=2
 set shortmess+=A                           " Toggle paste mode while in insert mode with F12
@@ -206,6 +206,12 @@ endif
 """""""""""""""""""""
 
 colorscheme jellybeans
+
+" sessions
+let g:session_directory = '~/.vim/sessions'
+let g:session_extension = '.session'
+let g:session_autosave = 'yes'
+let g:session_autoload = 'no'
 
 " markdown preview
 let g:instant_markdown_autostart = 0
