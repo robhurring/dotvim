@@ -4,11 +4,11 @@ endif
 filetype off
 
 call plug#begin('~/.vim/plugged')
-  source ~/.vim/plugins.vim
+source ~/.vim/plugins.vim
 
-  if filereadable(expand('~/.plugins.local.vim'))
-    source ~/.plugins.local.vim
-  endif
+if filereadable(expand('~/.plugins.local.vim'))
+  source ~/.plugins.local.vim
+endif
 call plug#end()
 
 let mapleader=','
@@ -39,6 +39,7 @@ set diffopt=filler,iwhite                  " In diff mode, ignore whitespace cha
 set directory=~/.vim/swap                  " Directory to use for the swap file
 set eol
 set expandtab
+set encoding=utf-8
 set guifont=Hack:h15
 set hidden                                 " Don't abandon buffers moved to the background
 set hlsearch
@@ -107,7 +108,7 @@ endif
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 
 " change column marker
-highlight ColorColumn ctermbg=234 guibg=#222222
+" highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
 " Search settings
@@ -168,8 +169,6 @@ if has("autocmd")
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
 
-  "autocmd BufWritePost {.vimrc,vimcr} source %
-
   autocmd BufNewFile,BufRead *.less set filetype=less
   autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
   autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
@@ -185,6 +184,12 @@ if has("autocmd")
 
   " auto formatting
   autocmd BufWritePre *.go :Autoformat
+
+  " fix syntax on reloads
+  augroup reload_vimrc
+    autocmd!
+    autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+  augroup END
 endif
 
 if executable('fzf')
@@ -205,7 +210,9 @@ endif
 " Plugins
 """""""""""""""""""""
 
-colorscheme jellybeans
+" colorscheme jellybeans
+colorscheme wombat
+highlight clear SignColumn
 
 " sessions
 let g:session_directory = '~/.vim/sessions'
@@ -262,15 +269,18 @@ nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
+" autoformat
 map <silent> <leader>r :Autoformat<cr>
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
+" nerdtree
 nnoremap <leader>g :NERDTreeToggle<cr>
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
 let nerdtreehighlightcursorline=1
 let nerdtreeshowbookmarks=1
 let nerdtreeshowfiles=1
 
+" yankring
 nnoremap <leader>y :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
@@ -278,6 +288,7 @@ let g:yankring_manual_clipboard_check = 0
 " bubbling lines
 nnoremap <leader>b :TagbarToggle<cr>
 
+" minibufexplorer
 map <Leader>l :MBEToggle<cr>
 let g:miniBufExplorerMoreThanOne = 10000
 let g:miniBufExplModSelTarget = 1
@@ -290,17 +301,96 @@ let g:miniBufExplVSplit = 20
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_signs = 1
 let g:quickfixsigns_classes = ['qfl', 'vcsdiff', 'breakpoints']
+" let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
+" let g:syntastic_debug = 3
 
-" Airline
+" rubocop
+" let g:vimrubocop_config = $HOME.'/.rubocop.yml'
+
+" lightline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [[ 'mode', 'paste' ], [ 'fugitive', 'filename' ]],
+      \   'right': [[ 'syntastic', 'lineinfo' ], [ 'fileformat', 'fileencoding', 'filetype' ]]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \   'readonly': 'LightLineReadonly',
+      \   'modified': 'LightLineModified',
+      \   'filename': 'LightLineFilename'
+      \ },
+      \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ },
+      \ 'component_type': {
+      \   'syntastic': 'error',
+      \ }
+      \ }
+
+let g:unite_force_overwrite_statusline = 0
+let g:vimfiler_force_overwrite_statusline = 0
+let g:vimshell_force_overwrite_statusline = 0
+
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "⭤"
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+
+augroup AutoSyntastic
+  autocmd!
+  autocmd BufWritePost *.c,*.cpp call s:syntastic()
+augroup END
+function! s:syntastic()
+  SyntasticCheck
+  call lightline#update()
+endfunction
+
+" airline
 " tagbar is super laggy on load. this will lazy load it
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_powerline_fonts = 1
-let g:airline_symbols.space = "\ua0"
+" let g:airline#extensions#tagbar#enabled = 0
+" let g:airline#extensions#tabline#enabled = 1
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" let g:airline_powerline_fonts = 1
+" let g:airline_symbols.space = "\ua0"
 
+" ctrp-p
 nnoremap <leader>. :CtrlPTag<cr>
 let g:ctrlp_map = '<leader>t'
 let g:ctrlp_cmd = 'CtrlP'
@@ -323,6 +413,7 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+" tabularize
 noremap <leader>a= :Tabularize /=<CR>
 noremap <leader>a: :Tabularize /^[^:]*:\zs/l0l1<CR>
 noremap <leader>a> :Tabularize /=><CR>
@@ -336,8 +427,6 @@ let g:user_emmet_leader_key='<C-e>'
 " matchit
 runtime macros/matchit.vim
 
-let g:vimrubocop_config = $HOME.'/.rubocop.yml'
-
 " gundo
 nnoremap <leader>u :GundoToggle<cr>
 
@@ -349,10 +438,6 @@ let g:multi_cursor_quit_key = '<Esc>'
 
 " js lib syntax plugin
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
-
-" jshint
-let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
-"let g:syntastic_debug = 3
 
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local

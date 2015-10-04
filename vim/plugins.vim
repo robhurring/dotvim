@@ -8,6 +8,7 @@ Plug 'xolox/vim-misc'                   " used for vim-sessions
 
 " color schemes
 Plug 'nanotech/jellybeans.vim'
+Plug 'sheerun/vim-wombat-scheme'
 
 " core plugins
 Plug 'vim-ruby/vim-ruby'
@@ -32,8 +33,7 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'mattn/emmet-vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'edkolev/promptline.vim'
-Plug 'bling/vim-airline'
-Plug 'ngmy/vim-rubocop'
+Plug 'itchyny/lightline.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'mkitt/tabline.vim'
 Plug 'ecomba/vim-ruby-refactoring'
@@ -45,11 +45,14 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'mhinz/vim-signify'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'xolox/vim-session'
+Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplete.vim'
 " Plug 'Shougo/neosnippet.vim'
 
+" Plug 'bling/vim-airline'
+" Plug 'ngmy/vim-rubocop'
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'ervandew/supertab'
 " Plug 'tommcdo/vim-exchange'
