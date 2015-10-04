@@ -1,17 +1,14 @@
-# Functions
-
-# prototype
 snippet proto
 	${1:class_name}.prototype.${2:method_name} = function(${3}) {
 		${0}
 	};
 # Function
-snippet fun
+snippet fn
 	function ${1:function_name}(${2}) {
 		${0}
 	}
 # Anonymous Function
-snippet f "" w
+snippet f
 	function(${1}) {
 		${0}
 	}
@@ -29,13 +26,13 @@ snippet vf
 snippet (f
 	(function(${1}) {
 		${0}
-	}(${2}));
+	})(${2});
 # self-defining function
 snippet sdf
-	var ${1:function_name} = function (${2:argument}) {
+	var ${1:function_name} = function(${2:argument}) {
 		${3}
 
-		$1 = function ($2) {
+		$1 = function($2) {
 			${0}
 		};
 	};
@@ -128,7 +125,7 @@ snippet fori
 
 # Object Method
 snippet :f
-	${1:method_name}: function (${2:attribute}) {
+	${1:method_name}: function(${2:attribute}) {
 		${3}
 	},
 # hasOwnProperty
@@ -249,7 +246,7 @@ snippet qsa
 snippet de
 	debugger;
 # console.log
-snippet cl
+snippet cl,log
 	console.log(${0});
 # console.debug
 snippet cd
@@ -278,4 +275,4 @@ snippet us
 
 # setTimeout function
 snippet timeout
-	setTimeout(function () {${0}}${2}, ${1:10});
+	setTimeout(function() {${0}}${2}, ${1:10});
