@@ -129,6 +129,11 @@ vnoremap <leader>d "*d
 nnoremap k gk
 nnoremap j gj
 
+" saving
+nmap <C-s> :w<CR>
+vmap <C-s> <Esc><c-s>gv
+imap <C-s> <Esc><c-s>
+
 " remap pum selection
 inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
@@ -164,7 +169,8 @@ vnoremap <S-Tab> <gv
 inoremap ;<cr> <end>;<cr>
 inoremap ,<cr> <end>,<cr>
 
-if has("autocmd")
+augroup DefaultGroup
+  autocmd!
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
@@ -179,19 +185,13 @@ if has("autocmd")
   " fix JS {} completion like endwise
   autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o>
 
+  " auto-reload vimrc
+  autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+
   " change background on insert mode
   " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
   " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
-
-  " auto formatting
-  autocmd BufWritePre *.go :Autoformat
-
-  " fix syntax on reloads
-  augroup reload_vimrc
-    autocmd!
-    autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
-  augroup END
-endif
+augroup END
 
 if executable('fzf')
   set rtp+=~/.fzf
@@ -377,6 +377,26 @@ let g:multi_cursor_quit_key = '<Esc>'
 
 " js lib syntax plugin
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
+
+" go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_autosave = 1
+
+augroup GolangGroup
+  autocmd!
+  autocmd FileType go nmap <Leader>gr <Plug>(go-run)
+  autocmd FileType go nmap <Leader>gb <Plug>(go-build)
+  autocmd FileType go nmap <Leader>gt <Plug>(go-test)
+  autocmd FileType go nmap <Leader>gc <Plug>(go-coverage)
+  autocmd FileType go nmap <Leader>gi <Plug>(go-implements)
+  autocmd FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <Leader>gre <Plug>(go-rename)
+  autocmd FileType go nmap <Leader>gf <Plug>(go-def-vertical)
+augroup END
 
 """""""""""""""""""""
 " External          "

@@ -48,20 +48,16 @@ Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 Plug 'bling/vim-airline'
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'rking/ag.vim', {'on': 'Ag'}
+Plug 'fatih/vim-go', {'for': 'go'}
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplete.vim'
 " Plug 'Shougo/neosnippet.vim'
 
-" Plug 'ngmy/vim-rubocop'
 " Plug 'itchyny/lightline.vim'
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'ervandew/supertab'
-" Plug 'tommcdo/vim-exchange'
-" Plug 'airblade/vim-gitgutter'
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer' }
-" Plug 'christoomey/vim-titlecase'
-" Plug 'quentindecock/vim-cucumber-align-pipes'
 " Plug 'Blackrush/vim-gocode'
 " Plug 'malithsen/trello-vim'
 " Plug 'honza/vim-snippets'
