@@ -127,6 +127,10 @@ vnoremap <leader>d "*d
 nnoremap k gk
 nnoremap j gj
 
+" remap pum selection
+inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
+
 " Some helpers to edit mode
 " http://vimcasts.org/e/14
 nmap <leader>ew :e <C-R>=expand('%:h').'/'<cr>
@@ -244,7 +248,7 @@ nmap M [mzz
 
 " comment
 map <C-_> gcc<Esc>
-imap <C-_> :normal gccA
+imap <C-_> <Esc>gccgi
 
 " bubbling lines vim-exchang
 nmap <C-Up> [e
