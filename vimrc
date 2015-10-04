@@ -212,7 +212,10 @@ endif
 """""""""""""""""""""
 
 " colorscheme jellybeans
-colorscheme wombat
+try
+  colorscheme wombat
+catch
+endtry
 highlight clear SignColumn
 " let g:jellybeans_use_lowcolor_black = 0
 
