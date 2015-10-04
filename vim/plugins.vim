@@ -46,6 +46,7 @@ Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'xolox/vim-session'
 Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 Plug 'bling/vim-airline'
+Plug 'mattn/gist-vim', {'on': 'Gist'}
 
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplete.vim'

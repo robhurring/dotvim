@@ -219,6 +219,13 @@ endtry
 highlight clear SignColumn
 " let g:jellybeans_use_lowcolor_black = 0
 
+" gist
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_post_private = 1
+let g:gist_show_privates = 1
+
 " sessions
 let g:session_directory = '~/.vim/sessions'
 let g:session_extension = '.session'
