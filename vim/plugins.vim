@@ -1,5 +1,6 @@
 " dependencies
 Plug 'mattn/webapi-vim'
+Plug 'tpope/vim-dispatch'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'tmhedberg/matchit'
@@ -21,9 +22,7 @@ Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'scrooloose/syntastic'
-Plug 'kien/ctrlp.vim'
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
-Plug 'fholgado/minibufexpl.vim', {'on': 'MBEToggle'}
 Plug 'vim-scripts/YankRing.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'SirVer/ultisnips'
@@ -49,11 +48,16 @@ Plug 'bling/vim-airline'
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'jszakmeister/vim-togglecursor'
+Plug 'thoughtbot/vim-rspec', {'for': 'ruby'}
+Plug 'xolox/vim-easytags', {'on': 'UpdateTags'}
 
-Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplete.vim'
+
+" Plug 'Shougo/unite.vim'
 " Plug 'Shougo/neosnippet.vim'
 
+" Plug 'kien/ctrlp.vim'
 " Plug 'itchyny/lightline.vim'
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'ervandew/supertab'
@@ -68,4 +72,11 @@ Plug 'Shougo/neocomplete.vim'
 " Plug 'Lokaltog/vim-powerline'
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'kchmck/vim-coffee-script'
+
+""""""""""""""""""
+" NeoVIM Plugins
+""""""""""""""""""
+
+" run :UpdateRemotePlugins in nvim to enable it
+Plug 'Shougo/deoplete.nvim'
 

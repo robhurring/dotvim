@@ -86,12 +86,6 @@ endif
 if has('gui_running')
 endif
 
-" change cursor shapes
-if has("mac")
-  let &t_SI .= "\<Esc>[6 q"
-  let &t_EI .= "\<Esc>[2 q"
-endif
-
 " fix nvim's <C-h>
 if has('nvim')
   nmap <BS> <C-W>h
@@ -205,11 +199,72 @@ if executable('fzf')
   nnoremap <silent> <Leader>v :call fzf#run({
         \   'right': winwidth('.') / 2,
         \   'sink':  'vertical botright split' })<CR>
+
+  function! s:buflist()
+    redir => ls
+    silent ls
+    redir END
+    return split(ls, '\n')
+  endfunction
+
+  function! s:bufopen(e)
+    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+  endfunction
+
+  nnoremap <silent> <Leader>l :call fzf#run({
+        \   'source':  reverse(<sid>buflist()),
+        \   'sink':    function('<sid>bufopen'),
+        \   'options': '+m',
+        \   'down':    len(<sid>buflist()) + 2
+        \ })<CR>
+
+  command! FZFMru call fzf#run({
+        \ 'source':  reverse(s:all_files()),
+        \ 'sink':    'edit',
+        \ 'options': '-m -x +s',
+        \ 'down':    '40%' })
+
+  function! s:all_files()
+    return extend(
+          \ filter(copy(v:oldfiles),
+          \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+          \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+  endfunction
+
+  function! s:tags_sink(line)
+    let parts = split(a:line, '\t\zs')
+    let excmd = matchstr(parts[2:], '^.*\ze;"\t')
+    execute 'silent e' parts[1][:-2]
+    let [magic, &magic] = [&magic, 0]
+    execute excmd
+    let &magic = magic
+  endfunction
+
+  function! s:tags()
+    if empty(tagfiles())
+      echohl WarningMsg
+      echom 'Preparing tags'
+      echohl None
+      call system('ctags -R')
+    endif
+
+    call fzf#run({
+          \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
+          \            '| grep -v ^!',
+          \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
+          \ 'down':    '40%',
+          \ 'sink':    function('s:tags_sink')})
+  endfunction
+
+  command! Tags call s:tags()
 endif
 
-"""""""""""""""""""""
-" Plugins           "
-"""""""""""""""""""""
+"""""""""""""""""
+" Plugins
+"""""""""""""""""
+
+" rspec
+let g:rspec_command = "Dispatch rspec {spec}"
 
 " colorscheme jellybeans
 try
@@ -218,6 +273,12 @@ catch
 endtry
 highlight clear SignColumn
 " let g:jellybeans_use_lowcolor_black = 0
+
+" easytags
+let g:easytags_opts = []
+let g:easytags_async = 1
+let g:easytags_syntax_keyword = 'always'
+let g:easytags_file = '.git/tags'
 
 " gist
 let g:gist_clip_command = 'pbcopy'
@@ -251,10 +312,14 @@ nnoremap <leader>fw :FixWhitespace<cr>
 " JSON
 let g:vim_json_syntax_conceal = 0
 
-" neocomplete
-let g:acp_enableatstartup = 0
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
+" neocomplete / deoplete
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+else
+  let g:acp_enableatstartup = 0
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+endif
 
 " vim-jsx
 let g:jsx_ext_required = 0
@@ -296,20 +361,11 @@ let g:yankring_manual_clipboard_check = 0
 " bubbling lines
 nnoremap <leader>b :TagbarToggle<cr>
 
-" minibufexplorer
-map <Leader>l :MBEToggle<cr>
-let g:miniBufExplorerMoreThanOne = 10000
-let g:miniBufExplModSelTarget = 1
-let g:miniBufExplMapWindowNavVim = 1
-let g:miniBufExplSplitBelow=1
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplVSplit = 20
-
 " syntastic
 let g:syntastic_enable_signs = 1
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:quickfixsigns_classes = ['qfl', 'vcsdiff', 'breakpoints']
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:quickfixsigns_classes = ['qfl']
 " let syntastic_ruby_rubocop_exec = '~/bin/rubocop'
 " let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
 " let g:syntastic_debug = 3
@@ -344,13 +400,13 @@ endfunction
 autocmd Vimenter * call MyAirline()
 
 " ctrp-p
-nnoremap <leader>. :CtrlPTag<cr>
-let g:ctrlp_map = '<leader>t'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_open_new_file = 'h'
-let g:ctrlp_open_multiple_files = 'h'
-"let g:ctrlp_custom_ignore = '\.o\|\.so'
+" nnoremap <leader>. :CtrlPTag<cr>
+" let g:ctrlp_map = '<leader>t'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_open_new_file = 'h'
+" let g:ctrlp_open_multiple_files = 'h'
+" let g:ctrlp_custom_ignore = '\.o\|\.so'
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
@@ -386,6 +442,18 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_autosave = 1
 
+"""""""""""""""""""""""""
+" Plugin Autocmd Groups
+"""""""""""""""""""""""""
+
+augroup RubyGroup
+  autocmd!
+  autocmd FileType ruby nmap <Leader>tr :call RunCurrentSpecFile()<CR>
+  autocmd FileType ruby nmap <Leader>ts :call RunNearestSpec()<CR>
+  autocmd FileType ruby nmap <Leader>tl :call RunLastSpec()<CR>
+  autocmd FileType ruby nmap <Leader>ta :call RunAllSpecs()<CR>
+augroup END
+
 augroup GolangGroup
   autocmd!
   autocmd FileType go nmap <Leader>gr <Plug>(go-run)
@@ -405,7 +473,7 @@ augroup END
 " ag
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 if filereadable(expand("~/.vimrc.local"))
