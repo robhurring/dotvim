@@ -1,3 +1,5 @@
+" vim:fdm=marker
+
 if !has('nvim')
   set nocompatible
 endif
@@ -23,7 +25,7 @@ elseif $TERM =~ '^xterm$'
   set t_Co=256
 endif
 
-" Options
+" Options {{{
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 filetype plugin indent on                  " Do filetype detection and load custom file plugins and indent files
 syntax on
@@ -101,7 +103,9 @@ endif
 "   :100 : up to 100 lines of command-line history will be remembered
 "   n... : where to save the viminfo files
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
+" }}}
 
+" Mappings {{{
 " change column marker
 " highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -122,6 +126,9 @@ vnoremap <leader>d "*d
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
 nnoremap j gj
+
+" toggle folds
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " saving
 nmap <C-s> :w<CR>
@@ -163,6 +170,8 @@ vnoremap <S-Tab> <gv
 inoremap ;<cr> <end>;<cr>
 inoremap ,<cr> <end>,<cr>
 
+" }}}
+
 augroup DefaultGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
@@ -187,6 +196,7 @@ augroup DefaultGroup
   " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
 augroup END
 
+" FZF {{{
 if executable('fzf')
   set rtp+=~/.fzf
 
@@ -258,15 +268,14 @@ if executable('fzf')
 
   command! Tags call s:tags()
 endif
+" }}}
 
-"""""""""""""""""
-" Plugins
-"""""""""""""""""
+" Plugins {{{1
 
 " rspec
 let g:rspec_command = "Dispatch rspec {spec}"
 
-" colorscheme jellybeans
+" Colors
 try
   colorscheme wombat
 catch
@@ -373,15 +382,13 @@ let g:quickfixsigns_classes = ['qfl']
 " rubocop
 " let g:vimrubocop_config = $HOME.'/.rubocop.yml'
 
-" airline
-" tagbar is super laggy on load. this will lazy load it
-let g:airline#extensions#tagbar#enabled = 0
+" airline {{{2
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 
 let g:airline_powerline_fonts = 1
@@ -389,6 +396,21 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_detect_paste = 1
 let g:airline_theme = 'bubblegum'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
 
 function! MyAirline()
   let spc = g:airline_symbols.space
@@ -398,6 +420,7 @@ function! MyAirline()
   let g:airline_section_z = airline#section#create(['hunks', 'branch'])
 endfunction
 autocmd Vimenter * call MyAirline()
+" }}}
 
 " ctrp-p
 " nnoremap <leader>. :CtrlPTag<cr>
@@ -442,9 +465,9 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_autosave = 1
 
-"""""""""""""""""""""""""
-" Plugin Autocmd Groups
-"""""""""""""""""""""""""
+" }}}1 //Plugins
+
+" Plugin Autocmd Groups {{{
 
 augroup RubyGroup
   autocmd!
@@ -466,9 +489,9 @@ augroup GolangGroup
   autocmd FileType go nmap <Leader>gf <Plug>(go-def-vertical)
 augroup END
 
-"""""""""""""""""""""
-" External          "
-"""""""""""""""""""""
+" }}}
+
+" External {{{
 
 " ag
 if executable('ag')
@@ -480,3 +503,4 @@ if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
+" }}}
