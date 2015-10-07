@@ -152,6 +152,12 @@ nmap <C-k> <C-w><C-k>
 nmap <C-l> <C-w><C-l>
 nmap <C-h> <C-w><C-h>
 
+" insert movement
+imap <C-l> <Right>
+imap <C-h> <Left>
+imap <C-k> <Up>
+imap <C-j> <Down>
+
 " text wrapping toggle
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
@@ -185,8 +191,9 @@ augroup DefaultGroup
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
 
-  " fix JS {} completion like endwise
-  autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o>
+  " fix {} completion like endwise
+  " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o><Tab>
+  autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<C-o>0
 
   " auto-reload vimrc
   autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
