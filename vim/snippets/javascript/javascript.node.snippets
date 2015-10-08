@@ -2,9 +2,9 @@ snippet #!
 	#!/usr/bin/env node
 # module exports
 snippet ex
-	module.exports = ${1};
+	module.exports${1:.object} = ${2};
 # require
-snippet re
+snippet req
 	var ${1} = require('${2:module_name}');
 # EventEmitter
 snippet on

@@ -50,7 +50,7 @@ Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'thoughtbot/vim-rspec', {'for': 'ruby'}
-Plug 'xolox/vim-easytags', {'on': 'UpdateTags'}
+" Plug 'xolox/vim-easytags', {'on': 'UpdateTags'}
 
 Plug 'Shougo/neocomplete.vim'
 

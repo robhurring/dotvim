@@ -13,12 +13,12 @@ snippet f
 		${0}
 	}
 # Anonymous Function assigned to variable
-snippet vaf
+snippet vf
 	var ${1:function_name} = function(${2}) {
 		${0}
 	};
 # Function assigned to variable
-snippet vf
+snippet vnf
 	var ${1:function_name} = function $1(${2}) {
 		${0}
 	};
@@ -41,22 +41,22 @@ snippet sdf
 
 # if
 snippet if
-	if (${1:true}) {
+	if(${1:true}) {
 		${0}
 	}
 # if ... else
 snippet ife
-	if (${1:true}) {
+	if(${1:true}) {
 		${2}
 	} else {
 		${0}
 	}
 # tertiary conditional
-snippet ter
+snippet ?:
 	${1:/* condition */} ? ${2:/* if true */} : ${0:/* if false */}
 # switch
 snippet switch
-	switch (${1:expression}) {
+	switch(${1:expression}) {
 		case '${3:case}':
 			${4}
 			break;
@@ -92,32 +92,36 @@ snippet terr
 # return
 snippet ret
 	return ${0:result};
-
-# Loops
-
-# for loop
-snippet for
-	for (var ${2:i} = 0, l = ${1:arr}.length; $2 < l; $2++) {
-		var ${3:v} = $1[$2];${0:}
-	}
-# Reversed for loop
-snippet forr
-	for (var ${2:i} = ${1:arr}.length - 1; $2 >= 0; $2--) {
-		var ${3:v} = $1[$2];${0:}
-	}
 # While loop
 snippet wh
-	while (${1:/* condition */}) {
+	while(${1:/* condition */}) {
 		${0}
 	}
 # Do while loop
 snippet do
 	do {
 		${0}
-	} while (${1:/* condition */});
+	} while(${1:/* condition */});
+# for loop
+snippet for
+	for(var ${2:i} = 0, l = ${1:arr}.length; $2 < l; $2++) {
+		var ${3:v} = $1[$2];${0:}
+	}
+# Reversed for loop
+snippet forr
+	for(var ${2:i} = ${1:arr}.length - 1; $2 >= 0; $2--) {
+		var ${3:v} = $1[$2];${0:}
+	}
 # For in loop
-snippet fori
-	for (var ${1:prop} in ${2:object}) {
+snippet forin
+	for(var ${1:prop} in ${2:object}) {
+		${0:$2[$1]}
+	}
+snippet forof
+	for(var ${1:prop} in ${2:object}) {
+		if(!$2.hasOwnProperty($1)) {
+			continue;
+		}
 		${0:$2[$1]}
 	}
 
@@ -133,7 +137,7 @@ snippet has
 	hasOwnProperty(${0})
 # singleton
 snippet sing
-	function ${1:Singleton} (${2:argument}) {
+	function ${1:Singleton}(${2:argument}) {
 		// the cached instance
 		var instance;
 
@@ -155,6 +159,12 @@ snippet sing
 
 		return instance;
 	}
+# force-new
+snippet fnew
+	if (!(this instanceof ${1:Klass})){
+		return new $1($2);
+	}
+	$0
 # Crockford's object function
 snippet obj
 	function object(o) {
@@ -167,11 +177,11 @@ snippet props
 	var ${1:my_object} = Object.defineProperties(
 		${2:new Object()},
 		{
-			${3:property} : {
-				get : function $1_$3_getter() {
+			${3:property}: {
+				get: function $1_$3_getter() {
 					// getter code
 				},
-				set : function $1_$3_setter(value) {
+				set: function $1_$3_setter(value) {
 					// setter code
 				},
 				value        : ${4:value},
@@ -187,16 +197,16 @@ snippet prop
 		${1:object},
 		'${2:property}',
 		{
-			get : function $1_$2_getter() {
+			get: function $1_$2_getter() {
 				// getter code
 			},
-			set : function $1_$2_setter(value) {
+			set: function $1_$2_setter(value) {
 				// setter code
 			},
-			value        : ${3:value},
-			writeable    : ${4:boolean},
-			enumerable   : ${5:boolean},
-			configurable : ${0:boolean}
+			value: ${3:value},
+			writeable: ${4:boolean},
+			enumerable: ${5:boolean},
+			configurable: ${0:boolean}
 		}
 	);
 
@@ -208,10 +218,11 @@ snippet /**
 	 * ${0:description}
 	 *
 	 */
-snippet @par
+snippet @param
 	@param {${1:type}} ${2:name} ${0:description}
-snippet @ret
+snippet @return
 	@return {${1:type}} ${0:description}
+
 # JSON
 
 # JSON.parse
@@ -246,7 +257,9 @@ snippet qsa
 snippet de
 	debugger;
 # console.log
-snippet cl,log
+snippet log
+	console.log(${0});
+snippet cl
 	console.log(${0});
 # console.debug
 snippet cd
