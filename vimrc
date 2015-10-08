@@ -358,15 +358,19 @@ let g:vim_json_syntax_conceal = 0
 let g:jsx_ext_required = 0
 
 " YCM
-let g:ycm_key_list_select_completion   = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_completion_confirm_key       = '<Enter>'
+let g:ycm_min_num_of_chars_for_completion = 3
+" let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
 
 " Utilsnips
 let g:UltiSnipsExpandTrigger       = "<Tab>"
-let g:UltiSnipsListSnippets        = "<C-h>"
-let g:UltiSnipsJumpForwardTrigger  = "<C-n>"
-let g:UltiSnipsJumpBackwardTrigger = "<U-p>"
+let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+" let g:UltiSnipsListSnippets        = "<C-h>"
 
 " comment
 map <C-_> gcc<Esc>
