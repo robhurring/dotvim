@@ -50,6 +50,7 @@ Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'thoughtbot/vim-rspec', {'for': 'ruby'}
+Plug 'szw/vim-tags'
 
 function! BuildYCM(info)
   " info is a dictionary with 3 fields

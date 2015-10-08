@@ -287,8 +287,8 @@ nmap <Leader>Rt :call RunCurrentSpecFile()<CR>
 nmap <Leader>Rs :call RunNearestSpec()<CR>
 nmap <Leader>Rl :call RunLastSpec()<CR>
 nmap <Leader>Ra :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch rspec {spec}"
-let g:rspec_runner = "os_x_iterm2"
+let g:rspec_command = 'Dispatch rspec {spec}'
+" let g:rspec_runner = 'os_x_iterm2'
 
 " Colors
 try
@@ -298,17 +298,13 @@ endtry
 highlight clear SignColumn
 " let g:jellybeans_use_lowcolor_black = 0
 
-" easytags
-" let g:easytags_cmd = expand('~/bin/my-ctags')
-" let g:easytags_by_filetype = 1
-" let g:easytags_always_enabled = 0
-" let g:easytags_events = ['BufWritePost']
-" let g:easytags_opts = []
-" let g:easytags_resolve_links = 1
-" let g:easytags_async = 1
-" let g:easytags_syntax_keyword = 'always'
-" let g:easytags_file = '~/.vim/tags'
-" let g:easytags_file = '.git/tags'
+" vim-tags
+let g:vim_tags_auto_generate = 1
+let g:vim_tags_cache_dir = expand('~/.vim/tmp')
+let g:vim_tags_directories = ['.git']
+let g:vim_tags_main_file = 'tags'
+let g:vim_tags_use_language_field = 1
+let g:vim_tags_use_vim_dispatch = 1
 
 " gist
 let g:gist_clip_command = 'pbcopy'
