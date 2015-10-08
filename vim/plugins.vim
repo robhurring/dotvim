@@ -50,13 +50,23 @@ Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'thoughtbot/vim-rspec', {'for': 'ruby'}
-" Plug 'xolox/vim-easytags', {'on': 'UpdateTags'}
 
-Plug 'Shougo/neocomplete.vim'
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
+" Plug 'Shougo/neocomplete.vim'
 " Plug 'Shougo/unite.vim'
 " Plug 'Shougo/neosnippet.vim'
 
+" Plug 'xolox/vim-easytags', {'on': 'UpdateTags'}
 " Plug 'kien/ctrlp.vim'
 " Plug 'itchyny/lightline.vim'
 " Plug 'terryma/vim-multiple-cursors'
@@ -78,5 +88,5 @@ Plug 'Shougo/neocomplete.vim'
 """"""""""""""""""
 
 " run :UpdateRemotePlugins in nvim to enable it
-Plug 'Shougo/deoplete.nvim'
+" Plug 'Shougo/deoplete.nvim'
 
