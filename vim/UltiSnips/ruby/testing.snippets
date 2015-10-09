@@ -1,0 +1,45 @@
+snippet describe
+describe ${1:Klass} do
+	$0
+end
+endsnippet
+
+snippet context
+context ${1:'on success'} do
+	${2:${VISUAL}}
+end
+endsnippet
+
+snippet caso
+vcr: {cassette_name: ${1:"${2:actions}/#{described_class}"}$0
+endsnippet
+
+snippet it
+it ${1:'does something'} do
+	$0
+end
+endsnippet
+
+snippet expect
+expect {
+	$1
+}.to $2
+endsnippet
+
+snippet expecti
+expect { $1 }.to $2
+endsnippet
+
+snippet bko
+be_kind_of(${1:Klass})$0
+endsnippet
+
+snippet let
+let(${1::object}) { $2 }$0
+endsnippet
+
+snippet letb
+let(${1::object}) do
+	$2
+end0
+endsnippet

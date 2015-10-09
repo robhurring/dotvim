@@ -1,0 +1,518 @@
+snippet enc
+# encoding: utf-8
+endsnippet
+
+snippet #!
+#!/usr/bin/env ruby
+# encoding: utf-8
+endsnippet
+
+snippet prot
+protected
+
+${0}
+endsnippet
+
+snippet priv
+private
+
+${0}
+endsnippet
+
+snippet yield
+yield ${0:arguments}
+endsnippet
+
+snippet begin
+begin
+	${0}
+rescue ${1:Exception} => ${2:e}
+end
+endsnippet
+
+snippet req "require"
+require '${1}'
+endsnippet
+
+snippet reqr
+require_relative '${1}'
+endsnippet
+
+snippet #
+# =>
+endsnippet
+
+snippet end
+__END__
+${0}
+endsnippet
+
+snippet case
+case ${1:object}
+when ${2:condition}
+	${0}
+end
+endsnippet
+
+snippet when
+when ${1:condition}
+	${0}
+endsnippet
+
+snippet def
+def ${1:method_name}
+	${0}
+end
+endsnippet
+
+snippet deft
+def test_${1:case_name}
+	${0}
+end
+endsnippet
+
+snippet if
+if ${1:condition}
+	${0}
+end
+endsnippet
+
+snippet ife
+if ${1:condition}
+	${2}
+else
+	${0}
+end
+endsnippet
+
+snippet eif
+elsif ${1:condition}
+	${0}
+endsnippet
+
+snippet ifee
+if ${1:condition}
+	$2
+elsif ${3:condition}
+	$4
+else
+	$0
+end
+endsnippet
+
+snippet unless
+unless ${1:condition}
+	${0}
+end
+endsnippet
+
+snippet while
+while ${1:condition}
+	${0}
+end
+endsnippet
+
+snippet for
+for ${1:e} in ${2:c}
+	${0}
+end
+endsnippet
+
+snippet until
+until ${1:condition}
+	${0}
+end
+endsnippet
+
+snippet cla "class .. end"
+class ${1:Klass}
+	${0}
+end
+endsnippet
+
+snippet cla "class .. initialize .. end"
+class ${1:Klass}
+	def initialize(${2:args})
+		${0}
+	end
+end
+endsnippet
+
+snippet cla< "class .. < ParentClass .. initialize .. end"
+class ${1:Klass} < ${2:ParentClass}
+	def initialize(${3:args})
+		${0}
+	end
+end
+endsnippet
+
+snippet blankslate "class BlankSlate .. initialize .. end"
+class ${0:BlankSlate}
+	instance_methods.each { |meth| undef_method(meth) unless meth =~ /\A__/ }
+end
+endsnippet
+
+snippet claself "class << self .. end"
+class << ${1:self}
+	${0}
+end
+endsnippet
+
+snippet mod "module .. end"
+module ${1:Concern}
+	${0}
+end
+endsnippet
+
+snippet mod "module .. ClassMethods .. end"
+module ${1:Concern}
+	def self.included(base)
+		base.extend ClassMethods
+	end
+
+	module ClassMethods
+		${0}
+	end
+end
+endsnippet
+
+snippet concern "ActiveSupport::Concern"
+module ${1:Concern}
+	extend ActiveSupport::Concern
+
+	included do
+		${1}
+	end
+
+	module ClassMethods
+		${2}
+	end
+	${0}
+end
+endsnippet
+
+snippet r
+attr_reader :${0:attr_names}
+endsnippet
+
+snippet w
+attr_writer :${0:attr_names}
+endsnippet
+
+snippet rw
+attr_accessor :${0:attr_names}
+endsnippet
+
+snippet atp
+attr_protected :${0:attr_names}
+endsnippet
+
+snippet ata
+attr_accessible :${0:attr_names}
+endsnippet
+
+snippet ivc "instance variable cache"
+@_${1:variable_name} ||= ${0:cached_value}
+endsnippet
+
+snippet Enum
+include Enumerable
+
+def each(&block)
+	${0}
+end
+endsnippet
+
+snippet Comp
+include Comparable
+
+def <=>(other)
+	${0}
+end
+endsnippet
+
+snippet Forw-
+extend Forwardable
+endsnippet
+
+snippet defs
+def self.${1:class_method_name}
+	${0}
+end
+endsnippet
+
+snippet definit
+def initialize(${1:args})
+	${0}
+end
+endsnippet
+
+snippet defmm
+def method_missing(meth, *args, &blk)
+	${0}
+end
+endsnippet
+
+snippet defd
+def_delegator :${1:@del_obj}, :${2:del_meth}, :${0:new_name}
+endsnippet
+
+snippet defds
+def_delegators :${1:@del_obj}, :${0:del_methods}
+endsnippet
+
+snippet am
+alias_method :${1:new_name}, :${0:old_name}
+endsnippet
+
+snippet app
+if __FILE__ == $PROGRAM_NAME
+	${0}
+end
+endsnippet
+
+snippet array
+Array.new(${1:10}) { |${2:i}| ${0} }
+endsnippet
+
+snippet hash
+Hash.new { |${1:hash}, ${2:key}| $1[$2] = ${0} }
+endsnippet
+
+snippet file "File.foreach() { |line| .. }"
+File.foreach(${1:'path/to/file'}) { |${2:line}| ${0} }
+endsnippet
+
+snippet file "File.read()"
+File.read(${1:'path/to/file'})
+endsnippet
+
+snippet Dir "Dir.global() { |file| .. }"
+Dir.glob(${1:'dir/glob/*'}) { |${2:file}| ${0} }
+endsnippet
+
+snippet Dir "Dir['']"
+Dir[${1:'glob/**/*.rb'}]
+endsnippet
+
+snippet dir
+Filename.dirname(__FILE__)
+endsnippet
+
+snippet deli
+delete_if { |${1:e}| ${0} }
+endsnippet
+
+snippet fil
+fill(${1:range}) { |${2:i}| ${0} }
+endsnippet
+
+snippet times
+times { |${1:n}| ${0} }
+endsnippet
+
+snippet upto
+upto(${1:1.0/0.0}) { |${2:n}| ${0} }
+endsnippet
+
+snippet ea
+each { |${1:e}| ${0} }
+endsnippet
+
+snippet ead
+each do |${1:e}|
+	${0}
+end
+endsnippet
+
+snippet eawo
+each_with_object(${1:init}) { |${2:e}, ${3:var}| ${0} }
+endsnippet
+
+snippet eawod
+each_with_object(${1:init}) do |${2:e}, ${3:var}|
+	${0}
+end
+endsnippet
+
+snippet red
+reduce(${1:init}) { |${2:mem}, ${3:var}| ${0} }
+endsnippet
+
+snippet redd
+reduce(${1:init}) do |${2:mem}, ${3:var}|
+	${0}
+end
+endsnippet
+
+snippet map
+map { |${1:e}| ${0} }
+endsnippet
+
+snippet mapd
+map do |${1:e}|
+	${0}
+end
+endsnippet
+
+snippet sor
+sort { |a, b| ${0} }
+endsnippet
+
+snippet sorb
+sort_by { |${1:e}| ${0} }
+endsnippet
+
+snippet ran
+sort_by { rand }
+endsnippet
+
+snippet all
+all? { |${1:e}| ${0} }
+endsnippet
+
+snippet any
+any? { |${1:e}| ${0} }
+endsnippet
+
+snippet det
+detect { |${1:e}| ${0} }
+endsnippet
+
+snippet detd
+detect do |${1:e}|
+	${0}
+end
+endsnippet
+
+snippet fet
+fetch(${1:name}) { |${2:key}| ${0} }
+endsnippet
+
+snippet sub
+${1:g}sub(${2:/pattern/}) { |${3:match}| ${0} }
+endsnippet
+
+snippet max
+max { |a, b| ${0} }
+endsnippet
+
+snippet min
+min { |a, b| ${0} }
+endsnippet
+
+snippet rej
+reject { |${1:e}| ${0} }
+endsnippet
+
+snippet rejd
+reject do |${1:e}|
+	${0}
+end
+endsnippet
+
+snippet sel
+select { |${1:e}| ${0} }
+endsnippet
+
+snippet seld
+select do |${1:e}|
+	${0}
+end
+endsnippet
+
+snippet lam
+lambda { |${1:args}| ${0} }
+endsnippet
+
+snippet ->
+-> { ${0} }
+endsnippet
+
+snippet ->a
+->(${1:args}) { ${0} }
+endsnippet
+
+snippet do
+do
+	${0}
+end
+endsnippet
+
+snippet dov
+do |${1:v}|
+	${2}
+end
+endsnippet
+
+snippet :
+${1:key}: ${2:'value'}
+endsnippet
+
+snippet fpath
+File.join(File.dirname(__FILE__), *['${1:rel path here}'])
+endsnippet
+
+snippet optp
+require 'optparse'
+
+options = { ${0:default: 'args'} }
+
+ARGV.options do |opts|
+	opts.banner = "Usage: #{File.basename($PROGRAM_NAME)}"
+end
+endsnippet
+
+snippet opt
+opts.on('-${1:o}', '--${2:long-option-name}', ${3:String}, '${4:Option description.}') do |${5:opt}|
+	${0}
+end
+endsnippet
+
+snippet bm-
+TESTS = ${1:10_000}
+Benchmark.bmbm do |results|
+	${0}
+end
+endsnippet
+
+snippet rep
+results.report('${1:name}:') { TESTS.times { ${0} } }
+endsnippet
+
+snippet sinc
+class << self; self end
+endsnippet
+
+snippet namespace
+namespace :${1} do
+	${0}
+end
+endsnippet
+
+snippet task
+desc '${1:Task description}'
+task ${2:task_name: [:dependent, :tasks]} do
+	${0}
+end
+endsnippet
+
+snippet b
+{ |${1:var}| ${0} }
+endsnippet
+
+snippet debug
+require 'byebug'; byebug
+endsnippet
+
+snippet debug19
+require 'debugger'; debugger
+endsnippet
+
+snippet debug18
+require 'ruby-debug'; debugger
+endsnippet
+
+snippet pry
+require 'pry'; binding.pry
+endsnippet

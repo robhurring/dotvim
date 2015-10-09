@@ -1,0 +1,36 @@
+snippet intc "Basic interactor"
+class ${1:Something}
+	include Interactor
+
+	def call
+		${0}
+	end
+end
+endsnipppet
+
+snippet intb "Action module"
+module Action
+	extend ActiveSupport::Concern
+
+	included do |_base|
+		include Interactor
+	end
+end
+endsnippet
+
+snippet inta "Action"
+class ${1:Action}
+	include Action
+
+	expects $2
+	promises $3
+
+	def call
+		$0
+	end
+
+	private
+
+	delegate $2, to: :context
+end
+endsnippet
