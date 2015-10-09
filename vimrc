@@ -137,8 +137,8 @@ vmap <C-s> <Esc><c-s>gv
 imap <C-s> <Esc><c-s>
 
 " remap pum selection
-inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
+" inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " splits and such
 nmap <C-j> <C-w><C-j>
@@ -192,7 +192,6 @@ augroup DefaultGroup
 
   " fix {} completion like endwise
   autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
-  " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<C-o>
 
   " auto-reload vimrc
   autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
@@ -268,7 +267,8 @@ if executable('fzf')
       echohl WarningMsg
       echom 'Preparing tags'
       echohl None
-      call system('~/bin/my-ctags -R')
+      " call system('~/bin/my-ctags -R')
+      GenerateTags
     endif
 
     call fzf#run({
@@ -286,11 +286,11 @@ endif
 " Plugins {{{1
 
 " rspec
-nmap <Leader>Rt :call RunCurrentSpecFile()<CR>
-nmap <Leader>Rs :call RunNearestSpec()<CR>
-nmap <Leader>Rl :call RunLastSpec()<CR>
-nmap <Leader>Ra :call RunAllSpecs()<CR>
-let g:rspec_command = 'Dispatch rspec {spec}'
+" nmap <Leader>Rt :call RunCurrentSpecFile()<CR>
+" nmap <Leader>Rs :call RunNearestSpec()<CR>
+" nmap <Leader>Rl :call RunLastSpec()<CR>
+" nmap <Leader>Ra :call RunAllSpecs()<CR>
+" let g:rspec_command = 'Dispatch rspec {spec}'
 " let g:rspec_runner = 'os_x_iterm2'
 
 " Colors
@@ -357,8 +357,8 @@ let g:vim_json_syntax_conceal = 0
 let g:jsx_ext_required = 0
 
 " YCM
-let g:ycm_key_list_select_completion   = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_key_list_select_completion   = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
 let g:ycm_completion_confirm_key       = '<Enter>'
 let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_complete_in_strings = 1
@@ -407,12 +407,6 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:quickfixsigns_classes = ['qfl']
-" let syntastic_ruby_rubocop_exec = '~/bin/rubocop'
-" let g:syntastic_javascript_jshint_args = '--config='.$HOME.'/.jshintrc'
-" let g:syntastic_debug = 3
-
-" rubocop
-" let g:vimrubocop_config = $HOME.'/.rubocop.yml'
 
 " airline {{{2
 if !exists('g:airline_symbols')
@@ -453,15 +447,6 @@ function! MyAirline()
 endfunction
 autocmd Vimenter * call MyAirline()
 " }}}
-
-" ctrp-p
-" nnoremap <leader>. :CtrlPTag<cr>
-" let g:ctrlp_map = '<leader>t'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'ra'
-" let g:ctrlp_open_new_file = 'h'
-" let g:ctrlp_open_multiple_files = 'h'
-" let g:ctrlp_custom_ignore = '\.o\|\.so'
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
