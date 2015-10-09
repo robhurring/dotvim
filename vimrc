@@ -152,6 +152,9 @@ imap <C-h> <Left>
 imap <C-k> <Up>
 imap <C-j> <Down>
 
+" closing stuff
+nmap <C-x> :bd<cr>
+
 " text wrapping toggle
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 

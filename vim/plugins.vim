@@ -52,16 +52,12 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'thoughtbot/vim-rspec', {'for': 'ruby'}
 Plug 'szw/vim-tags'
 
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
-endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+" ABRT error: https://github.com/Valloric/YouCompleteMe/issues/8
+" Solutions: add this to your ~/.<shell>rc
+"   export DYLD_FORCE_FLAT_NAMESPACE=1
+" Other: re-compile VIM with the homebrew version of python
+" Other: `brew unlink python` and run YCM installer
+Plug 'Valloric/YouCompleteMe', {'do': './install.py' }
 
 " Plug 'Shougo/neocomplete.vim'
 " Plug 'Shougo/unite.vim'
