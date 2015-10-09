@@ -299,7 +299,7 @@ highlight clear SignColumn
 " let g:jellybeans_use_lowcolor_black = 0
 
 " vim-tags
-let g:vim_tags_auto_generate = 1
+let g:vim_tags_auto_generate = 0
 let g:vim_tags_cache_dir = expand('~/.vim/tmp')
 let g:vim_tags_directories = ['.git']
 let g:vim_tags_main_file = 'tags'
@@ -393,6 +393,8 @@ let nerdtreeshowfiles=1
 nnoremap <leader>y :YRShow<cr>
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
+let g:yankring_replace_n_pkey = ''
+let g:yankring_replace_n_nkey = ''
 
 " bubbling lines
 nnoremap <leader>b :TagbarToggle<cr>
