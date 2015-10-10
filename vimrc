@@ -39,6 +39,7 @@ set complete-=i
 set cursorline
 set cursorline
 set diffopt=filler,iwhite                  " In diff mode, ignore whitespace changes and align unchanged lines
+set backupdir=~/.vim/tmp
 set directory=~/.vim/swap                  " Directory to use for the swap file
 set eol
 set expandtab
@@ -124,6 +125,24 @@ nnoremap <leader>dd "*dd
 nnoremap <leader>D "*D
 vnoremap <leader>d "*d
 
+" fatfingers
+command! Q q " Bind :Q to :q
+command! Qall qall
+command! QA qall
+command! E e
+
+" saving
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+
+" windows and such
+map <C-t> <esc>:tabnew<CR>
+map <C-x> <C-w>c
+
+" Emacs-like beginning and end of line.
+imap <c-e> <c-o>$
+imap <c-a> <c-o>^
+
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
 nnoremap j gj
@@ -151,9 +170,6 @@ imap <C-l> <Right>
 imap <C-h> <Left>
 imap <C-k> <Up>
 imap <C-j> <Down>
-
-" closing stuff
-nmap <C-x> :bd<cr>
 
 " text wrapping toggle
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
@@ -488,13 +504,16 @@ let g:go_fmt_autosave = 1
 
 augroup RubyGroup
   autocmd!
-  autocmd FileType ruby nmap <Leader>tr :call RunCurrentSpecFile()<CR>
-  autocmd FileType ruby nmap <Leader>ts :call RunNearestSpec()<CR>
-  autocmd FileType ruby nmap <Leader>tl :call RunLastSpec()<CR>
-  autocmd FileType ruby nmap <Leader>ta :call RunAllSpecs()<CR>
+  autocmd FileType ruby,eruby nmap <Leader>tr :call RunCurrentSpecFile()<CR>
+  autocmd FileType ruby,eruby nmap <Leader>ts :call RunNearestSpec()<CR>
+  autocmd FileType ruby,eruby nmap <Leader>tl :call RunLastSpec()<CR>
+  autocmd FileType ruby,eruby nmap <Leader>ta :call RunAllSpecs()<CR>
 
-  autocmd FileType ruby nmap m ]m
-  autocmd FileType ruby nmap M [m
+  autocmd FileType ruby,eruby nmap m ]m
+  autocmd FileType ruby,eruby nmap M [m
+
+  " make ? part of word
+  autocmd FileType ruby,eruby setlocal iskeyword+=?
 augroup END
 
 augroup GolangGroup
