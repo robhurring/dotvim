@@ -32,34 +32,34 @@ filetype plugin indent on                  " Do filetype detection and load cust
 syntax on
 
 set autoindent
-set backspace=eol,start,indent             " Allow backspacing over indent, eol, & start
+set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
+set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=80
 set complete-=i
 set cursorline
 set cursorline
-set diffopt=filler,iwhite                  " In diff mode, ignore whitespace changes and align unchanged lines
-set backupdir=~/.vim/tmp
-set directory=~/.vim/swap                  " Directory to use for the swap file
+set diffopt=filler,iwhite                        " In diff mode, ignore whitespace changes and align unchanged lines
+set directory=~/.vim/swap                        " Directory to use for the swap file
 set eol
 set expandtab
-" set encoding=utf-8
 set guifont=Hack:h15
-set hidden                                 " Don't abandon buffers moved to the background
+set hidden                                       " Don't abandon buffers moved to the background
 set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
-set list                                   " Display unprintable characters
+set list                                         " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
-set noerrorbells                           " Disable error bells
+set noerrorbells                                 " Disable error bells
 set nowrap
+" set nrformats=                                   " default to decimal
 set number
-set scrolloff=3                            " Start scrolling 3 lines before the horizontal window border
-set sessionoptions-=help                   " don't restore help windows
+set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
+set sessionoptions-=help                         " don't restore help windows
 set shiftround
 set shiftwidth=2
-set shortmess+=A                           " Toggle paste mode while in insert mode with F12
+set shortmess+=A                                 " Toggle paste mode while in insert mode with F12
 set showcmd
 set showmatch
 set smartcase
@@ -72,9 +72,9 @@ set tags+=./tags
 set tags+=.git/tags
 set undodir=~/.vim/undo
 set undofile
-set updatecount=100                        " Write swap file to disk every 100 chars
-set wildmenu                               " Enhanced completion hints in command line
+set updatecount=100                              " Write swap file to disk every 100 chars
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
+set wildmenu                                     " Enhanced completion hints in command line
 
 " use zsh on where available
 if executable('zsh')
@@ -92,7 +92,7 @@ endif
 
 " fix nvim's <C-h>
 if has('nvim')
-  nmap <BS> <C-W>h
+  nmap <BS> <C-w>h
 endif
 
 " viminfo: remember certain things when we exit
@@ -107,7 +107,7 @@ endif
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " }}}
 
-" Mappings {{{
+" Mappings
 " change column marker
 " highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -115,15 +115,16 @@ set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " Search settings
 nmap <leader>/ :set hlsearch! hlsearch?<CR>
 
-" delete into blackhole register
+" delete into blackhole register by default
 nnoremap x "_x
 nnoremap D "_D
 nnoremap d "_d
 vnoremap d "_d
+nnoremap dd "_dd
+vnoremap dd "_dd
 nnoremap <leader>d "*d
 nnoremap <leader>dd "*dd
 nnoremap <leader>D "*D
-vnoremap <leader>d "*d
 
 " fatfingers
 command! Q q " Bind :Q to :q
@@ -137,11 +138,11 @@ imap <C-s> <esc>:w<CR>
 
 " windows and such
 map <C-t> <esc>:tabnew<CR>
-map <C-x> <C-w>c
+map <C-x> :bd<cr>
 
 " Emacs-like beginning and end of line.
-imap <c-e> <c-o>$
-imap <c-a> <c-o>^
+imap <C-e> <C-o>$
+imap <C-a> <C-o>^
 
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
@@ -150,10 +151,14 @@ nnoremap j gj
 " toggle folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
+" quick fix
+nnoremap <leader>co :Copen<cr>
+nnoremap <leader>cc :cclose<cr>
+
 " saving
 nmap <C-s> :w<CR>
-vmap <C-s> <Esc><c-s>gv
-imap <C-s> <Esc><c-s>
+vmap <C-s> <Esc><C-s>gv
+imap <C-s> <Esc><C-s>
 
 " remap pum selection
 " inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -166,10 +171,10 @@ nmap <C-l> <C-w><C-l>
 nmap <C-h> <C-w><C-h>
 
 " insert movement
-imap <C-l> <Right>
-imap <C-h> <Left>
-imap <C-k> <Up>
-imap <C-j> <Down>
+inoremap <C-l> <C-o>l
+inoremap <C-h> <C-o>h
+" inoremap <C-k> <C-o>k
+" inoremap <C-j> <C-o>j
 
 " text wrapping toggle
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
@@ -191,7 +196,9 @@ vnoremap <S-Tab> <gv
 
 inoremap ;<cr> <end>;<cr>
 " inoremap ,<cr> <end>,<cr>
-" }}}
+
+" re-select pasted text
+noremap gV `[v`]
 
 augroup DefaultGroup
   autocmd!
@@ -284,7 +291,7 @@ if executable('fzf')
       echom 'Preparing tags'
       echohl None
       " call system('~/bin/my-ctags -R')
-      GenerateTags
+      TagsGenerate
     endif
 
     call fzf#run({
@@ -302,12 +309,18 @@ endif
 " Plugins {{{1
 
 " rspec
-" nmap <Leader>Rt :call RunCurrentSpecFile()<CR>
-" nmap <Leader>Rs :call RunNearestSpec()<CR>
-" nmap <Leader>Rl :call RunLastSpec()<CR>
-" nmap <Leader>Ra :call RunAllSpecs()<CR>
-" let g:rspec_command = 'Dispatch rspec {spec}'
-" let g:rspec_runner = 'os_x_iterm2'
+function! <SID>SmartRunSpec()
+  if exists("s:last_spec")
+    call RunLastSpec()
+  else
+    call RunNearestSpec()
+  end
+endfunction
+
+let g:rspec_command = 'Dispatch rspec --drb {spec}'
+let g:rspec_runner = 'os_x_iterm2'
+nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
+nmap <silent> <Leader>T :w<cr>:call RunCurrentSpecFile()<cr>
 
 " Colors
 try
@@ -497,10 +510,11 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_autosave = 1
+let g:go_dispatch_enabled = 1
 
 " }}}1 //Plugins
 
-" Plugin Autocmd Groups {{{
+" Plugin Autocmd Groups
 
 augroup RubyGroup
   autocmd!
@@ -518,19 +532,16 @@ augroup END
 
 augroup GolangGroup
   autocmd!
-  autocmd FileType go nmap <Leader>gr <Plug>(go-run)
-  autocmd FileType go nmap <Leader>gb <Plug>(go-build)
-  autocmd FileType go nmap <Leader>gt <Plug>(go-test)
-  autocmd FileType go nmap <Leader>gc <Plug>(go-coverage)
-  autocmd FileType go nmap <Leader>gi <Plug>(go-implements)
+  autocmd FileType go nmap <Leader>gr :GoRun<cr>
+  autocmd FileType go nmap <Leader>gb :GoBuild<cr>
+  autocmd FileType go nmap <Leader>gt :GoTest<cr>
   autocmd FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
-  autocmd FileType go nmap <Leader>gre <Plug>(go-rename)
   autocmd FileType go nmap <Leader>gf <Plug>(go-def-vertical)
 augroup END
 
 " }}
 
-" External {{{
+" External
 
 " ag
 if executable('ag')
@@ -542,4 +553,3 @@ if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
-" }}}
