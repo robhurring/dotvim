@@ -43,6 +43,7 @@ set diffopt=filler,iwhite                        " In diff mode, ignore whitespa
 set directory=~/.vim/swap                        " Directory to use for the swap file
 set eol
 set expandtab
+set exrc                                         " enable per-directory .vimrc files
 set guifont=Hack:h15
 set hidden                                       " Don't abandon buffers moved to the background
 set hlsearch
@@ -53,9 +54,10 @@ set list                                         " Display unprintable character
 set listchars=tab:▸\ ,extends:»,precedes:«
 set noerrorbells                                 " Disable error bells
 set nowrap
-" set nrformats=                                   " default to decimal
+set nrformats=                                   " default to decimal
 set number
 set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
+set secure                                       " disable unsafe commands in local .vimrc files
 set sessionoptions-=help                         " don't restore help windows
 set shiftround
 set shiftwidth=2
