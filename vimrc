@@ -310,6 +310,9 @@ endif
 
 " Plugins {{{1
 
+" if FZF
+nmap <leader>t :Tags<cr>
+
 " rspec
 function! <SID>SmartRunSpec()
   if exists("s:last_spec")
@@ -517,6 +520,11 @@ let g:go_dispatch_enabled = 1
 " }}}1 //Plugins
 
 " Plugin Autocmd Groups
+
+" augroup TagsGroup
+"   autocmd!
+"   autocmd BufWritePost *.{rb,js,jsx,es6,py,go} TagsGenerate
+" augroup END
 
 augroup RubyGroup
   autocmd!
