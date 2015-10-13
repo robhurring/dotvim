@@ -340,6 +340,9 @@ highlight clear SignColumn
 " easy-pair
 let g:AutoPairsMapSpace = 0
 
+" vim-jdaddy
+command! JSONPrettyPrint :normal gqaj
+
 " vim-simple-todo
 let g:simple_todo_map_keys = 0
 

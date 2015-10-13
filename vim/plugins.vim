@@ -47,6 +47,7 @@ Plug 'elzr/vim-json'
 Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
+Plug 'tpope/vim-jdaddy', {'for': 'json'}
 
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
