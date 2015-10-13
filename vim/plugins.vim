@@ -59,6 +59,9 @@ Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 
+" todos/notes
+Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
+
 " ABRT error: https://github.com/Valloric/YouCompleteMe/issues/8
 " Solutions: add this to your ~/.<shell>rc
 "   export DYLD_FORCE_FLAT_NAMESPACE=1

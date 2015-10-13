@@ -200,6 +200,10 @@ inoremap ;<cr> <end>;<cr>
 " re-select pasted text
 noremap gV `[v`]
 
+" TIL/todos/etc.
+command! Til tabe~/Dropbox/Config/til.md
+command! Todo vsplit~/Dropbox/Config/todo.md
+
 augroup DefaultGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
@@ -335,6 +339,9 @@ highlight clear SignColumn
 
 " easy-pair
 let g:AutoPairsMapSpace = 0
+
+" vim-simple-todo
+let g:simple_todo_map_keys = 0
 
 " vim-tags
 let g:vim_tags_auto_generate = 0
@@ -526,6 +533,25 @@ let g:go_dispatch_enabled = 1
 "   autocmd!
 "   autocmd BufWritePost *.{rb,js,jsx,es6,py,go} TagsGenerate
 " augroup END
+
+augroup MarkdownGroup
+  autocmd!
+  autocmd FileType markdown nmap <Leader>i <Plug>(simple-todo-new)
+  autocmd FileType markdown imap <Leader>i <Plug>(simple-todo-new)
+  autocmd FileType markdown imap <Leader>I <Plug>(simple-todo-new-start-of-line)
+  autocmd FileType markdown nmap <Leader>I <Plug>(simple-todo-new-start-of-line)
+  autocmd FileType markdown vmap <Leader>I <Plug>(simple-todo-new-start-of-line)
+  autocmd FileType markdown nmap <Leader>o <Plug>(simple-todo-below)
+  autocmd FileType markdown imap <Leader>o <Plug>(simple-todo-below)
+  autocmd FileType markdown nmap <Leader>O <Plug>(simple-todo-above)
+  autocmd FileType markdown imap <Leader>O <Plug>(simple-todo-above)
+  autocmd FileType markdown nmap <Leader>x <Plug>(simple-todo-mark-as-done)
+  autocmd FileType markdown vmap <Leader>x <Plug>(simple-todo-mark-as-done)
+  autocmd FileType markdown imap <Leader>x <Plug>(simple-todo-mark-as-done)
+  autocmd FileType markdown nmap <Leader>X <Plug>(simple-todo-mark-as-undone)
+  autocmd FileType markdown vmap <Leader>X <Plug>(simple-todo-mark-as-undone)
+  autocmd FileType markdown imap <Leader>X <Plug>(simple-todo-mark-as-undone)
+augroup END
 
 augroup RubyGroup
   autocmd!
