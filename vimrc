@@ -333,6 +333,9 @@ endtry
 highlight clear SignColumn
 " let g:jellybeans_use_lowcolor_black = 0
 
+" easy-pair
+let g:AutoPairsMapSpace = 0
+
 " vim-tags
 let g:vim_tags_auto_generate = 0
 let g:vim_tags_cache_dir = expand('~/.vim/tmp')
