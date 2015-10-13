@@ -1,12 +1,12 @@
 " vim:fdm=marker
 
 " dependencies {{{
-Plug 'mattn/webapi-vim'
-Plug 'tpope/vim-dispatch'
 Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'tmhedberg/matchit'
 Plug 'kana/vim-textobj-user'
+Plug 'mattn/webapi-vim'
+Plug 'tmhedberg/matchit'
+Plug 'tomtom/tlib_vim'
+Plug 'tpope/vim-dispatch'
 "}}}
 
 " color schemes {{{
@@ -17,7 +17,6 @@ Plug 'sheerun/vim-wombat-scheme'
 " misc plugins
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
-Plug 'Townk/vim-autoclose'
 Plug 'bling/vim-airline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'editorconfig/editorconfig-vim'
@@ -41,6 +40,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'jiangmiao/auto-pairs'
 
 " html/css/js
 Plug 'elzr/vim-json'

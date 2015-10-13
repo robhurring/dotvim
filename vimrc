@@ -123,7 +123,7 @@ nnoremap D "_D
 nnoremap d "_d
 vnoremap d "_d
 nnoremap dd "_dd
-vnoremap dd "_dd
+" vnoremap dd "_dd
 nnoremap <leader>d "*d
 nnoremap <leader>dd "*dd
 nnoremap <leader>D "*D
@@ -163,8 +163,8 @@ vmap <C-s> <Esc><C-s>gv
 imap <C-s> <Esc><C-s>
 
 " remap pum selection
-" inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " splits and such
 nmap <C-j> <C-w><C-j>
@@ -173,10 +173,8 @@ nmap <C-l> <C-w><C-l>
 nmap <C-h> <C-w><C-h>
 
 " insert movement
-inoremap <C-l> <C-o>l
-inoremap <C-h> <C-o>h
-" inoremap <C-k> <C-o>k
-" inoremap <C-j> <C-o>j
+inoremap <C-l> <Right>
+inoremap <C-h> <Left>
 
 " text wrapping toggle
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
@@ -216,7 +214,7 @@ augroup DefaultGroup
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
 
   " fix {} completion like endwise
-  autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
+  " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
 
   " auto-reload vimrc
   autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
