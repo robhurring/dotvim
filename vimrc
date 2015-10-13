@@ -497,7 +497,7 @@ let g:user_emmet_leader_key='<C-e>'
 runtime macros/matchit.vim
 
 " gundo
-nnoremap <leader>u :GundoToggle<cr>
+" nnoremap <leader>u :GundoToggle<cr>
 
 " multi cursor
 let g:multi_cursor_next_key = '<C-n>'
