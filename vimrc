@@ -340,6 +340,7 @@ highlight clear SignColumn
 
 " easy-pair
 let g:AutoPairsMapSpace = 0
+let g:AutoPairsMultilineClose = 0
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
