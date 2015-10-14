@@ -118,15 +118,17 @@ set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 nmap <leader>/ :set hlsearch! hlsearch?<CR>
 
 " delete into blackhole register by default
-nnoremap x "_x
-nnoremap D "_D
-nnoremap d "_d
-vnoremap d "_d
-nnoremap dd "_dd
+" nnoremap x "_x
+" nnoremap D "_D
+" nnoremap d "_d
+" vnoremap d "_d
+" nnoremap dd "_dd
 " vnoremap dd "_dd
-nnoremap <leader>d "*d
-nnoremap <leader>dd "*dd
-nnoremap <leader>D "*D
+nnoremap <leader>d "ad
+nnoremap <leader>dd "add
+nnoremap <leader>D "aD
+nnoremap <leader>p "ap
+nnoremap <leader>P "aP
 
 " fatfingers
 command! Q q " Bind :Q to :q
@@ -202,7 +204,7 @@ noremap gV `[v`]
 
 " TIL/todos/etc.
 command! Til tabe~/Dropbox/Config/til.md
-command! Todo vsplit~/Dropbox/Config/todo.md
+command! Todo tabe~/Dropbox/Config/todo.md
 
 augroup DefaultGroup
   autocmd!
