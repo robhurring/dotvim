@@ -26,12 +26,10 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 Plug 'mhinz/vim-signify'
 Plug 'mkitt/tabline.vim'
-Plug 'plasticboy/vim-markdown'
 Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 Plug 'rking/ag.vim', {'on': 'Ag'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'scrooloose/syntastic'
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'szw/vim-tags'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -42,12 +40,19 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'jiangmiao/auto-pairs'
 
+" markdown/textile/etc
+Plug 'amiorin/vim-textile', {'for': 'textile'}
+Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
 " html/css/js
-Plug 'elzr/vim-json'
+Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-jdaddy', {'for': 'json'}
+Plug 'tpope/vim-ragtag'
 
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -55,13 +60,10 @@ Plug 'fatih/vim-go', {'for': 'go'}
 " ruby
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'thoughtbot/vim-rspec', {'for': 'ruby'}
+Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
-
-" todos/notes
-Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
 
 " ABRT error: https://github.com/Valloric/YouCompleteMe/issues/8
 " Solutions: add this to your ~/.<shell>rc

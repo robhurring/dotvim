@@ -543,6 +543,7 @@ let g:go_dispatch_enabled = 1
 
 augroup MarkdownGroup
   autocmd!
+  autocmd FileType markdown set nofoldenable
   autocmd FileType markdown nmap <Leader>i <Plug>(simple-todo-new)
   autocmd FileType markdown imap <Leader>i <Plug>(simple-todo-new)
   autocmd FileType markdown imap <Leader>I <Plug>(simple-todo-new-start-of-line)
