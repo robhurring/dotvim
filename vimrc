@@ -216,6 +216,7 @@ augroup DefaultGroup
   autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
+  autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
 
   " fix {} completion like endwise
   " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
