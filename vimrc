@@ -279,6 +279,22 @@ endif
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " }}}
 
+" Theme"{{{
+try
+  colorscheme wombat
+catch
+endtry
+highlight SignColumn cterm=none ctermbg=233
+highlight LineNr cterm=none ctermbg=233
+highlight Search cterm=none ctermfg=177 ctermbg=238
+" highlight ColorColumn ctermbg=234 guibg=#222222
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+
+highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
+"}}}
+
 " Mappings {{{
 
 " Search settings
@@ -367,25 +383,6 @@ noremap gV `[v`]
 command! Til tabe~/Dropbox/Config/til.md
 command! Todo tabe~/Dropbox/Config/todo.md
 
-" }}}
-
-" Plugin Config {{{1
-
-" colorscheme
-try
-  colorscheme wombat
-catch
-endtry
-highlight SignColumn cterm=none ctermbg=233
-highlight LineNr cterm=none ctermbg=233
-highlight Search cterm=none ctermfg=177 ctermbg=238
-" highlight ColorColumn ctermbg=234 guibg=#222222
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-
-highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
-
 " vim-rspec
 nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
 nmap <silent> <Leader>T :w<cr>:call RunCurrentSpecFile()<cr>
@@ -417,7 +414,7 @@ nnoremap <leader>y :YRShow<cr>
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
 
-" airline {{{2
+" airline
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -427,16 +424,6 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
-
-function! MyAirline()
-  let spc = g:airline_symbols.space
-  let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
-  let g:airline_section_c = ''
-  let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
-  let g:airline_section_z = airline#section#create(['hunks', 'branch'])
-endfunction
-autocmd Vimenter * call MyAirline()
-" }}}
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
@@ -449,8 +436,9 @@ noremap <leader>a\| :Tabularize /\|<CR>
 " matchit
 runtime macros/matchit.vim
 
-" }}}1 //Plugins
+" }}}1 /Mappings
 
+" Augroups {{{
 augroup DefaultGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
@@ -524,6 +512,17 @@ augroup GolangGroup
   autocmd FileType go nmap <Leader>gt :GoTest<cr>
   autocmd FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
   autocmd FileType go nmap <Leader>gf <Plug>(go-def-vertical)
+augroup END
+
+augroup AirlineGroup
+  function! MyAirline()
+    let spc = g:airline_symbols.space
+    let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
+    let g:airline_section_c = ''
+    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
+    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+  endfunction
+  autocmd Vimenter * call MyAirline()
 augroup END
 " }}} /augroups
 
