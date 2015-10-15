@@ -38,11 +38,6 @@ bootstrap: .fzf .lua .vim .plug
 .vim: .fzf .lua
 	brew install vim --with-lua
 
-.lua:
-	brew unlink lua
-	brew install lua
-	brew link lua
-
 .fzf:
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install

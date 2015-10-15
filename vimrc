@@ -18,6 +18,9 @@ elseif $TERM =~ '^xterm$'
   set t_Co=256
 endif
 
+filetype plugin indent on                  " Do filetype detection and load custom file plugins and indent files
+syntax on
+
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 " dependencies
@@ -99,8 +102,6 @@ call plug#end()
 
 " Options {{{
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
-filetype plugin indent on                  " Do filetype detection and load custom file plugins and indent files
-syntax on
 
 set autoindent
 set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
@@ -182,7 +183,6 @@ set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " }}}
 
 " Mappings
-" change column marker
 
 " Search settings
 nmap <leader>/ :set hlsearch! hlsearch?<CR>
@@ -270,38 +270,6 @@ noremap gV `[v`]
 command! Til tabe~/Dropbox/Config/til.md
 command! Todo tabe~/Dropbox/Config/todo.md
 
-augroup DefaultGroup
-  autocmd!
-  " Remember last location in file, but not for commit messages.
-  " see :help last-position-jump
-  autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
-        \| exe "normal! g`\"" | endif
-
-  autocmd BufNewFile,BufRead *.less set filetype=less
-  autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
-  autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
-  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
-  autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
-  autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
-
-  " fix {} completion like endwise
-  " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
-
-  " auto-reload vimrc
-  autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
-
-  " change background on insert mode
-  " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
-  " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
-
-  " omnicomplete stuffs
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
-augroup END
-
 " Plugin Config {{{1
 
 " colorscheme
@@ -320,14 +288,6 @@ highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
 
 " vim-rspec
-function! <SID>SmartRunSpec()
-  if exists("s:last_spec")
-    call RunLastSpec()
-  else
-    call RunNearestSpec()
-  end
-endfunction
-
 let g:rspec_command = 'Dispatch rspec --drb {spec}'
 let g:rspec_runner = 'os_x_iterm2'
 nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
@@ -503,6 +463,38 @@ let g:go_dispatch_enabled = 1
 "   autocmd!
 "   autocmd BufWritePost *.{rb,js,jsx,es6,py,go} TagsGenerate
 " augroup END
+
+augroup DefaultGroup
+  autocmd!
+  " Remember last location in file, but not for commit messages.
+  " see :help last-position-jump
+  autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
+        \| exe "normal! g`\"" | endif
+
+  autocmd BufNewFile,BufRead *.less set filetype=less
+  autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
+  autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
+  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
+  autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
+  autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
+
+  " fix {} completion like endwise
+  " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
+
+  " auto-reload vimrc
+  autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+
+  " change background on insert mode
+  " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
+  " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
+
+  " omnicomplete stuffs
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
+augroup END
 
 augroup MarkdownGroup
   autocmd!
