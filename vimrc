@@ -23,7 +23,9 @@ syntax on
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
+
 " dependencies
+
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/webapi-vim'
@@ -32,26 +34,81 @@ Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-dispatch'
 
 " color schemes
+
 Plug 'nanotech/jellybeans.vim'"
 Plug 'sheerun/vim-wombat-scheme'
 
 " misc plugins
+
 Plug 'Chiel92/vim-autoformat'
+let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
+
 Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger       = "<Tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+" let g:UltiSnipsListSnippets        = "<C-h>"
+
 Plug 'bling/vim-airline'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_detect_paste = 1
+let g:airline_theme = 'bubblegum'
+
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+let g:gist_post_private = 1
+let g:gist_show_privates = 1
+
 Plug 'mhinz/vim-signify'
+let g:signify_vcs_list = ['git']
+
 Plug 'mkitt/tabline.vim'
 Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 Plug 'rking/ag.vim', {'on': 'Ag'}
+let g:ag_working_path_mode = 'r'
+
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
+let nerdtreehighlightcursorline=1
+let nerdtreeshowbookmarks=1
+let nerdtreeshowfiles=1
+
 Plug 'scrooloose/syntastic'
+let g:syntastic_enable_signs = 1
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:quickfixsigns_classes = ['qfl']
+
 Plug 'szw/vim-tags'
+let g:vim_tags_auto_generate = 0
+let g:vim_tags_cache_dir = expand('~/.vim/tmp')
+let g:vim_tags_directories = ['.git']
+let g:vim_tags_main_file = 'tags'
+let g:vim_tags_use_language_field = 1
+let g:vim_tags_use_vim_dispatch = 1
+
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -59,29 +116,63 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = '$HOME/.vim/tmp'
+let g:yankring_manual_clipboard_check = 0
+let g:yankring_replace_n_pkey = ''
+let g:yankring_replace_n_nkey = ''
+
 Plug 'jiangmiao/auto-pairs'
+let g:AutoPairsMapSpace = 0
+let g:AutoPairsMultilineClose = 0
 
 " markdown/textile/etc
+
 Plug 'amiorin/vim-textile', {'for': 'textile'}
 Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
+let g:simple_todo_map_keys = 0
+
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+let g:instant_markdown_autostart = 0
+let g:instant_markdown_slow = 1
 
 " html/css/js
+
 Plug 'elzr/vim-json', {'for': 'json'}
+let g:vim_json_syntax_conceal = 0
+
 Plug 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<C-e>'
+
 Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
+
 Plug 'pangloss/vim-javascript'
+let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
+
 Plug 'tpope/vim-jdaddy', {'for': 'json'}
 Plug 'tpope/vim-ragtag'
 
 " go
+
 Plug 'fatih/vim-go', {'for': 'go'}
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_autosave = 1
+let g:go_dispatch_enabled = 1
+let g:go_fmt_command = 'goimports'
 
 " ruby
+
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'thoughtbot/vim-rspec'
+let g:rspec_command = 'Dispatch rspec --drb {spec}'
+let g:rspec_runner = 'os_x_iterm2'
+
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
@@ -92,6 +183,13 @@ Plug 'vim-ruby/vim-ruby'
 " Other: re-compile VIM with the homebrew version of python
 " Other: `brew unlink python` and run YCM installer
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer' }
+let g:ycm_key_list_select_completion   = ['<C-n>']
+let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:ycm_completion_confirm_key       = '<Enter>'
+let g:ycm_min_num_of_chars_for_completion = 3
+" let g:ycm_complete_in_strings = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
 
 " local plugins
 if filereadable(expand('~/.plugins.local.vim'))
@@ -182,7 +280,23 @@ endif
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 " }}}
 
-" Mappings
+" Theme"{{{
+try
+  colorscheme wombat
+catch
+endtry
+highlight SignColumn cterm=none ctermbg=233
+highlight LineNr cterm=none ctermbg=233
+highlight Search cterm=none ctermfg=177 ctermbg=238
+" highlight ColorColumn ctermbg=234 guibg=#222222
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+
+highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
+"}}}
+
+" Mappings {{{
 
 " Search settings
 nmap <leader>/ :set hlsearch! hlsearch?<CR>
@@ -270,87 +384,15 @@ noremap gV `[v`]
 command! Til tabe~/Dropbox/Config/til.md
 command! Todo tabe~/Dropbox/Config/todo.md
 
-" Plugin Config {{{1
-
-" colorscheme
-try
-  colorscheme wombat
-catch
-endtry
-highlight SignColumn cterm=none ctermbg=233
-highlight LineNr cterm=none ctermbg=233
-highlight Search cterm=none ctermfg=177 ctermbg=238
-" highlight ColorColumn ctermbg=234 guibg=#222222
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-
-highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
-
 " vim-rspec
-let g:rspec_command = 'Dispatch rspec --drb {spec}'
-let g:rspec_runner = 'os_x_iterm2'
 nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
 nmap <silent> <Leader>T :w<cr>:call RunCurrentSpecFile()<cr>
-
-" auto-pairs
-let g:AutoPairsMapSpace = 0
-let g:AutoPairsMultilineClose = 0
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
 
-" vim-simple-todo
-let g:simple_todo_map_keys = 0
-
-" vim-tags
-let g:vim_tags_auto_generate = 0
-let g:vim_tags_cache_dir = expand('~/.vim/tmp')
-let g:vim_tags_directories = ['.git']
-let g:vim_tags_main_file = 'tags'
-let g:vim_tags_use_language_field = 1
-let g:vim_tags_use_vim_dispatch = 1
-
-" gist-vim
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_post_private = 1
-let g:gist_show_privates = 1
-
-" ag
-let g:ag_working_path_mode = 'r'
-
-" instant-markdown-preview
-let g:instant_markdown_autostart = 0
-let g:instant_markdown_slow = 1
-
-" Signify
-let g:signify_vcs_list = ['git']
-
 " vim-trailing-whitespace
 nnoremap <leader>fw :FixWhitespace<cr>
-
-" vim-json
-let g:vim_json_syntax_conceal = 0
-
-" vim-jsx
-let g:jsx_ext_required = 0
-
-" YCM
-let g:ycm_key_list_select_completion   = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
-let g:ycm_completion_confirm_key       = '<Enter>'
-let g:ycm_min_num_of_chars_for_completion = 3
-" let g:ycm_complete_in_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-
-" ultisnips
-let g:UltiSnipsExpandTrigger       = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-" let g:UltiSnipsListSnippets        = "<C-h>"
 
 " vim-commentary
 map <C-_> gcc<Esc>
@@ -364,51 +406,16 @@ vmap <C-Down> ]egv
 
 " autoformat
 map <silent> <leader>r :Autoformat<cr>
-let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
-
 " nerdtree
 nnoremap <leader>g :NERDTreeToggle<cr>
-let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
-let nerdtreehighlightcursorline=1
-let nerdtreeshowbookmarks=1
-let nerdtreeshowfiles=1
 
 " yankring
 nnoremap <leader>y :YRShow<cr>
-let g:yankring_history_dir = '$HOME/.vim/tmp'
-let g:yankring_manual_clipboard_check = 0
-let g:yankring_replace_n_pkey = ''
-let g:yankring_replace_n_nkey = ''
 
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
 
-" syntastic
-let g:syntastic_enable_signs = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop']
-let g:quickfixsigns_classes = ['qfl']
-
-" airline {{{2
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_detect_paste = 1
-let g:airline_theme = 'bubblegum'
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
+" airline
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -419,16 +426,6 @@ nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 
-function! MyAirline()
-  let spc = g:airline_symbols.space
-  let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
-  let g:airline_section_c = ''
-  let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
-  let g:airline_section_z = airline#section#create(['hunks', 'branch'])
-endfunction
-autocmd Vimenter * call MyAirline()
-" }}}
-
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
 noremap <leader>a: :Tabularize /^[^:]*:\zs/l0l1<CR>
@@ -437,33 +434,12 @@ noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
 noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
 
-" emmet
-let g:user_emmet_leader_key='<C-e>'
-
 " matchit
 runtime macros/matchit.vim
 
-" vim-javascript?
-let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
+" }}}1 /Mappings
 
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_autosave = 1
-let g:go_dispatch_enabled = 1
-
-" }}}1 //Plugins
-
-" Plugin Autocmd Groups
-
-" augroup TagsGroup
-"   autocmd!
-"   autocmd BufWritePost *.{rb,js,jsx,es6,py,go} TagsGenerate
-" augroup END
-
+" Augroups {{{
 augroup DefaultGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
@@ -538,6 +514,18 @@ augroup GolangGroup
   autocmd FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
   autocmd FileType go nmap <Leader>gf <Plug>(go-def-vertical)
 augroup END
+
+augroup AirlineGroup
+  function! MyAirline()
+    let spc = g:airline_symbols.space
+    let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
+    let g:airline_section_c = ''
+    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
+    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+  endfunction
+  autocmd Vimenter * call MyAirline()
+augroup END
+" }}} /augroups
 
 " External {{{
 
