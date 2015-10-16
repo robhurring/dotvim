@@ -86,8 +86,9 @@ let g:signify_vcs_list = ['git']
 
 Plug 'mkitt/tabline.vim'
 Plug 'rizzatti/dash.vim', {'on': 'Dash'}
-Plug 'rking/ag.vim', {'on': 'Ag'}
+Plug 'rking/ag.vim'
 let g:ag_working_path_mode = 'r'
+let g:ackprg = 'ag -f --vimgrep'
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
@@ -220,6 +221,7 @@ set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
+set linebreak
 set list                                         " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
 set noerrorbells                                 " Disable error bells
@@ -334,7 +336,7 @@ nnoremap j gj
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " quick fix
-nnoremap <leader>co :Copen<cr>
+nnoremap <leader>co :copen<cr>
 nnoremap <leader>cc :cclose<cr>
 
 " saving
@@ -499,8 +501,8 @@ augroup RubyGroup
   autocmd FileType ruby,eruby nmap <Leader>tl :call RunLastSpec()<CR>
   autocmd FileType ruby,eruby nmap <Leader>ta :call RunAllSpecs()<CR>
 
-  autocmd FileType ruby,eruby nmap m ]m
-  autocmd FileType ruby,eruby nmap M [m
+  autocmd FileType ruby,eruby nmap m ]mzz
+  autocmd FileType ruby,eruby nmap M [mzz
 
   " make ? part of word
   autocmd FileType ruby,eruby setlocal iskeyword+=?
@@ -516,6 +518,7 @@ augroup GolangGroup
 augroup END
 
 augroup AirlineGroup
+  autocmd!
   function! MyAirline()
     let spc = g:airline_symbols.space
     let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
@@ -607,9 +610,20 @@ endif
 
 " ag
 if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  set grepprg=ag\ -f\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
 endif
+
+" jit
+if executable('jit')
+  function! <SID>Jit(cmd) range
+    let args = shellescape(join(getline(a:firstline, a:lastline), " "))
+    :execute ':terminal jit '.a:cmd.args
+  endfunction
+
+  command! -range JitInfo :<line1>,<line2>call <SID>Jit('info')
+endif
+
 " }}} /external
 
 if filereadable(expand("~/.vimrc.local"))
