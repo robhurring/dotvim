@@ -5,8 +5,8 @@ if !has('nvim')
 endif
 filetype off
 
-let mapleader=','
-let localmapleader=','
+let g:mapleader=','
+let g:localmapleader=','
 
 inoremap <C-c> <Esc>
 inoremap jk <Esc>l
@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
 
 " dependencies
 
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/webapi-vim'
@@ -39,6 +40,8 @@ Plug 'nanotech/jellybeans.vim'"
 Plug 'sheerun/vim-wombat-scheme'
 
 " misc plugins
+
+Plug 'terryma/vim-expand-region'
 
 Plug 'Chiel92/vim-autoformat'
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
@@ -90,6 +93,9 @@ Plug 'rking/ag.vim'
 let g:ag_working_path_mode = 'r'
 let g:ackprg = 'ag -f --vimgrep'
 
+Plug 'gabesoft/vim-ags'
+let g:ags_agmaxcount = 500
+
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
 let nerdtreehighlightcursorline=1
@@ -126,6 +132,8 @@ Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMultilineClose = 0
 
+Plug 'wincent/ferret'
+
 " markdown/textile/etc
 
 Plug 'amiorin/vim-textile', {'for': 'textile'}
@@ -133,9 +141,11 @@ Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
 let g:simple_todo_map_keys = 0
 
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-let g:instant_markdown_autostart = 0
-let g:instant_markdown_slow = 1
+Plug 'shime/vim-livedown', {'for': 'markdown'}
+
+" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" let g:instant_markdown_autostart = 0
+" let g:instant_markdown_slow = 1
 
 " html/css/js
 
@@ -168,11 +178,23 @@ let g:go_fmt_command = 'goimports'
 
 " ruby
 
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
-Plug 'thoughtbot/vim-rspec'
-let g:rspec_command = 'Dispatch rspec --drb {spec}'
-let g:rspec_runner = 'os_x_iterm2'
+Plug 'janko-m/vim-test'
+let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
+let test#ruby#rspec#options = {
+      \ 'nearest': '--backtrace',
+      \ 'file':    '--format documentation',
+      \ 'suite':   '',
+      \}
+if has('nvim')
+  let test#strategy = 'neovim'
+elseif has('gui_running')
+  let test#strategy = 'iterm'
+else
+  let test#strategy = 'dispatch'
+endif
 
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
@@ -197,6 +219,7 @@ if filereadable(expand('~/.plugins.local.vim'))
   source ~/.plugins.local.vim
 endif
 call plug#end()
+" runtime macros/matchit.vim
 " }}} /plugins
 
 " Options {{{
@@ -208,7 +231,6 @@ set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=80
 set complete-=i
-set cursorline
 set cursorline
 set diffopt=filler,iwhite                        " In diff mode, ignore whitespace changes and align unchanged lines
 set directory=~/.vim/swap                        " Directory to use for the swap file
@@ -290,6 +312,7 @@ endtry
 highlight SignColumn cterm=none ctermbg=233
 highlight LineNr cterm=none ctermbg=233
 highlight Search cterm=none ctermfg=177 ctermbg=238
+highlight CursorLine ctermbg=235
 " highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
@@ -301,7 +324,11 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
 " Mappings {{{
 
 " Search settings
-nmap <leader>/ :set hlsearch! hlsearch?<CR>
+nmap <leader>/ :noh<CR>
+
+" vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 " delete into blackhole register by default
 nnoremap <leader>d "ad
@@ -309,6 +336,12 @@ nnoremap <leader>dd "add
 nnoremap <leader>D "aD
 nnoremap <leader>p "ap
 nnoremap <leader>P "aP
+
+" jump to end after pasting
+" vnoremap <silent> y y`]
+" vnoremap <silent> p p`]
+" nnoremap <silent> p p`]
+" nnoremap <silent> P P`]
 
 " fatfingers
 command! Q q " Bind :Q to :q
@@ -320,9 +353,9 @@ command! E e
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 
-" windows and such
-map <C-t> <esc>:tabnew<CR>
-map <C-x> :bd<cr>
+" buffers / windows
+nmap <C-t> <esc>:enew<CR>
+nmap <C-x> :bd<cr>
 
 " Emacs-like beginning and end of line.
 imap <C-e> <C-o>$
@@ -386,9 +419,14 @@ noremap gV `[v`]
 command! Til tabe~/Dropbox/Config/til.md
 command! Todo tabe~/Dropbox/Config/todo.md
 
+" vim-test
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+
 " vim-rspec
-nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
-nmap <silent> <Leader>T :w<cr>:call RunCurrentSpecFile()<cr>
+" nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
+" nmap <silent> <Leader>T :w<cr>:call RunCurrentSpecFile()<cr>
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
@@ -401,10 +439,20 @@ map <C-_> gcc<Esc>
 imap <C-_> <Esc>gccgi
 
 " vim-unimpaired
+imap <C-Up> <Esc>[egi
+imap <C-Down> <Esc>]egi
 nmap <C-Up> [e
 nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
+
+" line bubbling - without vim-unimpaired
+" nnoremap <c-k> :m-2<cr>==
+" nnoremap <c-j> :m+<cr>==
+" inoremap <c-j> <esc>:m+<cr>==gi
+" inoremap <c-k> <esc>:m-2<cr>==gi
+" vnoremap <c-j> :m'>+<cr>gv=gv
+" vnoremap <c-k> :m-2<cr>gv=gv
 
 " autoformat
 map <silent> <leader>r :Autoformat<cr>
@@ -436,13 +484,11 @@ noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
 noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
 
-" matchit
-runtime macros/matchit.vim
 
 " }}}1 /Mappings
 
 " Augroups {{{
-augroup DefaultGroup
+augroup VimrcGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
   " see :help last-position-jump
@@ -460,7 +506,7 @@ augroup DefaultGroup
   " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
 
   " auto-reload vimrc
-  autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+  autocmd BufWritePost {.vimrc,vimrc} source %
 
   " change background on insert mode
   " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
@@ -536,16 +582,6 @@ augroup END
 if executable('fzf')
   set rtp+=~/.fzf
 
-  nnoremap <silent> <Space><Space> :FZF -m<cr>
-  nnoremap <silent> <Leader>s :call fzf#run({
-        \   'down': '40%',
-        \   'sink': 'botright split' })<CR>
-
-  " Open files in vertical horizontal split
-  nnoremap <silent> <Leader>v :call fzf#run({
-        \   'right': winwidth('.') / 2,
-        \   'sink':  'vertical botright split' })<CR>
-
   function! s:buflist()
     redir => ls
     silent ls
@@ -605,7 +641,19 @@ if executable('fzf')
 
   command! Tags call s:tags()
 
-  nmap <leader>t :Tags<cr>
+  nnoremap <silent> <leader>o :FZF -m<cr>
+
+  " nmap <leader>t :Tags<cr>
+
+  " nnoremap <silent> <Leader>s :call fzf#run({
+  "       \   'down': '40%',
+  "       \   'sink': 'botright split' })<CR>
+
+  " " Open files in vertical horizontal split
+  " nnoremap <silent> <Leader>v :call fzf#run({
+  "       \   'right': winwidth('.') / 2,
+  "       \   'sink':  'vertical botright split' })<CR>
+
 endif
 
 " ag
@@ -614,14 +662,28 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
+function! <SID>GetSelection() range
+  let reg_save = getreg('"')
+  let regtype_save = getregtype('"')
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', reg_save, regtype_save)
+  return selection
+endfunction
+
 " jit
 if executable('jit')
-  function! <SID>Jit(cmd) range
-    let args = shellescape(join(getline(a:firstline, a:lastline), " "))
-    :execute ':terminal jit '.a:cmd.args
+  function! Jit(command, ...)
+    if a:0 == 0
+      let l:args = <SID>GetSelection()
+    else
+      let l:args = join(a:000, ' ')
+    endif
+
+    execute ':!jit '.a:command.' '.l:args
   endfunction
 
-  command! -range JitInfo :<line1>,<line2>call <SID>Jit('info')
+  command! -nargs=* Jit call Jit(<f-args>)
 endif
 
 " }}} /external
