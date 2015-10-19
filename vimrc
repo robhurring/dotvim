@@ -43,6 +43,8 @@ Plug 'sheerun/vim-wombat-scheme'
 
 Plug 'terryma/vim-expand-region'
 
+Plug 'benmills/vimux'
+
 Plug 'Chiel92/vim-autoformat'
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
@@ -182,19 +184,13 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'janko-m/vim-test'
-let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
-let test#ruby#rspec#options = {
-      \ 'nearest': '--backtrace',
-      \ 'file':    '--format documentation',
-      \ 'suite':   '',
-      \}
-if has('nvim')
-  let test#strategy = 'neovim'
-elseif has('gui_running')
-  let test#strategy = 'iterm'
-else
-  let test#strategy = 'dispatch'
-endif
+function! MyTestRunner(cmd)
+  " call VimuxRunCommandInDir(a:cmd, 1)
+  call VimuxRunCommand(a:cmd)
+endfunction
+let test#ruby#rspec#executable = 'auto-bundle-exec rspec -f progress'
+let g:test#custom_strategies = {'mine': function('MyTestRunner')}
+let test#strategy = 'vimux'
 
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
@@ -324,7 +320,7 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
 " Mappings {{{
 
 " Search settings
-nmap <leader>/ :noh<CR>
+nmap <silent> <leader>/ :noh<CR>
 
 " vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -420,13 +416,10 @@ command! Til tabe~/Dropbox/Config/til.md
 command! Todo tabe~/Dropbox/Config/todo.md
 
 " vim-test
-nmap <silent> <leader>tt :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-
-" vim-rspec
-" nmap <silent> <Leader>t :w<cr>:call RunNearestSpec()<cr>
-" nmap <silent> <Leader>T :w<cr>:call RunCurrentSpecFile()<cr>
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>tt :TestLast<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
@@ -441,10 +434,10 @@ imap <C-_> <Esc>gccgi
 " vim-unimpaired
 imap <C-Up> <Esc>[egi
 imap <C-Down> <Esc>]egi
-nmap <C-Up> [e
-nmap <C-Down> ]e
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
+nmap <C-k> [e
+nmap <C-j> ]e
+vmap <C-k> [egv
+vmap <C-j> ]egv
 
 " line bubbling - without vim-unimpaired
 " nnoremap <c-k> :m-2<cr>==
@@ -542,11 +535,6 @@ augroup END
 
 augroup RubyGroup
   autocmd!
-  autocmd FileType ruby,eruby nmap <Leader>tr :call RunCurrentSpecFile()<CR>
-  autocmd FileType ruby,eruby nmap <Leader>ts :call RunNearestSpec()<CR>
-  autocmd FileType ruby,eruby nmap <Leader>tl :call RunLastSpec()<CR>
-  autocmd FileType ruby,eruby nmap <Leader>ta :call RunAllSpecs()<CR>
-
   autocmd FileType ruby,eruby nmap m ]mzz
   autocmd FileType ruby,eruby nmap M [mzz
 
@@ -673,7 +661,7 @@ endfunction
 
 " jit
 if executable('jit')
-  function! Jit(command, ...)
+  function! Jit(command, ...) range
     if a:0 == 0
       let l:args = <SID>GetSelection()
     else
@@ -683,7 +671,7 @@ if executable('jit')
     execute ':!jit '.a:command.' '.l:args
   endfunction
 
-  command! -nargs=* Jit call Jit(<f-args>)
+  command! -nargs=* -range Jit call Jit(<f-args>)
 endif
 
 " }}} /external
