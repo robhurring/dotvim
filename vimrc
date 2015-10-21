@@ -33,6 +33,7 @@ Plug 'mattn/webapi-vim'
 Plug 'tmhedberg/matchit'
 Plug 'tomtom/tlib_vim'
 Plug 'tpope/vim-dispatch'
+" Plug 'shougo/unite.vim' " vimfiler/etc.
 
 " color schemes
 
@@ -75,6 +76,8 @@ let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 Plug 'bronson/vim-trailing-whitespace'
+let g:extra_whitespace_ignored_filetypes = ['vimfiler']
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'jszakmeister/vim-togglecursor'
@@ -98,11 +101,20 @@ let g:ackprg = 'ag -f --vimgrep'
 Plug 'gabesoft/vim-ags'
 let g:ags_agmaxcount = 500
 
+" Plug 'shougo/vimfiler.vim'
+" let g:vimfiler_as_default_explorer = 1
+" let g:vimfiler_safe_mode_by_default = 0
+" let g:vimfiler_tree_leaf_icon = ' '
+" let g:vimfiler_tree_opened_icon = '▾'
+" let g:vimfiler_tree_closed_icon = '▸'
+" let g:vimfiler_enable_auto_cd = 1
+
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
 let nerdtreehighlightcursorline=1
 let nerdtreeshowbookmarks=1
 let nerdtreeshowfiles=1
+let nerdtreequitonopen = 1
 
 Plug 'scrooloose/syntastic'
 let g:syntastic_enable_signs = 1
@@ -188,7 +200,7 @@ function! MyTestRunner(cmd)
   " call VimuxRunCommandInDir(a:cmd, 1)
   call VimuxRunCommand(a:cmd)
 endfunction
-let test#ruby#rspec#executable = 'auto-bundle-exec rspec -f progress'
+let test#ruby#rspec#executable = 'clear; auto-bundle-exec rspec -f progress'
 let g:test#custom_strategies = {'mine': function('MyTestRunner')}
 let test#strategy = 'vimux'
 
@@ -204,7 +216,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer' }
 let g:ycm_key_list_select_completion   = ['<C-n>']
 let g:ycm_key_list_previous_completion = ['<C-p>']
-let g:ycm_completion_confirm_key       = '<Enter>'
+let g:ycm_completion_confirm_key       = '<CR>'
 let g:ycm_min_num_of_chars_for_completion = 3
 " let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
@@ -222,6 +234,7 @@ call plug#end()
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
 set autoindent
+" set autochdir
 set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
 set backupdir=~/.vim/tmp
 set clipboard=unnamed
@@ -298,6 +311,9 @@ endif
 "   :100 : up to 100 lines of command-line history will be remembered
 "   n... : where to save the viminfo files
 set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
+
+let g:netrw_liststyle=3
+
 " }}}
 
 " Theme"{{{
@@ -347,7 +363,6 @@ command! E e
 
 " saving
 map <C-s> <esc>:w<CR>
-imap <C-s> <esc>:w<CR>
 
 " buffers / windows
 nmap <C-t> <esc>:enew<CR>
@@ -405,20 +420,24 @@ vnoremap @ :normal! @
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+" line-endings
 inoremap ;<cr> <end>;<cr>
-" inoremap ,<cr> <end>,<cr>
+
+" searching
+nmap <C-f> /
+imap <C-f> <Esc>/
 
 " re-select pasted text
 noremap gV `[v`]
 
 " TIL/todos/etc.
-command! Til tabe~/Dropbox/Config/til.md
-command! Todo tabe~/Dropbox/Config/todo.md
+command! Til e ~/Dropbox/Config/til.md
+command! Todo e ~/Dropbox/Config/todo.md
 
 " vim-test
 nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>tt :TestLast<CR>
-nmap <silent> <leader>tf :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 
 " vim-jdaddy
@@ -427,17 +446,24 @@ command! JSONPrettyPrint :normal gqaj
 " vim-trailing-whitespace
 nnoremap <leader>fw :FixWhitespace<cr>
 
+" splitjoin
+nmap gS :SplitjoinSplit<cr>
+nmap gJ :SplitjoinJoin<cr>
+
 " vim-commentary
 map <C-_> gcc<Esc>
 imap <C-_> <Esc>gccgi
 
+" vimux
+map <Leader>vc :VimuxCloseRunner<CR>
+
 " vim-unimpaired
 imap <C-Up> <Esc>[egi
 imap <C-Down> <Esc>]egi
-nmap <C-k> [e
-nmap <C-j> ]e
-vmap <C-k> [egv
-vmap <C-j> ]egv
+nmap <C-Up> [e
+nmap <C-down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 " line bubbling - without vim-unimpaired
 " nnoremap <c-k> :m-2<cr>==
@@ -448,9 +474,13 @@ vmap <C-j> ]egv
 " vnoremap <c-k> :m-2<cr>gv=gv
 
 " autoformat
-map <silent> <leader>r :Autoformat<cr>
+map <silent> <leader>= :Autoformat<cr>
+
 " nerdtree
-nnoremap <leader>g :NERDTreeToggle<cr>
+nnoremap <leader>e :NERDTreeToggle<cr>
+
+" vimfiler
+" nnoremap <leader>e :VimFilerExplorer -toggle<cr>
 
 " yankring
 nnoremap <leader>y :YRShow<cr>
@@ -474,9 +504,7 @@ noremap <leader>a= :Tabularize /=<CR>
 noremap <leader>a: :Tabularize /^[^:]*:\zs/l0l1<CR>
 noremap <leader>a> :Tabularize /=><CR>
 noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
-noremap <leader>a{ :Tabularize /{<CR>
 noremap <leader>a\| :Tabularize /\|<CR>
-
 
 " }}}1 /Mappings
 
