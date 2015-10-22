@@ -366,9 +366,6 @@ command! Qall qall
 command! QA qall
 command! E e
 
-" saving
-map <C-s> <esc>:update<CR>
-
 " buffers / windows
 nmap <C-t> <esc>:enew<CR>
 nmap <C-x> :bd<cr>
@@ -389,9 +386,8 @@ nnoremap <leader>co :copen<cr>
 nnoremap <leader>cc :cclose<cr>
 
 " saving
-nmap <C-s> :w<CR>
+map <C-s> <Esc>:update<CR>
 vmap <C-s> <Esc><C-s>gv
-imap <C-s> <Esc><C-s>
 
 " remap pum selection
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -420,6 +416,7 @@ nmap <leader>. <C-^>
 map <M-[> :tprev<CR>
 map <M-]> :tnext<CR>
 
+" repeatng
 vnoremap . :normal .<CR>
 vnoremap @ :normal! @
 vnoremap <Tab> >gv
