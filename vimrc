@@ -53,6 +53,7 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger       = "<Tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+" let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 " let g:UltiSnipsListSnippets        = "<C-h>"
 
 Plug 'bling/vim-airline'
@@ -76,7 +77,7 @@ let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 Plug 'bronson/vim-trailing-whitespace'
-let g:extra_whitespace_ignored_filetypes = ['vimfiler']
+let g:extra_whitespace_ignored_filetypes = []
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
@@ -110,11 +111,13 @@ let g:ags_agmaxcount = 500
 " let g:vimfiler_enable_auto_cd = 1
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-let nerdtreeignore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$' ]
-let nerdtreehighlightcursorline=1
-let nerdtreeshowbookmarks=1
-let nerdtreeshowfiles=1
-let nerdtreequitonopen = 1
+let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+let NERDTreeShowBookmarks=1
+let NERDTreeQuitOnOpen = 1
+let NERDTreeBookmarksFile = '~/.vim/bookmarks'
+let NERDTreeChDirMode = 2
+let NERDTreeWinSize = 30
+let NERDTreeMinimalUI = 1
 
 Plug 'scrooloose/syntastic'
 let g:syntastic_enable_signs = 1
@@ -125,6 +128,8 @@ let g:quickfixsigns_classes = ['qfl']
 Plug 'szw/vim-tags'
 let g:vim_tags_auto_generate = 0
 let g:vim_tags_cache_dir = expand('~/.vim/tmp')
+let g:vim_tags_ignore_files = ['.gitignore']
+let g:vim_tags_ignore_file_comment_pattern = '^[#"]'
 let g:vim_tags_directories = ['.git']
 let g:vim_tags_main_file = 'tags'
 let g:vim_tags_use_language_field = 1
@@ -273,8 +278,8 @@ set smarttab
 set splitbelow
 set splitright
 set tabstop=2
-set tags+=./tags
-set tags+=.git/tags
+" set tags+=./tags
+" set tags+=.git/tags
 set undodir=~/.vim/undo
 set undofile
 set updatecount=100                              " Write swap file to disk every 100 chars
@@ -362,7 +367,7 @@ command! QA qall
 command! E e
 
 " saving
-map <C-s> <esc>:w<CR>
+map <C-s> <esc>:update<CR>
 
 " buffers / windows
 nmap <C-t> <esc>:enew<CR>
@@ -644,7 +649,7 @@ if executable('fzf')
       echom 'Preparing tags'
       echohl None
       " call system('~/bin/my-ctags -R')
-      TagsGenerate
+      TagsGenerate!
     endif
 
     call fzf#run({
