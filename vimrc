@@ -200,14 +200,14 @@ let g:go_fmt_command = 'goimports'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
+" Plug 'thoughtbot/vim-rspec'
+" let g:rspec_command = "Dispatch rspec {spec}"
+
 Plug 'janko-m/vim-test'
-function! MyTestRunner(cmd)
-  " call VimuxRunCommandInDir(a:cmd, 1)
-  call VimuxRunCommand(a:cmd)
-endfunction
-let test#ruby#rspec#executable = 'clear; auto-bundle-exec rspec -f progress'
-let g:test#custom_strategies = {'mine': function('MyTestRunner')}
+" let test#strategy = 'dispatch'
+" let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
 let test#strategy = 'vimux'
+let test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
 
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
@@ -384,6 +384,7 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " quick fix
 nnoremap <leader>co :copen<cr>
 nnoremap <leader>cc :cclose<cr>
+nnoremap <silent> <leader>cl :cg /tmp/quickfix.out\|copen<CR> " from rspec output
 
 " saving
 map <C-s> <Esc>:update<CR>
@@ -437,10 +438,12 @@ command! Til e ~/Dropbox/Config/til.md
 command! Todo e ~/Dropbox/Config/todo.md
 
 " vim-test
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>tt :TestLast<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
+" nmap <silent> <Leader>t :compiler rspec \| :Dispatch rspec %<CR>
+" nmap <silent> <Leader>T :compiler rspec \| :Dispatch rspec<CR>
+nmap <silent> <nowait> <Leader>t :TestFile<CR>
+nmap <silent> <Leader>T :TestNearest<CR>
+nmap <silent> <Leader>tl :TestLast<CR>
+nmap <silent> <Leader>ta :TestSuite<CR>
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
@@ -476,7 +479,8 @@ vmap <C-Down> ]egv
 " vnoremap <c-k> :m-2<cr>gv=gv
 
 " autoformat
-map <silent> <leader>= :Autoformat<cr>
+map <silent> <leader>= :Autoformat ff=unix<cr>
+map <silent> <F1> :FixWhitespace<cr><leader>=<cr>
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
@@ -491,15 +495,15 @@ nnoremap <leader>y :YRShow<cr>
 nnoremap <leader>b :TagbarToggle<cr>
 
 " airline
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
+nmap 1 <Plug>AirlineSelectTab1
+nmap 2 <Plug>AirlineSelectTab2
+nmap 3 <Plug>AirlineSelectTab3
+nmap 4 <Plug>AirlineSelectTab4
+nmap 5 <Plug>AirlineSelectTab5
+nmap 6 <Plug>AirlineSelectTab6
+nmap 7 <Plug>AirlineSelectTab7
+nmap 8 <Plug>AirlineSelectTab8
+nmap 9 <Plug>AirlineSelectTab9
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
