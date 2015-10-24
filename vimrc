@@ -90,6 +90,12 @@ let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 let g:gist_show_privates = 1
 
+Plug 'terryma/vim-multiple-cursors'
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
 
@@ -147,9 +153,14 @@ let g:yankring_manual_clipboard_check = 0
 let g:yankring_replace_n_pkey = ''
 let g:yankring_replace_n_nkey = ''
 
+" Plug 'Raimondi/delimitMate'
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
-let g:AutoPairsMultilineClose = 0
+let g:AutoPairsMultilineClose = 1
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
+let g:AutoPairsShortcutFastWrap = '<M-e>'
+let g:AutoPairsShortcutJump = '<M-n>'
 
 Plug 'wincent/ferret'
 
