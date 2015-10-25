@@ -1,4 +1,4 @@
-" vim:fdm=marker
+" vim: fdm=marker
 
 if !has('nvim')
   set nocompatible
@@ -10,11 +10,11 @@ let g:localmapleader=','
 
 inoremap <C-c> <Esc>
 inoremap jk <Esc>l
-nnoremap ,, , " reset default , behavior
+nnoremap ,, ,
 
-if $TERM =~ '256color'
+if $TERM =~? '256color'
   set t_Co=256
-elseif $TERM =~ '^xterm$'
+elseif $TERM =~? '^xterm$'
   set t_Co=256
 endif
 
@@ -50,11 +50,11 @@ Plug 'Chiel92/vim-autoformat'
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger       = "<Tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<C-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-" let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
-" let g:UltiSnipsListSnippets        = "<C-h>"
+let g:UltiSnipsExpandTrigger       = '<Tab>'
+let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
+" let g:UltiSnipsListSnippets        = '<C-h>'
 
 Plug 'bling/vim-airline'
 if !exists('g:airline_symbols')
@@ -117,19 +117,29 @@ let g:ags_agmaxcount = 500
 " let g:vimfiler_enable_auto_cd = 1
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
-let NERDTreeShowBookmarks=1
-let NERDTreeQuitOnOpen = 1
-let NERDTreeBookmarksFile = '~/.vim/bookmarks'
-let NERDTreeChDirMode = 2
-let NERDTreeWinSize = 30
-let NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+let g:NERDTreeShowBookmarks=1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeBookmarksFile = '~/.vim/bookmarks'
+let g:NERDTreeChDirMode = 2
+let g:NERDTreeWinSize = 30
+let g:NERDTreeMinimalUI = 1
 
-Plug 'scrooloose/syntastic'
-let g:syntastic_enable_signs = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_ruby_checkers = ['rubocop']
-let g:quickfixsigns_classes = ['qfl']
+Plug 'benekastah/neomake'
+let g:neomake_open_list = 0
+let g:neomake_warning_sign = {
+      \ 'texthl': 'LintWarning',
+      \ }
+let g:neomake_error_sign = {
+      \ 'text': "\u25CF",
+      \ 'texthl': 'LintError',
+      \ }
+
+" Plug 'scrooloose/syntastic'
+" let g:syntastic_enable_signs = 1
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_ruby_checkers = ['rubocop']
+" let g:quickfixsigns_classes = ['qfl']
 
 Plug 'szw/vim-tags'
 let g:vim_tags_auto_generate = 0
@@ -217,8 +227,8 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
-let test#strategy = 'vimux'
-let test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
+let g:test#strategy = 'vimux'
+let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
 
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
@@ -230,13 +240,13 @@ Plug 'vim-ruby/vim-ruby'
 " Other: re-compile VIM with the homebrew version of python
 " Other: `brew unlink python` and run YCM installer
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer' }
-let g:ycm_key_list_select_completion   = ['<C-n>']
-let g:ycm_key_list_previous_completion = ['<C-p>']
+let g:ycm_key_list_select_completion   = ['<C-j>']
+let g:ycm_key_list_previous_completion = ['<C-k>']
 let g:ycm_completion_confirm_key       = '<CR>'
 let g:ycm_min_num_of_chars_for_completion = 3
-" let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
+" let g:ycm_complete_in_strings = 1
 
 " local plugins
 if filereadable(expand('~/.plugins.local.vim'))
@@ -341,10 +351,13 @@ highlight SignColumn cterm=none ctermbg=233
 highlight LineNr cterm=none ctermbg=233
 highlight Search cterm=none ctermfg=177 ctermbg=238
 highlight CursorLine ctermbg=235
-" highlight ColorColumn ctermbg=234 guibg=#222222
+" highlight ColorColumn ctermbg=235 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
-highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=119
+highlight LintError cterm=none ctermbg=238 ctermfg=205
+highlight LintWarning cterm=none ctermbg=233 ctermfg=97
+
+highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118
 highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
 "}}}
@@ -392,18 +405,52 @@ nnoremap j gj
 " toggle folds
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
-" quick fix
-nnoremap <leader>co :copen<cr>
-nnoremap <leader>cc :cclose<cr>
-nnoremap <silent> <leader>cl :cg /tmp/quickfix.out\|copen<CR> " from rspec output
+" toggle quickfix/location
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+    echohl ErrorMsg
+    echo "Location List is Empty."
+    return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>c :call ToggleList("Quickfix List", 'c')<CR>
+
+" nnoremap <leader>co :copen<cr>
+" nnoremap <leader>cc :cclose<cr>
+" nnoremap <silent> <leader>cl :cg /tmp/quickfix.out\|copen<CR> " from rspec output
+
+" " location
+" nnoremap <leader>lo :lopen<cr>
+" nnoremap <leader>lc :lclose<cr>
 
 " saving
 map <C-s> <Esc>:update<CR>
 vmap <C-s> <Esc><C-s>gv
 
 " remap pum selection
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+" inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " splits and such
 nmap <C-j> <C-w><C-j>
@@ -526,6 +573,14 @@ noremap <leader>a\| :Tabularize /\|<CR>
 " }}}1 /Mappings
 
 " Augroups {{{
+
+if executable('nvim')
+  augroup NvimGroup
+    autocmd!
+    autocmd BufWritePost * Neomake
+  augroup END
+end
+
 augroup VimrcGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
@@ -539,9 +594,6 @@ augroup VimrcGroup
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
   autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
   autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
-
-  " fix {} completion like endwise
-  " autocmd FileType {javascript,sh,zsh,bash} inoremap {<cr> {<cr>}<Esc><S-o>
 
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} source %
@@ -626,18 +678,18 @@ if executable('fzf')
     execute 'buffer' matchstr(a:e, '^[ 0-9]*')
   endfunction
 
-  nnoremap <silent> <Leader>l :call fzf#run({
-        \   'source':  reverse(<sid>buflist()),
-        \   'sink':    function('<sid>bufopen'),
-        \   'options': '+m',
-        \   'down':    len(<sid>buflist()) + 2
-        \ })<CR>
+  " nnoremap <silent> <Leader>l :call fzf#run({
+  "       \   'source':  reverse(<sid>buflist()),
+  "       \   'sink':    function('<sid>bufopen'),
+  "       \   'options': '+m',
+  "       \   'down':    len(<sid>buflist()) + 2
+  "       \ })<CR>
 
-  command! FZFMru call fzf#run({
-        \ 'source':  reverse(s:all_files()),
-        \ 'sink':    'edit',
-        \ 'options': '-m -x +s',
-        \ 'down':    '40%' })
+  " command! FZFMru call fzf#run({
+  "       \ 'source':  reverse(s:all_files()),
+  "       \ 'sink':    'edit',
+  "       \ 'options': '-m -x +s',
+  "       \ 'down':    '40%' })
 
   function! s:all_files()
     return extend(
@@ -660,11 +712,10 @@ if executable('fzf')
       echohl WarningMsg
       echom 'Preparing tags'
       echohl None
-      " call system('~/bin/my-ctags -R')
-      TagsGenerate!
+      execute 'TagsGenerate!'
     endif
 
-    call fzf#run({
+    call s:fzf#run({
           \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
           \            '| grep -v ^!',
           \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
