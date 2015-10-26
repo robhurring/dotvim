@@ -362,7 +362,7 @@ highlight CursorLine ctermbg=235
 " highlight ColorColumn ctermbg=235 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
-highlight LintError cterm=none ctermbg=238 ctermfg=205
+highlight LintError cterm=none ctermbg=233 ctermfg=205
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97
 
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118
@@ -443,18 +443,11 @@ endfunction
 
 nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>c :call ToggleList("Quickfix List", 'c')<CR>
-
-" nnoremap <leader>co :copen<cr>
-" nnoremap <leader>cc :cclose<cr>
-" nnoremap <silent> <leader>cl :cg /tmp/quickfix.out\|copen<CR> " from rspec output
-
-" " location
-" nnoremap <leader>lo :lopen<cr>
-" nnoremap <leader>lc :lclose<cr>
+nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
 
 " saving
-map <C-s> <Esc>:update<CR>
-vmap <C-s> <Esc><C-s>gv
+imap <C-s> <Esc>:update<CR>gi
+nmap <C-s> <Esc>:update<CR>
 
 " remap pum selection
 " inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
@@ -506,7 +499,7 @@ command! Todo e ~/Dropbox/Config/todo.md
 " vim-test
 " nmap <silent> <Leader>t :compiler rspec \| :Dispatch rspec %<CR>
 " nmap <silent> <Leader>T :compiler rspec \| :Dispatch rspec<CR>
-nmap <silent> <nowait> <Leader>t :TestFile<CR>
+nmap <silent> <Leader>t :TestFile<CR>
 nmap <silent> <Leader>T :TestNearest<CR>
 nmap <silent> <Leader>tl :TestLast<CR>
 nmap <silent> <Leader>ta :TestSuite<CR>
@@ -616,6 +609,59 @@ augroup VimrcGroup
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
+
+  let s:sign_ids = {}
+
+  let s:sign_text = 'x'
+  let s:sign_texthl = 'LintError'
+
+  " execute 'sign define QuickfixError text=' . s:sign_text . ' texthl=' . s:sign_texthl
+  execute 'sign define QuickfixError text=>> texthl=LintError'
+
+  function! s:ClearSigns()
+    for sign_id in keys(s:sign_ids)
+      exec 'sign unplace ' . sign_id
+      call remove(s:sign_ids, sign_id)
+    endfor
+  endfunction
+
+  function! s:PlaceSigns(items)
+    for item in a:items
+      if item.bufnr == 0 || item.lnum == 0 
+        continue 
+      endif
+
+      let l:id = item.bufnr . item.lnum
+
+      if has_key(s:sign_ids, l:id) 
+        return 
+      endif
+
+      let s:sign_ids[l:id] = item
+
+      let l:sign_name = 'QuickfixError'
+      " if item.type ==? 'E'
+      "   let l:sign_name = 'QuickfixError'
+      " elseif item.type ==? 'W'
+      "   let l:sign_name = 'QuickfixWarning'
+      " else
+      "   let l:sign_name = 'QuickfixInfo'
+      " endif
+
+      execute 'sign place ' . l:id . ' line=' . item.lnum . ' name=' . l:sign_name .
+            \ ' buffer=' .  item.bufnr
+    endfor
+  endfunction
+
+  function! s:PlaceQuickfixSigns()
+    let [items, qflist]  = [[], getqflist()]
+    if !empty(qflist)
+      let items = qflist
+    endif
+    call s:PlaceSigns(items)
+  endfunction
+
+  autocmd QuickFixCmdPost * call s:ClearSigns() | call s:PlaceQuickfixSigns()
 augroup END
 
 augroup MarkdownGroup
