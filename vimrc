@@ -126,6 +126,8 @@ let g:NERDTreeWinSize = 30
 let g:NERDTreeMinimalUI = 1
 
 Plug 'benekastah/neomake'
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['mri', 'rubocop']
 let g:neomake_open_list = 0
 let g:neomake_warning_sign = {
       \ 'texthl': 'LintWarning',
@@ -133,6 +135,12 @@ let g:neomake_warning_sign = {
 let g:neomake_error_sign = {
       \ 'text': "\u25CF",
       \ 'texthl': 'LintError',
+      \ }
+" simple rspec runner for neomake
+let g:neomake_ruby_rspec_maker = {
+      \ 'exe': 'rspec',
+      \ 'args': ['--require=~/.vim/config/rspec_vim_formatter.rb', '--format=VimFormatter'],
+      \ 'errorformat': '%E%f:%l:\ %m'
       \ }
 
 " Plug 'scrooloose/syntastic'
