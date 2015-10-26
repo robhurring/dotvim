@@ -26,25 +26,31 @@ call g:plug#begin('~/.vim/plugged')
 
 " dependencies
 
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'kana/vim-textobj-user'
-Plug 'mattn/webapi-vim'
 Plug 'tmhedberg/matchit'
-Plug 'tomtom/tlib_vim'
-Plug 'tpope/vim-dispatch'
-" Plug 'shougo/unite.vim' " vimfiler/etc.
+Plug 'kana/vim-textobj-user' " dep for: textobj-rubyblock(R)
+Plug 'tpope/vim-dispatch'    " dep for: vim-test(O)
+Plug 'mattn/webapi-vim'      " dep for: gist(R)
+Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
+" Plug 'MarcWeber/vim-addon-mw-utils'
 
 " color schemes
 
-Plug 'nanotech/jellybeans.vim'"
 Plug 'sheerun/vim-wombat-scheme'
 
 " misc plugins
 
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'terryma/vim-expand-region'
-
 Plug 'benmills/vimux'
+Plug 'jszakmeister/vim-togglecursor'
+Plug 'mkitt/tabline.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 
 Plug 'Chiel92/vim-autoformat'
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
@@ -54,7 +60,6 @@ let g:UltiSnipsExpandTrigger       = '<Tab>'
 let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
-" let g:UltiSnipsListSnippets        = '<C-h>'
 
 Plug 'bling/vim-airline'
 if !exists('g:airline_symbols')
@@ -79,10 +84,6 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = []
 
-Plug 'editorconfig/editorconfig-vim'
-Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'jszakmeister/vim-togglecursor'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'mattn/gist-vim', {'on': 'Gist'}
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
@@ -99,22 +100,12 @@ let g:multi_cursor_quit_key='<Esc>'
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
 
-Plug 'mkitt/tabline.vim'
-Plug 'rizzatti/dash.vim', {'on': 'Dash'}
 Plug 'rking/ag.vim'
 let g:ag_working_path_mode = 'r'
 let g:ackprg = 'ag -f --vimgrep'
 
 Plug 'gabesoft/vim-ags'
 let g:ags_agmaxcount = 500
-
-" Plug 'shougo/vimfiler.vim'
-" let g:vimfiler_as_default_explorer = 1
-" let g:vimfiler_safe_mode_by_default = 0
-" let g:vimfiler_tree_leaf_icon = ' '
-" let g:vimfiler_tree_opened_icon = '▾'
-" let g:vimfiler_tree_closed_icon = '▸'
-" let g:vimfiler_enable_auto_cd = 1
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
@@ -153,12 +144,6 @@ let g:vim_tags_main_file = 'tags'
 let g:vim_tags_use_language_field = 1
 let g:vim_tags_use_vim_dispatch = 1
 
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
@@ -174,22 +159,18 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
-Plug 'wincent/ferret'
-
-" markdown/textile/etc
-
-Plug 'amiorin/vim-textile', {'for': 'textile'}
-Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
-let g:simple_todo_map_keys = 0
+" markdown/etc
 
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 
-" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-" let g:instant_markdown_autostart = 0
-" let g:instant_markdown_slow = 1
+Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
+let g:simple_todo_map_keys = 0
 
 " html/css/js
+
+Plug 'tpope/vim-jdaddy', {'for': 'json'}
+Plug 'tpope/vim-ragtag'
 
 Plug 'elzr/vim-json', {'for': 'json'}
 let g:vim_json_syntax_conceal = 0
@@ -202,9 +183,6 @@ let g:jsx_ext_required = 0
 
 Plug 'pangloss/vim-javascript'
 let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
-
-Plug 'tpope/vim-jdaddy', {'for': 'json'}
-Plug 'tpope/vim-ragtag'
 
 " go
 
@@ -223,18 +201,15 @@ let g:go_fmt_command = 'goimports'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
-" Plug 'thoughtbot/vim-rspec'
-" let g:rspec_command = "Dispatch rspec {spec}"
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
 
 Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
 let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
-
-Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
 
 " ABRT error: https://github.com/Valloric/YouCompleteMe/issues/8
 " Solutions: add this to your ~/.<shell>rc
@@ -248,21 +223,19 @@ let g:ycm_completion_confirm_key       = '<CR>'
 let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
-" let g:ycm_complete_in_strings = 1
 
-" local plugins
-if filereadable(expand('~/.plugins.local.vim'))
-  source ~/.plugins.local.vim
-endif
 call g:plug#end()
-" runtime macros/matchit.vim
+runtime macros/matchit.vim
 " }}} /plugins
 
 " Options {{{
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
-set autoindent
 " set autochdir
+" set autowrite
+" set tags+=./tags
+" set tags+=.git/tags
+set autoindent
 set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
 set backupdir=~/.vim/tmp
 set clipboard=unnamed
@@ -280,10 +253,12 @@ set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
+set lazyredraw
 set linebreak
 set list                                         " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
 set noerrorbells                                 " Disable error bells
+set nofoldenable
 set nowrap
 set nrformats=                                   " default to decimal
 set number
@@ -301,8 +276,6 @@ set smarttab
 set splitbelow
 set splitright
 set tabstop=2
-" set tags+=./tags
-" set tags+=.git/tags
 set undodir=~/.vim/undo
 set undofile
 set updatecount=100                              " Write swap file to disk every 100 chars
@@ -521,14 +494,6 @@ nmap <C-down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" line bubbling - without vim-unimpaired
-" nnoremap <c-k> :m-2<cr>==
-" nnoremap <c-j> :m+<cr>==
-" inoremap <c-j> <esc>:m+<cr>==gi
-" inoremap <c-k> <esc>:m-2<cr>==gi
-" vnoremap <c-j> :m'>+<cr>gv=gv
-" vnoremap <c-k> :m-2<cr>gv=gv
-
 " autoformat
 map <silent> <leader>= :Autoformat ff=unix<cr>
 map <silent> <F1> :FixWhitespace<cr><leader>=<cr>
@@ -697,6 +662,7 @@ augroup AirlineGroup
   endfunction
   autocmd Vimenter * call s:MyAirline()
 augroup END
+
 " }}} /augroups
 
 " External {{{
