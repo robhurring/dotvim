@@ -22,7 +22,7 @@ filetype plugin indent on                  " Do filetype detection and load cust
 syntax on
 
 " Plugins {{{
-call plug#begin('~/.vim/plugged')
+call g:plug#begin('~/.vim/plugged')
 
 " dependencies
 
@@ -143,12 +143,6 @@ let g:neomake_ruby_rspec_maker = {
       \ 'errorformat': '%E%f:%l:\ %m'
       \ }
 
-" Plug 'scrooloose/syntastic'
-" let g:syntastic_enable_signs = 1
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_ruby_checkers = ['rubocop']
-" let g:quickfixsigns_classes = ['qfl']
-
 Plug 'szw/vim-tags'
 let g:vim_tags_auto_generate = 0
 let g:vim_tags_cache_dir = expand('~/.vim/tmp')
@@ -260,7 +254,7 @@ let g:ycm_seed_identifiers_with_syntax = 1
 if filereadable(expand('~/.plugins.local.vim'))
   source ~/.plugins.local.vim
 endif
-call plug#end()
+call g:plug#end()
 " runtime macros/matchit.vim
 " }}} /plugins
 
@@ -277,7 +271,7 @@ set complete-=i
 set cursorline
 set diffopt=filler,iwhite                        " In diff mode, ignore whitespace changes and align unchanged lines
 set directory=~/.vim/swap                        " Directory to use for the swap file
-set eol
+set endofline
 set expandtab
 set exrc                                         " enable per-directory .vimrc files
 set guifont=Hack:h15
@@ -414,35 +408,35 @@ nnoremap j gj
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " toggle quickfix/location
-function! GetBufferList()
+function! s:GetBufferList()
   redir =>buflist
   silent! ls!
   redir END
   return buflist
 endfunction
 
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
+function! <SID>ToggleList(bufname, pfx)
+  let l:buflist = s:GetBufferList()
+  for l:bufnum in map(filter(split(l:buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(l:bufnum) != -1
       exec(a:pfx.'close')
       return
     endif
   endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
+  if a:pfx ==? 'l' && len(getloclist(0)) == 0
     echohl ErrorMsg
-    echo "Location List is Empty."
+    echo 'Location List is Empty.'
     return
   endif
-  let winnr = winnr()
+  let l:winnr = winnr()
   exec(a:pfx.'open')
-  if winnr() != winnr
+  if winnr() != l:winnr
     wincmd p
   endif
 endfunction
 
-nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-nmap <silent> <leader>c :call ToggleList("Quickfix List", 'c')<CR>
+nmap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
+nmap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
 
 " saving
@@ -492,13 +486,11 @@ imap <C-f> <Esc>/
 " re-select pasted text
 noremap gV `[v`]
 
-" TIL/todos/etc.
-command! Til e ~/Dropbox/Config/til.md
+" todos, notes, misc stuff
 command! Todo e ~/Dropbox/Config/todo.md
+command! Notes LAg '(TODO|NOTE|INFO|ERROR|HACK):'
 
 " vim-test
-" nmap <silent> <Leader>t :compiler rspec \| :Dispatch rspec %<CR>
-" nmap <silent> <Leader>T :compiler rspec \| :Dispatch rspec<CR>
 nmap <silent> <Leader>t :TestFile<CR>
 nmap <silent> <Leader>T :TestNearest<CR>
 nmap <silent> <Leader>tl :TestLast<CR>
@@ -575,13 +567,6 @@ noremap <leader>a\| :Tabularize /\|<CR>
 
 " Augroups {{{
 
-if executable('nvim')
-  augroup NvimGroup
-    autocmd!
-    autocmd BufWritePost * Neomake
-  augroup END
-end
-
 augroup VimrcGroup
   autocmd!
   " Remember last location in file, but not for commit messages.
@@ -610,46 +595,49 @@ augroup VimrcGroup
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
 
-  let s:sign_ids = {}
+  " linters
+  autocmd BufWritePost * Neomake
 
-  let s:sign_text = 'x'
+  " quickfix gutter signs
+  " NOTE: clean this up, and put it somewhere better
+  let s:sign_ids = {}
+  let s:sign_text = "\uE0B1"
   let s:sign_texthl = 'LintError'
 
-  " execute 'sign define QuickfixError text=' . s:sign_text . ' texthl=' . s:sign_texthl
-  execute 'sign define QuickfixError text=>> texthl=LintError'
+  execute 'sign define QuickfixError text='.s:sign_text.' texthl=' . s:sign_texthl
 
   function! s:ClearSigns()
-    for sign_id in keys(s:sign_ids)
-      exec 'sign unplace ' . sign_id
-      call remove(s:sign_ids, sign_id)
+    for l:sign_id in keys(s:sign_ids)
+      exec 'sign unplace ' . l:sign_id
+      call remove(s:sign_ids, l:sign_id)
     endfor
   endfunction
 
   function! s:PlaceSigns(items)
-    for item in a:items
-      if item.bufnr == 0 || item.lnum == 0 
-        continue 
+    for l:item in a:items
+      if l:item.bufnr == 0 || l:item.lnum == 0
+        continue
       endif
 
-      let l:id = item.bufnr . item.lnum
+      let l:id = l:item.bufnr . l:item.lnum
 
-      if has_key(s:sign_ids, l:id) 
-        return 
+      if has_key(s:sign_ids, l:id)
+        return
       endif
 
-      let s:sign_ids[l:id] = item
+      let s:sign_ids[l:id] = l:item
 
       let l:sign_name = 'QuickfixError'
-      " if item.type ==? 'E'
+      " if l:item.type ==? 'E'
       "   let l:sign_name = 'QuickfixError'
-      " elseif item.type ==? 'W'
+      " elseif l:item.type ==? 'W'
       "   let l:sign_name = 'QuickfixWarning'
       " else
       "   let l:sign_name = 'QuickfixInfo'
       " endif
 
-      execute 'sign place ' . l:id . ' line=' . item.lnum . ' name=' . l:sign_name .
-            \ ' buffer=' .  item.bufnr
+      execute 'sign place ' . l:id . ' line=' . l:item.lnum . ' name=' . l:sign_name .
+            \ ' buffer=' .  l:item.bufnr
     endfor
   endfunction
 
@@ -672,10 +660,6 @@ augroup MarkdownGroup
   autocmd FileType markdown imap <Leader>I <Plug>(simple-todo-new-start-of-line)
   autocmd FileType markdown nmap <Leader>I <Plug>(simple-todo-new-start-of-line)
   autocmd FileType markdown vmap <Leader>I <Plug>(simple-todo-new-start-of-line)
-  autocmd FileType markdown nmap <Leader>o <Plug>(simple-todo-below)
-  autocmd FileType markdown imap <Leader>o <Plug>(simple-todo-below)
-  autocmd FileType markdown nmap <Leader>O <Plug>(simple-todo-above)
-  autocmd FileType markdown imap <Leader>O <Plug>(simple-todo-above)
   autocmd FileType markdown nmap <Leader>x <Plug>(simple-todo-mark-as-done)
   autocmd FileType markdown vmap <Leader>x <Plug>(simple-todo-mark-as-done)
   autocmd FileType markdown imap <Leader>x <Plug>(simple-todo-mark-as-done)
@@ -704,14 +688,14 @@ augroup END
 
 augroup AirlineGroup
   autocmd!
-  function! MyAirline()
-    let spc = g:airline_symbols.space
-    let g:airline_section_b = airline#section#create(['%<', 'file', spc, 'readonly'])
+  function! s:MyAirline()
+    let l:spc = g:airline_symbols.space
+    let g:airline_section_b = g:airline#section#create(['%<', 'file', l:spc, 'readonly'])
     let g:airline_section_c = ''
-    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
-    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+    let g:airline_section_y = g:airline#section#create(['windowswap', 'linenr', ':%3v'])
+    let g:airline_section_z = g:airline#section#create(['hunks', 'branch'])
   endfunction
-  autocmd Vimenter * call MyAirline()
+  autocmd Vimenter * call s:MyAirline()
 augroup END
 " }}} /augroups
 
@@ -733,7 +717,7 @@ if executable('fzf')
   endfunction
 
   " nnoremap <silent> <Leader>l :call fzf#run({
-  "       \   'source':  reverse(<sid>buflist()),
+
   "       \   'sink':    function('<sid>bufopen'),
   "       \   'options': '+m',
   "       \   'down':    len(<sid>buflist()) + 2
@@ -826,7 +810,7 @@ endif
 
 " }}} /external
 
-if filereadable(expand("~/.vimrc.local"))
+if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
 
