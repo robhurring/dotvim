@@ -22,7 +22,7 @@ filetype plugin indent on                  " Do filetype detection and load cust
 syntax on
 
 " Plugins {{{
-call g:plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/plugged')
 
 " dependencies
 
@@ -224,7 +224,7 @@ let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
-call g:plug#end()
+call plug#end()
 runtime macros/matchit.vim
 " }}} /plugins
 
@@ -653,14 +653,14 @@ augroup END
 
 augroup AirlineGroup
   autocmd!
-  function! s:MyAirline()
+  function! MyAirline()
     let l:spc = g:airline_symbols.space
-    let g:airline_section_b = g:airline#section#create(['%<', 'file', l:spc, 'readonly'])
+    let g:airline_section_b = airline#section#create(['%<', 'file', l:spc, 'readonly'])
     let g:airline_section_c = ''
-    let g:airline_section_y = g:airline#section#create(['windowswap', 'linenr', ':%3v'])
-    let g:airline_section_z = g:airline#section#create(['hunks', 'branch'])
+    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
+    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
   endfunction
-  autocmd Vimenter * call s:MyAirline()
+  autocmd Vimenter * call MyAirline()
 augroup END
 
 " }}} /augroups
