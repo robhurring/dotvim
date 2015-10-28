@@ -460,7 +460,25 @@ imap <C-f> <Esc>/
 noremap gV `[v`]
 
 " todos, notes, misc stuff
-command! Todo e ~/Dropbox/Config/todo.md
+function! <SID>Todo(bang, ...) range
+  let l:message = ''
+
+  if a:bang == 1
+    let l:message = join(map(getline(a:firstline, a:lastline), '"[ ] " . substitute(v:val,"^\s*\(.\{-}\)\s*$", "\1", "")'), "\n")
+  elseif a:0 > 0
+    let l:message = join(a:000, ' ')
+  endif
+
+  if l:message == ''
+    :e ~/Dropbox/config/todo.md
+  else
+    silent execute '!todo ' . shellescape(l:message)
+  endif
+endfunction
+
+command! -nargs=* -range -bang Todo <line1>,<line2>call <SID>Todo(<bang>0, <f-args>)
+
+" command! Todo e ~/Dropbox/Config/todo.md
 command! Notes LAg '(TODO|NOTE|INFO|ERROR|HACK):'
 
 " vim-test
@@ -768,7 +786,7 @@ if executable('jit')
       let l:args = join(a:000, ' ')
     endif
 
-    execute ':!jit '.a:command.' '.l:args
+    silent execute ':!jit '.a:command.' '.l:args
   endfunction
 
   command! -nargs=* -range Jit call Jit(<f-args>)
