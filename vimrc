@@ -164,9 +164,6 @@ let g:AutoPairsShortcutJump = '<M-n>'
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 
-Plug 'vitalk/vim-simple-todo', {'for': 'markdown'}
-let g:simple_todo_map_keys = 0
-
 " html/css/js
 
 Plug 'tpope/vim-jdaddy', {'for': 'json'}
@@ -226,6 +223,10 @@ let g:ycm_seed_identifiers_with_syntax = 1
 
 call plug#end()
 runtime macros/matchit.vim
+
+" My plugin config
+let g:todo_file = expand('~/Dropbox/config/todo.md')
+
 " }}} /plugins
 
 " Options {{{
@@ -460,23 +461,6 @@ imap <C-f> <Esc>/
 noremap gV `[v`]
 
 " todos, notes, misc stuff
-function! <SID>Todo(bang, ...) range
-  let l:message = ''
-
-  if a:bang == 1
-    let l:message = join(map(getline(a:firstline, a:lastline), '"[ ] " . substitute(v:val,"^\s*\(.\{-}\)\s*$", "\1", "")'), "\n")
-  elseif a:0 > 0
-    let l:message = join(a:000, ' ')
-  endif
-
-  if l:message == ''
-    :e ~/Dropbox/config/todo.md
-  else
-    silent execute '!todo ' . shellescape(l:message)
-  endif
-endfunction
-
-command! -nargs=* -range -bang Todo <line1>,<line2>call <SID>Todo(<bang>0, <f-args>)
 
 " command! Todo e ~/Dropbox/Config/todo.md
 command! Notes LAg '(TODO|NOTE|INFO|ERROR|HACK):'
@@ -638,17 +622,22 @@ augroup END
 augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown set nofoldenable
-  autocmd FileType markdown nmap <Leader>i <Plug>(simple-todo-new)
-  autocmd FileType markdown imap <Leader>i <Plug>(simple-todo-new)
-  autocmd FileType markdown imap <Leader>I <Plug>(simple-todo-new-start-of-line)
-  autocmd FileType markdown nmap <Leader>I <Plug>(simple-todo-new-start-of-line)
-  autocmd FileType markdown vmap <Leader>I <Plug>(simple-todo-new-start-of-line)
-  autocmd FileType markdown nmap <Leader>x <Plug>(simple-todo-mark-as-done)
-  autocmd FileType markdown vmap <Leader>x <Plug>(simple-todo-mark-as-done)
-  autocmd FileType markdown imap <Leader>x <Plug>(simple-todo-mark-as-done)
-  autocmd FileType markdown nmap <Leader>X <Plug>(simple-todo-mark-as-undone)
-  autocmd FileType markdown vmap <Leader>X <Plug>(simple-todo-mark-as-undone)
-  autocmd FileType markdown imap <Leader>X <Plug>(simple-todo-mark-as-undone)
+
+  autocmd FileType markdown nmap <buffer> <leader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <leader>i <Plug>(todo-new)
+  autocmd FileType markdown vmap <buffer> <leader>i <Plug>(todo-new)
+
+  autocmd FileType markdown nmap <buffer> <leader>I <Plug>(todo-new-below)
+  autocmd FileType markdown imap <buffer> <leader>I <Plug>(todo-new-below)
+  autocmd FileType markdown vmap <buffer> <leader>I <Plug>(todo-new-below)
+
+  autocmd FileType markdown nmap <buffer> <leader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown vmap <buffer> <leader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown imap <buffer> <leader>x <Plug>(todo-mark-as-done)
+
+  autocmd FileType markdown nmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown vmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown imap <buffer> <leader>X <Plug>(todo-mark-as-undone)
 augroup END
 
 augroup RubyGroup
@@ -768,29 +757,7 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
-function! <SID>GetSelection() range
-  let reg_save = getreg('"')
-  let regtype_save = getregtype('"')
-  normal! ""gvy
-  let selection = getreg('"')
-  call setreg('"', reg_save, regtype_save)
-  return selection
-endfunction
-
 " jit
-if executable('jit')
-  function! Jit(command, ...) range
-    if a:0 == 0
-      let l:args = <SID>GetSelection()
-    else
-      let l:args = join(a:000, ' ')
-    endif
-
-    silent execute ':!jit '.a:command.' '.l:args
-  endfunction
-
-  command! -nargs=* -range Jit call Jit(<f-args>)
-endif
 
 " }}} /external
 
