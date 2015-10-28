@@ -5,12 +5,12 @@ if !has('nvim')
 endif
 filetype off
 
-let g:mapleader=','
-let g:localmapleader=','
+let g:mapleader=' '
+let g:localmapleader=' '
 
 inoremap <C-c> <Esc>
 inoremap jk <Esc>l
-nnoremap ,, ,
+" nnoremap ,, ,
 
 if $TERM =~? '256color'
   set t_Co=256
