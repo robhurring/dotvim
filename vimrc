@@ -6,7 +6,7 @@ endif
 filetype off
 
 let g:mapleader=' '
-let g:localmapleader=' '
+let g:maplocalleader=' '
 
 inoremap <C-c> <Esc>
 inoremap jk <Esc>l
@@ -623,27 +623,27 @@ augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown set nofoldenable
 
-  autocmd FileType markdown nmap <buffer> <leader>i <Plug>(todo-new)
-  autocmd FileType markdown imap <buffer> <leader>i <Plug>(todo-new)
-  autocmd FileType markdown vmap <buffer> <leader>i <Plug>(todo-new)
+  autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown vmap <buffer> <localleader>i <Plug>(todo-new)
 
-  autocmd FileType markdown nmap <buffer> <leader>I <Plug>(todo-new-below)
-  autocmd FileType markdown imap <buffer> <leader>I <Plug>(todo-new-below)
-  autocmd FileType markdown vmap <buffer> <leader>I <Plug>(todo-new-below)
+  autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
+  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
+  autocmd FileType markdown vmap <buffer> <localleader>I <Plug>(todo-new-below)
 
-  autocmd FileType markdown nmap <buffer> <leader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown vmap <buffer> <leader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown imap <buffer> <leader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown imap <buffer> <localleader>x <Plug>(todo-mark-as-done)
 
-  autocmd FileType markdown nmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
-  autocmd FileType markdown vmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
-  autocmd FileType markdown imap <buffer> <leader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown imap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
 
 augroup RubyGroup
   autocmd!
-  autocmd FileType ruby,eruby nmap m ]mzz
-  autocmd FileType ruby,eruby nmap M [mzz
+  autocmd FileType ruby,eruby nmap <buffer> m ]mzz
+  autocmd FileType ruby,eruby nmap <buffer> M [mzz
 
   " make ? part of word
   autocmd FileType ruby,eruby setlocal iskeyword+=?
@@ -651,11 +651,11 @@ augroup END
 
 augroup GolangGroup
   autocmd!
-  autocmd FileType go nmap <Leader>gr :GoRun<cr>
-  autocmd FileType go nmap <Leader>gb :GoBuild<cr>
-  autocmd FileType go nmap <Leader>gt :GoTest<cr>
-  autocmd FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
-  autocmd FileType go nmap <Leader>gf <Plug>(go-def-vertical)
+  autocmd FileType go nmap <buffer> <localleader>gr :GoRun<cr>
+  autocmd FileType go nmap <buffer> <localleader>gb :GoBuild<cr>
+  autocmd FileType go nmap <buffer> <localleader>gt :GoTest<cr>
+  autocmd FileType go nmap <buffer> <localleader>gd <Plug>(go-doc-vertical)
+  autocmd FileType go nmap <buffer> <localleader>gf <Plug>(go-def-vertical)
 augroup END
 
 augroup AirlineGroup
@@ -756,8 +756,6 @@ if executable('ag')
   set grepprg=ag\ -f\ --vimgrep\ $*
   set grepformat=%f:%l:%c:%m
 endif
-
-" jit
 
 " }}} /external
 
