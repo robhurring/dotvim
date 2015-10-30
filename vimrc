@@ -236,6 +236,7 @@ let g:todo_file = expand('~/Dropbox/config/todo.md')
 " set autowrite
 " set tags+=./tags
 " set tags+=.git/tags
+
 set autoindent
 set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
 set backupdir=~/.vim/tmp
@@ -248,7 +249,6 @@ set directory=~/.vim/swap                        " Directory to use for the swap
 set endofline
 set expandtab
 set exrc                                         " enable per-directory .vimrc files
-set guifont=Hack:h15
 set hidden                                       " Don't abandon buffers moved to the background
 set hlsearch
 set ignorecase
@@ -296,6 +296,7 @@ endif
 
 " GUI rules
 if has('gui_running')
+  set guifont=Hack:h15
 endif
 
 " fix nvim's <C-h>
@@ -323,14 +324,17 @@ try
   colorscheme wombat
 catch
 endtry
+
 highlight SignColumn cterm=none ctermbg=233
-highlight LineNr cterm=none ctermbg=233
-highlight Search cterm=none ctermfg=177 ctermbg=238
-highlight CursorLine ctermbg=235
-" highlight ColorColumn ctermbg=235 guibg=#222222
+highlight LineNr     cterm=none ctermbg=233
+highlight Search     cterm=none ctermfg=177 ctermbg=238
+highlight Todo       cterm=none ctermfg=207 ctermbg=none
+" highlight CursorLine ctermbg=235
+" highlight Normal ctermbg=233 guibg=#111111
+" highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
-highlight LintError cterm=none ctermbg=233 ctermfg=205
+highlight LintError   cterm=none ctermbg=233 ctermfg=205
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97
 
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118
