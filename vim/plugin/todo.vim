@@ -59,18 +59,18 @@ inoremap <silent> <Plug>(todo-new-below) <Esc>o[ ]<space>
 nnoremap <silent> <Plug>(todo-new-below) o[ ]<space>
 
 " Mark as done
-nnoremap <silent> <Plug>(todo-mark-as-done) :execute 's/^\(\s*[-+*]\?\s*\)\[ \]/\1[' . g:todo_done_symbol . ']/'<cr>
+nnoremap <silent> <Plug>(todo-mark-as-done) :execute 's/^\(\s*[-+*]\?\s*\)\[ \]/\1[' . g:todo_done_symbol . ']/'<cr>\|:noh<cr>
       \:silent! call repeat#set("\<Plug>(todo-mark-as-done)")<cr>
-vnoremap <silent> <Plug>(todo-mark-as-done) :execute 's/^\(\s*[-+*]\?\s*\)\[ \]/\1[' . g:todo_done_symbol . ']/'<cr>
+vnoremap <silent> <Plug>(todo-mark-as-done) :execute 's/^\(\s*[-+*]\?\s*\)\[ \]/\1[' . g:todo_done_symbol . ']/'<cr>\|:noh<cr>
       \:silent! call repeat#set("\<Plug>(todo-mark-as-done)")<cr>
-inoremap <silent> <Plug>(todo-mark-as-done) <Esc>:execute 's/^\(\s*[-+*]\?\s*\)\[ \]/\1[' . g:todo_done_symbol . ']/'<cr>
+inoremap <silent> <Plug>(todo-mark-as-done) <Esc>:execute 's/^\(\s*[-+*]\?\s*\)\[ \]/\1[' . g:todo_done_symbol . ']/'<cr>\|:noh<cr>
       \:silent! call repeat#set("\<Plug>(todo-mark-as-done)")<cr>
 
 " Mark as undone
-nnoremap <silent> <Plug>(todo-mark-as-undone) :execute 's/^\(\s*[-+*]\?\s*\)\[' . g:todo_done_symbol . ']/\1[ ]/'<cr>
+nnoremap <silent> <Plug>(todo-mark-as-undone) :execute 's/^\(\s*[-+*]\?\s*\)\[' . g:todo_done_symbol . ']/\1[ ]/'<cr>\|:noh<cr>
       \:silent! call repeat#set("\<Plug>(todo-mark-as-undone)")<cr>
-vnoremap <silent> <Plug>(todo-mark-as-undone) :execute 's/^\(\s*[-+*]\?\s*\)\[' . g:todo_done_symbol . ']/\1[ ]/'<cr>
+vnoremap <silent> <Plug>(todo-mark-as-undone) :execute 's/^\(\s*[-+*]\?\s*\)\[' . g:todo_done_symbol . ']/\1[ ]/'<cr>\|:noh<cr>
       \:silent! call repeat#set("\<Plug>(todo-mark-as-undone)")<cr>
-inoremap <silent> <Plug>(todo-mark-as-undone) <Esc>:execute 's/^\(\s*[-+*]\?\s*\)\[' . g:todo_done_symbol . ']/\1[ ]/'<cr>
+inoremap <silent> <Plug>(todo-mark-as-undone) <Esc>:execute 's/^\(\s*[-+*]\?\s*\)\[' . g:todo_done_symbol . ']/\1[ ]/'<cr>\|:noh<cr>
       \:silent! call repeat#set("\<Plug>(todo-mark-as-undone)")<cr>
 
