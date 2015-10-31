@@ -1,4 +1,4 @@
-FILES=vimrc vim nvim nvimrc
+FILES=vimrc vim
 TARGETS=$(FILES:%=$(HOME)/.%)
 CWD=$(shell pwd)
 
@@ -7,8 +7,15 @@ $(HOME)/.%: %
 	@echo "Linking $<"
 	@ln -snf $(CWD)/$< $@
 
+# TODO: clean this up
 install: $(TARGETS)
+	$(MAKE) neovim
 	$(MAKE) bundle
+
+neovim:
+	@mkdir -p $(HOME)/.config
+	@ln -nsf $(HOME)/.vim $(HOME)/.config/nvim
+	@ln -nsf $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
 
 uninstall:
 	rm -f $(TARGETS)

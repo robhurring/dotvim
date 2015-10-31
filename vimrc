@@ -313,7 +313,11 @@ endif
 "   "500 : save up to 500 lines for each register
 "   :100 : up to 100 lines of command-line history will be remembered
 "   n... : where to save the viminfo files
-set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
+if has('nvim')
+  set viminfo='100,/100,h,\"500,:100
+else
+  set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
+endif
 
 let g:netrw_liststyle=3
 
