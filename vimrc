@@ -196,7 +196,6 @@ let g:go_fmt_command = 'goimports'
 " ruby
 
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ecomba/vim-ruby-refactoring'
 Plug 'nelstrom/vim-textobj-rubyblock'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
@@ -387,7 +386,7 @@ nnoremap k gk
 nnoremap j gj
 
 " toggle folds
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -462,8 +461,8 @@ vnoremap <S-Tab> <gv
 inoremap ;<cr> <end>;<cr>
 
 " searching
-nmap <C-f> /
-imap <C-f> <Esc>/
+nmap <C-f> :LAgBuffer
+imap <C-f> <Esc>:LAgBuffer
 
 " re-select pasted text
 noremap gV `[v`]
@@ -491,7 +490,10 @@ nmap gJ :SplitjoinJoin<cr>
 
 " vim-commentary
 map <C-_> gcc<Esc>
-imap <C-_> <Esc>gccgi
+" imap <C-_> <Esc>gccgi
+
+" vim-ragtag open tag
+imap <C-_> <C-x>=
 
 " vimux
 map <Leader>vc :VimuxCloseRunner<CR>
@@ -631,21 +633,21 @@ augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown set nofoldenable
 
-  autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown vmap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown nmap <buffer> <leader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <leader>i <Plug>(todo-new)
+  autocmd FileType markdown vmap <buffer> <leader>i <Plug>(todo-new)
 
-  autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
-  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
-  autocmd FileType markdown vmap <buffer> <localleader>I <Plug>(todo-new-below)
+  autocmd FileType markdown nmap <buffer> <leader>I <Plug>(todo-new-below)
+  autocmd FileType markdown imap <buffer> <leader>I <Plug>(todo-new-below)
+  autocmd FileType markdown vmap <buffer> <leader>I <Plug>(todo-new-below)
 
-  autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown imap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown nmap <buffer> <leader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown vmap <buffer> <leader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown imap <buffer> <leader>x <Plug>(todo-mark-as-done)
 
-  autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
-  autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
-  autocmd FileType markdown imap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown nmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown vmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown imap <buffer> <leader>X <Plug>(todo-mark-as-undone)
 augroup END
 
 augroup RubyGroup
@@ -699,78 +701,7 @@ augroup END
 " fzf
 if executable('fzf')
   set rtp+=~/.fzf
-
-  function! s:buflist()
-    redir => ls
-    silent ls
-    redir END
-    return split(ls, '\n')
-  endfunction
-
-  function! s:bufopen(e)
-    execute 'buffer' matchstr(a:e, '^[ 0-9]*')
-  endfunction
-
-  " nnoremap <silent> <Leader>l :call fzf#run({
-
-  "       \   'sink':    function('<sid>bufopen'),
-  "       \   'options': '+m',
-  "       \   'down':    len(<sid>buflist()) + 2
-  "       \ })<CR>
-
-  " command! FZFMru call fzf#run({
-  "       \ 'source':  reverse(s:all_files()),
-  "       \ 'sink':    'edit',
-  "       \ 'options': '-m -x +s',
-  "       \ 'down':    '40%' })
-
-  function! s:all_files()
-    return extend(
-          \ filter(copy(v:oldfiles),
-          \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
-          \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
-  endfunction
-
-  function! s:tags_sink(line)
-    let parts = split(a:line, '\t\zs')
-    let excmd = matchstr(parts[2:], '^.*\ze;"\t')
-    execute 'silent e' parts[1][:-2]
-    let [magic, &magic] = [&magic, 0]
-    execute excmd
-    let &magic = magic
-  endfunction
-
-  function! s:tags()
-    if empty(tagfiles())
-      echohl WarningMsg
-      echom 'Preparing tags'
-      echohl None
-      execute 'TagsGenerate!'
-    endif
-
-    call s:fzf#run({
-          \ 'source':  'cat '.join(map(tagfiles(), 'fnamemodify(v:val, ":S")')).
-          \            '| grep -v ^!',
-          \ 'options': '+m -d "\t" --with-nth 1,4.. -n 1 --tiebreak=index',
-          \ 'down':    '40%',
-          \ 'sink':    function('s:tags_sink')})
-  endfunction
-
-  command! Tags call s:tags()
-
   nnoremap <silent> <leader>o :FZF -m<cr>
-
-  " nmap <leader>t :Tags<cr>
-
-  " nnoremap <silent> <Leader>s :call fzf#run({
-  "       \   'down': '40%',
-  "       \   'sink': 'botright split' })<CR>
-
-  " " Open files in vertical horizontal split
-  " nnoremap <silent> <Leader>v :call fzf#run({
-  "       \   'right': winwidth('.') / 2,
-  "       \   'sink':  'vertical botright split' })<CR>
-
 endif
 
 " ag
