@@ -339,8 +339,8 @@ highlight Todo          cterm=none ctermfg=207 ctermbg=none
 " highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
-highlight LintError   cterm=none ctermbg=233 ctermfg=205 guibg=#111111
-highlight LintWarning cterm=none ctermbg=233 ctermfg=97 guibg=#111111
+highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
+highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9933ff guibg=#111111
 
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
 highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
