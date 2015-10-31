@@ -328,21 +328,23 @@ try
 catch
 endtry
 
-highlight SignColumn cterm=none ctermbg=233
-highlight LineNr     cterm=none ctermbg=233
-highlight Search     cterm=none ctermfg=177 ctermbg=238
-highlight Todo       cterm=none ctermfg=207 ctermbg=none
+highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
+highlight LineNr        cterm=none ctermbg=233 guibg=#111111
+highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
+highlight Search        cterm=none ctermfg=177 ctermbg=238
+highlight Todo          cterm=none ctermfg=207 ctermbg=none
+
 " highlight CursorLine ctermbg=235
 " highlight Normal ctermbg=233 guibg=#111111
 " highlight ColorColumn ctermbg=234 guibg=#222222
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 
-highlight LintError   cterm=none ctermbg=233 ctermfg=205
-highlight LintWarning cterm=none ctermbg=233 ctermfg=97
+highlight LintError   cterm=none ctermbg=233 ctermfg=205 guibg=#111111
+highlight LintWarning cterm=none ctermbg=233 ctermfg=97 guibg=#111111
 
-highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118
-highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
+highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
+highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 guibg=#111111
 "}}}
 
 " Mappings {{{
