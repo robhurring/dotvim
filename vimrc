@@ -475,7 +475,17 @@ nmap <C-f> :Ag<CR>
 noremap gV `[v`]
 
 " todos, notes, misc stuff
-command! -complete=file Notes call grepper#parse_command(1, '-tool ag -query "(TODO|NOTE|INFO|ERROR|HACK):"')
+function! s:notes(...)
+  let l:notes_query = '(TODO|NOTE|INFO|ERROR|HACK):'
+  let l:extra_args = ''
+
+  if a:0 > 0
+    let l:extra_args = join(a:000, ' ')
+  endif
+
+  call grepper#parse_command(1, '-tool ag -query "' . l:notes_query . '" ' . l:extra_args)
+endfunction
+command! -complete=file Notes call s:notes(<f-args>)
 
 " vim-test
 nmap <silent> <Leader>t :TestFile<CR>
