@@ -51,6 +51,14 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'mhinz/vim-grepper'
+let g:grepper = {}
+let g:grepper.quickfix = 0
+let g:grepper.open = 1
+
+" Plug 'rking/ag.vim'
+" let g:ag_working_path_mode = 'r'
+" let g:ag_prg = 'ag -f --vimgrep'
 
 Plug 'Chiel92/vim-autoformat'
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
@@ -100,9 +108,6 @@ let g:multi_cursor_quit_key='<Esc>'
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
 
-Plug 'rking/ag.vim'
-let g:ag_working_path_mode = 'r'
-let g:ackprg = 'ag -f --vimgrep'
 
 Plug 'gabesoft/vim-ags'
 let g:ags_agmaxcount = 500
@@ -144,13 +149,11 @@ let g:vim_tags_main_file = 'tags'
 let g:vim_tags_use_language_field = 1
 let g:vim_tags_use_vim_dispatch = 1
 
-Plug 'maxbrunsfeld/vim-yankstack'
-
-" Plug 'vim-scripts/YankRing.vim'
-" let g:yankring_history_dir = '$HOME/.vim/tmp'
-" let g:yankring_manual_clipboard_check = 0
-" let g:yankring_replace_n_pkey = ''
-" let g:yankring_replace_n_nkey = ''
+Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = '$HOME/.vim/tmp'
+let g:yankring_manual_clipboard_check = 0
+let g:yankring_replace_n_pkey = ''
+let g:yankring_replace_n_nkey = ''
 
 " Plug 'Raimondi/delimitMate'
 Plug 'jiangmiao/auto-pairs'
@@ -332,11 +335,12 @@ catch
 endtry
 
 " Wombat overrides
+" http://www.colorpicker.com
 highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
 highlight LineNr        cterm=none ctermbg=233 guibg=#111111
 highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
 highlight Search        cterm=none ctermfg=177 ctermbg=238
-highlight Todo          cterm=none ctermfg=207 ctermbg=none
+highlight Todo          cterm=none ctermfg=207 ctermbg=none guifg=#E158E8 guibg=#5B415C
 highlight ColorColumn   cterm=none ctermbg=234 guibg=#292929
 
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
@@ -463,16 +467,15 @@ vnoremap <S-Tab> <gv
 inoremap ;<cr> <end>;<cr>
 
 " searching
-nmap <C-f> :LAgBuffer
-imap <C-f> <Esc>:LAgBuffer
+command! -nargs=* -complete=file GG Grepper! -tool git -query <args>
+command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
+nmap <C-f> :Ag<CR>
 
 " re-select pasted text
 noremap gV `[v`]
 
 " todos, notes, misc stuff
-
-" command! Todo e ~/Dropbox/Config/todo.md
-command! Notes LAg '(TODO|NOTE|INFO|ERROR|HACK):'
+command! -complete=file Notes call grepper#parse_command(1, '-tool ag -query "(TODO|NOTE|INFO|ERROR|HACK):"')
 
 " vim-test
 nmap <silent> <Leader>t :TestFile<CR>
@@ -516,8 +519,7 @@ map <silent> <F1> :FixWhitespace<cr><leader>=<cr>
 nnoremap <leader>e :NERDTreeToggle<cr>
 
 " yankring
-" nnoremap <leader>y :YRShow<cr>
-nnoremap <leader>y :Yanks<cr>
+nnoremap <leader>y :YRShow<cr>
 
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
