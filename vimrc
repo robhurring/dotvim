@@ -485,7 +485,7 @@ function! s:notes(...)
 
   call grepper#parse_command(1, '-tool ag -query "' . l:notes_query . '" ' . l:extra_args)
 endfunction
-command! -complete=file Notes call s:notes(<f-args>)
+command! -nargs=* -complete=file Notes call s:notes(<f-args>)
 
 " vim-test
 nmap <silent> <Leader>t :TestFile<CR>
