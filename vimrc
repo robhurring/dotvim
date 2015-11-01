@@ -144,11 +144,13 @@ let g:vim_tags_main_file = 'tags'
 let g:vim_tags_use_language_field = 1
 let g:vim_tags_use_vim_dispatch = 1
 
-Plug 'vim-scripts/YankRing.vim'
-let g:yankring_history_dir = '$HOME/.vim/tmp'
-let g:yankring_manual_clipboard_check = 0
-let g:yankring_replace_n_pkey = ''
-let g:yankring_replace_n_nkey = ''
+Plug 'maxbrunsfeld/vim-yankstack'
+
+" Plug 'vim-scripts/YankRing.vim'
+" let g:yankring_history_dir = '$HOME/.vim/tmp'
+" let g:yankring_manual_clipboard_check = 0
+" let g:yankring_replace_n_pkey = ''
+" let g:yankring_replace_n_nkey = ''
 
 " Plug 'Raimondi/delimitMate'
 Plug 'jiangmiao/auto-pairs'
@@ -237,6 +239,7 @@ let g:todo_file = expand('~/Dropbox/config/todo.md')
 " set tags+=.git/tags
 
 set autoindent
+set autoread
 set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
 set backupdir=~/.vim/tmp
 set clipboard=unnamed
@@ -328,16 +331,13 @@ try
 catch
 endtry
 
+" Wombat overrides
 highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
 highlight LineNr        cterm=none ctermbg=233 guibg=#111111
 highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
 highlight Search        cterm=none ctermfg=177 ctermbg=238
 highlight Todo          cterm=none ctermfg=207 ctermbg=none
-
-" highlight CursorLine ctermbg=235
-" highlight Normal ctermbg=233 guibg=#111111
-" highlight ColorColumn ctermbg=234 guibg=#222222
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+highlight ColorColumn   cterm=none ctermbg=234 guibg=#292929
 
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9933ff guibg=#111111
@@ -515,11 +515,9 @@ map <silent> <F1> :FixWhitespace<cr><leader>=<cr>
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
 
-" vimfiler
-" nnoremap <leader>e :VimFilerExplorer -toggle<cr>
-
 " yankring
-nnoremap <leader>y :YRShow<cr>
+" nnoremap <leader>y :YRShow<cr>
+nnoremap <leader>y :Yanks<cr>
 
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
@@ -563,10 +561,6 @@ augroup VimrcGroup
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} source %
 
-  " change background on insert mode
-  " autocmd InsertEnter * hi Normal ctermbg=232 guibg=#000000
-  " autocmd InsertLeave * hi Normal ctermbg=234 guibg=#111111
-
   " omnicomplete stuffs
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -578,6 +572,7 @@ augroup VimrcGroup
   autocmd BufWritePost * Neomake
 
   " quickfix gutter signs
+  " SEE: https://github.com/dhruvasagar/vim-markify
   " NOTE: clean this up, and put it somewhere better
   let s:sign_ids = {}
   let s:sign_text = "\uE0B1"
