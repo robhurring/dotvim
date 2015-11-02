@@ -36,6 +36,7 @@ Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
 " color schemes
 
 Plug 'sheerun/vim-wombat-scheme'
+Plug 'kristijanhusak/vim-hybrid-material'
 
 " misc plugins
 
@@ -285,6 +286,7 @@ set tabstop=2
 set undodir=~/.vim/undo
 set undofile
 set updatecount=100                              " Write swap file to disk every 100 chars
+set updatetime=1000
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
 set wildmenu                                     " Enhanced completion hints in command line
 
@@ -427,7 +429,7 @@ nmap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
 
 " saving
-imap <C-s> <Esc>:update<CR>gi
+" imap <C-s> <Esc>:update<CR>gi
 nmap <C-s> <Esc>:update<CR>
 
 " remap pum selection
