@@ -36,7 +36,6 @@ Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
 " color schemes
 
 Plug 'sheerun/vim-wombat-scheme'
-Plug 'kristijanhusak/vim-hybrid-material'
 
 " misc plugins
 
@@ -339,6 +338,7 @@ endtry
 
 " Wombat overrides
 " http://www.colorpicker.com
+
 highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
 highlight LineNr        cterm=none ctermbg=233 guibg=#111111
 highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
