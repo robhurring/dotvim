@@ -51,6 +51,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
