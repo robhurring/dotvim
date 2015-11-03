@@ -5,8 +5,8 @@ if !has('nvim')
 endif
 filetype off
 
-let g:mapleader=' '
-let g:maplocalleader=' '
+let g:mapleader = "\<Space>"
+let g:maplocalleader= ','
 
 inoremap <C-c> <Esc>
 inoremap jk <Esc>l
@@ -356,6 +356,10 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 
 " Mappings {{{
 
+" Leader mappings
+nmap <Leader><Leader> V
+nnoremap <Leader>w :w<CR>
+
 " Search settings
 nmap <silent> <leader>/ :noh<CR>
 
@@ -651,20 +655,9 @@ augroup MarkdownGroup
   autocmd FileType markdown set nofoldenable
 
   autocmd FileType markdown nmap <buffer> <leader>i <Plug>(todo-new)
-  autocmd FileType markdown imap <buffer> <leader>i <Plug>(todo-new)
-  autocmd FileType markdown vmap <buffer> <leader>i <Plug>(todo-new)
-
   autocmd FileType markdown nmap <buffer> <leader>I <Plug>(todo-new-below)
-  autocmd FileType markdown imap <buffer> <leader>I <Plug>(todo-new-below)
-  autocmd FileType markdown vmap <buffer> <leader>I <Plug>(todo-new-below)
-
   autocmd FileType markdown nmap <buffer> <leader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown vmap <buffer> <leader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown imap <buffer> <leader>x <Plug>(todo-mark-as-done)
-
   autocmd FileType markdown nmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
-  autocmd FileType markdown vmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
-  autocmd FileType markdown imap <buffer> <leader>X <Plug>(todo-mark-as-undone)
 augroup END
 
 augroup RubyGroup
