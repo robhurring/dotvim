@@ -52,6 +52,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+let g:fzf_command_prefix = 'FZF'
 
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
@@ -82,6 +83,7 @@ let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -404,7 +406,7 @@ nnoremap j gj
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " fzf.vim
-nnoremap <silent> <leader>o :Files<cr>
+nnoremap <silent> <leader>o :FzfFiles<cr>
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -478,7 +480,7 @@ inoremap ;<cr> <end>;<cr>
 " searching
 command! -nargs=* -complete=file GG Grepper! -tool git -query <args>
 command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
-nmap <C-f> :Ag<CR>
+nmap <C-f> :FZFAg<CR>
 
 " re-select pasted text
 noremap gV `[v`]
@@ -657,10 +659,13 @@ augroup MarkdownGroup
   autocmd FileType markdown set nofoldenable
 
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
+  autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
+
   autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
   autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
   autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
 
