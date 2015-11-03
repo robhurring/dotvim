@@ -354,22 +354,25 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 " Mappings {{{
 
 " Leader mappings
-nmap <Leader><Leader> V
+nmap <Leader>v V
 nnoremap <Leader>w :w<CR>
 
 " Search settings
 nmap <silent> <leader>/ :noh<CR>
+
+" swap buffers
+nmap <leader><leader> <C-^>
 
 " vim-expand-region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " delete into blackhole register by default
-nnoremap <leader>d "ad
-nnoremap <leader>dd "add
-nnoremap <leader>D "aD
-nnoremap <leader>p "ap
-nnoremap <leader>P "aP
+" nnoremap <leader>d "ad
+" nnoremap <leader>dd "add
+" nnoremap <leader>D "aD
+" nnoremap <leader>p "ap
+" nnoremap <leader>P "aP
 
 " jump to end after pasting
 " vnoremap <silent> y y`]
@@ -400,7 +403,6 @@ nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " fzf.vim
 nnoremap <silent> <leader>o :Files<cr>
-nnoremap <silent> <leader><leader> :Buffers<cr>
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -457,9 +459,6 @@ nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " find conflicts
 nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
-
-" swap buffers
-nmap <leader>. <C-^>
 
 " Keybindings to native vim features
 map <M-[> :tprev<CR>
