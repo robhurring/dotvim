@@ -21,7 +21,9 @@ uninstall:
 	rm -f $(TARGETS)
 
 update:
+	git stash
 	git pull
+	git stash pop
 	$(MAKE) bundle-update
 
 clean:
@@ -37,10 +39,7 @@ snapshot:
 	@mkdir -p ~/.vim/snapshots
 	vim +"PlugSnapshot ~/.vim/snapshots/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
-bootstrap: .fzf .lua .vim .plug
-
-.plug:
-	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+bootstrap: .fzf .lua .vim
 
 .vim: .fzf .lua
 	brew install vim --with-lua
@@ -50,9 +49,8 @@ bootstrap: .fzf .lua .vim .plug
 	~/.fzf/install
 
 # https://neovim.io/doc/user/nvim_python.html
-nvim: install
+nvim-bootstrap: install
 	[[ $(shell which pip2) ]] && sudo pip2 install neovim
 	[[ $(shell which pip3) ]] && sudo pip3 install neovim
 	nvim +UpdateRemotePlugins +qall
 
-.PHONY: install uninstall update
