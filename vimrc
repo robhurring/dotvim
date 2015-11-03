@@ -339,13 +339,16 @@ endtry
 highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
 highlight LineNr        cterm=none ctermbg=233 guibg=#111111
 highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
-highlight Search        cterm=none ctermfg=177 ctermbg=238
-highlight Todo          cterm=none ctermfg=207 ctermbg=none guifg=#E158E8 guibg=#5B415C
+highlight Search        cterm=none ctermfg=177 ctermbg=238   guifg=#cd7ffa guibg=#3a3a3a gui=underline
+highlight Todo          cterm=none ctermfg=207 ctermbg=none  guifg=#e158e8 guibg=#5b415c
 highlight ColorColumn   cterm=none ctermbg=234 guibg=#292929
 
+" custom highlightings
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9933ff guibg=#111111
 
+" plugin highlightings
+highlight ExtraWhitespace   cterm=none ctermbg=160 guibg=#aa00ff
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
 highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
 highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 guibg=#111111
@@ -354,7 +357,6 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 " Mappings {{{
 
 " Leader mappings
-nmap <Leader>v V
 nnoremap <Leader>w :w<CR>
 
 " Search settings
