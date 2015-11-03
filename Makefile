@@ -9,8 +9,8 @@ $(HOME)/.%: %
 
 # TODO: clean this up
 install: $(TARGETS)
-	$(MAKE) neovim
-	$(MAKE) bundle
+	@make neovim
+	@make bundle
 
 neovim:
 	@mkdir -p $(HOME)/.config

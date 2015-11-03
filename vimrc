@@ -5,8 +5,8 @@ if !has('nvim')
 endif
 filetype off
 
-let g:mapleader = "\<Space>"
-let g:maplocalleader= ','
+let g:mapleader="\<Space>"
+let g:maplocalleader=','
 
 inoremap <C-c> <Esc>
 inoremap jk <Esc>l
@@ -31,7 +31,6 @@ Plug 'kana/vim-textobj-user' " dep for: textobj-rubyblock(R)
 Plug 'tpope/vim-dispatch'    " dep for: vim-test(O)
 Plug 'mattn/webapi-vim'      " dep for: gist(R)
 Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
-" Plug 'MarcWeber/vim-addon-mw-utils'
 
 " color schemes
 
@@ -44,7 +43,6 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'terryma/vim-expand-region'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'mkitt/tabline.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -52,14 +50,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
-let g:grepper.quickfix = 0
 let g:grepper.open = 1
-
-" Plug 'rking/ag.vim'
-" let g:ag_working_path_mode = 'r'
-" let g:ag_prg = 'ag -f --vimgrep'
 
 Plug 'Chiel92/vim-autoformat'
 let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
@@ -108,10 +104,6 @@ let g:multi_cursor_quit_key='<Esc>'
 
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
-
-
-Plug 'gabesoft/vim-ags'
-let g:ags_agmaxcount = 500
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
@@ -226,6 +218,11 @@ let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
+" local bundles
+
+if filereadable(expand('~/.vim-plugins.local'))
+  source expand('~/.vim-plugins.local')
+endif
 call plug#end()
 runtime macros/matchit.vim
 
@@ -239,8 +236,6 @@ let g:todo_file = expand('~/Dropbox/config/todo.md')
 
 " set autochdir
 " set autowrite
-" set tags+=./tags
-" set tags+=.git/tags
 
 set autoindent
 set autoread
@@ -283,6 +278,8 @@ set smarttab
 set splitbelow
 set splitright
 set tabstop=2
+set tags+=./tags
+set tags+=.git/tags
 set undodir=~/.vim/undo
 set undofile
 set updatecount=100                              " Write swap file to disk every 100 chars
@@ -400,6 +397,10 @@ nnoremap j gj
 
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
+
+" fzf.vim
+nnoremap <silent> <leader>o :Files<cr>
+nnoremap <silent> <leader><leader> :Buffers<cr>
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -654,10 +655,12 @@ augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown set nofoldenable
 
-  autocmd FileType markdown nmap <buffer> <leader>i <Plug>(todo-new)
-  autocmd FileType markdown nmap <buffer> <leader>I <Plug>(todo-new-below)
-  autocmd FileType markdown nmap <buffer> <leader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown nmap <buffer> <leader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
+  autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+  autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
 
 augroup RubyGroup
@@ -708,12 +711,6 @@ augroup END
 
 " External {{{
 
-" fzf
-if executable('fzf')
-  set rtp+=~/.fzf
-  nnoremap <silent> <leader>o :FZF -m<cr>
-endif
-
 " ag
 if executable('ag')
   set grepprg=ag\ -f\ --vimgrep\ $*
@@ -723,6 +720,6 @@ endif
 " }}} /external
 
 if filereadable(expand('~/.vimrc.local'))
-  source ~/.vimrc.local
+  source expand('~/.vimrc.local')
 endif
 
