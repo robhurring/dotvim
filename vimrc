@@ -192,6 +192,10 @@ let g:go_fmt_autosave = 1
 let g:go_dispatch_enabled = 1
 let g:go_fmt_command = 'goimports'
 
+" elixir
+
+Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+
 " ruby
 
 Plug 'AndrewRadev/splitjoin.vim'
