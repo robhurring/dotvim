@@ -1,4 +1,5 @@
 XDG_CONFIG_HOME ?= $(HOME)/.config
+SNAPSHOTS_HOME ?= $(HOME)/.vim/snapshots
 CWD=$(shell pwd)
 
 DOTFILES=vimrc vim
@@ -13,14 +14,12 @@ neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim
 uninstall:
 	rm -f $(TARGETS)
 
-bootstrap: .vim
+bootstrap: .vim .neovim
 
 # ---> plugin commands
 
 update:
-	@git stash
 	@git pull
-	@git stash pop
 	@make bundle-update
 
 clean:
@@ -33,8 +32,8 @@ bundle-update:
 	vim +PlugUpdate +PlugClean! +qall
 
 snapshot:
-	@mkdir -p ~/.vim/snapshots
-	vim +"PlugSnapshot ~/.vim/snapshots/plugins.$(shell date +%y-%m-%d).snapshot" +qall
+	@mkdir -p $(SNAPSHOTS_HOME)
+	vim +"PlugSnapshot $(SNAPSHOTS_HOME)/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
 # ---> file targets
 
