@@ -374,13 +374,6 @@ nmap <leader><leader> <C-^>
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" delete into blackhole register by default
-" nnoremap <leader>d "ad
-" nnoremap <leader>dd "add
-" nnoremap <leader>D "aD
-" nnoremap <leader>p "ap
-" nnoremap <leader>P "aP
-
 " jump to end after pasting
 " vnoremap <silent> y y`]
 " vnoremap <silent> p p`]
@@ -410,6 +403,10 @@ nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " fzf.vim
 nnoremap <silent> <leader>o :FZFFiles<cr>
+
+" jit
+vnoremap <silent> <localleader>jo :Jit open<CR>
+nnoremap <silent> <localleader>jo :Jit open <cWORD><CR>
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -662,7 +659,7 @@ augroup MarkdownGroup
   autocmd FileType markdown set nofoldenable
 
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
   autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
 
