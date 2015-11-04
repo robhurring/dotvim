@@ -1,30 +1,27 @@
-FILES=vimrc vim
-TARGETS=$(FILES:%=$(HOME)/.%)
+XDG_CONFIG_HOME ?= $(HOME)/.config
 CWD=$(shell pwd)
 
-$(HOME)/.%: %
-	@if [ -e $@ ]; then mv $@ $@.bak; fi
-	@echo "Linking $<"
-	@ln -snf $(CWD)/$< $@
+DOTFILES=vimrc vim
+TARGETS=$(DOTFILES:%=$(HOME)/.%)
 
-# TODO: clean this up
 install: $(TARGETS)
-	@make neovim
 	@make bundle
 
-neovim:
-	@mkdir -p $(HOME)/.config
-	@ln -nsf $(HOME)/.vim $(HOME)/.config/nvim
-	@ln -nsf $(HOME)/.vimrc $(HOME)/.config/nvim/init.vim
+neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim
+	@make bundle
 
 uninstall:
 	rm -f $(TARGETS)
 
+bootstrap: .vim
+
+# ---> plugin commands
+
 update:
-	git stash
-	git pull
-	git stash pop
-	$(MAKE) bundle-update
+	@git stash
+	@git pull
+	@git stash pop
+	@make bundle-update
 
 clean:
 	vim +PlugClean! +qall
@@ -39,14 +36,30 @@ snapshot:
 	@mkdir -p ~/.vim/snapshots
 	vim +"PlugSnapshot ~/.vim/snapshots/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
-bootstrap: .vim
+# ---> file targets
+
+$(HOME)/.%: %
+	@if [ -e $@ ]; then mv $@ $@.bak; fi
+	@echo "Linking $<"
+	@ln -snf $(CWD)/$< $@
+
+$(XDG_CONFIG_HOME)/nvim: $(HOME)/.vim
+	@mkdir -p $(XDG_CONFIG_HOME)
+	@ln -nsf $< $@
+
+$(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vimrc
+	@ln -nsf $< $@
+
+# ---> dependencies
 
 .vim:
 	brew install lua
 	brew install vim --with-lua
 
 # https://neovim.io/doc/user/nvim_python.html
-nvim-bootstrap: install
+.neovim:
+	brew tap neovim/neovim
+	brew install neovim
 	[[ $(shell which pip2) ]] && sudo pip2 install neovim
 	[[ $(shell which pip3) ]] && sudo pip3 install neovim
 	nvim +UpdateRemotePlugins +qall
