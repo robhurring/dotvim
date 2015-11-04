@@ -20,7 +20,7 @@ bootstrap-neovim: .neovim
 
 # ---> plugin commands
 
-update:
+update: snapshot
 	@git pull
 	@make bundle-update
 

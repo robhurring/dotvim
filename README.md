@@ -31,6 +31,8 @@
 
 ### Updating
 
+*NOTE:* This will snapshot your existing plugins in case anything breaks.
+
 * run `make update` to update any plugins and the `.dotvim` code
 
 ### Plugins
@@ -46,6 +48,8 @@ All the plugins are listed in `vimrc` and are handled by `vim-plug`
 * run `make clean` to clean any removed bundles
 
 ###### Updating
+
+*NOTE:* This will snapshot your existing plugins in case anything breaks.
 
 * run `make update` to update any plugins and the `.dotvim` code
 
