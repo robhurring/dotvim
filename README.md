@@ -18,7 +18,7 @@ This is my vim setup.
 ###### for neovim
 
 1. follow instructions above for vanilla vim
-1. install neovim using `brew install --HEAD neovim`
+1. install [neovim](https://github.com/neovim/homebrew-neovim/blob/master/README.md) using `brew tap neovim/neovim && brew install neovim`
 1. run `make neovim-bootstrap` to install pip dependencies
     * tries to install the pip neovim stuff and update remote plugins
 1. wait for `pip` to fail somehow
