@@ -39,14 +39,11 @@ snapshot:
 	@mkdir -p ~/.vim/snapshots
 	vim +"PlugSnapshot ~/.vim/snapshots/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
-bootstrap: .fzf .lua .vim
+bootstrap: .vim
 
-.vim: .fzf
+.vim:
+	brew install lua
 	brew install vim --with-lua
-
-.fzf:
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	~/.fzf/install
 
 # https://neovim.io/doc/user/nvim_python.html
 nvim-bootstrap: install
