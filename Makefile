@@ -14,7 +14,9 @@ neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim
 uninstall:
 	rm -f $(TARGETS)
 
-bootstrap: .vim .neovim
+bootstrap: .vim
+
+bootstrap-neovim: .neovim
 
 # ---> plugin commands
 

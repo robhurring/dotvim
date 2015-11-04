@@ -8,9 +8,8 @@ This is my vim setup.
 
 1. clone repo to ~/.dotvim
 1. cd ~/.dotvim
-1. `make bootstrap`
-    * installs `vim-plug`
-    * installs `lua` for `neocomplete`
+1. `make bootstrap` (OSX only - via homebrew)
+    * installs `lua`
     * installs `vim --with-lua`
 1. `make install`
     * installs necessary dotfiles
@@ -18,14 +17,11 @@ This is my vim setup.
 ###### for neovim
 
 1. follow instructions above for vanilla vim
-1. install [neovim](https://github.com/neovim/homebrew-neovim/blob/master/README.md) using `brew tap neovim/neovim && brew install neovim`
-1. run `make neovim-bootstrap` to install pip dependencies
-    * tries to install the pip neovim stuff and update remote plugins
-1. wait for `pip` to fail somehow
-1. scratch head
-1. run again and hope for the best
+1. `make bootstrap-neovim`
+    * installs `neovim` SEE: [neovim](https://github.com/neovim/homebrew-neovim/blob/master/README.md)
+    * installs neovim's pip dependencies
 1. run `make neovim`
-    * link vim to the XDG config folders
+    * link vim to the `XDG_CONFIG_HOME` dotfiles
 
 ### Updating
 
