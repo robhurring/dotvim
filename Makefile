@@ -41,7 +41,7 @@ snapshot:
 
 bootstrap: .fzf .lua .vim
 
-.vim: .fzf .lua
+.vim: .fzf
 	brew install vim --with-lua
 
 .fzf:
