@@ -54,6 +54,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'FZF'
 
+Plug 'robhurring/todo.vim'
+let g:todo_file = expand('~/Dropbox/config/todo.md')
+
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
 let g:grepper.open = 1
@@ -230,9 +233,6 @@ if filereadable(expand('~/.vim-plugins.local'))
 endif
 call plug#end()
 runtime macros/matchit.vim
-
-" My plugin config
-let g:todo_file = expand('~/Dropbox/config/todo.md')
 
 " }}} /plugins
 
