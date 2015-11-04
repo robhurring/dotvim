@@ -150,7 +150,6 @@ let g:yankring_manual_clipboard_check = 0
 let g:yankring_replace_n_pkey = ''
 let g:yankring_replace_n_nkey = ''
 
-" Plug 'Raimondi/delimitMate'
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMultilineClose = 1
@@ -406,7 +405,7 @@ nnoremap j gj
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " fzf.vim
-nnoremap <silent> <leader>o :FzfFiles<cr>
+nnoremap <silent> <leader>o :FZFFiles<cr>
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -716,6 +715,9 @@ augroup END
 " }}} /augroups
 
 " External {{{
+
+" golint support
+set runtimepath+=$GOPATH/src/github.com/golang/lint/misc/vim
 
 " ag
 if executable('ag')
