@@ -506,8 +506,8 @@ nmap <silent> <Leader>tl :TestLast<CR>
 nmap <silent> <Leader>ta :TestSuite<CR>
 
 nmap <silent> <F7> :TestLast<CR>
-nmap <silent> <F8> :TestNearest<CR>
-nmap <silent> <F9> :TestFile<CR>
+nmap <silent> <F8> :TestFile<CR>
+nmap <silent> <F9> :TestSuite<CR>
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
