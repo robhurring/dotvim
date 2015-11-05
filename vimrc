@@ -393,11 +393,12 @@ nnoremap j gj
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " fzf.vim
-nnoremap <silent> <leader>o :FZFFiles<cr>
+nnoremap <leader>o :FZFFiles<cr>
 
 " jit
-vnoremap <silent> <localleader>jo :Jit open<CR>
-nnoremap <silent> <localleader>jo :Jit open <cWORD><CR>
+nmap <silent> <localleader>J <Plug>(jit-prompt)
+nmap <silent> <localleader>jo <Plug>(jit-open-prompt)
+nmap <silent> <localleader>jO <Plug>(jit-open-word)
 
 " toggle quickfix/location
 function! s:GetBufferList()
