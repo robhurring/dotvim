@@ -241,34 +241,29 @@ runtime macros/matchit.vim
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
 " set autochdir
-" set autowrite
+
 
 set autoindent
 set autoread
-set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
 set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=81
-set complete-=i
 set cursorline
-set diffopt=filler,iwhite                        " In diff mode, ignore whitespace changes and align unchanged lines
-set directory=~/.vim/swap                        " Directory to use for the swap file
-set endofline
+set diffopt=filler,iwhite,vertical               " In diff mode, ignore whitespace changes and align unchanged lines
 set expandtab
 set exrc                                         " enable per-directory .vimrc files
+set guifont=Hack:h15
 set hidden                                       " Don't abandon buffers moved to the background
 set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
 set lazyredraw
-set linebreak
 set list                                         " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
 set noerrorbells                                 " Disable error bells
 set nofoldenable
 set nowrap
-set nrformats=                                   " default to decimal
 set number
 set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
 set secure                                       " disable unsafe commands in local .vimrc files
@@ -286,9 +281,7 @@ set splitright
 set tabstop=2
 set tags+=./tags
 set tags+=.git/tags
-set undodir=~/.vim/undo
 set undofile
-set updatecount=100                              " Write swap file to disk every 100 chars
 set updatetime=1000
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
 set wildmenu                                     " Enhanced completion hints in command line
@@ -305,9 +298,6 @@ if has('mouse')
 endif
 
 " GUI rules
-if has('gui_running')
-  set guifont=Hack:h15
-endif
 
 " fix nvim's <C-h>
 if has('nvim')
