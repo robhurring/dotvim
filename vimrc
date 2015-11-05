@@ -694,6 +694,9 @@ augroup GolangGroup
   autocmd FileType go nmap <buffer> <localleader>gt :GoTest<cr>
   autocmd FileType go nmap <buffer> <localleader>gd <Plug>(go-doc-vertical)
   autocmd FileType go nmap <buffer> <localleader>gf <Plug>(go-def-vertical)
+
+  " don't show preview window for golang completions
+  autocmd FileType go setlocal completeopt-=preview
 augroup END
 
 augroup AirlineGroup
