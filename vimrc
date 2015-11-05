@@ -248,7 +248,7 @@ set autoread
 set backspace=eol,start,indent                   " Allow backspacing over indent, eol, & start
 set backupdir=~/.vim/tmp
 set clipboard=unnamed
-set colorcolumn=80
+set colorcolumn=81
 set complete-=i
 set cursorline
 set diffopt=filler,iwhite                        " In diff mode, ignore whitespace changes and align unchanged lines
