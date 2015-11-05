@@ -441,9 +441,9 @@ nmap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
 nmap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
 
-" saving
-" imap <C-s> <Esc>:update<CR>gi
-nmap <C-s> <Esc>:update<CR>
+" saving (keep imap to avoid vim-surround from binding it)
+inoremap <C-s> <Esc>:update<CR>
+nnoremap <C-s> <Esc>:update<CR>
 
 " remap pum selection
 " inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
