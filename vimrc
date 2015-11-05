@@ -155,8 +155,7 @@ let g:yankring_replace_n_nkey = ''
 
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
-let g:AutoPairsMultilineClose = 1
-let g:AutoPairsFlyMode = 0
+let g:AutoPairsMultilineClose = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
