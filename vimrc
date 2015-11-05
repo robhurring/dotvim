@@ -202,7 +202,8 @@ Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
 " ruby
 
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'nelstrom/vim-textobj-rubyblock'
+Plug 'rhysd/vim-textobj-ruby'
+
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
