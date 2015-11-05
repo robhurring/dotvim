@@ -335,7 +335,7 @@ endtry
 highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
 highlight LineNr        cterm=none ctermbg=233 guibg=#111111
 highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
-highlight Search        cterm=none ctermfg=177 ctermbg=238   guifg=#cd7ffa guibg=#3a3a3a gui=underline
+highlight Search        cterm=none ctermfg=177 ctermbg=238   guifg=#cd7ffa guibg=#3a3a3a
 highlight Todo          cterm=none ctermfg=207 ctermbg=none  guifg=#e158e8 guibg=#5b415c
 highlight ColorColumn   cterm=none ctermbg=234 guibg=#292929
 
