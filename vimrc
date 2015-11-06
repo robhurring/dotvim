@@ -391,8 +391,9 @@ nnoremap j gj
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 
-" fzf.vim
-nnoremap <leader>o :FZFFiles<cr>
+" fzf.vim <C-Space>
+nnoremap <NUL> :FZFFiles<cr>
+nnoremap <C-Space> :FZFFiles<cr>
 
 " jit
 nmap <silent> <localleader>J <Plug>(jit-prompt)
