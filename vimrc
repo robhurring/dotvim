@@ -570,9 +570,8 @@ augroup VimrcGroup
 
   autocmd BufNewFile,BufRead *.less set filetype=less
   autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
-  autocmd BufNewFile,BufRead *.rss,*.atom set filetype=xml
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
-  autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} set filetype=markdown
+  autocmd BufRead,BufNewFile *.{md,markdown} set filetype=markdown
   autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
 
   " auto-reload vimrc
