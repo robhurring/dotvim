@@ -50,6 +50,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
+Plug 'Chiel92/vim-autoformat'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'FZF'
@@ -60,9 +61,6 @@ let g:todo_file = expand('~/Dropbox/config/todo.md')
 Plug 'mhinz/vim-grepper'
 let g:grepper = {}
 let g:grepper.open = 1
-
-Plug 'Chiel92/vim-autoformat'
-let g:formatdef_rbeautify = '"ruby-beautify ".(&expandtab ? "-s -c ".&shiftwidth : "-t")'
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger       = '<Tab>'
@@ -528,7 +526,7 @@ nmap <C-down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" autoformat
+" autoformat / fix-whitespace
 map <silent> <leader>= :Autoformat ff=unix<cr>
 map <silent> <F1> :FixWhitespace<cr><leader>=<cr>
 
