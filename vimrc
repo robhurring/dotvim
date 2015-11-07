@@ -585,8 +585,6 @@ augroup VimrcGroup
   autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
 
   " skeletons
-  autocmd BufNewFile *_spec.rb    0read ~/.vim/skeletons/skeleton_spec.rb
-  autocmd BufNewFile *.sh         0read ~/.vim/skeletons/skeleton.sh
   autocmd BufNewFile *.{bash,zsh} 0read ~/.vim/skeletons/skeleton.zsh
 
   " linters
