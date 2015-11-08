@@ -2,6 +2,8 @@
 
 if !has('nvim')
   set nocompatible
+
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 filetype off
 
@@ -100,11 +102,11 @@ let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 let g:gist_show_privates = 1
 
-Plug 'terryma/vim-multiple-cursors'
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+" Plug 'terryma/vim-multiple-cursors'
+" let g:multi_cursor_next_key='<C-n>'
+" let g:multi_cursor_prev_key='<C-p>'
+" let g:multi_cursor_skip_key='<C-x>'
+" let g:multi_cursor_quit_key='<Esc>'
 
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
@@ -222,6 +224,7 @@ let g:ycm_key_list_select_completion   = ['<C-j>']
 let g:ycm_key_list_previous_completion = ['<C-k>']
 let g:ycm_completion_confirm_key       = '<CR>'
 let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_min_num_identifier_candidate_chars = 3
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 
@@ -239,7 +242,6 @@ runtime macros/matchit.vim
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
 " set autochdir
-
 
 set autoindent
 set autoread
@@ -293,13 +295,6 @@ set shellcmdflag=-lc
 " set ruler
 if has('mouse')
   set mouse=a
-endif
-
-" GUI rules
-
-" fix nvim's <C-h>
-if has('nvim')
-  nmap <BS> <C-w>h
 endif
 
 " viminfo: remember certain things when we exit
@@ -440,10 +435,15 @@ nnoremap <C-s> <Esc>:update<CR>
 " inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " splits and such
-nmap <C-j> <C-w><C-j>
-nmap <C-k> <C-w><C-k>
-nmap <C-l> <C-w><C-l>
-nmap <C-h> <C-w><C-h>
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+nmap <C-h> <C-w>h
+
+" fix nvim's <C-h>
+if has('nvim')
+  nmap <BS> <C-w>h
+endif
 
 " insert movement
 inoremap <C-l> <Right>
