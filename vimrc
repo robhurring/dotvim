@@ -185,6 +185,7 @@ let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,reac
 
 " go
 
+Plug 'rhysd/vim-go-impl', {'for': 'go'}
 Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -197,13 +198,12 @@ let g:go_fmt_command = 'goimports'
 
 " elixir
 
-Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+Plug 'elixir-lang/vim-elixir'
 
 " ruby
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/vim-textobj-ruby'
-
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
