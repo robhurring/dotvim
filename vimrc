@@ -14,12 +14,6 @@ inoremap <C-c> <Esc>
 inoremap jk <Esc>l
 " nnoremap ,, ,
 
-if $TERM =~? '256color'
-  set t_Co=256
-elseif $TERM =~? '^xterm$'
-  set t_Co=256
-endif
-
 filetype plugin indent on                  " Do filetype detection and load custom file plugins and indent files
 syntax on
 
