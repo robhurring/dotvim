@@ -346,14 +346,14 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 nnoremap <Leader>w :w<CR>
 
 " Search settings
-nmap <silent> <leader>/ :noh<CR>
+nnoremap <silent> <leader>/ :noh<CR>
 
 " swap buffers
-nmap <leader><leader> <C-^>
+nnoremap <leader><leader> <C-^>
 
 " vim-expand-region
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+vnoremap v <Plug>(expand_region_expand)
+vnoremap <C-v> <Plug>(expand_region_shrink)
 
 " jump to end after pasting
 " vnoremap <silent> y y`]
@@ -368,12 +368,12 @@ command! QA qall
 command! E e
 
 " buffers / windows
-nmap <C-t> <esc>:enew<CR>
-nmap <C-x> :bd<cr>
+nnoremap <C-t> <esc>:enew<CR>
+nnoremap <C-x> :bd<cr>
 
 " Emacs-like beginning and end of line.
-imap <C-e> <C-o>$
-imap <C-a> <C-o>^
+inoremap <C-e> <C-o>$
+inoremap <C-a> <C-o>^
 
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
@@ -387,9 +387,9 @@ nnoremap <NUL> :FZFFiles<cr>
 nnoremap <C-Space> :FZFFiles<cr>
 
 " jit
-nmap <silent> <localleader>J <Plug>(jit-prompt)
-nmap <silent> <localleader>jo <Plug>(jit-open-prompt)
-nmap <silent> <localleader>jO <Plug>(jit-open-word)
+nnoremap <silent> <localleader>J <Plug>(jit-prompt)
+nnoremap <silent> <localleader>jo <Plug>(jit-open-prompt)
+nnoremap <silent> <localleader>jO <Plug>(jit-open-word)
 
 " toggle quickfix/location
 function! s:GetBufferList()
@@ -419,8 +419,8 @@ function! <SID>ToggleList(bufname, pfx)
   endif
 endfunction
 
-nmap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
-nmap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
+nnoremap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
+nnoremap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
 nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
 
 " saving (keep imap to avoid vim-surround from binding it)
@@ -432,14 +432,14 @@ nnoremap <C-s> <Esc>:update<CR>
 " inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " splits and such
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
-nmap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
 
 " fix nvim's <C-h>
 if has('nvim')
-  nmap <BS> <C-w>h
+  nnoremap <BS> <C-w>h
 endif
 
 " insert movement
@@ -447,20 +447,20 @@ inoremap <C-l> <Right>
 inoremap <C-h> <Left>
 
 " text wrapping toggle
-nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
+nnoremap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " find conflicts
-nmap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
+nnoremap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 
 " Keybindings to native vim features
-map <M-[> :tprev<CR>
-map <M-]> :tnext<CR>
+noremap <M-[> :tprev<CR>
+noremap <M-]> :tnext<CR>
 
 " repeatng
-vnoremap . :normal .<CR>
-vnoremap @ :normal! @
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+vmap . :normal .<CR>
+vmap @ :normal! @
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 
 " line-endings
 inoremap ;<cr> <end>;<cr>
@@ -468,7 +468,7 @@ inoremap ;<cr> <end>;<cr>
 " searching
 command! -nargs=* -complete=file GG Grepper! -tool git -query <args>
 command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
-nmap <C-f> :FZFAg<CR>
+nnoremap <C-f> :FZFAg<CR>
 
 " re-select pasted text
 noremap gV `[v`]
@@ -487,14 +487,14 @@ endfunction
 command! -nargs=* -complete=file Notes call s:notes(<f-args>)
 
 " vim-test
-nmap <silent> <Leader>t :TestFile<CR>
-nmap <silent> <Leader>T :TestNearest<CR>
-nmap <silent> <Leader>tl :TestLast<CR>
-nmap <silent> <Leader>ta :TestSuite<CR>
+nnoremap <silent> <Leader>t :TestFile<CR>
+nnoremap <silent> <Leader>T :TestNearest<CR>
+nnoremap <silent> <Leader>tl :TestLast<CR>
+nnoremap <silent> <Leader>ta :TestSuite<CR>
 
-nmap <silent> <F7> :TestLast<CR>
-nmap <silent> <F8> :TestFile<CR>
-nmap <silent> <F9> :TestSuite<CR>
+nnoremap <silent> <F7> :TestLast<CR>
+nnoremap <silent> <F8> :TestFile<CR>
+nnoremap <silent> <F9> :TestSuite<CR>
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
@@ -503,18 +503,17 @@ command! JSONPrettyPrint :normal gqaj
 nnoremap <leader>fw :FixWhitespace<cr>
 
 " splitjoin
-nmap gS :SplitjoinSplit<cr>
-nmap gJ :SplitjoinJoin<cr>
+nnoremap gS :SplitjoinSplit<cr>
+nnoremap gJ :SplitjoinJoin<cr>
 
 " vim-commentary
 map <C-_> gcc<Esc>
-" imap <C-_> <Esc>gccgi
 
 " vim-ragtag open tag
 imap <C-_> <C-x>=
 
 " vimux
-map <Leader>vc :VimuxCloseRunner<CR>
+nnoremap <Leader>vc :VimuxCloseRunner<CR>
 
 " vim-unimpaired
 imap <C-Up> <Esc>[egi
@@ -525,8 +524,8 @@ vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
 " autoformat / fix-whitespace
-map <silent> <leader>= :Autoformat ff=unix<cr>
-map <silent> <F1> :FixWhitespace<cr><leader>=<cr>
+noremap <silent> <leader>= :Autoformat ff=unix<cr>
+noremap <silent> <F1> :FixWhitespace<cr><leader>=<cr>
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
@@ -538,15 +537,15 @@ nnoremap <leader>y :YRShow<cr>
 nnoremap <leader>b :TagbarToggle<cr>
 
 " airline
-nmap 1 <Plug>AirlineSelectTab1
-nmap 2 <Plug>AirlineSelectTab2
-nmap 3 <Plug>AirlineSelectTab3
-nmap 4 <Plug>AirlineSelectTab4
-nmap 5 <Plug>AirlineSelectTab5
-nmap 6 <Plug>AirlineSelectTab6
-nmap 7 <Plug>AirlineSelectTab7
-nmap 8 <Plug>AirlineSelectTab8
-nmap 9 <Plug>AirlineSelectTab9
+nnoremap 1 <Plug>AirlineSelectTab1
+nnoremap 2 <Plug>AirlineSelectTab2
+nnoremap 3 <Plug>AirlineSelectTab3
+nnoremap 4 <Plug>AirlineSelectTab4
+nnoremap 5 <Plug>AirlineSelectTab5
+nnoremap 6 <Plug>AirlineSelectTab6
+nnoremap 7 <Plug>AirlineSelectTab7
+nnoremap 8 <Plug>AirlineSelectTab8
+nnoremap 9 <Plug>AirlineSelectTab9
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
