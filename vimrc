@@ -48,6 +48,10 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'Chiel92/vim-autoformat'
 Plug 'dhruvasagar/vim-markify'
+let g:markify_error_text = "\u25CF"
+let g:markify_warning_text = "\u25CF"
+let g:markify_info_text = "\u25CF"
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'FZF'
@@ -201,7 +205,6 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
-
 Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
@@ -585,7 +588,8 @@ augroup VimrcGroup
   " linters
   autocmd BufWritePost * Neomake
 
-  autocmd QuickFixCmdPost * call MarkifyClear() | call Markify()
+  " quickfix + loclist signs
+  autocmd QuickFixCmdPost * call MarkifyClear | call Markify
 augroup END
 
 augroup MarkdownGroup
