@@ -259,7 +259,8 @@ set lazyredraw
 set list                                         " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
 set noerrorbells                                 " Disable error bells
-set nofoldenable
+set foldenable
+set foldlevel=99
 set nowrap
 set number
 set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
@@ -381,6 +382,7 @@ nnoremap j gj
 
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap \ zf
 
 " fzf.vim <C-Space>
 nnoremap <NUL> :FZFFiles<cr>
