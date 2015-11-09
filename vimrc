@@ -588,7 +588,7 @@ augroup VimrcGroup
   autocmd BufWritePost * Neomake
 
   " quickfix + loclist signs
-  autocmd QuickFixCmdPost * call MarkifyClear | call Markify
+  " autocmd QuickFixCmdPost * call Markify()
 augroup END
 
 augroup MarkdownGroup
