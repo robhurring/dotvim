@@ -47,10 +47,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'Chiel92/vim-autoformat'
-Plug 'dhruvasagar/vim-markify'
-let g:markify_error_text = "\u25CF"
-let g:markify_warning_text = "\u25CF"
-let g:markify_info_text = "\u25CF"
+" Plug 'dhruvasagar/vim-markify'
+" let g:markify_error_text = "\u25CF"
+" let g:markify_warning_text = "\u25CF"
+" let g:markify_info_text = "\u25CF"
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
