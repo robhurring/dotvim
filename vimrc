@@ -130,7 +130,7 @@ let g:neomake_ruby_rspec_maker = {
       \ 'errorformat': '%E%f:%l:\ %m'
       \ }
 
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', {'do': 'gem install ripper-tags'}
 let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 let g:gutentags_cache_dir = '~/.vim/tags'
 
