@@ -100,12 +100,6 @@ let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 let g:gist_show_privates = 1
 
-" Plug 'terryma/vim-multiple-cursors'
-" let g:multi_cursor_next_key='<C-n>'
-" let g:multi_cursor_prev_key='<C-p>'
-" let g:multi_cursor_skip_key='<C-x>'
-" let g:multi_cursor_quit_key='<Esc>'
-
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
 
@@ -136,15 +130,19 @@ let g:neomake_ruby_rspec_maker = {
       \ 'errorformat': '%E%f:%l:\ %m'
       \ }
 
-Plug 'szw/vim-tags'
-let g:vim_tags_auto_generate = 0
-let g:vim_tags_cache_dir = expand('~/.vim/tmp')
-let g:vim_tags_ignore_files = ['.gitignore']
-let g:vim_tags_ignore_file_comment_pattern = '^[#"]'
-let g:vim_tags_directories = ['.git']
-let g:vim_tags_main_file = 'tags'
-let g:vim_tags_use_language_field = 1
-let g:vim_tags_use_vim_dispatch = 1
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+let g:gutentags_cache_dir = '~/.vim/tags'
+
+" Plug 'szw/vim-tags'
+" let g:vim_tags_auto_generate = 0
+" let g:vim_tags_cache_dir = expand('~/.vim/tmp')
+" let g:vim_tags_ignore_files = ['.gitignore']
+" let g:vim_tags_ignore_file_comment_pattern = '^[#"]'
+" let g:vim_tags_directories = ['.git']
+" let g:vim_tags_main_file = 'tags'
+" let g:vim_tags_use_language_field = 1
+" let g:vim_tags_use_vim_dispatch = 1
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'

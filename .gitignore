@@ -6,6 +6,7 @@ vim/sessions/*
 vim/swap
 vim/undo
 vim/tmp
+vim/tags
 vim/doc/tags
 vim/vim*
 vim/.netrw*
