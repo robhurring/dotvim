@@ -10,6 +10,7 @@
 " based on version by
 "  Danila Bespalov (danila.bespalov@gmail.com)
 
+" http://www.colorpicker.com
 set background=dark
 
 if version > 580
@@ -76,4 +77,4 @@ hi! link NonText LineNr
 
 " Awesome 80 characters delemiter
 execute "set colorcolumn=" . join(range(81,335), ',')
-hi ColorColumn guibg=#292929 ctermbg=234
+hi ColorColumn guibg=#222222 ctermbg=234
