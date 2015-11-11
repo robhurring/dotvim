@@ -528,15 +528,15 @@ nnoremap <leader>y :YRShow<cr>
 nnoremap <leader>b :TagbarToggle<cr>
 
 " airline
-nnoremap 1 <Plug>AirlineSelectTab1
-nnoremap 2 <Plug>AirlineSelectTab2
-nnoremap 3 <Plug>AirlineSelectTab3
-nnoremap 4 <Plug>AirlineSelectTab4
-nnoremap 5 <Plug>AirlineSelectTab5
-nnoremap 6 <Plug>AirlineSelectTab6
-nnoremap 7 <Plug>AirlineSelectTab7
-nnoremap 8 <Plug>AirlineSelectTab8
-nnoremap 9 <Plug>AirlineSelectTab9
+nmap 1 <Plug>AirlineSelectTab1
+nmap 2 <Plug>AirlineSelectTab2
+nmap 3 <Plug>AirlineSelectTab3
+nmap 4 <Plug>AirlineSelectTab4
+nmap 5 <Plug>AirlineSelectTab5
+nmap 6 <Plug>AirlineSelectTab6
+nmap 7 <Plug>AirlineSelectTab7
+nmap 8 <Plug>AirlineSelectTab8
+nmap 9 <Plug>AirlineSelectTab9
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
