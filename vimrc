@@ -164,6 +164,7 @@ Plug 'shime/vim-livedown', {'for': 'markdown'}
 
 Plug 'tpope/vim-jdaddy', {'for': 'json'}
 Plug 'tpope/vim-ragtag'
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 
 Plug 'elzr/vim-json', {'for': 'json'}
 let g:vim_json_syntax_conceal = 0
