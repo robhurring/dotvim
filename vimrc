@@ -30,8 +30,6 @@ Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
 
 " color schemes
 
-Plug 'sheerun/vim-wombat-scheme'
-
 " misc plugins
 
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
@@ -130,7 +128,7 @@ let g:neomake_ruby_rspec_maker = {
       \ 'errorformat': '%E%f:%l:\ %m'
       \ }
 
-Plug 'ludovicchabant/vim-gutentags', {'do': 'gem install ripper-tags'}
+Plug 'ludovicchabant/vim-gutentags', {'do': 'rvm default do gem install ripper-tags'}
 let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 let g:gutentags_cache_dir = '~/.vim/tags'
 
@@ -318,21 +316,14 @@ try
 catch
 endtry
 
-" Wombat overrides
+" Theme overrides
 " http://www.colorpicker.com
 
-highlight SignColumn    cterm=none ctermbg=233 guibg=#111111
-highlight LineNr        cterm=none ctermbg=233 guibg=#111111
-highlight CursorLineNr  cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
-highlight Search        cterm=none ctermfg=177 ctermbg=238   guifg=#cd7ffa guibg=#3a3a3a
-highlight Todo          cterm=none ctermfg=207 ctermbg=none  guifg=#e158e8 guibg=#5b415c
-highlight ColorColumn   cterm=none ctermbg=234 guibg=#292929
-
-" custom highlightings
+" neomake highlightings
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9933ff guibg=#111111
 
-" plugin highlightings
+" signify plugin highlightings
 highlight ExtraWhitespace   cterm=none ctermbg=160 guibg=#aa00ff
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
 highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
