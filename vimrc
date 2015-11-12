@@ -115,7 +115,6 @@ let g:signify_vcs_list = ['git']
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
-let g:NERDTreeShowBookmarks=1
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeChDirMode = 2
 let g:NERDTreeWinSize = 30
