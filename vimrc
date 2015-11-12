@@ -117,7 +117,6 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeBookmarksFile = '~/.vim/bookmarks'
 let g:NERDTreeChDirMode = 2
 let g:NERDTreeWinSize = 30
 let g:NERDTreeMinimalUI = 1
