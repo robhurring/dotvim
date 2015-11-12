@@ -286,7 +286,6 @@ set splitright
 set tabstop=2
 set tags+=./tags
 set tags+=.git/tags
-set timeoutlen=250
 set undofile
 set updatetime=1000
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
