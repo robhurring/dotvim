@@ -78,7 +78,19 @@ let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 let g:airline_detect_paste = 1
 let g:airline_theme = 'bubblegum'
-
+let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
@@ -246,6 +258,8 @@ set cursorline
 set diffopt=filler,iwhite,vertical               " In diff mode, ignore whitespace changes and align unchanged lines
 set expandtab
 set exrc                                         " enable per-directory .vimrc files
+set foldenable
+set foldlevel=99
 set guifont=Hack:h15
 set hidden                                       " Don't abandon buffers moved to the background
 set hlsearch
@@ -256,8 +270,6 @@ set lazyredraw
 set list                                         " Display unprintable characters
 set listchars=tab:▸\ ,extends:»,precedes:«
 set noerrorbells                                 " Disable error bells
-set foldenable
-set foldlevel=99
 set nowrap
 set number
 set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
@@ -276,6 +288,7 @@ set splitright
 set tabstop=2
 set tags+=./tags
 set tags+=.git/tags
+set timeoutlen=250
 set undofile
 set updatetime=1000
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
