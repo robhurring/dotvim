@@ -142,16 +142,6 @@ Plug 'ludovicchabant/vim-gutentags', {'do': 'rvm default do gem install ripper-t
 let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 let g:gutentags_cache_dir = '~/.vim/tags'
 
-" Plug 'szw/vim-tags'
-" let g:vim_tags_auto_generate = 0
-" let g:vim_tags_cache_dir = expand('~/.vim/tmp')
-" let g:vim_tags_ignore_files = ['.gitignore']
-" let g:vim_tags_ignore_file_comment_pattern = '^[#"]'
-" let g:vim_tags_directories = ['.git']
-" let g:vim_tags_main_file = 'tags'
-" let g:vim_tags_use_language_field = 1
-" let g:vim_tags_use_vim_dispatch = 1
-
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'
 let g:yankring_manual_clipboard_check = 0
@@ -355,12 +345,6 @@ nnoremap <leader><leader> <C-^>
 " vim-expand-region
 vnoremap v <Plug>(expand_region_expand)
 vnoremap <C-v> <Plug>(expand_region_shrink)
-
-" jump to end after pasting
-" vnoremap <silent> y y`]
-" vnoremap <silent> p p`]
-" nnoremap <silent> p p`]
-" nnoremap <silent> P P`]
 
 " fatfingers
 command! Q q " Bind :Q to :q
