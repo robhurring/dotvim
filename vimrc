@@ -204,7 +204,7 @@ Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
 let g:test#strategy = 'vimux'
-let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
+let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/last-spec-failures.out --format progress'
 
 " ABRT error: https://github.com/Valloric/YouCompleteMe/issues/8
 " Solutions: add this to your ~/.<shell>rc
@@ -405,7 +405,7 @@ endfunction
 
 nnoremap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
 nnoremap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
-nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
+nnoremap <silent> <leader>sc :cg /tmp/last-spec-failures.out\|lopen<CR>
 
 " saving (keep imap to avoid vim-surround from binding it)
 inoremap <C-s> <Esc>:update<CR>
