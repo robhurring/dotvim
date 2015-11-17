@@ -374,9 +374,9 @@ nnoremap <NUL> :FZFFiles<cr>
 nnoremap <C-Space> :FZFFiles<cr>
 
 " jit
-nnoremap <silent> <localleader>J <Plug>(jit-prompt)
-nnoremap <silent> <localleader>jo <Plug>(jit-open-prompt)
-nnoremap <silent> <localleader>jO <Plug>(jit-open-word)
+nmap <localleader>J <Plug>(jit-prompt)
+nmap <localleader>jo <Plug>(jit-open-prompt)
+nmap <localleader>jO <Plug>(jit-open-word)
 
 " toggle quickfix/location
 function! s:GetBufferList()
