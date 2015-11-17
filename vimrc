@@ -443,6 +443,9 @@ nnoremap <silent> <leader>fc <ESC>/\v^[<=>]{7}( .*\|$)<CR>
 noremap <M-[> :tprev<CR>
 noremap <M-]> :tnext<CR>
 
+" marks
+nnoremap gm m
+
 " repeatng
 vmap . :normal .<CR>
 vmap @ :normal! @
