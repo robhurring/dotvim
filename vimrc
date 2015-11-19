@@ -10,7 +10,6 @@ filetype off
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 
-inoremap <C-c> <Esc>
 inoremap jk <Esc>l
 " nnoremap ,, ,
 
@@ -28,15 +27,10 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O)
 Plug 'mattn/webapi-vim'      " dep for: gist(R)
 Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
 
-" color schemes
-
 " misc plugins
 
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'terryma/vim-expand-region'
-Plug 'benmills/vimux'
-Plug 'jszakmeister/vim-togglecursor'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -44,11 +38,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
+Plug 'benmills/vimux'
+Plug 'jszakmeister/vim-togglecursor'
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
-let g:incsearch#consistent_n_direction = 1
 let g:incsearch#magic = '\v'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -123,7 +118,7 @@ let g:NERDTreeMinimalUI = 1
 
 Plug 'benekastah/neomake'
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_enabled_makers = ['mri', 'rubocop']
+let g:neomake_ruby_enabled_makers = ['mri', 'rubocop']
 let g:neomake_open_list = 0
 let g:neomake_warning_sign = {
       \ 'texthl': 'LintWarning',
@@ -141,8 +136,6 @@ let g:neomake_ruby_rspec_maker = {
       \ ],
       \ 'errorformat': '%E%f:%l:\ %m'
       \ }
-
-Plug 'tpope/vim-bundler'
 
 Plug 'ludovicchabant/vim-gutentags', {
       \ 'do': 'rvm default do gem install ripper-tags gem-ripper-tags'
@@ -205,11 +198,12 @@ Plug 'elixir-lang/vim-elixir'
 
 " ruby
 
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'rhysd/vim-textobj-ruby'
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'rhysd/vim-textobj-ruby'
 Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
@@ -236,7 +230,8 @@ if filereadable(expand('~/.vim-plugins.local'))
   source expand('~/.vim-plugins.local')
 endif
 call plug#end()
-runtime macros/matchit.vim
+" TODO: is this necessary?
+" runtime macros/matchit.vim
 
 " }}} /plugins
 
@@ -315,6 +310,7 @@ else
   set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 endif
 
+" netrw tree view
 let g:netrw_liststyle=3
 
 " }}}
@@ -341,18 +337,11 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 
 " Mappings {{{
 
-" Leader mappings
-nnoremap <Leader>w :w<CR>
-
 " Search settings
 nnoremap <silent> <leader>/ :noh<CR>
 
 " swap buffers
 nnoremap <leader><leader> <C-^>
-
-" vim-expand-region
-vnoremap v <Plug>(expand_region_expand)
-vnoremap <C-v> <Plug>(expand_region_shrink)
 
 " fatfingers
 command! Q q " Bind :Q to :q
@@ -362,11 +351,7 @@ command! E e
 
 " buffers / windows
 nnoremap <C-t> <esc>:enew<CR>
-nnoremap <C-x> :bd<cr>
-
-" Emacs-like beginning and end of line.
-inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>^
+nnoremap <C-x> :bd<CR>
 
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
@@ -468,9 +453,8 @@ command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
 nnoremap <C-f> :FZFAg<CR>
 
 " incsearch.vim
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+map g/  <Plug>(incsearch-forward)
+map g?  <Plug>(incsearch-backward)
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 map *  <Plug>(incsearch-nohl-*)
@@ -499,16 +483,12 @@ nnoremap <silent> <Leader>t :TestFile<CR>
 nnoremap <silent> <Leader>T :TestNearest<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>ta :TestSuite<CR>
-
 nnoremap <silent> <F7> :TestLast<CR>
 nnoremap <silent> <F8> :TestFile<CR>
 nnoremap <silent> <F9> :TestSuite<CR>
 
 " vim-jdaddy
 command! JSONPrettyPrint :normal gqaj
-
-" vim-trailing-whitespace
-nnoremap <leader>fw :FixWhitespace<cr>
 
 " splitjoin
 nnoremap gS :SplitjoinSplit<cr>
@@ -533,7 +513,7 @@ vmap <C-Down> ]egv
 
 " autoformat / fix-whitespace
 noremap <silent> <leader>= :Autoformat ff=unix<cr>
-noremap <silent> <F1> :FixWhitespace<cr><leader>=<cr>
+nmap <silent> <F1> :FixWhitespace<cr><leader>=<cr>
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
@@ -607,16 +587,16 @@ augroup LargeFile
 augroup END
 
 function! <SID>LargeFile()
- " no syntax highlighting etc
- set eventignore+=FileType
- " save memory when other file is viewed
- setlocal bufhidden=unload
- " is read-only (write with :w new_filename)
- setlocal buftype=nowrite
- " no undo possible
- setlocal undolevels=-1
- " display message
- autocmd! VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+  " no syntax highlighting etc
+  set eventignore+=FileType
+  " save memory when other file is viewed
+  setlocal bufhidden=unload
+  " is read-only (write with :w new_filename)
+  setlocal buftype=nowrite
+  " no undo possible
+  setlocal undolevels=-1
+  " display message
+  autocmd! VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
 endfunction
 
 augroup MarkdownGroup
@@ -684,9 +664,6 @@ augroup END
 " }}} /augroups
 
 " External {{{
-
-" golint support
-set runtimepath+=$GOPATH/src/github.com/golang/lint/misc/vim
 
 " ag
 if executable('ag')
