@@ -371,36 +371,12 @@ nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
 
 " toggle quickfix/location
-function! s:GetBufferList()
-  redir =>buflist
-  silent! ls!
-  redir END
-  return buflist
-endfunction
+nmap <leader>l <Plug>(toggle-location-list)
+nmap <leader>c <Plug>(toggle-quickfix-list)
 
-function! <SID>ToggleList(bufname, pfx)
-  let l:buflist = s:GetBufferList()
-  for l:bufnum in map(filter(split(l:buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(l:bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx ==? 'l' && len(getloclist(0)) == 0
-    echohl ErrorMsg
-    echo 'Location List is Empty.'
-    return
-  endif
-  let l:winnr = winnr()
-  exec(a:pfx.'open')
-  if winnr() != l:winnr
-    wincmd p
-  endif
-endfunction
-
-nnoremap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
-nnoremap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
-nnoremap <silent> <leader>sc :cg /tmp/last-spec-failures.out\|lopen<CR>
+" nnoremap <silent> <leader>l :call <SID>ToggleList("Location List", 'l')<CR>
+" nnoremap <silent> <leader>c :call <SID>ToggleList("Quickfix List", 'c')<CR>
+" nnoremap <silent> <leader>sc :cg /tmp/last-spec-failures.out\|lopen<CR>
 
 " saving (keep imap to avoid vim-surround from binding it)
 inoremap <C-s> <Esc>:update<CR>
