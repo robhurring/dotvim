@@ -592,6 +592,26 @@ augroup VimrcGroup
   " autocmd QuickFixCmdPost * call Markify()
 augroup END
 
+" large file handling
+let g:LargeFile = 1024 * 1024 * 10
+augroup LargeFile
+  autocmd!
+  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call s:LargeFile() | endif
+augroup END
+
+function! <SID>LargeFile()
+ " no syntax highlighting etc
+ set eventignore+=FileType
+ " save memory when other file is viewed
+ setlocal bufhidden=unload
+ " is read-only (write with :w new_filename)
+ setlocal buftype=nowrite
+ " no undo possible
+ setlocal undolevels=-1
+ " display message
+ autocmd! VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction
+
 augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown set nofoldenable
@@ -612,13 +632,13 @@ augroup RubyGroup
   autocmd FileType ruby,eruby nmap <buffer> m ]mzz
   autocmd FileType ruby,eruby nmap <buffer> M [mzz
 
-  " make ? part of word
-  autocmd FileType ruby,eruby setlocal iskeyword+=?
+  " make ?,! part of word
+  autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " align examples as you type in cucumber
-  autocmd FileType cucumber inoremap <buffer> <silent> <Bar> <Bar><Esc>:call <SID>align_cucumber()<CR>a
+  autocmd FileType cucumber inoremap <buffer> <silent> <Bar> <Bar><Esc>:call <SID>AlignCucumber()<CR>a
 
-  function! s:align_cucumber()
+  function! s:AlignCucumber()
     let p = '^\s*|\s.*\s|\s*$'
     if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
       let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
