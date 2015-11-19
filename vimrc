@@ -48,6 +48,8 @@ Plug 'Chiel92/vim-autoformat'
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
+let g:incsearch#consistent_n_direction = 1
+let g:incsearch#magic = '\v'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
