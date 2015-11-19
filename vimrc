@@ -133,13 +133,18 @@ let g:neomake_error_sign = {
 " simple rspec runner for neomake
 let g:neomake_ruby_rspec_maker = {
       \ 'exe': 'rspec',
-      \ 'args': ['--require=~/.vim/config/rspec_vim_formatter.rb', '--format=VimFormatter'],
+      \ 'args': [
+      \   '--require=~/.vim/config/rspec_vim_formatter.rb',
+      \   '--format=VimFormatter'
+      \ ],
       \ 'errorformat': '%E%f:%l:\ %m'
       \ }
 
 Plug 'tpope/vim-bundler'
 
-Plug 'ludovicchabant/vim-gutentags', {'do': 'rvm default do gem install ripper-tags'}
+Plug 'ludovicchabant/vim-gutentags', {
+      \ 'do': 'rvm default do gem install ripper-tags gem-ripper-tags'
+      \}
 let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 let g:gutentags_cache_dir = '~/.vim/tags'
 
