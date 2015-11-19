@@ -643,9 +643,9 @@ augroup RubyGroup
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " align examples as you type in cucumber
-  autocmd FileType cucumber inoremap <buffer> <silent> <Bar> <Bar><Esc>:call <SID>AlignCucumber()<CR>a
+  autocmd FileType cucumber inoremap <buffer> <silent> <Bar> <Bar><Esc>:call <SID>AlignPipes()<CR>a
 
-  function! s:AlignCucumber()
+  function! s:AlignPipes()
     let p = '^\s*|\s.*\s|\s*$'
     if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
       let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
@@ -671,14 +671,14 @@ augroup END
 
 augroup AirlineGroup
   autocmd!
-  function! MyAirline()
+  function! <SID>MyAirline()
     let l:spc = g:airline_symbols.space
     let g:airline_section_b = airline#section#create(['%<', 'file', l:spc, 'readonly'])
     let g:airline_section_c = ''
     let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
     let g:airline_section_z = airline#section#create(['hunks', 'branch'])
   endfunction
-  autocmd Vimenter * call MyAirline()
+  autocmd Vimenter * call s:MyAirline()
 augroup END
 
 " }}} /augroups
