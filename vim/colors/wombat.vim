@@ -37,17 +37,17 @@ hi LineNr ctermfg=241 ctermbg=233 cterm=none guifg=#857b6f guibg=#111111 gui=non
 hi SpecialKey ctermfg=241 ctermbg=235 cterm=none guifg=#626262 guibg=#2b2b2b gui=none
 hi WarningMsg ctermfg=203 guifg=#ff5f55
 hi ErrorMsg ctermfg=196 ctermbg=234 cterm=bold guifg=#e3e0d7 guibg=#3a3a3a gui=bold
-hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#e3e0d7 guibg=#3a3a3a gui=bold
-hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#e3e0d7 guibg=#3a3a3a gui=bold
+hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#F274B5 guibg=#3a3a3a gui=bold
+hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#F274B5 guibg=#3a3a3a gui=bold
 hi SignColumn cterm=none ctermbg=233 guibg=#111111
 hi CursorLineNr cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
 
 " Vim >= 7.0 specific colors
 if version >= 700
-hi CursorLine ctermbg=236 cterm=none guibg=#32322f
-hi MatchParen ctermfg=228 ctermbg=101 cterm=bold guifg=#eae788 guibg=#857b6f gui=bold
-hi Pmenu ctermfg=230 ctermbg=238 guifg=#ffffd7 guibg=#444444
-hi PmenuSel ctermfg=232 ctermbg=192 guifg=#080808 guibg=#cae982
+  hi CursorLine ctermbg=236 cterm=none guibg=#32322f
+  hi MatchParen ctermfg=228 ctermbg=101 cterm=bold guifg=#eae788 guibg=#857b6f gui=bold
+  hi Pmenu ctermfg=230 ctermbg=238 guifg=#ffffd7 guibg=#444444
+  hi PmenuSel ctermfg=232 ctermbg=192 guifg=#080808 guibg=#cae982
 endif
 
 " Diff highlighting
@@ -68,7 +68,7 @@ hi Type ctermfg=186 cterm=none guifg=#d4d987 gui=none
 hi Special ctermfg=229 cterm=none guifg=#eadead gui=none
 hi String ctermfg=113 cterm=none guifg=#95e454 gui=none
 hi Comment ctermfg=246 cterm=none guifg=#9c998e gui=none
-hi Todo ctermfg=207 cterm=none guifg=#e158e8 gui=none guibg=#5b415c
+hi Todo ctermfg=207 cterm=none guifg=#F274B5 gui=none guibg=#3a3a3a
 
 " Links
 hi! link FoldColumn Folded

@@ -88,8 +88,8 @@ let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
 " let g:airline#extensions#tabline#fnamecollapse = 1
-" let g:airline#extensions#tabline#tab_nr_type = 1
-" let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
 " let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 Plug 'bronson/vim-trailing-whitespace'
@@ -465,6 +465,9 @@ augroup VimrcGroup
   autocmd BufRead,BufNewFile *.{md,markdown} set filetype=markdown
   autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
 
+  " enable spelling for md, gitcommit
+  autocmd FileType {gitcommit,markdown} setlocal spell complete+=kspell
+
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} source %
 
@@ -497,8 +500,8 @@ augroup END
 
 augroup MarkdownGroup
   autocmd!
-  autocmd FileType markdown set nofoldenable
-  autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown setlocal nofoldenable
+
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
   autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
