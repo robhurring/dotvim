@@ -37,6 +37,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'Chiel92/vim-autoformat'
+Plug 'ap/vim-buftabline'
+let g:buftabline_numbers = 1
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -45,6 +47,10 @@ let g:incsearch#magic = '\v'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'FZF'
+
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_use_caching = 0
 
 Plug 'robhurring/todo.vim'
 let g:todo_file = expand('~/Dropbox/config/todo.md')
@@ -59,38 +65,94 @@ let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 
-Plug 'bling/vim-airline'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_detect_paste = 1
-let g:airline_theme = 'bubblegum'
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+      \'colorscheme': 'wombat',
+      \'active': {
+      \   'left': [['shortmode', 'paste'], ['readonly', 'filename', 'modified']],
+      \   'right': [['fugitive'], ['trailing', 'neomake', 'lineinfo'], ['filetype']]
+      \ },
+      \'component': {
+      \   'fugitive': '%{exists("*fugitive#head")?"\ue0a0 ".fugitive#head():""}',
+      \   'syntax': '%{neomake#statusline#LoclistStatus()}',
+      \   'shortmode': '%{strpart(lightline#mode(), 0, 1)}'
+      \ },
+      \ 'component_expand': {
+      \   'trailing': 'LLTrailingSpaceWarning',
+      \   'neomake': 'LLNeomake'
+      \ },
+      \ 'component_type': {
+      \   'trailing': 'error',
+      \   'neomake': 'error'
+      \ },
+      \'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
+      \ },
       \ }
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-" let g:airline#extensions#tabline#fnamecollapse = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#show_tab_nr = 1
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+augroup ComponentExpand
+  autocmd!
+  autocmd CursorHold,BufWritePost,InsertLeave * call s:flags()
+augroup END
+
+function! s:flags()
+  if exists('#LightLine')
+    call LLTrailingSpaceWarning()
+    call LLNeomake()
+    call lightline#update()
+  endif
+endfunction
+
+function! LLTrailingSpaceWarning()
+  let l:trailing = search('\s$', 'nw')
+  return (l:trailing != 0) ? "… " . trailing : ''
+endfunction
+
+function! LLNeomake()
+  let l:counts = neomake#statusline#LoclistCounts()
+  let l:warnings = get(l:counts, 'W', 0)
+  let l:errors = get(l:counts, 'E', 0)
+
+  if l:warnings > 0
+    return "\uf00d ".string(l:warnings + l:errors)
+  endif
+
+  return ''
+endfunction
+
+" Plug 'bling/vim-airline'
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.space = "\ua0"
+
+" let g:airline_powerline_fonts = 1
+" let g:airline_left_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_detect_paste = 1
+" let g:airline_theme = 'bubblegum'
+" let g:airline_mode_map = {
+"       \ '__' : '-',
+"       \ 'n'  : 'N',
+"       \ 'i'  : 'I',
+"       \ 'R'  : 'R',
+"       \ 'c'  : 'C',
+"       \ 'v'  : 'V',
+"       \ 'V'  : 'V',
+"       \ '' : 'V',
+"       \ 's'  : 'S',
+"       \ 'S'  : 'S',
+"       \ '' : 'S',
+"       \ }
+" let g:airline#extensions#tagbar#enabled = 0
+" let g:airline#extensions#hunks#enabled = 0
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'default'
+" " let g:airline#extensions#tabline#fnamecollapse = 1
+" let g:airline#extensions#tabline#tab_nr_type = 1
+" let g:airline#extensions#tabline#show_tab_nr = 1
+" " let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = []
@@ -296,6 +358,11 @@ endtry
 " Theme overrides
 " http://www.colorpicker.com
 
+highlight BufTabLineCurrent ctermfg=230 ctermbg=238 cterm=none guifg=#444444 guibg=#95e454 gui=none
+highlight BufTabLineActive  ctermfg=230 ctermbg=238 cterm=none guifg=#ffffd7 guibg=#444444 gui=none
+highlight BufTabLineHidden  ctermfg=230 ctermbg=238 cterm=none guifg=#999999 guibg=#444444 gui=none
+highlight link BufTabLineFill    StatusLine
+
 " neomake highlightings
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9933ff guibg=#111111
@@ -333,6 +400,7 @@ vnoremap \ zf
 " fzf.vim <C-Space>
 nnoremap <NUL> :FZFFiles<cr>
 nnoremap <C-Space> :FZFFiles<cr>
+nnoremap ` :FZFBuffers<CR>
 
 " jit
 nmap <localleader>J <Plug>(jit-prompt)
@@ -427,16 +495,21 @@ nnoremap <leader>y :YRShow<cr>
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
 
+" buftabline
+nmap <silent> 1 :1b<CR>
+nmap <silent> 2 :2b<CR>
+nmap <silent> 3 :3b<CR>
+
 " airline
-nmap <silent> 1 <Plug>AirlineSelectTab1
-nmap <silent> 2 <Plug>AirlineSelectTab2
-nmap <silent> 3 <Plug>AirlineSelectTab3
-nmap <silent> 4 <Plug>AirlineSelectTab4
-nmap <silent> 5 <Plug>AirlineSelectTab5
-nmap <silent> 6 <Plug>AirlineSelectTab6
-nmap <silent> 7 <Plug>AirlineSelectTab7
-nmap <silent> 8 <Plug>AirlineSelectTab8
-nmap <silent> 9 <Plug>AirlineSelectTab9
+" nmap <silent> 1 <Plug>AirlineSelectTab1
+" nmap <silent> 2 <Plug>AirlineSelectTab2
+" nmap <silent> 3 <Plug>AirlineSelectTab3
+" nmap <silent> 4 <Plug>AirlineSelectTab4
+" nmap <silent> 5 <Plug>AirlineSelectTab5
+" nmap <silent> 6 <Plug>AirlineSelectTab6
+" nmap <silent> 7 <Plug>AirlineSelectTab7
+" nmap <silent> 8 <Plug>AirlineSelectTab8
+" nmap <silent> 9 <Plug>AirlineSelectTab9
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
@@ -465,7 +538,8 @@ augroup VimrcGroup
   autocmd FileType {gitcommit,markdown} setlocal spell complete+=kspell
 
   " auto-reload vimrc
-  autocmd BufWritePost {.vimrc,vimrc} source %
+  " autocmd BufWritePost {.vimrc,vimrc} source %
+  autocmd BufWritePost {.vimrc,vimrc} nested source %
 
   " omnicomplete stuffs
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -484,14 +558,14 @@ augroup VimrcGroup
   autocmd FileType {json,javascript} command! JSONPrettyPrint :normal gqaj
 
   " airline
-  function! <SID>MyAirline()
-    let l:spc = g:airline_symbols.space
-    let g:airline_section_b = airline#section#create(['%<', 'file', l:spc, 'readonly'])
-    let g:airline_section_c = ''
-    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
-    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
-  endfunction
-  autocmd Vimenter * call s:MyAirline()
+  " function! <SID>MyAirline()
+  "   let l:spc = g:airline_symbols.space
+  "   let g:airline_section_b = airline#section#create(['%<', 'file', l:spc, 'readonly'])
+  "   let g:airline_section_c = ''
+  "   let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
+  "   let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+  " endfunction
+  " autocmd Vimenter * call s:MyAirline()
 augroup END
 
 augroup MarkdownGroup
