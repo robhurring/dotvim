@@ -317,9 +317,6 @@ nnoremap <leader><leader> <C-^>
 
 " fatfingers
 command! Q q " Bind :Q to :q
-command! Qall qall
-command! QA qall
-command! E e
 
 " buffers / windows
 nnoremap <C-t> <esc>:enew<CR>
@@ -358,7 +355,7 @@ nnoremap <C-h> <C-w>h
 
 " fix nvim's <C-h>
 if has('nvim')
-  nnoremap <BS> <C-w>h
+  nmap <BS> <C-h>
 endif
 
 " insert movement
@@ -459,8 +456,7 @@ augroup VimrcGroup
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
 
-  autocmd BufNewFile,BufRead *.less set filetype=less
-  autocmd BufNewFile,BufRead .jsbeautifyrc,.eslintrc,.jshintrc set filetype=json
+  autocmd BufNewFile,BufRead .{jsbeautifyrc,eslintrc,jshintrc} set filetype=json
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
   autocmd BufRead,BufNewFile *.{md,markdown} set filetype=markdown
   autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
@@ -485,7 +481,7 @@ augroup VimrcGroup
   autocmd BufWritePost * Neomake
 
   " because i can't remember gqaj
-  autocmd FileType json command! JSONPrettyPrint :normal gqaj
+  autocmd FileType {json,javascript} command! JSONPrettyPrint :normal gqaj
 
   " airline
   function! <SID>MyAirline()
