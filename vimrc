@@ -32,12 +32,12 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'henrik/vim-qargs' " Qargs + Qdo
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
