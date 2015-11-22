@@ -91,9 +91,14 @@ let g:lightline = {
       \ },
       \ }
 
+
+g:lightline#colorscheme#wombat#palette.insert.right = [
+      \['#ff0000', '#ffffff', 252, 233]
+      \]
 augroup ComponentExpand
   autocmd!
   autocmd CursorHold,BufWritePost,InsertLeave * call s:flags()
+
 augroup END
 
 function! s:flags()
