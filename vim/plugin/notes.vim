@@ -14,6 +14,5 @@ function! s:notes(...)
 
   call g:grepper#parse_command(1, '-tool ag -query "' . l:notes_query . '" ' . l:extra_args)
 endfunction
+
 command! -nargs=* -complete=file Notes call s:notes(<f-args>)
-
-

@@ -53,4 +53,3 @@ nnoremap <silent> <Plug>(jit-copy-prompt) :JitPrompt copy<CR>
 
 nnoremap <silent> <Plug>(jit-bind-word) :Jit bind <cWORD><CR>
 nnoremap <silent> <Plug>(jit-bind-prompt) :JitPrompt bind<CR>
-

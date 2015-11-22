@@ -36,6 +36,7 @@ Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-unimpaired'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'haya14busa/incsearch.vim'
@@ -64,7 +65,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
-
+let g:airline_symbols.linenr = ''
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -86,11 +87,11 @@ let g:airline_mode_map = {
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'default'
-" let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_tab_nr = 1
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let airline#extensions#whitespace#symbol = ''
+let airline#extensions#whitespace#trailing_format = '… %s'
 
 Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = []
@@ -105,36 +106,25 @@ let g:gist_show_privates = 1
 Plug 'mhinz/vim-signify'
 let g:signify_vcs_list = ['git']
 
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
-let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+Plug 'scrooloose/nerdtree'
+let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
 let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeChDirMode = 2
-let g:NERDTreeWinSize = 30
 let g:NERDTreeMinimalUI = 1
 
 Plug 'benekastah/neomake'
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_ruby_enabled_makers = ['mri', 'rubocop']
-let g:neomake_open_list = 0
-let g:neomake_warning_sign = {
-      \ 'texthl': 'LintWarning',
-      \ }
-let g:neomake_error_sign = {
-      \ 'text': "\u25CF",
-      \ 'texthl': 'LintError',
-      \ }
+let g:neomake_warning_sign = {'texthl': 'LintWarning'}
+let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
 
-Plug 'ludovicchabant/vim-gutentags', {
-      \ 'do': 'rvm default do gem install ripper-tags gem-ripper-tags'
-      \}
-let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+Plug 'ludovicchabant/vim-gutentags'
+if executable('ripper-tags')
+  let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+endif
 let g:gutentags_cache_dir = '~/.vim/tags'
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'
-let g:yankring_manual_clipboard_check = 0
-" let g:yankring_replace_n_pkey = ''
-" let g:yankring_replace_n_nkey = ''
+" let g:yankring_manual_clipboard_check = 0
 
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
@@ -150,9 +140,10 @@ Plug 'shime/vim-livedown', {'for': 'markdown'}
 
 " html/css/js
 
-Plug 'tpope/vim-jdaddy', {'for': 'json'}
+Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
 Plug 'tpope/vim-ragtag'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'pangloss/vim-javascript'
 
 Plug 'elzr/vim-json', {'for': 'json'}
 let g:vim_json_syntax_conceal = 0
@@ -162,9 +153,6 @@ let g:user_emmet_leader_key='<C-e>'
 
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
-
-Plug 'pangloss/vim-javascript'
-let g:used_javascript_libs = 'underscore,angularjs,jquery,angularui,jasmine,react'
 
 " go
 
@@ -189,7 +177,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
@@ -222,8 +209,6 @@ call plug#end()
 " Options {{{
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
-" set autochdir
-
 set autoindent
 set autoread
 set backupdir=~/.vim/tmp
@@ -232,7 +217,6 @@ set colorcolumn=81
 set cursorline
 set diffopt=filler,iwhite,vertical               " In diff mode, ignore whitespace changes and align unchanged lines
 set expandtab
-set exrc                                         " enable per-directory .vimrc files
 set foldenable
 set foldlevel=99
 set guifont=Hack:h15
@@ -248,7 +232,6 @@ set noerrorbells                                 " Disable error bells
 set nowrap
 set number
 set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
-set secure                                       " disable unsafe commands in local .vimrc files
 set sessionoptions-=help                         " don't restore help windows
 set shiftround
 set shiftwidth=2
@@ -261,8 +244,7 @@ set smarttab
 set splitbelow
 set splitright
 set tabstop=2
-set tags+=./tags
-set tags+=.git/tags
+set tags+=./tags,./git/tags
 set undofile
 set updatetime=1000
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
@@ -291,6 +273,7 @@ let g:netrw_liststyle = 3
 try
   colorscheme wombat
 catch
+  echom 'Missing color scheme!'
 endtry
 
 " Theme overrides
@@ -378,8 +361,8 @@ command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
 nnoremap <C-f> :FZFAg<CR>
 
 " incsearch.vim
-map g/  <Plug>(incsearch-forward)
-map g?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-forward)
+map g? <Plug>(incsearch-backward)
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 map *  <Plug>(incsearch-nohl-*)
@@ -465,7 +448,7 @@ augroup VimrcGroup
   autocmd FileType {gitcommit,markdown} setlocal spell complete+=kspell
 
   " auto-reload vimrc
-  autocmd BufWritePost {.vimrc,vimrc} source %
+  autocmd BufWritePost {.vimrc,vimrc} nested source %
 
   " omnicomplete stuffs
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -484,20 +467,19 @@ augroup VimrcGroup
   autocmd FileType {json,javascript} command! JSONPrettyPrint :normal gqaj
 
   " airline
-  function! <SID>MyAirline()
+  function! s:MyAirline()
     let l:spc = g:airline_symbols.space
     let g:airline_section_b = airline#section#create(['%<', 'file', l:spc, 'readonly'])
     let g:airline_section_c = ''
-    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%3v'])
+    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%-2v'])
     let g:airline_section_z = airline#section#create(['hunks', 'branch'])
   endfunction
-  autocmd Vimenter * call s:MyAirline()
+  autocmd Vimenter * call <SID>MyAirline()
 augroup END
 
 augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown setlocal nofoldenable
-
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
   autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
