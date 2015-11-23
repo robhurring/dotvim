@@ -305,6 +305,11 @@ command! Q q " Bind :Q to :q
 nnoremap <C-t> <esc>:enew<CR>
 nnoremap <C-x> :bd<CR>
 
+nnoremap <Plug>BufferNext :bn\|:call repeat#set("\<Plug>BufferNext")<CR>
+nnoremap <Plug>BufferPrev :bp\|:call repeat#set("\<Plug>BufferPrev")<CR>
+nmap gn <Plug>BufferNext
+nmap gN <Plug>BufferPrev
+
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
 nnoremap j gj
@@ -416,10 +421,6 @@ nmap <silent> 2 <Plug>AirlineSelectTab2
 nmap <silent> 3 <Plug>AirlineSelectTab3
 nmap <silent> 4 <Plug>AirlineSelectTab4
 nmap <silent> 5 <Plug>AirlineSelectTab5
-nmap <silent> 6 <Plug>AirlineSelectTab6
-nmap <silent> 7 <Plug>AirlineSelectTab7
-nmap <silent> 8 <Plug>AirlineSelectTab8
-nmap <silent> 9 <Plug>AirlineSelectTab9
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
