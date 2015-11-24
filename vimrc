@@ -331,6 +331,9 @@ nmap <localleader>jO <Plug>(jit-open-word)
 nmap <leader>l <Plug>(toggle-location-list)
 nmap <leader>c <Plug>(toggle-quickfix-list)
 
+" load vim-test failures into quickfix
+nnoremap <silent> <leader>sc :cg /tmp/last-spec-failures.out\|lopen<CR>
+
 " saving (keep imap to avoid vim-surround from binding it)
 inoremap <C-s> <Esc>:update<CR>
 nnoremap <C-s> <Esc>:update<CR>
