@@ -484,11 +484,15 @@ augroup END
 augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown setlocal nofoldenable
+  autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
+
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
-  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
+
   autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
   autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
+
   autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
   autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
@@ -499,7 +503,7 @@ augroup RubyGroup
   autocmd FileType ruby,eruby nmap <buffer> M [mzz
 
   " include ruby stuff as words
-  autocmd FileType ruby,eruby setlocal iskeyword+=?,!,:
+  autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " align examples as you type in cucumber
   autocmd FileType cucumber inoremap <buffer> <silent> <Bar> <Bar><Esc>:call <SID>AlignPipes()<CR>a
