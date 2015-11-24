@@ -1,15 +1,20 @@
 snippet tom "Tomdoc"
 # ${1:Public}: ${2:About}.
 #
-# $3
+# ${3:toma}
 #
 # Examples
 #
-# 	$4
+#   $5
 #
 # Returns ${5:nothing}.
 endsnippet
 
 snippet toma "Tomdoc - Arg"
-# ${1:arg} - ${2:description}${3:(default: $4)}).
+${1:arg} - ${2:description}${3:(default: $4)}).
+endsnippet
+
+snippet tomah "Tomdoc - Hash Arg"
+${1:arg} - ${2:description}${3:(default: $4)}):
+#           ${4::arg} - ${5:description}.
 endsnippet
