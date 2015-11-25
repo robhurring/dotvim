@@ -319,8 +319,9 @@ nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap \ zf
 
 " fzf.vim <C-Space>
-nnoremap <NUL> :FZFFiles<cr>
-nnoremap <C-Space> :FZFFiles<cr>
+nnoremap <Plug>FZFFiles :NERDTreeClose\|:FZFFiles<cr>
+nmap <NUL> <Plug>FZFFiles
+nmap <C-Space> <Plug>FZFFiles
 
 " jit
 nmap <localleader>J <Plug>(jit-prompt)
