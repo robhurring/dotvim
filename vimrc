@@ -88,9 +88,8 @@ let g:airline_mode_map = {
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let airline#extensions#whitespace#symbol = ''
 let airline#extensions#whitespace#trailing_format = '… %s'
 
