@@ -38,6 +38,7 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
+Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -177,7 +178,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
-Plug 'rhysd/vim-textobj-ruby'
 Plug 'janko-m/vim-test'
 " let test#strategy = 'dispatch'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
