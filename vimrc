@@ -327,6 +327,11 @@ nmap <localleader>J <Plug>(jit-prompt)
 nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
 
+" coerce
+nmap gcm <Plug>(op-coerce-mixedcase)
+nmap gcl <Plug>(op-coerce-camelcase)
+nmap gcs <Plug>(op-coerce-snakecase)
+
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-location-list)
 nmap <leader>c <Plug>(toggle-quickfix-list)

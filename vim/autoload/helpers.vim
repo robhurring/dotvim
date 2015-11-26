@@ -4,7 +4,7 @@ endif
 
 let g:loaded_helpers = 1
 
-function! g:helpers#GetSelection() range abort
+function! g:helpers#selection() range abort
   let l:reg_save = getreg('"')
   let l:regtype_save = getregtype('"')
   normal! ""gvy
