@@ -39,6 +39,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'robhurring/changecase.vim'
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -327,10 +328,11 @@ nmap <localleader>J <Plug>(jit-prompt)
 nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
 
-" coerce
-nmap gcm <Plug>(op-coerce-mixedcase)
-nmap gcl <Plug>(op-coerce-camelcase)
-nmap gcs <Plug>(op-coerce-snakecase)
+" changecase
+nmap grm <Plug>(op-changecase-mixedcase)
+nmap grc <Plug>(op-changecase-camelcase)
+nmap grs <Plug>(op-changecase-snakecase)
+nmap grd <Plug>(op-changecase-dashcase)
 
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-location-list)
