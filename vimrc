@@ -41,20 +41,32 @@ Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'robhurring/changecase.vim'
 
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = {
+      \'types': {
+      \ 1: ['.git', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+      \},
+      \'fallback': 'ag %s --files-with-matches --hidden -g ""'
+      \}
+let g:ctrlp_cache_dir = expand('~/.cache/ctrlp')
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git)$'
+      \ }
+
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#magic = '\v'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-let g:fzf_command_prefix = 'FZF'
 
 Plug 'robhurring/todo.vim'
 let g:todo_file = expand('~/Dropbox/config/todo.md')
 
 Plug 'mhinz/vim-grepper'
-let g:grepper = {}
-let g:grepper.open = 1
+let g:grepper = {
+      \'open': 1,
+      \'jump': 0,
+      \'tools': ['ag', 'git', 'grep', 'findstr']
+      \}
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger       = '<Tab>'
@@ -121,7 +133,7 @@ Plug 'ludovicchabant/vim-gutentags'
 if executable('ripper-tags')
   let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 endif
-let g:gutentags_cache_dir = '~/.vim/tags'
+let g:gutentags_cache_dir = '~/.cache/tags'
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'
@@ -247,7 +259,7 @@ set tabstop=2
 set tags+=./tags,./git/tags
 set undofile
 set updatetime=1000
-set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp
+set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*/undo/*,*/swap/*
 set wildmenu                                     " Enhanced completion hints in command line
 set mouse=a
 
@@ -318,10 +330,10 @@ nnoremap j gj
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap \ zf
 
-" fzf.vim <C-Space>
-nnoremap <Plug>FZFFiles :NERDTreeClose\|:FZFFiles<cr>
-nmap <NUL> <Plug>FZFFiles
-nmap <C-Space> <Plug>FZFFiles
+" ctrlp.vim <C-Space>
+nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
+nmap <NUL> <Plug>QuickOpen
+nmap <C-Space> <Plug>QuickOpen
 
 " jit
 nmap <localleader>J <Plug>(jit-prompt)
@@ -373,7 +385,10 @@ vmap @ :normal! @
 " searching
 command! -nargs=* -complete=file GG Grepper! -tool git -query <args>
 command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
-nnoremap <C-f> :FZFAg<CR>
+
+" grep operators
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
 
 " incsearch.vim
 map g/ <Plug>(incsearch-forward)
