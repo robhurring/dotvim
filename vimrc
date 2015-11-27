@@ -553,7 +553,7 @@ augroup END
 
 " ag
 if executable('ag')
-  set grepprg=ag\ -f\ --vimgrep\ $*
+  set grepprg=ag\ -f\ --nogroup\ --nocolor\ --column\ $*
   set grepformat=%f:%l:%c:%m
 endif
 
