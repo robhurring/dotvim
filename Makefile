@@ -31,7 +31,7 @@ bundle:
 	vim +PlugInstall +PlugClean! +qall
 
 bundle-update:
-	vim +PlugUpdate +PlugClean! +qall
+	vim +PlugUpdate +PlugClean!
 
 snapshot:
 	@mkdir -p $(SNAPSHOTS_HOME)
