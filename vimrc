@@ -1,10 +1,5 @@
 " vim: fdm=marker
 
-if !has('nvim')
-  set nocompatible
-endif
-filetype off
-
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 inoremap jk <Esc>l
@@ -43,7 +38,6 @@ Plug 'robhurring/changecase.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_max_files = 1000
 let g:ctrlp_user_command = {
       \'types': {
       \  1: ['.git', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
@@ -269,6 +263,11 @@ if executable('zsh')
 endif
 set shellcmdflag=-lc
 
+if executable('ag')
+  set grepprg=ag\ -f\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set viminfo='100,/100,h,\"500,:100
@@ -315,7 +314,7 @@ command! Q q " Bind :Q to :q
 
 " buffers / windows
 nnoremap <C-t> <esc>:enew<CR>
-nnoremap <C-x> :bd<CR>
+nnoremap <silent> <C-x> :bd<CR>
 
 nnoremap <Plug>BufferNext :bn\|:call repeat#set("\<Plug>BufferNext")<CR>
 nnoremap <Plug>BufferPrev :bp\|:call repeat#set("\<Plug>BufferPrev")<CR>
@@ -499,16 +498,14 @@ augroup END
 augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown setlocal nofoldenable
+
   autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
-
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
+  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
   autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
-
   autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
-
   autocmd FileType markdown vmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
+  autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
   autocmd FileType markdown vmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
 
@@ -548,17 +545,3 @@ augroup GolangGroup
 augroup END
 
 " }}} /augroups
-
-" External {{{
-
-" ag
-if executable('ag')
-  set grepprg=ag\ -f\ --vimgrep\ $*
-  set grepformat=%f:%l:%c:%m
-endif
-
-" }}} /external
-
-if filereadable(expand('~/.vimrc.local'))
-  source expand('~/.vimrc.local')
-endif
