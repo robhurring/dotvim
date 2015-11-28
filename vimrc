@@ -226,6 +226,7 @@ set expandtab
 set foldenable
 set foldlevel=99
 set guifont=Hack:h15
+set guioptions-=r
 set hidden                                       " Don't abandon buffers moved to the background
 set hlsearch
 set ignorecase
