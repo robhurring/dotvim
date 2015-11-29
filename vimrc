@@ -151,6 +151,8 @@ Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
 Plug 'tpope/vim-ragtag'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'pangloss/vim-javascript'
+Plug 'ternjs/tern_for_vim', {'do': 'npm install -g tern'}
+let g:tern_show_signature_in_pum = 1
 
 Plug 'elzr/vim-json', {'for': 'json'}
 let g:vim_json_syntax_conceal = 0
@@ -220,6 +222,7 @@ set autoread
 set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=81
+set completeopt-=preview
 set cursorline
 set diffopt=filler,iwhite,vertical               " In diff mode, ignore whitespace changes and align unchanged lines
 set expandtab
@@ -540,9 +543,6 @@ augroup GolangGroup
   autocmd FileType go nmap <buffer> <localleader>gt :GoTest<cr>
   autocmd FileType go nmap <buffer> <localleader>gd <Plug>(go-doc-vertical)
   autocmd FileType go nmap <buffer> <localleader>gf <Plug>(go-def-vertical)
-
-  " don't show preview window for golang completions
-  autocmd FileType go setlocal completeopt-=preview
 augroup END
 
 " }}} /augroups
