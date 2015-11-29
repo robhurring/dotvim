@@ -468,8 +468,6 @@ augroup VimrcGroup
 
   autocmd BufNewFile,BufRead .{jsbeautifyrc,eslintrc,jshintrc} set filetype=json
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
-  autocmd BufRead,BufNewFile *.{md,markdown} set filetype=markdown
-  autocmd BufRead,BufNewFile *.{zsh,sh,bash} set filetype=sh
 
   " enable spelling for md, gitcommit
   autocmd FileType {gitcommit,markdown} setlocal spell complete+=kspell
@@ -500,7 +498,6 @@ augroup END
 augroup MarkdownGroup
   autocmd!
   autocmd FileType markdown setlocal nofoldenable
-
   autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
