@@ -2,7 +2,7 @@ snippet spec
 require '${1:spec_helper}'
 
 describe ${2:Klass} do
-	$0
+	${0:${VISUAL}}
 end
 endsnippet
 
@@ -18,24 +18,24 @@ context ${1:'on success'} do
 end
 endsnippet
 
-snippet caso
+snippet vcrc
 vcr: {cassette_name: ${1:"${2:actions}/#{described_class}"}$0
 endsnippet
 
 snippet it
 it ${1:'does something'} do
-	$0
+	${2:${VISUAL}}
 end
 endsnippet
 
 snippet expect
 expect {
-	$1
+	${1:${VISUAL}}
 }.to $2
 endsnippet
 
 snippet expecti
-expect { $1 }.to $2
+expect { ${1:${VISUAL}} }.to $2
 endsnippet
 
 snippet bko
@@ -48,6 +48,6 @@ endsnippet
 
 snippet letb
 let(${1::object}) do
-	$2
-end0
+	${2:${VISUAL}}
+end
 endsnippet

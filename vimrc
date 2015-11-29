@@ -64,8 +64,6 @@ let g:grepper = {
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger       = '<Tab>'
-let g:UltiSnipsJumpForwardTrigger  = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 
 Plug 'bling/vim-airline'

@@ -3,7 +3,7 @@ class ${1:Something}
 	include Interactor
 
 	def call
-		${0}
+		${0:${VISUAL}}
 	end
 end
 endsnipppet
@@ -15,6 +15,7 @@ module Action
 	included do |_base|
 		include Interactor
 	end
+	$0
 end
 endsnippet
 
@@ -23,14 +24,11 @@ class ${1:Action}
 	include Action
 
 	expects $2
-	promises $3
+	${3:allows $4}
+	promises $5
 
 	def call
-		$0
+		${0:${VISUAL}}
 	end
-
-	private
-
-	delegate $2, to: :context
 end
 endsnippet
