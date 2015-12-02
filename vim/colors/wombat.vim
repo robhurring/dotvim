@@ -13,14 +13,14 @@
 " http://www.colorpicker.com
 set background=dark
 
-if version > 580
- hi clear
- if exists("syntax_on")
- syntax reset
- endif
+if v:version > 580
+  hi clear
+  if exists('syNtax_on')
+    syntax reset
+  endif
 endif
 
-let colors_name = "wombat"
+let colors_name = 'wombat'
 
 " General colors
 hi Normal ctermfg=252 ctermbg=234 cterm=none guifg=#e3e0d7 guibg=#1e1e1e gui=none
@@ -51,10 +51,14 @@ if version >= 700
 endif
 
 " Diff highlighting
-hi DiffAdd ctermbg=17 guibg=#2a0d6a
-hi DiffDelete ctermfg=234 ctermbg=60 cterm=none guifg=#242424 guibg=#3e3969 gui=none
-hi DiffText ctermbg=53 cterm=none guibg=#73186e gui=none
-hi DiffChange ctermbg=237 guibg=#382a37
+" hi DiffAdd ctermbg=17 guibg=#8f9d6a
+" hi DiffDelete ctermfg=234 ctermbg=60 cterm=none guifg=#242424 guibg=#cf6a4c gui=none
+" hi DiffText ctermbg=53 cterm=none guibg=#73186e gui=none
+" hi DiffChange ctermbg=237 guibg=#382a37
+hi DiffAdd     ctermfg=231 ctermbg=107 cterm=NONE guifg=#f8f8f8 guibg=#8f9d6a gui=NONE
+hi DiffDelete  ctermfg=231 ctermbg=167 cterm=NONE guifg=#f8f8f8 guibg=#cf6a4c gui=NONE
+hi DiffChange  ctermfg=231 ctermbg=103 cterm=NONE guifg=#f8f8f8 guibg=#7587a6 gui=NONE
+hi DiffText    ctermfg=231 ctermbg=139 cterm=NONE guifg=#f8f8f8 guibg=#af87af gui=NONE
 
 " Syntax highlighting
 hi Keyword ctermfg=111 cterm=none guifg=#88b8f6 gui=none
@@ -76,5 +80,5 @@ hi! link CursorColumn CursorLine
 hi! link NonText LineNr
 
 " Awesome 80 characters delemiter
-execute "set colorcolumn=" . join(range(81,335), ',')
+execute 'set colorcolumn=' . join(range(81,335), ',')
 hi ColorColumn guibg=#222222 ctermbg=234
