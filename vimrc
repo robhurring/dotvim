@@ -37,6 +37,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'robhurring/changecase.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_user_command = {
       \'types': {
