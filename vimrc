@@ -353,7 +353,14 @@ nmap <leader>l <Plug>(toggle-location-list)
 nmap <leader>c <Plug>(toggle-quickfix-list)
 
 " cd to buffer root directory / vim-gutentags
-nmap <silent> <localleader>cd :execute 'cd '.gutentags#get_project_root(expand('%'))<CR>
+function! s:CurrentBufferRoot()
+  try
+    return gutentags#get_project_root(expand('%'))
+  catch
+    return expand('%:p:h')
+  endtry
+endfunction
+nmap <silent> <localleader>cd :execute 'cd '.<SID>CurrentBufferRoot()<CR>
 
 " load vim-test failures into quickfix
 nnoremap <silent> <leader>sc :lg /tmp/last-spec-failures.out\|lopen<CR>
