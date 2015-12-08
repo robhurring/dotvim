@@ -352,6 +352,9 @@ nmap grd <Plug>(op-changecase-dashcase)
 nmap <leader>l <Plug>(toggle-location-list)
 nmap <leader>c <Plug>(toggle-quickfix-list)
 
+" cd to buffer root directory / vim-gutentags
+nmap <silent> <localleader>cd :execute 'cd '.gutentags#get_project_root(expand('%'))<CR>
+
 " load vim-test failures into quickfix
 nnoremap <silent> <leader>sc :lg /tmp/last-spec-failures.out\|lopen<CR>
 
