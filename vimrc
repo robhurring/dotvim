@@ -488,8 +488,8 @@ augroup VimrcGroup
   " airline
   function! s:MyAirline()
     let l:spc = g:airline_symbols.space
-    let g:airline_section_b = airline#section#create(['%<', 'file', l:spc, 'readonly'])
-    let g:airline_section_c = ''
+    let g:airline_section_b = airline#section#create(['%<', '%{substitute(getcwd(), expand("~"), "~", "g")}'])
+    let g:airline_section_c = airline#section#create(['file', l:spc, 'readonly'])
     let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%-2v'])
     let g:airline_section_z = airline#section#create(['hunks', 'branch'])
   endfunction
