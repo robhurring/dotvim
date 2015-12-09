@@ -39,12 +39,7 @@ Plug 'robhurring/changecase.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_user_command = {
-      \'types': {
-      \  1: ['.git', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-      \},
-      \'fallback': 'ag %s --files-with-matches --hidden --ignore .git -g ""'
-      \}
+let g:ctrlp_user_command = ['ag %s --files-with-matches --hidden -g ""']
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/]\.(git)$'
       \ }
