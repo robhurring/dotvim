@@ -20,17 +20,20 @@ function! g:helpers#fullname(f)
 endfunction
 
 function! g:helpers#projectroot(...)
-  let current = g:helpers#fullname(a:0 ? a:1 : '')
-  let l:markers = ['.git']
+  let fullname = g:helpers#fullname(a:0 ? a:1 : '')
+  let l:markers = ['Gemfile', '.git']
 
   for marker in l:markers
+    let current = fullname
     while 1
       let prev = current
       let current = fnamemodify(current, ':h')
-      if isdirectory(current.'/'.marker)
+      let current_marker = current.'/'.marker
+
+      if filereadable(current_marker) || isdirectory(current_marker)
         return current
       endif
-      if current ==# prev
+      if current == prev
         break
       endif
     endwhile
