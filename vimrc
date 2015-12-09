@@ -433,7 +433,7 @@ vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
 " autoformat / fix-whitespace
-nmap <silent> <leader>= :Autoformat ff=unix<cr>
+nmap <silent> <leader>= :FixWhitespace<CR>\|:Autoformat ff=unix<CR>
 nmap <silent> <F1> :FixWhitespace<CR>
 
 " nerdtree
