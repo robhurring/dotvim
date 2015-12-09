@@ -115,7 +115,7 @@ let g:NERDTreeMinimalUI = 1
 Plug 'benekastah/neomake'
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_warning_sign = {'texthl': 'LintWarning'}
-let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
+let g:neomake_error_sign = {'texthl': 'LintError'}
 
 Plug 'ludovicchabant/vim-gutentags'
 if executable('ripper-tags')
@@ -290,7 +290,7 @@ endtry
 
 " neomake highlightings
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
-highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9933ff guibg=#111111
+highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9c998e guibg=#111111
 
 " signify plugin highlightings
 highlight ExtraWhitespace   cterm=none ctermbg=160 guibg=#aa00ff

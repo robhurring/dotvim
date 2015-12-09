@@ -27,7 +27,7 @@ hi Normal ctermfg=252 ctermbg=234 cterm=none guifg=#e3e0d7 guibg=#1e1e1e gui=non
 hi Cursor ctermfg=234 ctermbg=228 cterm=none guifg=#242424 guibg=#eae788 gui=none
 hi Visual ctermfg=251 ctermbg=239 cterm=none guifg=#c3c6ca guibg=#554d4b gui=none
 hi VisualNOS ctermfg=251 ctermbg=236 cterm=none guifg=#c3c6ca guibg=#303030 gui=none
-hi Search ctermfg=177 ctermbg=238 cterm=none guifg=#cd7ffa guibg=#3a3a3a gui=none
+hi Search ctermfg=177 ctermbg=238 cterm=none guifg=#F274B5 guibg=#3a3a3a gui=none
 hi Folded ctermfg=103 ctermbg=237 cterm=none guifg=#a0a8b0 guibg=#3a4046 gui=none
 hi Title ctermfg=230 cterm=bold guifg=#ffffd7 gui=bold
 hi StatusLine ctermfg=230 ctermbg=238 cterm=none guifg=#ffffd7 guibg=#444444 gui=none
@@ -37,8 +37,8 @@ hi LineNr ctermfg=241 ctermbg=233 cterm=none guifg=#857b6f guibg=#111111 gui=non
 hi SpecialKey ctermfg=241 ctermbg=235 cterm=none guifg=#626262 guibg=#2b2b2b gui=none
 hi WarningMsg ctermfg=203 guifg=#ff5f55
 hi ErrorMsg ctermfg=196 ctermbg=234 cterm=bold guifg=#e3e0d7 guibg=#3a3a3a gui=bold
-hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#F274B5 guibg=#3a3a3a gui=bold
-hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#F274B5 guibg=#3a3a3a gui=bold
+hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#FF216B guibg=none gui=underline
+hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#FF216B guibg=none gui=underline
 hi SignColumn cterm=none ctermbg=233 guibg=#111111
 hi CursorLineNr cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
 
