@@ -145,8 +145,6 @@ Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
 Plug 'tpope/vim-ragtag'
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim', {'do': 'npm install -g tern'}
-let g:tern_show_signature_in_pum = 1
 
 Plug 'elzr/vim-json', {'for': 'json'}
 let g:vim_json_syntax_conceal = 0
