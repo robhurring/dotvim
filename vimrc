@@ -228,8 +228,7 @@ set incsearch
 set laststatus=2
 set lazyredraw
 set list                                         " Display unprintable characters
-set listchars=tab:▸\ ,extends:»,precedes:«
-set noerrorbells                                 " Disable error bells
+set listchars=tab:▹\ ,nbsp:∙,extends:»,precedes:«
 set nowrap
 set number
 set scrolloff=3                                  " Start scrolling 3 lines before the horizontal window border
@@ -290,7 +289,7 @@ highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#11
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9c998e guibg=#111111
 
 " signify plugin highlightings
-highlight ExtraWhitespace   cterm=none ctermbg=160 guibg=#aa00ff
+highlight ExtraWhitespace   cterm=none ctermbg=160 guibg=#8C5AD6
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
 highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
 highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 guibg=#111111
