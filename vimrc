@@ -247,7 +247,7 @@ set splitright
 set tabstop=2
 set tags+=./tags,./git/tags
 set undofile
-set updatetime=1000
+set updatetime=750
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*/undo/*,*/swap/*
 set wildmenu                                     " Enhanced completion hints in command line
 set mouse=a
