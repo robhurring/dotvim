@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
 " dependencies
 
 Plug 'tmhedberg/matchit'
-Plug 'kana/vim-textobj-user' " dep for: textobj-rubyblock(R)
 Plug 'tpope/vim-dispatch'    " dep for: vim-test(O)
 Plug 'mattn/webapi-vim'      " dep for: gist(R)
 Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
