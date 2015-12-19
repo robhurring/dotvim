@@ -301,14 +301,13 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 " Search settings
 nnoremap <silent> <leader>/ :noh<CR>
 
-" swap buffers
+" swap buffers <space><space>
 nnoremap <leader><leader> <C-^>
 
 " fatfingers
 command! Q q " Bind :Q to :q
 
 " buffers / windows
-nnoremap <C-t> <esc>:enew<CR>
 nnoremap <silent> <C-x> :bd<CR>
 
 nnoremap <Plug>BufferNext :bn\|:call repeat#set("\<Plug>BufferNext")<CR>
