@@ -462,6 +462,7 @@ augroup VimrcGroup
         \| exe "normal! g`\"" | endif
 
   autocmd BufNewFile,BufRead .{jsbeautifyrc,eslintrc,jshintrc} set filetype=json
+  autocmd BufNewFile,BufRead {*.ejs} set filetype=html
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
 
   " enable spelling for md, gitcommit
