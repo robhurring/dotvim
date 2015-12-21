@@ -310,11 +310,6 @@ command! Q q " Bind :Q to :q
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
 
-nnoremap <Plug>BufferNext :bn\|:call repeat#set("\<Plug>BufferNext")<CR>
-nnoremap <Plug>BufferPrev :bp\|:call repeat#set("\<Plug>BufferPrev")<CR>
-nmap gn <Plug>BufferNext
-nmap gN <Plug>BufferPrev
-
 " up/down on displayed lines, not real lines. More useful than painful.
 nnoremap k gk
 nnoremap j gj
@@ -333,11 +328,14 @@ nmap <localleader>J <Plug>(jit-prompt)
 nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
 
-" changecase
-nmap grm <Plug>(op-changecase-mixedcase)
-nmap grc <Plug>(op-changecase-camelcase)
-nmap grs <Plug>(op-changecase-snakecase)
-nmap grd <Plug>(op-changecase-dashcase)
+" operator pending: changecase
+nmap gcm <Plug>(op-changecase-mixedcase)
+nmap gcc <Plug>(op-changecase-camelcase)
+nmap gcs <Plug>(op-changecase-snakecase)
+
+" operator pending: grep operators
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
 
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-location-list)
@@ -382,10 +380,6 @@ vmap @ :normal! @
 command! -nargs=* -complete=file GG Grepper! -tool git -query <args>
 command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
 
-" grep operators
-nmap gs  <plug>(GrepperOperator)
-xmap gs  <plug>(GrepperOperator)
-
 " incsearch.vim
 map g/ <Plug>(incsearch-forward)
 map g? <Plug>(incsearch-backward)
@@ -404,9 +398,6 @@ nnoremap <silent> <Leader>t :TestFile<CR>
 nnoremap <silent> <Leader>T :TestNearest<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>ta :TestSuite<CR>
-nnoremap <silent> <F7> :TestLast<CR>
-nnoremap <silent> <F8> :TestFile<CR>
-nnoremap <silent> <F9> :TestSuite<CR>
 
 " splitjoin
 nnoremap gS :SplitjoinSplit<cr>
@@ -472,13 +463,10 @@ augroup VimrcGroup
   autocmd BufWritePost {.vimrc,vimrc} nested source %
 
   " skeletons
-  autocmd BufNewFile *.{bash,zsh} 0read ~/.vim/skeletons/skeleton.zsh
+  autocmd BufNewFile */bin/*.{sh,bash,zsh} 0read ~/.vim/skeletons/skeleton.zsh
 
   " linters
   autocmd BufWritePost * Neomake
-
-  " because i can't remember gqaj
-  autocmd FileType {json,javascript} command! JSONPrettyPrint :normal gqaj
 
   " airline
   function! s:MyAirline()
