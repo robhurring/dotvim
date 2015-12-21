@@ -183,6 +183,7 @@ Plug 'janko-m/vim-test'
 " let test#ruby#rspec#executable = 'auto-bundle-exec rspec'
 let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/last-spec-failures.out --format progress'
+let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
 " ABRT error: https://github.com/Valloric/YouCompleteMe/issues/8
 " Solutions: add this to your ~/.<shell>rc
@@ -329,9 +330,9 @@ nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
 
 " operator pending: changecase
-nmap gcm <Plug>(op-changecase-mixedcase)
-nmap gcc <Plug>(op-changecase-camelcase)
-nmap gcs <Plug>(op-changecase-snakecase)
+nmap grm <Plug>(op-changecase-mixedcase)
+nmap grc <Plug>(op-changecase-camelcase)
+nmap grs <Plug>(op-changecase-snakecase)
 
 " operator pending: grep operators
 nmap gs  <plug>(GrepperOperator)
