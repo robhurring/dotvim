@@ -78,6 +78,7 @@ hi Todo ctermfg=207 cterm=none guifg=#F274B5 gui=none guibg=#3a3a3a
 hi! link FoldColumn Folded
 hi! link CursorColumn CursorLine
 hi! link NonText LineNr
+hi! link TabLineFill StatusLine
 
 " Awesome 80 characters delemiter
 execute 'set colorcolumn=' . join(range(81,335), ',')
