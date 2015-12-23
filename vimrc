@@ -209,7 +209,7 @@ set incsearch
 set laststatus=2
 set lazyredraw
 set list                                                           " Display unprintable characters
-set listchars=tab:‣\ ,nbsp:∙,extends:»,precedes:«
+set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set nowrap
 set number
 set scrolloff=3                                                    " Start scrolling 3 lines before the horizontal window border
