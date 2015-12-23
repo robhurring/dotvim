@@ -195,6 +195,8 @@ set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
+set concealcursor=nv
+set conceallevel=1
 set cursorline
 set diffopt=filler,iwhite,vertical                                 " In diff mode, ignore whitespace changes and align unchanged lines
 set expandtab
@@ -210,6 +212,7 @@ set laststatus=2
 set lazyredraw
 set list                                                           " Display unprintable characters
 set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
+set mouse=a
 set nowrap
 set number
 set scrolloff=3                                                    " Start scrolling 3 lines before the horizontal window border
@@ -230,7 +233,6 @@ set undofile
 set updatetime=750
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*/undo/*,*/swap/*
 set wildmenu                                                       " Enhanced completion hints in command line
-set mouse=a
 
 " use zsh on where available
 if executable('zsh')
@@ -269,8 +271,11 @@ endtry
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
 highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9c998e guibg=#111111
 
+" highlight trailing white space (via conceal)
+highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
+highlight Conceal           ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
+
 " signify plugin highlightings
-highlight ExtraWhitespace   cterm=none ctermbg=160 guibg=#8C5AD6
 highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
 highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
 highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 guibg=#111111
@@ -414,6 +419,9 @@ noremap <leader>a\| :Tabularize /\|<CR>
 augroup VimrcGroup
   autocmd!
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+  " kick-off conceal extra whitespace
+  autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
 
   autocmd BufNewFile,BufRead .{jsbeautifyrc,eslintrc,jshintrc} set filetype=json
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
