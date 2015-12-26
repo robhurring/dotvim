@@ -335,10 +335,6 @@ if has('nvim')
   nmap <BS> <C-h>
 endif
 
-" insert movement
-inoremap <C-l> <Right>
-inoremap <C-h> <Left>
-
 " text wrapping toggle
 nnoremap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
@@ -461,12 +457,4 @@ augroup TodoGroup
   autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
 
-augroup GolangGroup
-  autocmd!
-  autocmd FileType go nmap <buffer> <localleader>gr :GoRun<cr>
-  autocmd FileType go nmap <buffer> <localleader>gb :GoBuild<cr>
-  autocmd FileType go nmap <buffer> <localleader>gt :GoTest<cr>
-  autocmd FileType go nmap <buffer> <localleader>gd <Plug>(go-doc-vertical)
-  autocmd FileType go nmap <buffer> <localleader>gf <Plug>(go-def-vertical)
-augroup END
 " }}} /augroups
