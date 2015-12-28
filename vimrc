@@ -19,6 +19,7 @@ Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
 " misc plugins
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -29,10 +30,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Chiel92/vim-autoformat'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'robhurring/changecase.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
@@ -307,11 +306,6 @@ nmap <C-Space> <Plug>QuickOpen
 nmap <localleader>J <Plug>(jit-prompt)
 nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
-
-" operator pending: changecase
-nmap grm <Plug>(op-changecase-mixedcase)
-nmap grc <Plug>(op-changecase-camelcase)
-nmap grs <Plug>(op-changecase-snakecase)
 
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-location-list)
