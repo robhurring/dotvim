@@ -171,7 +171,7 @@ let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/last-spec-failures.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer' }
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer --tern-completer' }
 let g:ycm_key_list_select_completion   = ['<C-j>']
 let g:ycm_key_list_previous_completion = ['<C-k>']
 let g:ycm_completion_confirm_key       = '<CR>'
