@@ -428,7 +428,7 @@ augroup VimrcGroup
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " enable spelling for md, gitcommit
-  autocmd FileType {gitcommit,markdown} setlocal spell complete+=kspell
+  autocmd FileType {gitcommit,markdown} setlocal complete+=kspell
 
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} nested source %
