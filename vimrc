@@ -127,7 +127,7 @@ let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
 " markdown/etc
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-markdown', {'for': 'markdown'}
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 
 " html/css/js
