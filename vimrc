@@ -414,7 +414,6 @@ augroup VimrcGroup
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
 
-  autocmd BufNewFile,BufRead .{jsbeautifyrc,eslintrc,jshintrc} set filetype=json
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
 
   " ruby related stuff
@@ -439,10 +438,8 @@ augroup VimrcGroup
     let g:airline_section_z = airline#section#create(['hunks', 'branch'])
   endfunction
   autocmd Vimenter * call <SID>MyAirline()
-augroup END
 
-augroup TodoGroup
-  autocmd!
+  " todos
   autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
   autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
