@@ -283,9 +283,6 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 
 " Mappings {{{
 
-" swap buffers <space><space>
-nnoremap <leader><leader> <C-^>
-
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
 
@@ -301,6 +298,7 @@ vnoremap \ zf
 nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 nmap <NUL> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
+nnoremap <leader><leader> :CtrlPBuffer<CR>
 
 " jit
 nmap <localleader>J <Plug>(jit-prompt)
