@@ -436,14 +436,6 @@ augroup VimrcGroup
     let g:airline_section_z = airline#section#create(['hunks', 'branch'])
   endfunction
   autocmd Vimenter * call <SID>MyAirline()
-
-  " todos
-  autocmd FileType markdown imap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown nmap <buffer> <localleader>i <Plug>(todo-new)
-  autocmd FileType markdown imap <buffer> <localleader>I <Plug>(todo-new-below)
-  autocmd FileType markdown nmap <buffer> <localleader>I <Plug>(todo-new-below)
-  autocmd FileType markdown nmap <buffer> <localleader>x <Plug>(todo-mark-as-done)
-  autocmd FileType markdown nmap <buffer> <localleader>X <Plug>(todo-mark-as-undone)
 augroup END
 
 " }}} /augroups
