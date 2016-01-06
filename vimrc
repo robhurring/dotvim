@@ -127,7 +127,7 @@ let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
 " markdown/etc
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
+let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 
 " html/css/js
