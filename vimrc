@@ -227,6 +227,7 @@ set smartindent
 set smarttab
 set splitbelow
 set splitright
+set synmaxcol=200
 set tabstop=2
 set tags+=./tags,./git/tags
 set undofile
