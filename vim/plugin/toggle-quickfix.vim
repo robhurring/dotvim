@@ -34,5 +34,11 @@ endfunction
 command! ToggleLocationList call s:ToggleList('Location List', 'l')
 command! ToggleQuickfixList call s:ToggleList('Quickfix List', 'c')
 
+command! ToggleOnlyLocationList :cclose | call s:ToggleList('Location List', 'l')
+command! ToggleOnlyQuickfixList :lclose | call s:ToggleList('Quickfix List', 'c')
+
 nnoremap <Plug>(toggle-location-list) :ToggleLocationList<CR>
 nnoremap <Plug>(toggle-quickfix-list) :ToggleQuickfixList<CR>
+
+nnoremap <Plug>(toggle-only-location-list) :ToggleOnlyLocationList<CR>
+nnoremap <Plug>(toggle-only-quickfix-list) :ToggleOnlyQuickfixList<CR>

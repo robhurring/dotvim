@@ -307,8 +307,8 @@ nmap <localleader>jo <Plug>(jit-open-prompt)
 nmap <localleader>jO <Plug>(jit-open-word)
 
 " toggle quickfix/location
-nmap <leader>l <Plug>(toggle-location-list)
-nmap <leader>c <Plug>(toggle-quickfix-list)
+nmap <leader>l <Plug>(toggle-only-location-list)
+nmap <leader>c <Plug>(toggle-only-quickfix-list)
 
 " cd to buffer's project root directory
 nmap <silent> <localleader>cd :execute 'cd '.helpers#projectroot()<CR>
