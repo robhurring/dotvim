@@ -32,6 +32,15 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'bling/vim-airline'
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let airline#extensions#whitespace#symbol = ''
+let airline#extensions#whitespace#trailing_format = '… %s'
+
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
@@ -59,34 +68,6 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger       = '<Tab>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 
-Plug 'bling/vim-airline'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
-let g:airline_symbols.linenr = ''
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_detect_paste = 1
-let g:airline_theme = 'bubblegum'
-let g:airline_mode_map = {
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ }
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let airline#extensions#whitespace#symbol = ''
-let airline#extensions#whitespace#trailing_format = '… %s'
-
 Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = []
 
@@ -98,6 +79,8 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 
 Plug 'mhinz/vim-signify'
+let g:signify_disable_by_default = 1
+let g:signify_sign_show_count = 0
 let g:signify_vcs_list = ['git']
 
 Plug 'scrooloose/nerdtree'
@@ -111,10 +94,13 @@ let g:neomake_warning_sign = {'text': "\u25CF", 'texthl': 'LintWarning'}
 let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
 
 Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_define_advanced_commands = 1
+let g:gutentags_cache_dir = '~/.cache/tags'
+" NOTE: this fails from the res/ctags.options file since ripper-tags
+"       doesn't allow the --options flag
 if executable('ripper-tags')
   let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 endif
-let g:gutentags_cache_dir = '~/.cache/tags'
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'
@@ -210,6 +196,7 @@ set ignorecase
 set incsearch
 set laststatus=2
 set lazyredraw
+set linebreak
 set list                                                           " Display unprintable characters
 set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set mouse=a
@@ -302,9 +289,7 @@ nmap <C-Space> <Plug>QuickOpen
 nnoremap <leader><leader> :CtrlPBuffer<CR>
 
 " jit
-nmap <localleader>J <Plug>(jit-prompt)
-nmap <localleader>jo <Plug>(jit-open-prompt)
-nmap <localleader>jO <Plug>(jit-open-word)
+nmap <localleader>jo <Plug>(jit-open-word)
 
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-only-location-list)
@@ -339,7 +324,6 @@ vmap @ :normal! @
 nnoremap <silent> <leader>/ :noh<CR>
 
 " searching
-command! -nargs=* -complete=file GG Grepper! -tool git -query <args>
 command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
 
 " operator pending: grep operators
@@ -361,7 +345,7 @@ nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>ta :TestSuite<CR>
 
 " load vim-test failures into quickfix
-nnoremap <silent> <leader>sc :lg /tmp/last-spec-failures.out\|lopen<CR>
+nnoremap <silent> <leader>sc :cg /tmp/last-spec-failures.out\|copen<CR>
 
 " splitjoin
 nnoremap gS :SplitjoinSplit<cr>
@@ -427,16 +411,6 @@ augroup VimrcGroup
 
   " linters
   autocmd BufWritePost * Neomake
-
-  " airline
-  function! s:MyAirline()
-    let l:spc = g:airline_symbols.space
-    let g:airline_section_b = airline#section#create(['%<', '%{pathshorten(fnamemodify(getcwd(), ":~:."))}'])
-    let g:airline_section_c = airline#section#create(['file', l:spc, 'readonly'])
-    let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%-2v'])
-    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
-  endfunction
-  autocmd Vimenter * call <SID>MyAirline()
 augroup END
 
 " }}} /augroups
