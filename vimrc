@@ -49,7 +49,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_multiple_files = 'ijr'
 let g:ctrlp_user_command = ['ag %s --files-with-matches --hidden -g ""']
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git)$'
+      \ 'dir':  '\v[\/]\.(git)|node_modules|bower_components|plugged$'
       \ }
 
 Plug 'haya14busa/incsearch.vim'
