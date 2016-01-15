@@ -293,6 +293,12 @@ nnoremap <leader><leader> :CtrlPBuffer<CR>
 " jit
 nmap <localleader>jo <Plug>(jit-open-word)
 
+" thyme / pomodoro
+if has('nvim') && executable('thyme')
+  nnoremap <silent> <localleader>ts :call jobstart('thyme --daemon')<CR>
+  nnoremap <silent> <localleader>tx :call jobstart('thyme --stop')<CR>
+endif
+
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-only-location-list)
 nmap <leader>c <Plug>(toggle-only-quickfix-list)
