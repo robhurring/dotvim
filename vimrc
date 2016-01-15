@@ -32,6 +32,8 @@ Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
+
+" SEE: $HOME/.vim/plugin/my-airline.vim
 Plug 'bling/vim-airline'
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
