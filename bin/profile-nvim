@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+OUTPUT=/tmp/vim.profile
+
+echo "-----> Profiling ${OUTPUT}"
+rm $OUTPUT
+nvim +":profile start ${OUTPUT}" +":profile func *" +":profile file *" "$@" && nvim "$OUTPUT"
