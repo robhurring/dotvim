@@ -33,8 +33,12 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
 
+" let g:my_statusline = 'lightline'
+" Plug 'itchyny/lightline.vim'
+
 " SEE: $HOME/.vim/plugin/my-airline.vim
-Plug 'bling/vim-airline'
+let g:my_statusline = 'airline'
+Plug 'vim-airline/vim-airline'
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1

@@ -1,5 +1,9 @@
 " NOTE: Assuming we are using airline
 
+if g:my_statusline != 'airline'
+  finish
+endif
+
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
