@@ -366,6 +366,9 @@ nnoremap gJ :SplitjoinJoin<cr>
 " vim-commentary <C-/>
 map <C-_> gcc<Esc>
 
+" yankring
+nmap <Leader>y :YRShow<CR>
+
 " vim-unimpaired
 imap <C-Up> <Esc>[egi
 imap <C-Down> <Esc>]egi
