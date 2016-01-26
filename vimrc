@@ -336,7 +336,7 @@ vmap @ :normal! @
 nnoremap <silent> <leader>/ :noh<CR>
 
 " searching
-command! -nargs=* -complete=file Ag Grepper! -tool ag -query <args>
+command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
 
 " operator pending: grep operators
 nmap gs  <plug>(GrepperOperator)
