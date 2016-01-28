@@ -37,8 +37,8 @@ hi LineNr ctermfg=241 ctermbg=233 cterm=none guifg=#857b6f guibg=#111111 gui=non
 hi SpecialKey ctermfg=241 ctermbg=235 cterm=none guifg=#626262 guibg=#2b2b2b gui=none
 hi WarningMsg ctermfg=203 guifg=#ff5f55
 hi ErrorMsg ctermfg=196 ctermbg=234 cterm=bold guifg=#e3e0d7 guibg=#3a3a3a gui=bold
-hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 guibg=none gui=underline
-hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 guibg=none gui=underline
+hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 gui=underline
+hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 gui=underline
 hi SignColumn cterm=none ctermbg=233 guibg=#111111
 hi CursorLineNr cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
 
