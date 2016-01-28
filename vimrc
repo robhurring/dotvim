@@ -39,6 +39,7 @@ Plug 'michaeljsmith/vim-indent-object'
 " SEE: $HOME/.vim/plugin/my-airline.vim
 let g:my_statusline = 'airline'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
