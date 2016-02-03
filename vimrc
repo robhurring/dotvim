@@ -119,28 +119,24 @@ let g:AutoPairsShortcutBackInsert = '<M-b>'
 let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
+" languages
+Plug 'sheerun/vim-polyglot'
+
+" misc polyglot config
+let g:jsx_ext_required = 0
+
 " markdown/etc
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
 Plug 'shime/vim-livedown', {'for': 'markdown'}
 
 " html/css/js
 Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
-Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'tpope/vim-ragtag'
-Plug 'pangloss/vim-javascript'
-
-Plug 'elzr/vim-json', {'for': 'json'}
-let g:vim_json_syntax_conceal = 0
-
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key='<C-e>'
 
-Plug 'mxw/vim-jsx'
-let g:jsx_ext_required = 0
-
-" go
+" go faith/vim-go from polyglot
 Plug 'rhysd/vim-go-impl', {'for': 'go'}
-Plug 'fatih/vim-go', {'for': 'go'}
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -150,11 +146,7 @@ let g:go_fmt_autosave = 1
 let g:go_dispatch_enabled = 1
 let g:go_fmt_command = 'goimports'
 
-" elixir
-Plug 'elixir-lang/vim-elixir'
-
-" ruby
-Plug 'vim-ruby/vim-ruby'
+" ruby vim-ruby from polyglot
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-rails'
