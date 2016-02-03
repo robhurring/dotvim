@@ -15,7 +15,7 @@ set background=dark
 
 if v:version > 580
   hi clear
-  if exists('syNtax_on')
+  if exists('syntax_on')
     syntax reset
   endif
 endif
