@@ -120,10 +120,13 @@ let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
 " languages
+let g:vim_json_syntax_conceal = 0
 Plug 'sheerun/vim-polyglot'
+Plug 'elzr/vim-json' " can remove if/when polyglot fixes this conceal issue
 
 " misc polyglot config
 let g:jsx_ext_required = 0
+let g:vim_json_syntax_conceal = 0
 
 " markdown/etc
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
@@ -180,7 +183,7 @@ set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
-set concealcursor=nv
+set concealcursor=nc
 set conceallevel=1
 set cursorline
 set diffopt=filler,iwhite,vertical                                 " In diff mode, ignore whitespace changes and align unchanged lines
