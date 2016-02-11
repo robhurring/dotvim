@@ -273,10 +273,13 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 
 " Mappings {{{
 
+" make Y behave like the rest
+nnoremap Y y$
+
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
 
-" up/down on displayed lines, not real lines. More useful than painful.
+" up/down on displayed lines, not real lines.
 nnoremap k gk
 nnoremap j gj
 
@@ -289,9 +292,6 @@ nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 nmap <NUL> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
 nnoremap <leader><leader> :CtrlPBuffer<CR>
-
-" jit
-nmap <localleader>jo <Plug>(jit-open-word)
 
 " thyme / pomodoro
 if has('nvim') && executable('thyme')
