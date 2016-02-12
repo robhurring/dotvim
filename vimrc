@@ -85,11 +85,6 @@ let g:gist_open_browser_after_post = 1
 let g:gist_post_private = 1
 let g:gist_show_privates = 1
 
-Plug 'mhinz/vim-signify'
-let g:signify_disable_by_default = 1
-let g:signify_sign_show_count = 0
-let g:signify_vcs_list = ['git']
-
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
 let g:NERDTreeQuitOnOpen = 1
@@ -216,7 +211,6 @@ set smartindent
 set smarttab
 set splitbelow
 set splitright
-set synmaxcol=200
 set tabstop=2
 set tags+=./tags,./git/tags
 set undofile
@@ -273,7 +267,7 @@ highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 gui
 
 " Mappings {{{
 
-" make Y behave like the rest
+" make Y behave like D
 nnoremap Y y$
 
 " buffers / windows
@@ -408,10 +402,11 @@ augroup VimrcGroup
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
 
+  " odd extensions
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
-
-  " ruby related stuff
+  autocmd BufNewFile,BufRead {*.js.erb} set filetype=javascript
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
+
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " enable spelling for md, gitcommit
