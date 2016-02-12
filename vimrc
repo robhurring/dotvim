@@ -6,6 +6,7 @@ inoremap jk <Esc>l
 
 filetype plugin indent on
 syntax on
+set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
