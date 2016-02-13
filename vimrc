@@ -6,7 +6,6 @@ inoremap jk <Esc>l
 
 filetype plugin indent on
 syntax on
-set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
@@ -173,6 +172,7 @@ call plug#end()
 " Options {{{
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
+set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 set autoindent
 set autoread
 set backupdir=~/.vim/tmp
@@ -183,6 +183,7 @@ set concealcursor=nc
 set conceallevel=1
 set cursorline
 set diffopt=filler,iwhite,vertical                                 " In diff mode, ignore whitespace changes and align unchanged lines
+set directory=~/.vim/swap
 set expandtab
 set foldenable
 set foldlevel=99
@@ -215,6 +216,7 @@ set splitright
 set tabstop=2
 set tags+=./tags,./git/tags
 set undofile
+set undodir=~/.vim/undo
 set updatetime=750
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*/undo/*,*/swap/*
 set wildmenu                                                       " Enhanced completion hints in command line
