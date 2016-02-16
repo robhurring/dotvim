@@ -246,6 +246,7 @@ let g:netrw_liststyle = 3
 
 " Theme"{{{
 try
+  execute 'set colorcolumn=' . join(range(81,200), ',')
   colorscheme wombat
 catch
   echom 'Missing color scheme!'
@@ -253,6 +254,9 @@ endtry
 
 " Theme overrides
 " http://www.colorpicker.com
+
+" fix awful red colorcolumns in certain themes
+highlight ColorColumn guibg=#222222 ctermbg=235
 
 " neomake highlightings
 highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111

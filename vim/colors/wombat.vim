@@ -41,6 +41,7 @@ hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 gui=underline
 hi SpellCap ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 gui=underline
 hi SignColumn cterm=none ctermbg=233 guibg=#111111
 hi CursorLineNr cterm=none ctermbg=233 guifg=#d4d987 guibg=#111111
+hi ColorColumn guibg=#222222 ctermbg=234
 
 " Vim >= 7.0 specific colors
 if version >= 700
@@ -79,7 +80,3 @@ hi! link FoldColumn Folded
 hi! link CursorColumn CursorLine
 hi! link NonText LineNr
 hi! link TabLineFill StatusLine
-
-" Awesome 80 characters delemiter
-execute 'set colorcolumn=' . join(range(81,335), ',')
-hi ColorColumn guibg=#222222 ctermbg=234
