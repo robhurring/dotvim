@@ -40,13 +40,11 @@ Plug 'michaeljsmith/vim-indent-object'
 let g:my_statusline = 'airline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_extensions = ['branch', 'ctrlp', 'neomake', 'whitespace']
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let airline#extensions#whitespace#symbol = ''
-let airline#extensions#whitespace#trailing_format = '… %s'
+let g:airline#extensions#whitespace#symbol = ''
+let g:airline#extensions#whitespace#trailing_format = '… %s'
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1
