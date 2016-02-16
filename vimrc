@@ -135,14 +135,14 @@ let g:user_emmet_leader_key='<C-e>'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'rhysd/vim-go-impl', {'for': 'go'}
 let g:formatdef_goimports = '"goimports"'
-let g:formatters_go = ['goimports'] " vim-autoformat
+let g:formatters_go = ['goimports', 'gofmt_2'] " dep: vim-autoformat
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_dispatch_enabled = 1
-let g:go_fmt_autosave = 0
+let g:go_fmt_autosave = 0 " use vim-autoformat instead
 let g:go_fmt_command = 'goimports'
 
 " ruby vim-ruby from polyglot
