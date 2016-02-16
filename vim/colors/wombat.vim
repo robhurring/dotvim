@@ -34,7 +34,7 @@ hi StatusLine ctermfg=230 ctermbg=238 cterm=none guifg=#ffffd7 guibg=#444444 gui
 hi VertSplit ctermfg=238 ctermbg=238 cterm=none guifg=#444444 guibg=#444444 gui=none
 hi StatusLineNC ctermfg=241 ctermbg=238 cterm=none guifg=#857b6f guibg=#444444 gui=none
 hi LineNr ctermfg=241 ctermbg=233 cterm=none guifg=#857b6f guibg=#111111 gui=none
-hi SpecialKey ctermfg=241 ctermbg=235 cterm=none guifg=#626262 guibg=#2b2b2b gui=none
+hi SpecialKey ctermfg=241 ctermbg=none cterm=none guifg=#626262 guibg=none gui=none
 hi WarningMsg ctermfg=203 guifg=#ff5f55
 hi ErrorMsg ctermfg=196 ctermbg=234 cterm=bold guifg=#e3e0d7 guibg=#3a3a3a gui=bold
 hi SpellBad ctermfg=196 ctermbg=234 cterm=bold guifg=#F77C99 gui=underline
@@ -52,10 +52,6 @@ if version >= 700
 endif
 
 " Diff highlighting
-" hi DiffAdd ctermbg=17 guibg=#8f9d6a
-" hi DiffDelete ctermfg=234 ctermbg=60 cterm=none guifg=#242424 guibg=#cf6a4c gui=none
-" hi DiffText ctermbg=53 cterm=none guibg=#73186e gui=none
-" hi DiffChange ctermbg=237 guibg=#382a37
 hi DiffAdd     ctermfg=231 ctermbg=107 cterm=NONE guifg=#f8f8f8 guibg=#8f9d6a gui=NONE
 hi DiffDelete  ctermfg=231 ctermbg=167 cterm=NONE guifg=#f8f8f8 guibg=#cf6a4c gui=NONE
 hi DiffChange  ctermfg=231 ctermbg=103 cterm=NONE guifg=#f8f8f8 guibg=#7587a6 gui=NONE
