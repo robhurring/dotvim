@@ -277,6 +277,7 @@ nnoremap Y y$
 
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
+nnoremap <leader><leader> :ls<CR>:b<SPACE>
 
 " up/down on displayed lines, not real lines.
 nnoremap k gk
@@ -290,7 +291,6 @@ vnoremap \ zf
 nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 nmap <NUL> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
-nnoremap <leader><leader> :CtrlPBuffer<CR>
 
 " thyme / pomodoro
 if has('nvim') && executable('thyme')
