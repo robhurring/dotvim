@@ -131,15 +131,18 @@ Plug 'tpope/vim-ragtag'
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key='<C-e>'
 
-" go faith/vim-go from polyglot
+" go
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'rhysd/vim-go-impl', {'for': 'go'}
+let g:formatdef_goimports = '"goimports"'
+let g:formatters_go = ['goimports'] " vim-autoformat
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_autosave = 1
 let g:go_dispatch_enabled = 1
+let g:go_fmt_autosave = 0
 let g:go_fmt_command = 'goimports'
 
 " ruby vim-ruby from polyglot
@@ -413,6 +416,9 @@ augroup VimrcGroup
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
 
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
+
+  " whitespace language tweaks
+  autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
   " enable spelling for md, gitcommit
   autocmd FileType {gitcommit,markdown} setlocal complete+=kspell
