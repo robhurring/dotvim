@@ -348,6 +348,9 @@ map N  <Plug>(incsearch-nohl-N)
 " re-select pasted text
 noremap gV `[v`]
 
+" paste without ruining your register
+xnoremap <leader>p "_dP
+
 " vim-test
 nnoremap <silent> <Leader>t :TestFile<CR>
 nnoremap <silent> <Leader>T :TestNearest<CR>
@@ -384,13 +387,6 @@ nnoremap <leader>e :NERDTreeToggle<cr>
 
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
-
-" airline
-nmap <silent> 1 <Plug>AirlineSelectTab1
-nmap <silent> 2 <Plug>AirlineSelectTab2
-nmap <silent> 3 <Plug>AirlineSelectTab3
-nmap <silent> 4 <Plug>AirlineSelectTab4
-nmap <silent> 5 <Plug>AirlineSelectTab5
 
 " tabularize
 noremap <leader>a= :Tabularize /=<CR>
