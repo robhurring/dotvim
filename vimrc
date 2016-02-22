@@ -423,8 +423,13 @@ augroup VimrcGroup
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} nested source %
 
-  " linters
-  autocmd BufWritePost * Neomake
+  " linters -- set b:skip_linters to run manually
+  autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
 augroup END
 
 " }}} /augroups
+
+if filereadable(glob("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
+
