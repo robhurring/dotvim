@@ -281,6 +281,7 @@ nnoremap Y y$
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
 nnoremap <leader><leader> :ls<CR>:b<SPACE>
+nnoremap <tab><tab> :b#<CR>
 
 " up/down on displayed lines, not real lines.
 nnoremap k gk
