@@ -34,7 +34,8 @@ augroup StatuslineGroup
     let g:airline_section_b = airline#section#create(['%<', '%{pathshorten(fnamemodify(getcwd(), ":~:."))}'])
     let g:airline_section_c = airline#section#create(['file', l:spc, 'readonly'])
     let g:airline_section_y = airline#section#create(['windowswap', 'linenr', ':%-2v'])
-    let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+    " let g:airline_section_z = airline#section#create(['hunks', 'branch'])
+    let g:airline_section_z = airline#section#create([])
   endfunction
   autocmd Vimenter * call <SID>MyAirline()
 augroup END

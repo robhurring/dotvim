@@ -34,17 +34,17 @@ Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
 
 " let g:my_statusline = 'lightline'
-" Plug 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
 " SEE: $HOME/.vim/plugin/my-airline.vim
-let g:my_statusline = 'airline'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_extensions = ['branch', 'ctrlp', 'neomake', 'whitespace']
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#whitespace#symbol = ''
-let g:airline#extensions#whitespace#trailing_format = '… %s'
+let g:my_statusline = 'lightline'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" let g:airline_extensions = ['branch', 'ctrlp', 'neomake', 'whitespace']
+" let g:airline#extensions#tabline#buffer_idx_mode = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+" let g:airline#extensions#whitespace#symbol = ''
+" let g:airline#extensions#whitespace#trailing_format = '… %s'
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1

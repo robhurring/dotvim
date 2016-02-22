@@ -6,7 +6,7 @@ let g:lightline = {
       \'colorscheme': 'wombat',
       \'active': {
       \   'left': [['shortmode', 'paste'], ['root', 'ctrlpmark'], ['readonly', 'filename', 'modified']],
-      \   'right': [['fugitive'], ['trailing', 'neomake', 'lineinfo'], ['filetype']]
+      \   'right': [['trailing', 'neomake', 'lineinfo'], ['filetype']]
       \ },
       \'component': {
       \   'fugitive': '%{exists("*fugitive#head")?"\ue0a0 ".fugitive#head():""}',
