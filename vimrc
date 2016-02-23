@@ -35,16 +35,7 @@ Plug 'michaeljsmith/vim-indent-object'
 
 " let g:my_statusline = 'lightline'
 Plug 'itchyny/lightline.vim'
-
-" SEE: $HOME/.vim/plugin/my-airline.vim
 let g:my_statusline = 'lightline'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" let g:airline_extensions = ['branch', 'ctrlp', 'neomake', 'whitespace']
-" let g:airline#extensions#tabline#buffer_idx_mode = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-" let g:airline#extensions#whitespace#symbol = ''
-" let g:airline#extensions#whitespace#trailing_format = '… %s'
 
 Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1
@@ -250,29 +241,33 @@ let g:netrw_liststyle = 3
 " Theme"{{{
 try
   execute 'set colorcolumn=' . join(range(81,200), ',')
-  colorscheme wombat
+  set background=dark
+  colorscheme jellybeans
 catch
   echom 'Missing color scheme!'
 endtry
+
+" syntax debugging
+map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Theme overrides
 " http://www.colorpicker.com
 
 " fix awful red colorcolumns in certain themes
-highlight ColorColumn guibg=#222222 ctermbg=235
+" highlight ColorColumn guibg=#222222 ctermbg=235
 
 " neomake highlightings
-highlight LintError   cterm=none ctermbg=233 ctermfg=205 guifg=#e5786d guibg=#111111
-highlight LintWarning cterm=none ctermbg=233 ctermfg=97  guifg=#9c998e guibg=#111111
+highlight LintError   ctermfg=205 guifg=#e5786d
+highlight link LintWarning LineNr
 
 " highlight trailing white space (via conceal)
 highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
 highlight Conceal           ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
 
-" signify plugin highlightings
-highlight SignifySignAdd    cterm=bold ctermbg=233 ctermfg=118 guifg=#95e454 guibg=#111111
-highlight SignifySignDelete cterm=bold ctermbg=233 ctermfg=167 guifg=#e5786d guibg=#111111
-highlight SignifySignChange cterm=bold ctermbg=233 ctermfg=227 guifg=#d4d987 guibg=#111111
+" quickfix/location
+highlight link QuickfixLine String
 "}}}
 
 " Mappings {{{
@@ -427,6 +422,14 @@ augroup VimrcGroup
 
   " linters -- set b:skip_linters to run manually
   autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
+
+  " highlight quickfix
+  autocmd BufReadPost quickfix match QuickfixLine /\%1l/
+  autocmd BufReadPost quickfix nnoremap <buffer> <CR> :execute 'match QuickfixLine /\%' . line('.') . 'l/'<CR><CR>
+
+  " highlight location
+  autocmd BufReadPost location match QuickfixLine /\%1l/
+  autocmd BufReadPost location nnoremap <buffer> <CR> :execute 'match QuickfixLine /\%' . line('.') . 'l/'<CR><CR>
 augroup END
 
 " }}} /augroups

@@ -3,7 +3,7 @@ if g:my_statusline != 'lightline'
 endif
 
 let g:lightline = {
-      \'colorscheme': 'wombat',
+      \'colorscheme': 'jellybeans',
       \'active': {
       \   'left': [['shortmode', 'paste'], ['root', 'ctrlpmark'], ['readonly', 'filename', 'modified']],
       \   'right': [['trailing', 'neomake', 'mylineinfo'], ['filetype', 'spell']]

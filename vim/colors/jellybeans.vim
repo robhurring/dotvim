@@ -339,17 +339,17 @@ call s:X("WildMenu","f0a0c0","302028","","Magenta","")
 
 call s:X("Folded","a0a8b0","384048","italic",s:termBlack,"")
 call s:X("FoldColumn","535D66","1f1f1f","","",s:termBlack)
-call s:X("SignColumn","777777","333333","","",s:termBlack)
-call s:X("ColorColumn","","000000","","",s:termBlack)
+call s:X("SignColumn","777777",g:jellybeans_background_color,"","",s:termBlack)
+call s:X("ColorColumn","","191919","","",s:termBlack)
 
 call s:X("Title","70b950","","bold","Green","")
 
 call s:X("Constant","cf6a4c","","","Red","")
-call s:X("Special","799d6a","","","Green","")
+call s:X("Special","9AD16D","","","Green","")
 call s:X("Delimiter","668799","","","Grey","")
 
-call s:X("String","99ad6a","","","Green","")
-call s:X("StringDelimiter","556633","","","DarkGreen","")
+call s:X("String","95e454","","","Green","")
+call s:X("StringDelimiter","7A9E5C","","","DarkGreen","")
 
 call s:X("Identifier","c6b6ee","","","LightCyan","")
 call s:X("Structure","8fbfdc","","","LightCyan","")
@@ -364,7 +364,7 @@ call s:X("NonText","606060",g:jellybeans_background_color,"",s:termBlack,"")
 
 call s:X("SpecialKey","444444","1c1c1c","",s:termBlack,"")
 
-call s:X("Search","f0a0c0","302028","underline","Magenta","")
+call s:X("Search","f0a0c0","302028","","Magenta","")
 
 call s:X("Directory","dad085","","","Yellow","")
 call s:X("ErrorMsg","","902020","","","DarkRed")
@@ -427,6 +427,7 @@ call s:X("rubyControl","7597c6","","","Blue","")
 hi! link rubyString String
 hi! link rubyStringDelimiter StringDelimiter
 hi! link rubyInterpolationDelimiter Identifier
+hi! link rubyInterpolation Identifier
 
 call s:X("rubyRegexpDelimiter","540063","","","Magenta","")
 call s:X("rubyRegexp","dd0093","","","DarkMagenta","")
