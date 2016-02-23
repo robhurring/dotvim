@@ -6,14 +6,15 @@ let g:lightline = {
       \'colorscheme': 'wombat',
       \'active': {
       \   'left': [['shortmode', 'paste'], ['root', 'ctrlpmark'], ['readonly', 'filename', 'modified']],
-      \   'right': [['trailing', 'neomake', 'lineinfo'], ['filetype']]
+      \   'right': [['trailing', 'neomake', 'mylineinfo'], ['filetype', 'spell']]
       \ },
       \'component': {
       \   'fugitive': '%{exists("*fugitive#head")?"\ue0a0 ".fugitive#head():""}',
-      \   'syntax': '%{neomake#statusline#LoclistStatus()}',
       \   'shortmode': '%{strpart(lightline#mode(), 0, 1)}',
-      \   'filename': '%{expand("%:t") == "ControlP" ? g:lightline.ctrlp_item : expand("%:p")}',
-      \   'root': '%{pathshorten(fnamemodify(getcwd(), ":~:."))}'
+      \   'filename': '%{expand("%:t") == "ControlP" ? g:lightline.ctrlp_item : expand("%")}',
+      \   'root': '%{pathshorten(fnamemodify(getcwd(), ":~:."))}',
+      \   'spell': '%{&spell?&spelllang:""}',
+      \   'mylineinfo': '%3l:%-2v %p%%'
       \ },
       \ 'component_function': {
       \   'ctrlpmark': 'CtrlPMark'
@@ -29,6 +30,7 @@ let g:lightline = {
       \'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
       \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())',
+      \   'spell': '&spell'
       \ },
       \ }
 
@@ -65,11 +67,11 @@ endfunction
 " ---> CtrlP format
 
 let g:ctrlp_status_func = {
-      \ 'main': 'CtrlPStatusFunc_1',
-      \ 'prog': 'CtrlPStatusFunc_2',
+      \ 'main': 'LLCtrlPStatusFunc_1',
+      \ 'prog': 'LLCtrlPStatusFunc_2',
       \ }
 
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
+function! LLCtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
   let g:lightline.ctrlp_regex = a:regex
   let g:lightline.ctrlp_prev = a:prev
   let g:lightline.ctrlp_item = a:item
@@ -77,7 +79,7 @@ function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
   return lightline#statusline(0)
 endfunction
 
-function! CtrlPStatusFunc_2(str)
+function! LLCtrlPStatusFunc_2(str)
   return lightline#statusline(0)
 endfunction
 
