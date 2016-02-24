@@ -521,13 +521,13 @@ end
 if !s:low_color
   hi StatusLineNC ctermbg=235
   hi Folded ctermbg=236
-  hi FoldColumn ctermbg=234
-  hi SignColumn ctermbg=236
   hi CursorColumn ctermbg=234
   hi CursorLine ctermbg=234
   hi SpecialKey ctermbg=234
   exec "hi NonText ctermbg=".g:jellybeans_background_color_256
   exec "hi LineNr ctermbg=".g:jellybeans_background_color_256
+  exec "hi SignColumn ctermbg=".g:jellybeans_background_color_256
+  exec "hi FoldColumn ctermbg=".g:jellybeans_background_color_256
   hi DiffText ctermfg=81
   exec "hi Normal ctermbg=".g:jellybeans_background_color_256
   hi DbgBreakPt ctermbg=53
