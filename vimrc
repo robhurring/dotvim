@@ -170,6 +170,7 @@ set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 set autoindent
 set autoread
 set backupdir=~/.vim/tmp
+set backspace=indent,eol,start
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
