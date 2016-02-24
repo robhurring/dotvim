@@ -266,9 +266,6 @@ highlight link LintWarning LineNr
 " highlight trailing white space (via conceal)
 highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
 highlight Conceal           ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
-
-" quickfix/location
-highlight link QuickfixLine String
 "}}}
 
 " Mappings {{{
@@ -423,14 +420,6 @@ augroup VimrcGroup
 
   " linters -- set b:skip_linters to run manually
   autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
-
-  " highlight quickfix
-  autocmd BufReadPost quickfix match QuickfixLine /\%1l/
-  autocmd BufReadPost quickfix nnoremap <buffer> <CR> :execute 'match QuickfixLine /\%' . line('.') . 'l/'<CR><CR>
-
-  " highlight location
-  autocmd BufReadPost location match QuickfixLine /\%1l/
-  autocmd BufReadPost location nnoremap <buffer> <CR> :execute 'match QuickfixLine /\%' . line('.') . 'l/'<CR><CR>
 augroup END
 
 " }}} /augroups
