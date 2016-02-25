@@ -429,9 +429,9 @@ hi! link rubyStringDelimiter StringDelimiter
 hi! link rubyInterpolationDelimiter Identifier
 hi! link rubyInterpolation Identifier
 
-call s:X("rubyRegexpDelimiter","540063","","","Magenta","")
+call s:X("rubyRegexpDelimiter","8D005F","","","Magenta","")
 call s:X("rubyRegexp","dd0093","","","DarkMagenta","")
-call s:X("rubyRegexpSpecial","a40073","","","Magenta","")
+call s:X("rubyRegexpSpecial","DB2CA2","","","Magenta","")
 
 call s:X("rubyPredefinedIdentifier","de5577","","","Red","")
 

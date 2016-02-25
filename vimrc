@@ -33,7 +33,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
 Plug 'michaeljsmith/vim-indent-object'
 
-" let g:my_statusline = 'lightline'
 Plug 'itchyny/lightline.vim'
 let g:my_statusline = 'lightline'
 
