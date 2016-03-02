@@ -325,8 +325,9 @@ nnoremap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 vmap . :normal .<CR>
 vmap @ :normal! @
 
-" search settings
+" search/replace settings
 nnoremap <silent> <leader>/ :noh<CR>
+nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
@@ -341,7 +342,7 @@ map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 
 " re-select pasted text
-noremap gV `[v`]
+noremap gv `[v`]
 
 " paste without ruining your register
 xnoremap <leader>p "_dP
