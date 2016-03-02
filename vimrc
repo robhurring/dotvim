@@ -400,6 +400,7 @@ augroup VimrcGroup
 
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
+  autocmd BufReadPost * setlocal conceallevel=1 " some plugins are changing this so no visible whitespace
 
   " odd extensions
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
