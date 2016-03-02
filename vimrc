@@ -139,7 +139,7 @@ let g:go_fmt_command = 'goimports'
 " ruby vim-ruby from polyglot
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-rails'
+" Plug 'tpope/vim-rails'
 Plug 'janko-m/vim-test'
 let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/last-spec-failures.out --format progress'
