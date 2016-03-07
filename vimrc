@@ -39,7 +39,11 @@ Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_multiple_files = 'ijr'
-let g:ctrlp_user_command = ['ag %s --files-with-matches --hidden -g ""']
+let g:ctrlp_user_command = [
+      \ '.git',
+      \ 'cd %s && git ls-files -co --exclude-standard',
+      \ 'ag %s --files-with-matches --hidden -g ""'
+      \ ]
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/]\.(git)|node_modules|bower_components|plugged$'
       \ }
@@ -273,7 +277,8 @@ nnoremap Y y$
 
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
-nnoremap <leader><leader> :ls<CR>:b<SPACE>
+" nnoremap <leader><leader> :ls<CR>:b<SPACE>
+nnoremap <leader><leader> :CtrlPBuffer<CR>
 nnoremap <tab><tab> :b#<CR>
 
 " up/down on displayed lines, not real lines.
