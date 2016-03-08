@@ -36,6 +36,7 @@ Plug 'itchyny/lightline.vim'
 let g:my_statusline = 'lightline'
 
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'd11wtq/ctrlp_bdelete.vim'
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_multiple_files = 'ijr'
@@ -163,6 +164,7 @@ if filereadable(expand('~/.vim-plugins.local'))
   source expand('~/.vim-plugins.local')
 endif
 call plug#end()
+call ctrlp_bdelete#init()
 " }}} /plugins
 
 " Options {{{
