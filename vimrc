@@ -91,10 +91,16 @@ let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
 Plug 'ludovicchabant/vim-gutentags'
 let g:gutentags_define_advanced_commands = 1
 let g:gutentags_cache_dir = '~/.cache/tags'
+
 " NOTE: this fails from the res/ctags.options file since ripper-tags
 "       doesn't allow the --options flag
-if executable('ripper-tags')
-  let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+" SEE: https://github.com/ludovicchabant/vim-gutentags/issues/56
+" if executable('ripper-tags')
+"   let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+" endif
+
+if executable('coffeetags')
+  let g:gutentags_ctags_executable_coffee = 'coffeetags'
 endif
 
 Plug 'vim-scripts/YankRing.vim'
