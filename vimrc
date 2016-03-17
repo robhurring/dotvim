@@ -223,7 +223,12 @@ set tags+=./tags,./git/tags
 set undofile
 set undodir=~/.vim/undo
 set updatetime=750
-set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*/undo/*,*/swap/*
+set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*.bak,*/undo/*,*/swap/*
+set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
+set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*
+set wildignore+=tags,cscope.*
+set wildignore+=*.tar.*
 set wildmenu                                                       " Enhanced completion hints in command line
 
 " use zsh on where available
