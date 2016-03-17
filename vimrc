@@ -114,11 +114,11 @@ let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
 " languages
-let g:vim_json_syntax_conceal = 0
 Plug 'sheerun/vim-polyglot'
 Plug 'elzr/vim-json' " can remove if/when polyglot fixes this conceal issue
 
 " misc polyglot config
+let g:polyglot_disabled = ['json']
 let g:jsx_ext_required = 0
 let g:vim_json_syntax_conceal = 0
 
