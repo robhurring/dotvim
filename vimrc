@@ -335,9 +335,6 @@ if has('nvim')
   nmap <BS> <C-h>
 endif
 
-" text wrapping toggle
-nnoremap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
-
 " repeatng
 vmap . :normal .<CR>
 vmap @ :normal! @
