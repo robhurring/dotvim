@@ -350,6 +350,9 @@ map N  <Plug>(incsearch-nohl-N)
 " re-select pasted text
 noremap gv `[v`]
 
+" don't move cursor when joining
+nnoremap J mzJ`z
+
 " paste without ruining your register
 xnoremap <leader>p "_dP
 
