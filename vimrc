@@ -53,9 +53,6 @@ Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#magic = '\v'
 
-Plug 'robhurring/todo.vim'
-let g:todo_file = expand('~/Dropbox/config/todo.md')
-
 Plug 'mhinz/vim-grepper'
 let g:grepper = {
       \'open': 1,
@@ -98,10 +95,6 @@ let g:gutentags_cache_dir = '~/.cache/tags'
 " if executable('ripper-tags')
 "   let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 " endif
-
-if executable('coffeetags')
-  let g:gutentags_ctags_executable_coffee = 'coffeetags'
-endif
 
 Plug 'vim-scripts/YankRing.vim'
 let g:yankring_history_dir = '$HOME/.vim/tmp'
@@ -149,7 +142,6 @@ let g:go_fmt_command = 'goimports'
 " ruby vim-ruby from polyglot
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
-" Plug 'tpope/vim-rails'
 Plug 'janko-m/vim-test'
 let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/last-spec-failures.out --format progress'
