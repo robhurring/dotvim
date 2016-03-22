@@ -30,7 +30,6 @@ Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'henrik/vim-qargs' " Qargs + Qdo
-Plug 'michaeljsmith/vim-indent-object'
 
 Plug 'itchyny/lightline.vim'
 let g:my_statusline = 'lightline'
