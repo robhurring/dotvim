@@ -37,17 +37,10 @@ let g:my_statusline = 'lightline'
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'd11wtq/ctrlp_bdelete.vim'
-let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_multiple_files = 'ijr'
-let g:ctrlp_user_command = [
-      \ '.git',
-      \ 'cd %s && git ls-files -co --exclude-standard',
-      \ 'ag %s --files-with-matches --hidden -g ""'
-      \ ]
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git)|node_modules|bower_components|plugged$'
-      \ }
+let g:ctrlp_user_command = 'ag %s --hidden --files-with-matches --nocolor -g ""'
+let g:ctrlp_use_caching = 1
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
