@@ -271,6 +271,10 @@ highlight Conceal           ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
 " Mappings {{{
 
 " make Y behave like D
+" SEE: http://stackoverflow.com/a/30650556
+function! YRRunAfterMaps()
+  nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+endfunction
 nnoremap Y y$
 
 " buffers / windows
