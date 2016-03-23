@@ -287,7 +287,7 @@ nnoremap k gk
 nnoremap j gj
 
 " toggle folds
-nnoremap <silent> \ @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
 vnoremap \ zf
 
 " ctrlp.vim <C-Space>
@@ -349,8 +349,9 @@ noremap gv `[v`]
 " don't move cursor when joining
 nnoremap J mzJ`z
 
-" paste without ruining your register
-xnoremap <leader>p "_dP
+" paste from last yank register
+xnoremap <leader>p "0p
+xnoremap <leader>P "0P
 
 " vim-test
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -417,9 +418,6 @@ augroup VimrcGroup
 
   " whitespace language tweaks
   autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
-
-  " enable spelling for md, gitcommit
-  autocmd FileType {gitcommit,markdown} setlocal complete+=kspell
 
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} nested source %
