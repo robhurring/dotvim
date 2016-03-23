@@ -216,10 +216,10 @@ set wildignore+=*.tar.*
 set wildmenu                                                       " Enhanced completion hints in command line
 
 " use zsh on where available
-if executable('zsh')
-  set shell=zsh
-endif
-set shellcmdflag=-lc
+" if executable('zsh')
+"   set shell=zsh
+" endif
+" set shellcmdflag=-lc
 
 if executable('ag')
   set grepprg=ag\ -f\ --vimgrep\ $*
