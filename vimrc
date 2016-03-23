@@ -38,8 +38,10 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'd11wtq/ctrlp_bdelete.vim'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_multiple_files = 'ijr'
-let g:ctrlp_user_command = 'ag %s --hidden --files-with-matches --nocolor -g ""'
-let g:ctrlp_use_caching = 1
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s --hidden --files-with-matches --nocolor -g ""'
+end
+let g:ctrlp_use_caching = 0
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -248,9 +250,9 @@ catch
 endtry
 
 " syntax debugging
-map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+"       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+"       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Theme overrides
 " http://www.colorpicker.com
@@ -294,12 +296,6 @@ vnoremap \ zf
 nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 nmap <NUL> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
-
-" thyme / pomodoro
-if has('nvim') && executable('thyme')
-  nnoremap <silent> <localleader>ts :call jobstart('thyme --daemon')<CR>
-  nnoremap <silent> <localleader>tx :call jobstart('thyme --stop')<CR>
-endif
 
 " toggle quickfix/location
 nmap <leader>l <Plug>(toggle-only-location-list)
