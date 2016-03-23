@@ -1,11 +1,24 @@
-set nocompatible
-
-let mapleader=','
-let localmapleader=','
-
-inoremap <C-c> <Esc>
+let g:mapleader="\<Space>"
+let g:maplocalleader=','
 inoremap jk <Esc>l
 
-" begin plugin tests
-set runtimepath+=~/.vim/plugged/unite.vim
+filetype plugin indent on
+syntax on
+
+let g:my_statusline = 'none'
+
+" Plugins {{{
+call plug#begin('~/.vim/plugged')
+
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_user_command = 'ag %s --hidden --files-with-matches --nocolor -g ""'
+
+call plug#end()
+
+" settings
+colorscheme jellybeans
+
+" mappings
+nmap <NUL> :CtrlP<CR>
+nmap <C-Space> :CtrlP<CR>
 
