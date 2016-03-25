@@ -1,26 +1,21 @@
 " Vim color file
 "
-"  "    __       _ _       _                             "
-"  "    \ \  ___| | |_   _| |__   ___  __ _ _ __  ___    "
-"  "     \ \/ _ \ | | | | |  _ \ / _ \/ _  |  _ \/ __|   "
-"  "  /\_/ /  __/ | | |_| | |_| |  __/ |_| | | | \__ \   "
-"  "  \___/ \___|_|_|\__  |____/ \___|\____|_| |_|___/   "
-"  "                 \___/                               "
+" Triple-Jelly, a modified jellybeans.vim based on the
+" Triplet color scheme by Noel Cower.
 "
-"         "A colorful, dark color scheme for Vim."
-"
-" File:         jellybeans.vim
-" URL:          github.com/nanotech/jellybeans.vim
-" Scripts URL:  vim.org/scripts/script.php?script_id=2555
-" Maintainer:   NanoTech (nanotech.nanotechcorp.net)
-" Version:      1.6~git
-" Last Change:  January 15th, 2012
+" File:         triplejelly.vim
+" URL:          ???
+" Scripts URL:  ???
+" Maintainer:   ???
+" Version:      ???
+" Last Change:  2015 January 10
 " License:      MIT
 " Contributors: Daniel Herbert (pocketninja)
 "               Henry So, Jr. <henryso@panix.com>
 "               David Liang <bmdavll at gmail dot com>
 "               Rich Healey (richo)
 "               Andrew Wong (w0ng)
+"               Noel Cower (nilium)
 "
 " Copyright (c) 2009-2012 NanoTech
 "
@@ -55,7 +50,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "jellybeans"
+let colors_name = "triplejelly"
 
 if has("gui_running") || &t_Co == 88 || &t_Co == 256
   let s:low_color = 0
@@ -297,74 +292,109 @@ fun! s:X(group, fg, bg, attr, lcfg, lcbg)
 endfun
 " }}}
 
-if !exists("g:jellybeans_background_color")
-  let g:jellybeans_background_color = "151515"
+if !exists("g:triplejelly_background_color")
+  let g:triplejelly_background_color = "171719"
 end
 
-call s:X("Normal","e8e8d3",g:jellybeans_background_color,"","White","")
+if !exists("g:triplejelly_foreground_color")
+  let g:triplejelly_foreground_color="C6CFD2"
+end
+
+" Other color classes
+let g:triplejelly_c_comment="74737E"
+let g:triplejelly_c_type="FB97D2"
+let g:triplejelly_c_func="FB97D2"
+let g:triplejelly_c_func_name="FB97D2"
+let g:triplejelly_c_call="BB95EF"
+let g:triplejelly_c_namespace="FB97D2"
+let g:triplejelly_c_operator="3D8F9A"
+let g:triplejelly_c_keyword="00D2E5"
+let g:triplejelly_c_control="DBCD5D"
+let g:triplejelly_c_import="E160B4"
+let g:triplejelly_c_storage="EC7967"
+let g:triplejelly_c_number="99CC66"
+let g:triplejelly_c_quote="FF91C5"
+let g:triplejelly_c_string="BBE16C"
+let g:triplejelly_c_interp="797BE6"
+let g:triplejelly_c_var="47AEE8"
+let g:triplejelly_c_const="34A2D9"
+let g:triplejelly_c_lib_func="BB95EF"
+let g:triplejelly_c_lib_type="6E9CBE"
+let g:triplejelly_c_lib_const="99CC33"
+let g:triplejelly_c_highlight="2B3448"
+
+call s:X("Normal",g:triplejelly_foreground_color,g:triplejelly_background_color,"","White","")
 set background=dark
 
-if !exists("g:jellybeans_use_lowcolor_black") || g:jellybeans_use_lowcolor_black
+if !exists("g:triplejelly_use_lowcolor_black") || g:triplejelly_use_lowcolor_black
     let s:termBlack = "Black"
 else
     let s:termBlack = "Grey"
 endif
 
 if version >= 700
-  call s:X("CursorLine","","1c1c1c","","",s:termBlack)
-  call s:X("CursorColumn","","1c1c1c","","",s:termBlack)
-  call s:X("MatchParen","ffffff","556779","bold","","DarkCyan")
+  call s:X("CursorLine","",g:triplejelly_c_highlight,"","",s:termBlack)
+  call s:X("CursorColumn","",g:triplejelly_c_highlight,"","",s:termBlack)
+  call s:X("MatchParen","F2E049","","underline","Yellow","")
 
-  call s:X("TabLine","000000","b0b8c0","italic","",s:termBlack)
+  call s:X("TabLine","000000","b0b8c0","none","",s:termBlack)
   call s:X("TabLineFill","9098a0","","","",s:termBlack)
-  call s:X("TabLineSel","000000","f0f0f0","italic,bold",s:termBlack,"White")
+  call s:X("TabLineSel","000000","f0f0f0","none",s:termBlack,"White")
 
   " Auto-completion
-  call s:X("Pmenu","ffffff","606060","","White",s:termBlack)
-  call s:X("PmenuSel","101010","eeeeee","",s:termBlack,"White")
+  call s:X("Pmenu",g:triplejelly_foreground_color,"606060","","White",s:termBlack)
+  call s:X("PmenuSel",g:triplejelly_background_color,"eeeeee","",s:termBlack,"White")
 endif
 
-call s:X("Visual","","404040","","",s:termBlack)
-call s:X("Cursor",g:jellybeans_background_color,"b0d0f0","","","")
+call s:X("Visual","","344E6D","none","","DarkCyan")
+call s:X("VisualNOS","","344E6D","none","","DarkCyan")
+call s:X("Cursor",g:triplejelly_background_color,"33DDFF","",s:termBlack,"LightCyan")
 
-call s:X("LineNr","605958",g:jellybeans_background_color,"none",s:termBlack,"")
-call s:X("CursorLineNr","ccc5c4","","none","White","")
-call s:X("Comment","888888","","italic","Grey","")
-call s:X("Todo","c7c7c7","","bold","White",s:termBlack)
+call s:X("LineNr","404040",g:triplejelly_background_color,"none",s:termBlack,"")
+call s:X("CursorLineNr","3aafe0","","none","DarkCyan","")
+" Color test for comment
+call s:X("Comment",g:triplejelly_c_comment,"","none","Grey","")
+" TODO: Color test for todo
+call s:X("Todo","FF9F00","","none","White",s:termBlack)
 
-call s:X("StatusLine","000000","dddddd","italic","","White")
-call s:X("StatusLineNC","ffffff","403c41","italic","White","Black")
-call s:X("VertSplit","777777","403c41","",s:termBlack,s:termBlack)
+call s:X("StatusLine",g:triplejelly_background_color,"3EB2FC","none","","White")
+call s:X("StatusLineNC","ffffff","a6a6a6","none","White","Black")
+call s:X("VertSplit","","a6a6a6","",s:termBlack,s:termBlack)
 call s:X("WildMenu","f0a0c0","302028","","Magenta","")
 
-call s:X("Folded","a0a8b0","384048","italic",s:termBlack,"")
+call s:X("Folded","a0a8b0","384048","none",s:termBlack,"")
 call s:X("FoldColumn","535D66","1f1f1f","","",s:termBlack)
-call s:X("SignColumn","777777",g:jellybeans_background_color,"","",s:termBlack)
-call s:X("ColorColumn","","191919","","",s:termBlack)
+call s:X("SignColumn","777777","333333","","",s:termBlack)
+call s:X("ColorColumn","","000000","","",s:termBlack)
 
-call s:X("Title","70b950","","bold","Green","")
+call s:X("Title","70b950","","none","Green","")
 
-call s:X("Constant","cf6a4c","","","Red","")
-call s:X("Special","9AD16D","","","Green","")
-call s:X("Delimiter","668799","","","Grey","")
+call s:X("Number",g:triplejelly_c_number,"","","LightBlue","")
+call s:X("Constant",g:triplejelly_c_const,"","","LightBlue","")
+call s:X("Special",g:triplejelly_c_interp,"","","LightYellow","")
+call s:X("Delimiter",g:triplejelly_c_interp,"","","LightMagenta","")
 
-call s:X("String","95e454","","","Green","")
-call s:X("StringDelimiter","7A9E5C","","","DarkGreen","")
+call s:X("String",g:triplejelly_c_string,"","","Green","")
+call s:X("StringDelimiter",g:triplejelly_c_quote,"","","LightRed","")
+call s:X("SpecialChar",g:triplejelly_c_interp,"","","LightMagenta","")
 
-call s:X("Identifier","c6b6ee","","","LightCyan","")
-call s:X("Structure","8fbfdc","","","LightCyan","")
-call s:X("Function","fad07a","","","Yellow","")
-call s:X("Statement","8197bf","","","DarkBlue","")
+call s:X("Control",g:triplejelly_c_control,"","","LightYellow","")
+hi! link Conditional Control
+
+call s:X("Identifier",g:triplejelly_c_var,"","","LightCyan","")
+call s:X("Structure",g:triplejelly_c_type,"","","LightMagenta","")
+call s:X("Function",g:triplejelly_c_keyword,"","","LightMagenta","")
+hi! link Statement Control
 call s:X("PreProc","8fbfdc","","","LightBlue","")
 
-hi! link Operator Structure
+call s:X("Operator",g:triplejelly_c_operator,"","","LightBlue","")
 
-call s:X("Type","ffb964","","","Yellow","")
-call s:X("NonText","606060",g:jellybeans_background_color,"",s:termBlack,"")
+call s:X("Type",g:triplejelly_c_type,"","","Yellow","")
+call s:X("NonText","555E4F","","","Grey","")
 
 call s:X("SpecialKey","444444","1c1c1c","",s:termBlack,"")
 
-call s:X("Search","f0a0c0","302028","","Magenta","")
+call s:X("Search","C6CFD2","1a364a","none","White","DarkCyan")
 
 call s:X("Directory","dad085","","","Yellow","")
 call s:X("ErrorMsg","","902020","","","DarkRed")
@@ -380,11 +410,6 @@ call s:X("SpellCap","","0000df","underline","","Blue")
 call s:X("SpellRare","","540063","underline","","DarkMagenta")
 call s:X("SpellLocal","","2D7067","underline","","Green")
 
-" Diff
-
-hi! link diffRemoved Constant
-hi! link diffAdded String
-
 " VimDiff
 
 call s:X("DiffAdd","D2EBBE","437019","","White","DarkGreen")
@@ -392,10 +417,15 @@ call s:X("DiffDelete","40000A","700009","","DarkRed","DarkRed")
 call s:X("DiffChange","","2B5B77","","White","DarkBlue")
 call s:X("DiffText","8fbfdc","000000","reverse","Yellow","")
 
+" Diff
+
+hi! link diffRemoved DiffDelete
+hi! link diffAdded DiffAdd
+
 " PHP
 
 hi! link phpFunctions Function
-call s:X("StorageClass","c59f6f","","","Red","")
+call s:X("StorageClass",g:triplejelly_c_storage,"","","Red","")
 hi! link phpSuperglobal Identifier
 hi! link phpQuoteSingle StringDelimiter
 hi! link phpQuoteDouble StringDelimiter
@@ -413,27 +443,26 @@ hi! link pythonOperator Statement
 " Ruby
 
 hi! link rubySharpBang Comment
-call s:X("rubyClass","447799","","","DarkBlue","")
-call s:X("rubyIdentifier","c6b6fe","","","Cyan","")
-hi! link rubyConstant Type
+call s:X("rubyClass",g:triplejelly_c_type,"","","DarkBlue","")
+call s:X("rubyIdentifier",g:triplejelly_c_var,"","","Cyan","")
+hi! link rubyConstant Constant
 hi! link rubyFunction Function
 
-call s:X("rubyInstanceVariable","c6b6fe","","","Cyan","")
-call s:X("rubySymbol","7697d6","","","Blue","")
+call s:X("rubyInstanceVariable",g:triplejelly_c_var,"","","Cyan","")
+call s:X("rubySymbol",g:triplejelly_c_string,"","","Blue","")
 hi! link rubyGlobalVariable rubyInstanceVariable
 hi! link rubyModule rubyClass
-call s:X("rubyControl","7597c6","","","Blue","")
+hi! link rubyControl Control
 
 hi! link rubyString String
 hi! link rubyStringDelimiter StringDelimiter
 hi! link rubyInterpolationDelimiter Identifier
-hi! link rubyInterpolation Identifier
 
-call s:X("rubyRegexpDelimiter","8D005F","","","Magenta","")
-call s:X("rubyRegexp","dd0093","","","DarkMagenta","")
-call s:X("rubyRegexpSpecial","DB2CA2","","","Magenta","")
+hi! link rubyRegexpDelimiter StringDelimiter
+hi! link rubyRegexp String
+call s:X("rubyRegexpSpecial",g:triplejelly_c_interp,"","","LightYellow","")
 
-call s:X("rubyPredefinedIdentifier","de5577","","","Red","")
+call s:X("rubyPredefinedIdentifier",g:triplejelly_c_lib_const,"","","LightGreen","")
 
 " Erlang
 
@@ -475,27 +504,35 @@ hi! link objcMethodName Identifier
 hi! link objcMethodArg Normal
 hi! link objcMessageName Identifier
 
+" Go
+
+hi! link goDirective Function
+hi! link goDeclaration Function
+hi! link goBoolean Constant
+hi! link goCharacter String
+
+hi! link goSignedInts Number
+hi! link goUnsignedInts Number
+hi! link goFloats Number
+hi! link goComplexes Number
+
+call s:X("goStorage", g:triplejelly_c_storage, "", "", "LightRed", "")
+hi! link goType goStorage
+hi! link goSignedInts goStorage
+hi! link goUnsignedInts goStorage
+hi! link goFloats goStorage
+hi! link goComplexes goStorage
+
+call s:X("goFunction", g:triplejelly_c_func_name, "", "", "LightMagenta", "")
+call s:X("goType",g:triplejelly_c_storage,"","","LightRed","")
+hi! link goStructDef goFunction
+hi! link goStruct goFunction
+hi! link goMethod goFunction
+
+
 " Vimscript
 
 hi! link vimOper Normal
-
-" HTML
-
-hi! link htmlTag Statement
-hi! link htmlEndTag htmlTag
-hi! link htmlTagName htmlTag
-
-" XML
-
-hi! link xmlTag Statement
-hi! link xmlEndTag xmlTag
-hi! link xmlTagName xmlTag
-hi! link xmlEqual xmlTag
-hi! link xmlEntity Special
-hi! link xmlEntityPunct xmlEntity
-hi! link xmlDocTypeDecl PreProc
-hi! link xmlDocTypeKeyword PreProc
-hi! link xmlProcessingDelim xmlAttrib
 
 " Debugger.vim
 
@@ -515,28 +552,29 @@ call s:X("IndentGuidesEven","","1b1b1b","","","")
 hi! link TagListFileName Directory
 call s:X("PreciseJumpTarget","B9ED67","405026","","White","Green")
 
-if !exists("g:jellybeans_background_color_256")
-  let g:jellybeans_background_color_256=233
+if !exists("g:triplejelly_background_color_256")
+  let g:triplejelly_background_color_256=233
 end
 " Manual overrides for 256-color terminals. Dark colors auto-map badly.
+" TODO: Port from jellybeans
 if !s:low_color
   hi StatusLineNC ctermbg=235
   hi Folded ctermbg=236
+  hi FoldColumn ctermbg=234
+  hi SignColumn ctermbg=236
   hi CursorColumn ctermbg=234
   hi CursorLine ctermbg=234
   hi SpecialKey ctermbg=234
-  exec "hi NonText ctermbg=".g:jellybeans_background_color_256
-  exec "hi LineNr ctermbg=".g:jellybeans_background_color_256
-  exec "hi SignColumn ctermbg=".g:jellybeans_background_color_256
-  exec "hi FoldColumn ctermbg=".g:jellybeans_background_color_256
+  exec "hi NonText ctermbg=".g:triplejelly_background_color_256
+  exec "hi LineNr ctermbg=".g:triplejelly_background_color_256
   hi DiffText ctermfg=81
-  exec "hi Normal ctermbg=".g:jellybeans_background_color_256
+  exec "hi Normal ctermbg=".g:triplejelly_background_color_256
   hi DbgBreakPt ctermbg=53
   hi IndentGuidesOdd ctermbg=235
   hi IndentGuidesEven ctermbg=234
 endif
 
-if exists("g:jellybeans_overrides")
+if exists("g:triplejelly_overrides")
   fun! s:load_colors(defs)
     for [l:group, l:v] in items(a:defs)
       call s:X(l:group, get(l:v, 'guifg', ''), get(l:v, 'guibg', ''),
@@ -554,9 +592,11 @@ if exists("g:jellybeans_overrides")
       unlet l:v
     endfor
   endfun
-  call s:load_colors(g:jellybeans_overrides)
+  call s:load_colors(g:triplejelly_overrides)
   delf s:load_colors
 endif
+
+"hi Visual term=none cterm=none ctermbg=23 guibg=#344E6D gui=none
 
 " delete functions {{{
 delf s:X
