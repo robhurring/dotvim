@@ -266,8 +266,8 @@ highlight LintError   ctermfg=205 guifg=#e5786d
 highlight link LintWarning LineNr
 
 " highlight trailing white space (via conceal)
-highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
-highlight Conceal           ctermfg=196 ctermbg=197 guibg=none guifg=#FF0080
+highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 "}}}
 
 " Mappings {{{
