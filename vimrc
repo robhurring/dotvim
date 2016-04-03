@@ -281,9 +281,13 @@ nnoremap Y y$
 
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
-" nnoremap <leader><leader> :ls<CR>:b<SPACE>
 nnoremap <leader><leader> :CtrlPBuffer<CR>
 nnoremap <tab><tab> :b#<CR>
+" nnoremap <leader><leader> :ls<CR>:b<SPACE>
+
+" tags / ctrlp
+nnoremap <C-[> <C-t>
+nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
 nnoremap k gk
