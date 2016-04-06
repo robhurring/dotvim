@@ -76,7 +76,10 @@ let g:NERDTreeMinimalUI = 1
 
 Plug 'benekastah/neomake'
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_ruby_enabled_makers = ['rubocop', 'reek']
+let g:neomake_ruby_enabled_makers = ['rubocop']
+if executable('reek')
+  let g:neomake_ruby_enabled_makers += ['reek']
+endif
 let g:neomake_warning_sign = {'text': "\u25CF", 'texthl': 'LintWarning'}
 let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
 
