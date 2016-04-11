@@ -182,7 +182,6 @@ set directory=~/.vim/swap
 set expandtab
 set foldenable
 set foldlevel=99
-set guifont=Hack:h15
 set guioptions-=r
 set hidden                                                         " Don't abandon buffers moved to the background
 set hlsearch
@@ -220,6 +219,11 @@ set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*
 set wildignore+=tags,cscope.*
 set wildignore+=*.tar.*
 set wildmenu                                                       " Enhanced completion hints in command line
+
+if has('gui_running')
+  set guifont=Hasklig:h15
+  set macligatures
+endif
 
 " use zsh on where available
 " if executable('zsh')
