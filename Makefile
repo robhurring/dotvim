@@ -57,7 +57,8 @@ $(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vimrc
 # ---> dependencies
 
 .vim:
-	brew install macvim --with-override-system-vim --with-luajit --with-lua --with-python3
+	brew install lua
+	brew install vim --with-luajit --with-lua --with-python3
 
 # https://neovim.io/doc/user/nvim_python.html
 .neovim:
