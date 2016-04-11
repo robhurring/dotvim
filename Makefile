@@ -5,10 +5,13 @@ CWD=$(shell pwd)
 DOTFILES=vimrc vim
 TARGETS=$(DOTFILES:%=$(HOME)/.%)
 
-install: $(TARGETS)
+all: $(TARGETS)
 	@make bundle
 
-neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim
+install: $(TARGETS) bootstrap
+	@make bundle
+
+neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim bootstrap-neovim
 	@make bundle
 
 uninstall:
@@ -54,14 +57,13 @@ $(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vimrc
 # ---> dependencies
 
 .vim:
-	brew install lua
-	brew install vim --with-lua
+	brew install macvim --with-override-system-vim --with-luajit --with-lua --with-python3
 
 # https://neovim.io/doc/user/nvim_python.html
 .neovim:
 	brew tap neovim/neovim
 	brew install neovim
-	[[ $(shell which pip2) ]] && sudo pip2 install neovim
-	[[ $(shell which pip3) ]] && sudo pip3 install neovim
+	[[ $(shell which pip2) ]] && pip2 install --upgrade neovim
+	[[ $(shell which pip3) ]] && pip3 install --upgrade neovim
 	nvim +UpdateRemotePlugins +qall
 
