@@ -30,7 +30,9 @@ Plug 'tpope/vim-projectionist'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'henrik/vim-qargs' " Qargs + Qdo
+" Plug 'henrik/vim-qargs' " Qargs + Qdo
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'itchyny/lightline.vim'
 let g:my_statusline = 'lightline'
@@ -292,9 +294,9 @@ nnoremap <leader><leader> :CtrlPBuffer<CR>
 nnoremap <tab><tab> :b#<CR>
 " nnoremap <leader><leader> :ls<CR>:b<SPACE>
 
-" tags / ctrlp
+" tags / fzf
 nnoremap <C-[> <C-t>
-nnoremap <C-t> :CtrlPTag<CR>
+nnoremap <C-t> :Tags<CR>
 
 " up/down on displayed lines, not real lines.
 nnoremap k gk
