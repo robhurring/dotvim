@@ -138,7 +138,7 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-cucumber'
 Plug 'janko-m/vim-test'
 let g:test#strategy = 'vimux'
-let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/last-spec-failures.out --format progress'
+let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer --tern-completer' }
@@ -366,7 +366,7 @@ nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>ta :TestSuite<CR>
 
 " load vim-test failures into quickfix
-nnoremap <silent> <leader>sc :cg /tmp/last-spec-failures.out\|copen<CR>
+nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
 
 " splitjoin
 nnoremap gS :SplitjoinSplit<cr>
