@@ -30,10 +30,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'henrik/vim-qargs' " Qargs + Qdo
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
 Plug 'itchyny/lightline.vim'
 let g:my_statusline = 'lightline'
 
@@ -177,7 +173,7 @@ set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
 set concealcursor=nc
-set conceallevel=1
+set conceallevel=2
 set cursorline
 set diffopt=filler,iwhite,vertical                                 " In diff mode, ignore whitespace changes and align unchanged lines
 set directory=~/.vim/swap
@@ -296,7 +292,7 @@ nnoremap <tab><tab> :b#<CR>
 
 " tags / fzf
 nnoremap <C-[> <C-t>
-nnoremap <C-t> :Tags<CR>
+nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
 nnoremap k gk
@@ -419,7 +415,7 @@ augroup VimrcGroup
 
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
-  autocmd BufReadPost * setlocal conceallevel=1 " some plugins are changing this so no visible whitespace
+  autocmd BufReadPost * setlocal conceallevel=2 " some plugins are changing this so no visible whitespace
 
   " odd extensions
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
