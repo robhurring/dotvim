@@ -21,14 +21,14 @@ Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-projectionist'
-Plug 'benmills/vimux'
-Plug 'jszakmeister/vim-togglecursor'
+Plug 'benmills/vimux'                   " dep for: vim-test
+Plug 'jszakmeister/vim-togglecursor'    " only needed for vim/mvim
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -71,8 +71,15 @@ let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeMinimalUI = 1
 
 Plug 'benekastah/neomake'
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_ruby_enabled_makers = ['rubocop']
+let g:neomake_javascript_enabled_makers = []
+let g:neomake_ruby_enabled_makers = []
+
+if executable('eslint')
+  let g:neomake_javascript_enabled_makers += ['eslint']
+end
+if executable('rubocop')
+  let g:neomake_ruby_enabled_makers += ['rubocop']
+endif
 if executable('reek')
   let g:neomake_ruby_enabled_makers += ['reek']
 endif
@@ -134,7 +141,7 @@ let g:go_fmt_autosave = 0 " use vim-autoformat instead
 let g:go_fmt_command = 'goimports'
 
 " ruby vim-ruby from polyglot
-Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-bundler'  " used for appending gem tags to `tagfiles()`
 Plug 'tpope/vim-cucumber'
 Plug 'janko-m/vim-test'
 let g:test#strategy = 'vimux'
@@ -160,42 +167,44 @@ call ctrlp_bdelete#init()
 " }}} /plugins
 
 " Options {{{
+" NOTE: some are unnecessary in neovim, but needed for vim compatibility
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
 set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 set autoindent
 set autoread
-set backupdir=~/.vim/tmp
 set backspace=indent,eol,start
+set backupdir=~/.vim/tmp
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
 set concealcursor=nc
 set conceallevel=2
 set cursorline
-set diffopt=filler,iwhite,vertical                                 " In diff mode, ignore whitespace changes and align unchanged lines
+set diffopt=filler,iwhite,vertical
 set directory=~/.vim/swap
 set expandtab
 set foldenable
 set foldlevel=99
+set guifont=Hasklig:h15
 set guioptions-=r
-set hidden                                                         " Don't abandon buffers moved to the background
+set hidden
 set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
 set lazyredraw
 set linebreak
-set list                                                           " Display unprintable characters
+set list
 set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set mouse=a
 set nowrap
 set number
-set scrolloff=3                                                    " Start scrolling 3 lines before the horizontal window border
-set sessionoptions-=help                                           " don't restore help windows
+set scrolloff=3
+set sessionoptions-=help
 set shiftround
 set shiftwidth=2
-set shortmess+=A                                                   " Toggle paste mode while in insert mode with F12
+set shortmess+=A
 set showcmd
 set showmatch
 set smartcase
@@ -205,15 +214,15 @@ set splitbelow
 set splitright
 set tabstop=2
 set tags+=./tags,./git/tags
-set undofile
 set undodir=~/.vim/undo
+set undofile
 set updatetime=750
-set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*.bak,*/undo/*,*/swap/*
 set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
+set wildignore+=*.tar.*
 set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
 set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*
+set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*.bak,*/undo/*,*/swap/*
 set wildignore+=tags,cscope.*
-set wildignore+=*.tar.*
 set wildmenu                                                       " Enhanced completion hints in command line
 
 " SEE: https://gist.github.com/XVilka/8346728
@@ -223,7 +232,6 @@ set wildmenu                                                       " Enhanced co
 " end
 
 if has('gui_running')
-  set guifont=Hasklig:h15
   set macligatures
 endif
 
@@ -292,6 +300,9 @@ nnoremap Y y$
 " commands
 nnoremap <CR> :
 
+" don't move cursor for *
+nnoremap * *<c-o>
+
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
 nnoremap <leader><leader> :CtrlPBuffer<CR>
@@ -315,11 +326,16 @@ nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 nmap <NUL> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
 
+nnoremap <localleader>b :CtrlPBookmarkDir<CR>
+nnoremap <localleader>B :CtrlPBookmarkDirAdd<CR>
+
 " toggle quickfix/location
+" SEE: plugins/toggle-quickfix.vim
 nmap <leader>l <Plug>(toggle-only-location-list)
 nmap <leader>c <Plug>(toggle-only-quickfix-list)
 
 " cd to buffer's project root directory
+" SEE: autoload/helpers.vim
 nmap <silent> <localleader>cd :execute 'cd '.helpers#projectroot()<CR>
 
 " saving (keep imap to avoid vim-surround from binding it)
@@ -346,6 +362,7 @@ vmap @ :normal! @
 " search/replace settings
 nnoremap <silent> <leader>/ :noh<CR>
 nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
+vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
