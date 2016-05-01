@@ -31,8 +31,6 @@ Plug 'benmills/vimux'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
-let g:my_statusline = 'lightline'
-
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'd11wtq/ctrlp_bdelete.vim'
 let g:ctrlp_working_path_mode = 'ra'

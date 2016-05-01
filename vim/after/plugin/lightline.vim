@@ -1,4 +1,4 @@
-if g:my_statusline != 'lightline'
+if !exists('g:loaded_lightline')
   finish
 endif
 
@@ -82,4 +82,5 @@ endfunction
 function! LLCtrlPStatusFunc_2(str)
   return lightline#statusline(0)
 endfunction
+
 
