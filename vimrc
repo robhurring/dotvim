@@ -216,12 +216,19 @@ set wildignore+=tags,cscope.*
 set wildignore+=*.tar.*
 set wildmenu                                                       " Enhanced completion hints in command line
 
+" SEE: https://gist.github.com/XVilka/8346728
+" NOTE: not working with vim/tmux currently
+" if has('termguicolors')
+"   set termguicolors
+" end
+
 if has('gui_running')
   set guifont=Hasklig:h15
   set macligatures
 endif
 
 " use zsh on where available
+" NOTE: causes considerable lag
 " if executable('zsh')
 "   set shell=zsh
 " endif
@@ -282,13 +289,16 @@ function! YRRunAfterMaps()
 endfunction
 nnoremap Y y$
 
+" commands
+nnoremap <CR> :
+
 " buffers / windows
 nnoremap <silent> <C-x> :bd<CR>
 nnoremap <leader><leader> :CtrlPBuffer<CR>
 nnoremap <tab><tab> :b#<CR>
 " nnoremap <leader><leader> :ls<CR>:b<SPACE>
 
-" tags / fzf
+" fuzzy tags
 nnoremap <C-[> <C-t>
 nnoremap <C-t> :CtrlPTag<CR>
 
@@ -378,7 +388,7 @@ map <C-_> gcc<Esc>
 " yankring
 nmap <Leader>y :YRShow<CR>
 
-" vim-unimpaired
+" vim-unimpaired / line bubbling
 imap <C-Up> <Esc>[egi
 imap <C-Down> <Esc>]egi
 nmap <C-Up> [e
@@ -409,13 +419,15 @@ noremap <leader>a\| :Tabularize /\|<CR>
 
 augroup VimrcGroup
   autocmd!
+
+  " pickup where you left off
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
   autocmd BufReadPost * setlocal conceallevel=2 " some plugins are changing this so no visible whitespace
 
-  " odd extensions
+  " odd file extensions
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
   autocmd BufNewFile,BufRead {*.js.erb} set filetype=javascript
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
@@ -429,6 +441,8 @@ augroup VimrcGroup
   autocmd BufWritePost {.vimrc,vimrc} nested source %
 
   " linters -- set b:skip_linters to run manually
+  " NOTE: can be used with `autocmd` to disable Neomake for specific paths
+  "       (put in .vimrc.local)
   autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
 augroup END
 
