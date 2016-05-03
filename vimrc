@@ -310,7 +310,7 @@ nnoremap <tab><tab> :b#<CR>
 " nnoremap <leader><leader> :ls<CR>:b<SPACE>
 
 " fuzzy tags
-nnoremap <C-[> <C-t>
+" nnoremap <C-[> <C-t> " gives an annoying alert since <c-[> is ESC
 nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
