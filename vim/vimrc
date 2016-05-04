@@ -13,8 +13,6 @@ call plug#begin('~/.vim/plugged')
 " dependencies
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-dispatch'    " dep for: vim-test(O)
-Plug 'mattn/webapi-vim'      " dep for: gist(R)
-Plug 'Shougo/vimproc.vim'    " dep for: vim-go(O)
 
 " misc plugins
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
@@ -40,6 +38,12 @@ if executable('ag')
 end
 let g:ctrlp_use_caching = 0
 
+" NOTE: installing before `ctrlp` will use <c-p> as CtrlP, otherwise you will
+"       have <c-p> as YankRing's cycle through paste. (Or you can override
+"       like `Y` below.)
+Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = '$HOME/.vim/tmp'
+
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#magic = '\v'
@@ -57,13 +61,6 @@ let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snipp
 
 Plug 'bronson/vim-trailing-whitespace'
 let g:extra_whitespace_ignored_filetypes = []
-
-Plug 'mattn/gist-vim', {'on': 'Gist'}
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_post_private = 1
-let g:gist_show_privates = 1
 
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
@@ -97,9 +94,6 @@ let g:gutentags_cache_dir = '~/.cache/tags'
 "   let g:gutentags_ctags_executable_ruby = 'ripper-tags'
 " endif
 
-Plug 'vim-scripts/YankRing.vim'
-let g:yankring_history_dir = '$HOME/.vim/tmp'
-
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
 let g:AutoPairsMultilineClose = 0
@@ -126,26 +120,26 @@ Plug 'tpope/vim-ragtag'
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key='<C-e>'
 
-" go
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'rhysd/vim-go-impl', {'for': 'go'}
-let g:formatdef_goimports = '"goimports"'
-let g:formatters_go = ['goimports', 'gofmt_2'] " dep: vim-autoformat
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_dispatch_enabled = 1
-let g:go_fmt_autosave = 0 " use vim-autoformat instead
-let g:go_fmt_command = 'goimports'
+" " go
+" Plug 'fatih/vim-go', {'for': 'go'}
+" Plug 'rhysd/vim-go-impl', {'for': 'go'}
+" let g:formatdef_goimports = '"goimports"'
+" let g:formatters_go = ['goimports', 'gofmt_2'] " dep: vim-autoformat
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_build_constraints = 1
+" let g:go_dispatch_enabled = 1
+" let g:go_fmt_autosave = 0 " use vim-autoformat instead
+" let g:go_fmt_command = 'goimports'
 
 " ruby vim-ruby from polyglot
 Plug 'tpope/vim-bundler'  " used for appending gem tags to `tagfiles()`
 Plug 'tpope/vim-cucumber'
 Plug 'janko-m/vim-test'
 let g:test#strategy = 'vimux'
-let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out /tmp/quickfix.out --format progress'
+let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out ~/.vim/tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer --tern-completer' }
@@ -170,7 +164,6 @@ call ctrlp_bdelete#init()
 " NOTE: some are unnecessary in neovim, but needed for vim compatibility
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
-set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 set autoindent
 set autoread
 set backspace=indent,eol,start
@@ -205,6 +198,7 @@ set sessionoptions-=help
 set shiftround
 set shiftwidth=2
 set shortmess+=A
+set showbreak=↪\ 
 set showcmd
 set showmatch
 set smartcase
@@ -212,6 +206,7 @@ set smartindent
 set smarttab
 set splitbelow
 set splitright
+set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 set tabstop=2
 set tags+=./tags,./git/tags
 set undodir=~/.vim/undo
@@ -223,7 +218,7 @@ set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
 set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*
 set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*.bak,*/undo/*,*/swap/*
 set wildignore+=tags,cscope.*
-set wildmenu                                                       " Enhanced completion hints in command line
+set wildmenu
 
 " SEE: https://gist.github.com/XVilka/8346728
 " NOTE: not working with vim/tmux currently
@@ -393,7 +388,7 @@ nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>ta :TestSuite<CR>
 
 " load vim-test failures into quickfix
-nnoremap <silent> <leader>sc :cg /tmp/quickfix.out\|copen<CR>
+nnoremap <silent> <leader>sc :cg ~/.vim/tmp/quickfix.out\|copen<CR>
 
 " splitjoin
 nnoremap gS :SplitjoinSplit<cr>
