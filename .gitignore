@@ -9,5 +9,6 @@
 /vim/tags
 /vim/doc/tags
 /vim/vim*
+!/vim/vimrc
 /vim/.netrw*
 /vim/spell/*

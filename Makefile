@@ -2,7 +2,7 @@ XDG_CONFIG_HOME ?= $(HOME)/.config
 SNAPSHOTS_HOME ?= $(HOME)/.vim/snapshots
 CWD=$(shell pwd)
 
-DOTFILES=vimrc vim
+DOTFILES=vim
 TARGETS=$(DOTFILES:%=$(HOME)/.%)
 
 all: $(TARGETS)
@@ -51,7 +51,7 @@ $(XDG_CONFIG_HOME)/nvim: $(HOME)/.vim
 	@mkdir -p $(XDG_CONFIG_HOME)
 	@ln -nsf $< $@
 
-$(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vimrc
+$(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vim/vimrc
 	@ln -nsf $< $@
 
 # ---> dependencies
@@ -63,7 +63,7 @@ $(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vimrc
 # https://neovim.io/doc/user/nvim_python.html
 .neovim:
 	brew tap neovim/neovim
-	brew install neovim
+	brew upgrade neovim
 	[[ $(shell which pip2) ]] && pip2 install --upgrade neovim
 	[[ $(shell which pip3) ]] && pip3 install --upgrade neovim
 	nvim +UpdateRemotePlugins +qall
