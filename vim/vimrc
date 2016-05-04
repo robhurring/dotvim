@@ -12,10 +12,10 @@ call plug#begin('~/.vim/plugged')
 
 " dependencies
 Plug 'tmhedberg/matchit'
-Plug 'tpope/vim-dispatch'    " dep for: vim-test(O)
+Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 
 " misc plugins
-Plug 'godlygeek/tabular', {'on': 'Tabularize'}
+Plug 'junegunn/vim-easy-align' , {'on': '<Plug>(EasyAlign)'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'tpope/vim-commentary'
@@ -26,6 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-projectionist'
 Plug 'benmills/vimux'                   " dep for: vim-test
+" SEE: https://github.com/mhinz/dotfiles/blob/master/vim/vimrc#L349-L359
 Plug 'jszakmeister/vim-togglecursor'    " only needed for vim/mvim
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
@@ -103,7 +104,7 @@ let g:AutoPairsShortcutJump = '<M-n>'
 
 " languages
 Plug 'robhurring/vim-polyglot', {'branch': 'optional-concealing'}
-let g:polyglot_disabled = []
+let g:polyglot_disabled = ['markdown']
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_syntax_conceal = 0
 let g:jsx_ext_required = 0
@@ -192,12 +193,13 @@ set mouse=a
 set nowrap
 set number
 set scrolloff=3
+set sidescroll=1
+set sidescrolloff=3
 set sessionoptions-=help
 set shiftround
 set shiftwidth=2
 set shortmess+=A
 set showbreak=↪\ 
-set showcmd
 set showmatch
 set smartcase
 set smartindent
@@ -416,12 +418,9 @@ nnoremap <leader>e :NERDTreeToggle<cr>
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
 
-" tabularize
-noremap <leader>a= :Tabularize /=<CR>
-noremap <leader>a: :Tabularize /^[^:]*:\zs/l0l1<CR>
-noremap <leader>a> :Tabularize /=><CR>
-noremap <leader>a, :Tabularize /,\zs/l0l1<CR>
-noremap <leader>a\| :Tabularize /\|<CR>
+" easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " }}}1 /Mappings
 
@@ -454,6 +453,13 @@ augroup VimrcGroup
   " NOTE: can be used with `autocmd` to disable Neomake for specific paths
   "       (put in .vimrc.local)
   autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
+
+  " auto-mark some common files
+  autocmd BufLeave *_spec*,*features/*     normal mark S
+  autocmd BufLeave *app/controllers/*      normal mark C
+  autocmd BufLeave *app/models/*           normal mark M
+  autocmd BufLeave {.vimrc,vimrc,$MYVIMRC} normal mark V
+  autocmd BufLeave .zshrc                  normal mark Z
 augroup END
 
 " }}} /augroups

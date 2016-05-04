@@ -2,6 +2,11 @@ if !exists('g:loaded_lightline')
   finish
 endif
 
+if exists('g:loaded_lightline_customizations')
+  finish
+endif
+let g:loaded_lightline_customizations = 1
+
 let g:lightline = {
       \'colorscheme': 'jellybeans',
       \'active': {
@@ -40,16 +45,14 @@ augroup StatuslineGroup
 augroup END
 
 function! s:flags()
-  if exists('#LightLine')
-    call LLTrailingSpaceWarning()
-    call LLNeomake()
-    call lightline#update()
-  endif
+  call LLTrailingSpaceWarning()
+  call LLNeomake()
+  call lightline#update()
 endfunction
 
 function! LLTrailingSpaceWarning()
   let l:trailing = search('\s$', 'nw')
-  return (l:trailing != 0) ? "… " . trailing : ''
+  return (l:trailing != 0) ? get(g:, 'my_trailing_space_icon', '… ') . trailing : ''
 endfunction
 
 function! LLNeomake()
