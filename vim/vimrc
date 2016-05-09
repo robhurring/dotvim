@@ -452,11 +452,11 @@ augroup VimrcGroup
   autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
 
   " auto-mark some common files
-  autocmd BufLeave *_spec*,*features/*     normal mT
-  autocmd BufLeave *app/controllers/*      normal mC
-  autocmd BufLeave *app/models/*           normal mM
-  autocmd BufLeave {.vimrc,vimrc,$MYVIMRC} normal mV
-  autocmd BufLeave .zshrc                  normal mZ
+  autocmd BufLeave *_spec*,*features/* normal mT
+  autocmd BufLeave *app/controllers/*  normal mC
+  autocmd BufLeave *app/models/*       normal mM
+  autocmd BufLeave {.vimrc,vimrs}      normal mV
+  autocmd BufLeave .zshrc              normal mZ
 augroup END
 
 " }}} /augroups
