@@ -292,9 +292,6 @@ function! YRRunAfterMaps()
 endfunction
 nnoremap Y y$
 
-" commands
-nnoremap <CR> :
-
 " don't move cursor for *
 nnoremap * *<c-o>
 
