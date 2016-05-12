@@ -443,6 +443,9 @@ augroup VimrcGroup
   " whitespace language tweaks
   autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
+  " add all missing stuff for go
+  autocmd BufWritePost *.go GoFmt
+
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} nested source %
 
