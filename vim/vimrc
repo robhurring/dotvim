@@ -129,7 +129,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_dispatch_enabled = 1
-let g:go_fmt_autosave = 0 " use vim-autoformat instead
+let g:go_fmt_autosave = 1
 let g:go_fmt_command = 'goimports'
 
 " ruby vim-ruby from polyglot
@@ -441,9 +441,6 @@ augroup VimrcGroup
 
   " whitespace language tweaks
   autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
-
-  " add all missing stuff for go
-  autocmd BufWritePost *.go GoFmt
 
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} nested source %
