@@ -121,7 +121,6 @@ let g:user_emmet_leader_key='<C-e>'
 
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'rhysd/vim-go-impl', {'for': 'go'}
 let g:formatdef_goimports = '"goimports"'
 let g:formatters_go = ['goimports', 'gofmt_2'] " dep: vim-autoformat
 let g:go_highlight_functions = 1
