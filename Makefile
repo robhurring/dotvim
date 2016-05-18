@@ -4,6 +4,7 @@ CWD=$(shell pwd)
 
 DOTFILES=vim
 TARGETS=$(DOTFILES:%=$(HOME)/.%)
+MYVIM?=vim
 
 all: $(TARGETS)
 	@make bundle
@@ -28,17 +29,17 @@ update: snapshot
 	@make bundle-update
 
 clean:
-	vim +PlugClean! +qall
+	$(MYVIM) +PlugClean! +qall
 
 bundle:
-	vim +PlugInstall +PlugClean! +qall
+	$(MYVIM) +PlugInstall +PlugClean! +qall
 
 bundle-update:
-	vim +PlugUpgrade +PlugUpdate +PlugClean!
+	$(MYVIM) +PlugUpgrade +PlugUpdate +PlugClean!
 
 snapshot:
 	@mkdir -p $(SNAPSHOTS_HOME)
-	vim +"PlugSnapshot $(SNAPSHOTS_HOME)/plugins.$(shell date +%y-%m-%d).snapshot" +qall
+	$(MYVIM) +"PlugSnapshot $(SNAPSHOTS_HOME)/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
 # ---> file targets
 
