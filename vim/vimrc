@@ -15,7 +15,7 @@ Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 
 " misc plugins
-Plug 'junegunn/vim-easy-align' , {'on': '<Plug>(EasyAlign)'}
+Plug 'tommcdo/vim-lion'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 Plug 'tpope/vim-commentary'
@@ -413,10 +413,6 @@ nnoremap <leader>e :NERDTreeToggle<cr>
 
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
-
-" easy-align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
 
 " }}}1 /Mappings
 
