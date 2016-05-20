@@ -5,7 +5,7 @@
 "  | .__/ \___/ \___|_|\_\___|\__|     \_/ |_|_| |_| |_|
 "  |_| a light-weight, curl-able portable and cozy vimrc!
 "
-"  $ \curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/pocket-vimrc > ~/.pocket-vimrc
+"  $ \curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/pocketvim.sh|bash
 "  $ vim -u ~/.pocket-vimrc
 "
 let s:pvhome=expand("/tmp/pocketvim")
