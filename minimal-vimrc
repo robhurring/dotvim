@@ -5,8 +5,6 @@ inoremap jk <Esc>l
 filetype plugin indent on
 syntax on
 
-let g:my_statusline = 'none'
-
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 
