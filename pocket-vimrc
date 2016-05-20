@@ -1,0 +1,194 @@
+"                    _        _             _
+"   _ __   ___   ___| | _____| |_    __   _(_)_ __ ___
+"  | '_ \ / _ \ / __| |/ / _ \ __|___\ \ / / | '_ ` _ \
+"  | |_) | (_) | (__|   <  __/ ||_____\ V /| | | | | | |
+"  | .__/ \___/ \___|_|\_\___|\__|     \_/ |_|_| |_| |_|
+"  |_| a light-weight, curl-able portable and cozy vimrc!
+"
+"  $ \curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/pocket-vimrc > ~/.pocket-vimrc
+"  $ vim -u ~/.pocket-vimrc
+"
+let s:pvhome=expand("/tmp/pocketvim")
+let s:pvpluginhome=s:pvhome."/plugged"
+let g:mapleader="\<Space>"
+let g:maplocalleader=','
+inoremap <special> jk <Esc>l
+
+filetype plugin indent on
+syntax on
+
+" change cursor in insert
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
+" directories
+let &undodir=s:pvhome."/tmp"
+let &directory=s:pvhome."/tmp/"
+let &backupdir=s:pvhome."/tmp"
+
+set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
+
+" Plugins {{{
+call plug#begin(s:pvhome."/plugged")
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+call plug#end()
+" }}}
+
+" Settings {{{
+set nocompatible
+set autoindent
+set autoread
+set backspace=indent,eol,start
+set clipboard=unnamed
+set hidden
+set hlsearch
+set ignorecase
+set incsearch
+set number
+set nowrap
+set shiftwidth=2
+set showmatch
+set smartcase
+set smartindent
+set smarttab
+set undofile
+set shiftround
+set splitbelow
+set splitright
+set tabstop=2
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
+set tags+=./tags,./git/tags
+set laststatus=2
+set statusline=%n:\ %{pathshorten(fnamemodify(expand(\"%\"),\":~:\.\"))}\ %y\ %m%r%w%h
+set statusline+=%=%q\ %p%%
+
+if executable('ag')
+  set grepprg=ag\ -f\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+
+let g:netrw_liststyle = 3
+" }}}
+
+" Mappings {{{
+nnoremap Y y$
+nnoremap J mzJ`z
+nnoremap k gk
+nnoremap j gj
+
+xnoremap <leader>p "0p
+xnoremap <leader>P "0P
+
+nnoremap <silent> <C-x> :bd<CR>
+nnoremap <tab><tab> :b#<CR>
+
+nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
+vnoremap \ zf
+
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+
+nnoremap <silent> <leader>/ :noh<CR>
+nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
+vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
+
+" Plugin mappings
+map <C-_> gcc<Esc>
+imap <C-Up> <Esc>[egi
+imap <C-Down> <Esc>]egi
+nmap <C-Up> [e
+nmap <C-down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+" }}}
+
+" Bootstrap {{{
+function s:Bootstrap()
+  if !isdirectory(s:pvhome."/tmp")
+    silent! if !mkdir(s:pvhome."/tmp", "p", 0700)
+      echohl ErrorMsg | echomsg 'Cannot create directory (may be a regular file): ' . path | echohl None
+      return
+    endif
+    if !isdirectory(s:pvpluginhome)
+      PlugInstall
+    endif
+  endif
+endfunction
+
+augroup VimrcGroup
+  autocmd!
+  autocmd VimEnter * :call s:Bootstrap()
+augroup END
+" }}}
+
+" Colorscheme : wombat {{{
+" Original Maintainer: Lars H. Nielsen (dengmao@gmail.com)
+" Last Change: 2014-07-05
+"
+" Modified version by
+"  Adam Stankiewicz (sheerun@sher.pl)
+" Modified version of wombat for 256-color terminals by
+"  David Liang (bmdavll@gmail.com)
+" based on version by
+"  Danila Bespalov (danila.bespalov@gmail.com)
+set background=dark
+if v:version > 580
+  hi clear
+  if exists('syntax_on')
+    syntax reset
+  endif
+endif
+hi Normal ctermfg=252 ctermbg=234 cterm=NONE
+hi Cursor ctermfg=234 ctermbg=228 cterm=NONE
+hi Visual ctermfg=251 ctermbg=239 cterm=NONE
+hi VisualNOS ctermfg=251 ctermbg=236 cterm=NONE
+hi Search ctermfg=177 ctermbg=238 cterm=NONE
+hi Folded ctermfg=103 ctermbg=237 cterm=NONE
+hi Title ctermfg=230 cterm=bold
+hi StatusLine ctermfg=230 ctermbg=238 cterm=NONE
+hi VertSplit ctermfg=238 ctermbg=238 cterm=NONE
+hi StatusLineNC ctermfg=241 ctermbg=238 cterm=NONE
+hi LineNr ctermfg=241 ctermbg=233 cterm=NONE
+hi SpecialKey ctermfg=241 ctermbg=NONE cterm=NONE
+hi WarningMsg ctermfg=203
+hi ErrorMsg ctermfg=196 ctermbg=234 cterm=bold
+hi SpellBad ctermfg=196 ctermbg=234 cterm=bold
+hi SpellCap ctermfg=196 ctermbg=234 cterm=bold
+hi SignColumn cterm=NONE ctermbg=233
+hi CursorLineNr cterm=NONE ctermbg=233
+hi ColorColumn ctermbg=234
+hi DiffAdd     ctermfg=231 ctermbg=107 cterm=NONE
+hi DiffDelete  ctermfg=231 ctermbg=167 cterm=NONE
+hi DiffChange  ctermfg=231 ctermbg=103 cterm=NONE
+hi DiffText    ctermfg=231 ctermbg=139 cterm=NONE
+hi Keyword ctermfg=111 cterm=NONE
+hi Statement ctermfg=111 cterm=NONE
+hi Constant ctermfg=173 cterm=NONE
+hi Number ctermfg=173 cterm=NONE
+hi PreProc ctermfg=173 cterm=NONE
+hi Function ctermfg=192 cterm=NONE
+hi Identifier ctermfg=192 cterm=NONE
+hi Type ctermfg=186 cterm=NONE
+hi Special ctermfg=229 cterm=NONE
+hi String ctermfg=113 cterm=NONE
+hi Comment ctermfg=246 cterm=NONE
+hi Todo ctermfg=207 cterm=NONE
+if version >= 700
+  hi CursorLine ctermbg=236 cterm=NONE
+  hi MatchParen ctermfg=228 ctermbg=101 cterm=bold
+  hi Pmenu ctermfg=230 ctermbg=238
+  hi PmenuSel ctermfg=232 ctermbg=192
+endif
+hi! link FoldColumn Folded
+hi! link CursorColumn CursorLine
+hi! link NonText LineNr
+hi! link TabLineFill StatusLine
+" }}}
+
+" vim: fdm=marker
