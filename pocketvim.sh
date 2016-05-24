@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
+PVIMHOME=/tmp/pocketvim
 INSTALLPATH="$HOME/.pocket-vimrc"
+mkdir -p $PVIMHOME/autoload
+\curl -fLo $PVIMHOME/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 \curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/pocket-vimrc > $INSTALLPATH
 tee <<"DONE"
                     _        _             _
