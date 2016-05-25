@@ -18,6 +18,7 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 Plug 'tommcdo/vim-lion'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
