@@ -18,7 +18,6 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 Plug 'tommcdo/vim-lion'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
-Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
@@ -152,8 +151,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
 
 " local bundles
-if filereadable(expand('~/.vim-plugins.local'))
-  source expand('~/.vim-plugins.local')
+if filereadable(glob("~/.vim-plugins.local"))
+  source ~/.vim-plugins.local
 endif
 call plug#end()
 call ctrlp_bdelete#init()
@@ -306,8 +305,8 @@ nnoremap <tab><tab> :b#<CR>
 nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
-nnoremap k gk
-nnoremap j gj
+nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
@@ -350,8 +349,8 @@ vmap @ :normal! @
 
 " search/replace settings
 nnoremap <silent> <leader>/ :noh<CR>
-nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
-vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
+nnoremap <localleader>/ :%s/<c-r><c-w>/<c-r><c-w>/Ic<left><left><left>
+vnoremap <localleader>/ "zy:%s/<c-r>z/<c-r><c-w>/gIc<left><left><left><left>
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
@@ -361,7 +360,7 @@ nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 
 " incsearch.vim
-map g/ <Plug>(incsearch-forward)
+map / <Plug>(incsearch-forward)
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 
