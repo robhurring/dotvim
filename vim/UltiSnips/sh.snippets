@@ -1,3 +1,61 @@
 snippet pwd "Current script pwd"
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/${1:helpers.sh}"
+source "$(cd "$(dirname "$0")" && pwd)/${1:helpers.sh}"
+endsnippet
+
+snippet usage "Script usage block"
+usage() {
+	echo "Usage: $(basename $0) [FLAGS] <ARGS>"
+	echo "Flags:"
+	echo "  -h    Print help"
+	echo
+	exit 1
+}
+
+while getopts ":h" opt; do
+	case $opt in
+		\?|h)
+			usage
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+if [ $# -eq 0 ]; then
+	usage
+fi
+
+$0
+endsnippet
+
+snippet support "Shell support"
+colorize() {
+	printf "\033[\${1}m\${2}\033[0m\n" "${@:3}"
+}
+
+error() {
+	colorize "1;31" "$@"
+}
+
+success() {
+	colorize "1;32" "$@"
+}
+
+run() {
+	local cmd="$*"
+	colorize "1;30" "$ \e[0;37m%s" "$cmd"
+	eval "$cmd"
+}
+endsnippet
+
+snippet _skeleton "Shell script skeleton"
+#!/usr/bin/env sh
+
+# ${1:support}
+# ${2:usage}
+
+main() {
+	$0
+}
+
+main
 endsnippet
