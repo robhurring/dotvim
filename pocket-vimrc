@@ -18,11 +18,12 @@ filetype plugin indent on
 syntax on
 
 " change cursor in insert
-let &t_SI = "\<Esc>[6 q"
-let &t_SR = "\<Esc>[4 q"
-let &t_EI = "\<Esc>[2 q"
+" let &t_SI = "\<Esc>[6 q"
+" let &t_SR = "\<Esc>[4 q"
+" let &t_EI = "\<Esc>[2 q"
 
 " directories
+let &rtp+=s:pvpluginhome
 let &undodir=s:pvhome."/tmp"
 let &directory=s:pvhome."/tmp/"
 let &backupdir=s:pvhome."/tmp"
@@ -35,6 +36,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'jszakmeister/vim-togglecursor'
 call plug#end()
 " }}}
 
