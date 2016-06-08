@@ -53,7 +53,12 @@ Plug 'mhinz/vim-grepper'
 let g:grepper = {
       \'open': 1,
       \'jump': 0,
-      \'tools': ['ag', 'git', 'grep', 'findstr']
+      \'tools': ['ag', 'lag', 'git', 'grep', 'findstr'],
+      \ 'lag': {
+      \   'grepprg': 'ag --vimgrep $* $.',
+      \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
+      \   'escape': '\^$.*+?()[]%#'
+      \ }
       \}
 
 Plug 'SirVer/ultisnips'
@@ -136,6 +141,7 @@ let g:go_fmt_command = 'goimports'
 Plug 'tpope/vim-bundler'  " used for appending gem tags to `tagfiles()`
 Plug 'tpope/vim-cucumber'
 Plug 'janko-m/vim-test'
+let g:test#filename_modifier = ':p'
 let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out ~/.vim/tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
@@ -146,6 +152,7 @@ let g:ycm_key_list_previous_completion = ['<C-k>']
 let g:ycm_completion_confirm_key       = '<CR>'
 let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_min_num_identifier_candidate_chars = 3
+let g:ycm_complete_in_comments = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
@@ -166,6 +173,7 @@ set autoindent
 set autoread
 set backspace=indent,eol,start
 set backupdir=~/.vim/tmp
+set breakat-=:
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
@@ -270,9 +278,6 @@ endtry
 " Theme overrides
 " http://www.colorpicker.com
 
-" fix awful red colorcolumns in certain themes
-" highlight ColorColumn guibg=#222222 ctermbg=235
-
 " neomake highlightings
 highlight LintError   ctermfg=205 guifg=#e5786d
 highlight link LintWarning LineNr
@@ -295,7 +300,8 @@ nnoremap Y y$
 nnoremap * *<c-o>
 
 " buffers / windows
-nnoremap <silent> <C-x> :bd<CR>
+nnoremap <silent> <C-x> :bunload<CR>
+nnoremap <silent> <C-q> :bdelete<CR>
 nnoremap <leader><leader> :CtrlPBuffer<CR>
 nnoremap <tab><tab> :b#<CR>
 " nnoremap <leader><leader> :ls<CR>:b<SPACE>
@@ -354,6 +360,7 @@ vnoremap <localleader>/ "zy:%s/<c-r>z/<c-r><c-w>/gIc<left><left><left><left>
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
+command! -nargs=* Lag Grepper -noquickfix -tool lag -query '<args>'
 
 " operator pending: grep operators
 nmap gs  <plug>(GrepperOperator)
@@ -407,6 +414,7 @@ nmap <silent> <F1> :FixWhitespace<CR>
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
+nnoremap <leader>E :NERDTreeFind<cr>
 
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
@@ -437,6 +445,9 @@ augroup VimrcGroup
 
   " auto-reload vimrc
   autocmd BufWritePost {.vimrc,vimrc} nested source %
+
+  " fix awful red colorcolumns in certain themes
+  " autocmd ColorScheme * highlight ColorColumn guibg=#222222 ctermbg=235
 
   " linters -- set b:skip_linters to run manually
   " NOTE: can be used with `autocmd` to disable Neomake for specific paths
