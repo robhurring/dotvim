@@ -13,6 +13,26 @@ function! g:helpers#selection() range abort
   return l:selection
 endfunction
 
+function! g:helpers#opselection(type) abort
+  let regsave = @@
+  let selsave = &selection
+  let &selection = 'inclusive'
+
+  if a:type =~? 'v'
+    silent execute "normal! gvy"
+  elseif a:type == 'line'
+    silent execute "normal! '[V']y"
+  else
+    silent execute "normal! `[v`]y"
+  endif
+
+  let &selection = selsave
+  let l:theselection = @@
+  let @@ = regsave
+
+  return l:theselection
+endfunction
+
 function! g:helpers#fullname(f)
   let f = a:f
   let f = len(f) ? f : expand('%')
