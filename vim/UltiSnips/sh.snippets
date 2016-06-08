@@ -1,8 +1,21 @@
+snippet _skeleton "Shell script skeleton"
+#!/usr/bin/env sh
+
+# ${1:support}
+# ${2:usage}
+
+main() {
+	$0
+}
+
+main
+endsnippet
+
 snippet pwd "Current script pwd"
 source "$(cd "$(dirname "$0")" && pwd)/${1:helpers.sh}"
 endsnippet
 
-snippet usage "Script usage block"
+snippet flags "Script flags block"
 usage() {
 	echo "Usage: $(basename $0) [FLAGS] <ARGS>"
 	echo "Flags:"
@@ -47,15 +60,21 @@ run() {
 }
 endsnippet
 
-snippet _skeleton "Shell script skeleton"
-#!/usr/bin/env sh
+snippet commands "Scripts commands case"
+if [ $# = 0 ]; then
+	usage;
+fi
 
-# ${1:support}
-# ${2:usage}
+while [ $# -gt 0 ]; do
+	arg=\$1;
 
-main() {
-	$0
-}
+	case $arg in
+		"command" | "c" )
+			break ;;
 
-main
+		"help" | * )
+			usage;
+			break ;;
+	esac
+done
 endsnippet
