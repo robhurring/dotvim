@@ -1,5 +1,8 @@
 " vim: fdm=marker
 
+let s:local_plugins = expand('~/.vim-plugins.local')
+let s:local_rc = expand('~/.vimrc.local')
+
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 inoremap jk <Esc>l
@@ -159,8 +162,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
 
 " local bundles
-if filereadable(expand('~/.vim-plugins.local'))
-  source expand('~/.vim-plugins.local')
+if filereadable(s:local_plugins)
+  exec 'source ' . s:local_plugins
 endif
 call plug#end()
 call ctrlp_bdelete#init()
@@ -471,7 +474,7 @@ augroup END
 
 " }}} /augroups
 
-if filereadable(glob("~/.vimrc.local"))
-  source ~/.vimrc.local
+if filereadable(s:local_rc)
+  exec 'source ' . s:local_rc
 endif
 
