@@ -134,6 +134,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_dispatch_enabled = 1
+let g:go_fmt_experimental = 1
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = 'goimports'
 
@@ -158,8 +159,8 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
 
 " local bundles
-if filereadable(glob("~/.vim-plugins.local"))
-  source ~/.vim-plugins.local
+if filereadable(expand('~/.vim-plugins.local'))
+  source expand('~/.vim-plugins.local')
 endif
 call plug#end()
 call ctrlp_bdelete#init()
@@ -183,8 +184,10 @@ set cursorline
 set diffopt=filler,iwhite,vertical
 set directory=~/.vim/swap
 set expandtab
-set foldenable
-set foldlevel=99
+set nofoldenable
+set foldlevel=1
+set foldnestmax=10
+set foldmethod=indent
 set guifont=Hasklig:h15
 set guioptions-=r
 set hidden
@@ -249,6 +252,10 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
+if executable('dash')
+  set keywordprg=dash
+endif
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set viminfo='100,/100,h,\"500,:100
@@ -311,8 +318,8 @@ nnoremap <tab><tab> :b#<CR>
 nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
-nnoremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
-nnoremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap k gk
+nnoremap j gj
 
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
@@ -355,8 +362,8 @@ vmap @ :normal! @
 
 " search/replace settings
 nnoremap <silent> <leader>/ :noh<CR>
-nnoremap <localleader>/ :%s/<c-r><c-w>/<c-r><c-w>/Ic<left><left><left>
-vnoremap <localleader>/ "zy:%s/<c-r>z/<c-r><c-w>/gIc<left><left><left><left>
+nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
+vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
@@ -455,11 +462,11 @@ augroup VimrcGroup
   autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
 
   " auto-mark some common files
-  autocmd BufEnter *_spec*,*features/* normal mT
-  autocmd BufEnter *app/controllers/*  normal mC
-  autocmd BufEnter *app/models/*       normal mM
-  autocmd BufEnter {$MYVIMRC,vimrc}    normal mV
-  autocmd BufEnter .zshrc              normal mZ
+  autocmd BufLeave *_spec*,*features/* normal mT
+  autocmd BufLeave *app/controllers/*  normal mC
+  autocmd BufLeave *app/models/*       normal mM
+  autocmd BufLeave {.vimrc,vimrs}      normal mV
+  autocmd BufLeave .zshrc              normal mZ
 augroup END
 
 " }}} /augroups
