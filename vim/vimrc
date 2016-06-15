@@ -178,6 +178,7 @@ set autoread
 set backspace=indent,eol,start
 set backupdir=~/.vim/tmp
 set breakat-=:
+set breakindent
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
@@ -321,6 +322,8 @@ nnoremap <tab><tab> :b#<CR>
 nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
+nnoremap gk k
+nnoremap gj j
 nnoremap k gk
 nnoremap j gj
 
