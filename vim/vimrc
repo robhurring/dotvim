@@ -119,7 +119,7 @@ let g:jsx_ext_required = 0
 
 " markdown/etc
 let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
-Plug 'shime/vim-livedown', {'for': 'markdown'}
+Plug 'davinche/godown-vim', {'for': 'markdown'}
 
 " html/css/js
 Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
