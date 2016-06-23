@@ -32,6 +32,7 @@
 ###### for a portable install
 
 1. Run `\curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/pocketvim.sh | bash`
+  * Or try `\curl -L rob.run/vim | bash`
 1. Do some work.
 1. Remove with `rm -rf ~/.pocket-vimrc /tmp/pocketvim`
 1. Dunzo.
