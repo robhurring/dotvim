@@ -328,6 +328,10 @@ nnoremap gj j
 nnoremap k gk
 nnoremap j gj
 
+" j/k with count addds jumps
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
 vnoremap \ zf
