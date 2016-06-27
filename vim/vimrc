@@ -115,9 +115,8 @@ let g:AutoPairsShortcutJump = '<M-n>'
 
 " languages
 Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['markdown']
+let g:vim_markdown_conceal = 0
 let g:vim_json_syntax_conceal = 0
-let g:markdown_syntax_conceal = 0
 let g:jsx_ext_required = 0
 
 " markdown/etc
