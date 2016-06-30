@@ -1,15 +1,15 @@
-"                    _        _             _
-"   _ __   ___   ___| | _____| |_    __   _(_)_ __ ___
-"  | '_ \ / _ \ / __| |/ / _ \ __|___\ \ / / | '_ ` _ \
-"  | |_) | (_) | (__|   <  __/ ||_____\ V /| | | | | | |
-"  | .__/ \___/ \___|_|\_\___|\__|     \_/ |_|_| |_| |_|
-"  |_| a light-weight, curl-able portable and cozy vimrc!
+"                     _       _            _
+"           _ __ ___ (_)_ __ (_)    __   _(_)_ __ ___
+"          | '_ ` _ \| | '_ \| |____\ \ / / | '_ ` _ \
+"          | | | | | | | | | | |_____\ V /| | | | | | |
+"          |_| |_| |_|_|_| |_|_|      \_/ |_|_| |_| |_|
+"              a light-weight, portable and cozy vimrc!
 "
-"  $ \curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/pocketvim.sh|bash
-"  $ vim -u ~/.pocket-vimrc
+"  $ \curl -sSL https://raw.githubusercontent.com/robhurring/dotvim/master/mim/install.sh|bash
+"  $ vim -u ~/.mimrc
 "
-let s:pvhome=expand("~/.pvim")
-let s:pvpluginhome=s:pvhome."/plugged"
+let s:mim_home=expand("~/.mim")
+let s:mim_plugin_home=s:mim_home."/plugged"
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 inoremap <special> jk <Esc>l
@@ -22,20 +22,21 @@ let &t_SI = "\<Esc>[6 q"
 let &t_EI = "\<Esc>[2 q"
 
 " directories
-let &rtp.=','.s:pvhome
-let &undodir=s:pvhome."/tmp"
-let &directory=s:pvhome."/tmp/"
-let &backupdir=s:pvhome."/tmp"
+let &rtp.=','.s:mim_home
+let &undodir=s:mim_home."/tmp"
+let &directory=s:mim_home."/tmp/"
+let &backupdir=s:mim_home."/tmp"
 
 set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 
 " Plugins {{{
-call plug#begin(s:pvhome."/plugged")
+call plug#begin(s:mim_plugin_home)
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'jszakmeister/vim-togglecursor'
+Plug 'scrooloose/nerdtree'
+let g:NERDTreeMinimalUI = 1
 call plug#end()
 " }}}
 
@@ -109,17 +110,21 @@ nmap <C-Up> [e
 nmap <C-down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
+
+nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
+nmap <NUL> <Plug>QuickOpen
+nmap <C-Space> <Plug>QuickOpen
 " }}}
 
 " Bootstrap {{{
 function! s:Bootstrap()
-  if !isdirectory(s:pvhome."/tmp")
-    silent! if !mkdir(s:pvhome."/tmp", "p", 0700)
+  if !isdirectory(s:mim_home."/tmp")
+    silent! if !mkdir(s:mim_home."/tmp", "p", 0700)
       echohl ErrorMsg | echomsg 'Cannot create directory (may be a regular file): ' . path | echohl None
       return
     endif
   endif
-  if !isdirectory(s:pvpluginhome)
+  if !isdirectory(s:mim_plugin_home)
     echom 'Installing Plugins'
     PlugInstall
   endif
@@ -130,4 +135,4 @@ augroup VimrcGroup
   autocmd VimEnter * call s:Bootstrap()
 augroup END
 
-" vim: fdm=marker
+" vim: fdm=marker ft=vim
