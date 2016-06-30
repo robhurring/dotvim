@@ -38,6 +38,8 @@ let g:fastfold_savehook = 0
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'd11wtq/ctrlp_bdelete.vim'
+Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh' }
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_multiple_files = 'ijr'
 if executable('ag')
