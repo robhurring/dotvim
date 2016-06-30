@@ -212,6 +212,13 @@ snippet debug
 require 'byebug'; byebug
 endsnippet
 
+snippet byeserver
+if Rails.env.development?
+	require 'byebug'
+	Byebug.start_server 'localhost', ENV.fetch('BYEBUG_SERVER_PORT', 1337).to_i
+end
+endsnippet
+
 snippet debug19
 require 'debugger'; debugger
 endsnippet
