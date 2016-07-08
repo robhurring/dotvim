@@ -460,6 +460,9 @@ augroup VimrcGroup
   autocmd BufNewFile,BufRead {*.js.erb} set filetype=javascript
   autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
 
+  " <C-X>= for #{}
+  autocmd FileType ruby inoremap <buffer> <C-X>= #{}<Esc>i
+
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " whitespace language tweaks
