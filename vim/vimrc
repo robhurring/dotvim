@@ -218,7 +218,7 @@ set sessionoptions-=help
 set shiftround
 set shiftwidth=2
 set shortmess+=A
-set showbreak=↪\ 
+set showbreak=\ \ ↪\ 
 set showmatch
 set smartcase
 set smartindent
@@ -312,6 +312,9 @@ function! YRRunAfterMaps()
 endfunction
 nnoremap Y y$
 
+" yank current file + line
+nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
+
 " don't move cursor for *
 nnoremap * *<c-o>
 
@@ -327,14 +330,10 @@ nnoremap <tab><tab> :b#<CR>
 nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines.
-nnoremap gk k
-nnoremap gj j
-nnoremap k gk
-nnoremap j gj
-
-" j/k with count addds jumps
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+noremap gk k
+noremap gj j
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k': 'gk')
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count . 'j': 'gj')
 
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
