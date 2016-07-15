@@ -323,14 +323,14 @@ nnoremap * *<c-o>
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
 nnoremap <leader><leader> :CtrlPBuffer<CR>
-nnoremap <tab><tab> :b#<CR>
+nnoremap <S-Tab> :b#<CR>
 " nnoremap <leader><leader> :ls<CR>:b<SPACE>
 
 " fuzzy tags
 " nnoremap <C-[> <C-t> " gives an annoying alert since <c-[> is ESC
 nnoremap <C-t> :CtrlPTag<CR>
 
-" up/down on displayed lines, not real lines.
+" up/down on displayed lines, not real lines. (except when using counts)
 noremap gk k
 noremap gj j
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k': 'gk')
@@ -455,15 +455,24 @@ augroup VimrcGroup
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
   autocmd BufReadPost * setlocal conceallevel=2 " some plugins are changing this so no visible whitespace
 
-  " odd file extensions
+  " " odd file extensions
   autocmd BufNewFile,BufRead {*.ejs} set filetype=html
   autocmd BufNewFile,BufRead {*.js.erb} set filetype=javascript
-  autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake,*.thor} set filetype=ruby
+  autocmd BufRead,BufNewFile {Procfile} set filetype=ruby
 
   " <C-X>= for #{}
   autocmd FileType ruby inoremap <buffer> <C-X>= #{}<Esc>i
-
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
+
+  " formatprgs
+  if executable('ruby-beautify')
+    autocmd FileType ruby,eruby setlocal formatprg=ruby-beautify\ --spaces\ --indent_count=2
+  end
+
+  if executable('js-beautify')
+    autocmd FileType javascript setlocal formatprg=js-beautify\ -
+  end
+
 
   " whitespace language tweaks
   autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
