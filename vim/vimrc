@@ -181,8 +181,9 @@ set autoindent
 set autoread
 set backspace=indent,eol,start
 set backupdir=~/.vim/tmp
-set breakat-=:
+set breakat=\ ^I*-+;,/?\(\[\{ " fix syntax
 set breakindent
+set breakindentopt=shift:2
 set clipboard=unnamed
 set colorcolumn=81
 set completeopt-=preview
@@ -218,7 +219,7 @@ set sessionoptions-=help
 set shiftround
 set shiftwidth=2
 set shortmess+=A
-set showbreak=\ \ ↪\ 
+set showbreak=↪\ 
 set showmatch
 set smartcase
 set smartindent
