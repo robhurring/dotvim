@@ -326,17 +326,15 @@ nnoremap Y y$
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
 
 " don't move cursor for *
-nnoremap * *<c-o>
+nnoremap * *``
 
 " buffers / windows
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
 nnoremap <leader><leader> :CtrlPBuffer<CR>
-nnoremap <S-Tab> :b#<CR>
-" nnoremap <leader><leader> :ls<CR>:b<SPACE>
+nnoremap <localleader><localleader> :b#<CR>
 
 " fuzzy tags
-" nnoremap <C-[> <C-t> " gives an annoying alert since <c-[> is ESC
 nnoremap <C-t> :CtrlPTag<CR>
 
 " up/down on displayed lines, not real lines. (except when using counts)
@@ -388,6 +386,8 @@ vmap @ :normal! @
 nnoremap <silent> <leader>/ :noh<CR>
 nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
 vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
+vnoremap // "zy/<C-r>=escape(@z,'/\.*$^~[]()')<CR><CR>N
+nnoremap // /<C-r>/
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
