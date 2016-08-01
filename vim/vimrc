@@ -250,7 +250,7 @@ set wildmenu
 
 " SEE: https://gist.github.com/XVilka/8346728
 " NOTE: not working with vim/tmux currently
-if has('nvim') && has('termguicolors')
+if has('termguicolors')
   set termguicolors
 end
 
