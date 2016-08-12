@@ -383,10 +383,10 @@ vmap @ :normal! @
 
 " search/replace settings
 nnoremap <silent> <leader>/ :noh<CR>
-nnoremap <localleader>/ :%s/\<<c-r><c-w>\>/<c-r><c-w>/Ic<left><left><left>
+nnoremap <localleader>/ :%s/\<<c-r><c-w>\>//Ic<left><left><left>
 vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
-vnoremap // "zy/<C-r>=escape(@z,'/\.*$^~[]()')<CR><CR>N
-nnoremap // /<C-r>/
+" vnoremap // "zy/<C-r>=escape(@z,'/\.*$^~[]()')<CR><CR>N
+" nnoremap // /<C-r>/
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
