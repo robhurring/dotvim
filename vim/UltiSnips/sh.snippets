@@ -89,3 +89,20 @@ fi
 
 exec "$@"
 endsnippet
+
+snippet prompt "prompt user"
+prompt() {
+	local ask="${1}"
+	local code="${2:-35}"
+
+	if [[ $OSTYPE == darwin* ]]; then
+		esc="\033"
+	else
+		esc="\e"
+	fi
+
+	printf "${esc}[${code}m${ask}${esc}[0m"
+	read -n1 -r
+	echo
+}
+endsnippet
