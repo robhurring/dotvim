@@ -353,8 +353,8 @@ nnoremap <C-t> :CtrlPTag<CR>
 " up/down on displayed lines, not real lines. (except when using counts)
 noremap gk k
 noremap gj j
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k': 'gk')
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count . 'j': 'gj')
+noremap <expr> k (v:count > 1 ? "m'" . v:count . 'k': 'gk')
+noremap <expr> j (v:count > 1 ? "m'" . v:count . 'j': 'gj')
 
 " toggle folds
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
