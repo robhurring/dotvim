@@ -64,14 +64,9 @@ Plug 'mhinz/vim-grepper'
 let g:grepper = {
       \'open': 1,
       \'jump': 0,
-      \'tools': ['ag', 'lag', 'rg', 'git', 'grep', 'findstr'],
+      \'tools': ['rg', 'ag', 'lag', 'git', 'grep', 'findstr'],
       \ 'lag': {
       \   'grepprg': 'ag --vimgrep $* $.',
-      \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
-      \   'escape': '\^$.*+?()[]%#'
-      \ },
-      \ 'rg': {
-      \   'grepprg': 'rg --vimgrep',
       \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
       \   'escape': '\^$.*+?()[]%#'
       \ }
@@ -407,7 +402,7 @@ command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
 command! -nargs=* Lag Grepper -noquickfix -tool lag -query '<args>'
 
 if executable('rg')
-  command! -nargs=* -complete=file Rg Grepper -tool ar -query <args>
+  command! -nargs=* -complete=file Ag Grepper -tool rg -query <args>
 endif
 
 " operator pending: grep operators
