@@ -45,6 +45,9 @@ let g:ctrlp_open_multiple_files = 'ijr'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s --hidden --files-with-matches --nocolor -g ""'
 end
+if executable('rg')
+  let g:ctrlp_user_command = 'rg %s --hidden --files-with-matches --files -g "!.git"'
+end
 let g:ctrlp_use_caching = 0
 
 " NOTE: installing before `ctrlp` will use <c-p> as CtrlP, otherwise you will
@@ -61,9 +64,14 @@ Plug 'mhinz/vim-grepper'
 let g:grepper = {
       \'open': 1,
       \'jump': 0,
-      \'tools': ['ag', 'lag', 'git', 'grep', 'findstr'],
+      \'tools': ['ag', 'lag', 'rg', 'git', 'grep', 'findstr'],
       \ 'lag': {
       \   'grepprg': 'ag --vimgrep $* $.',
+      \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
+      \   'escape': '\^$.*+?()[]%#'
+      \ },
+      \ 'rg': {
+      \   'grepprg': 'rg --vimgrep',
       \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
       \   'escape': '\^$.*+?()[]%#'
       \ }
@@ -270,6 +278,12 @@ if executable('ag')
   set grepformat=%f:%l:%c:%m
 endif
 
+" SEE: https://github.com/BurntSushi/ripgrep
+if executable('rg')
+  set grepprg=rg\ -L\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+
 if executable('dash')
   set keywordprg=dash
 endif
@@ -391,6 +405,10 @@ vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
 command! -nargs=* Lag Grepper -noquickfix -tool lag -query '<args>'
+
+if executable('rg')
+  command! -nargs=* -complete=file Rg Grepper -tool ar -query <args>
+endif
 
 " operator pending: grep operators
 nmap gs  <plug>(GrepperOperator)
