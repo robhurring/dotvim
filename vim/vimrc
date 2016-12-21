@@ -169,12 +169,12 @@ let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
 let g:ycm_cache_omnifunc = 0
 
 " clojure
-Plug 'tpope/vim-fireplace', {'for': 'clojure'}
-Plug 'tpope/vim-salve', {'for': 'clojure'}
-Plug 'tpope/vim-classpath', {'for': 'clojure'}
-Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
-Plug 'guns/vim-sexp', {'for': 'clojure'}
-Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'tpope/vim-fireplace', {'for': 'clojure'}
+" Plug 'tpope/vim-salve', {'for': 'clojure'}
+" Plug 'tpope/vim-classpath', {'for': 'clojure'}
+" Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
+" Plug 'guns/vim-sexp', {'for': 'clojure'}
+" Plug 'junegunn/rainbow_parentheses.vim'
 
 " local bundles
 if filereadable(s:local_plugins)
