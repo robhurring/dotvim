@@ -397,8 +397,16 @@ vnoremap @ :normal! @
 nnoremap <silent> <leader>/ :noh<CR>
 nnoremap <localleader>/ :%s/\<<c-r><c-w>\>//Ic<left><left><left>
 vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
-" vnoremap // "zy/<C-r>=escape(@z,'/\.*$^~[]()')<CR><CR>N
-" nnoremap // /<C-r>/
+vnoremap // "zy/<C-r>=escape(@z,'/\.*$^~[]()')<CR><CR>N
+nnoremap // /<C-r>/
+
+" search/replace similar to sublime (use `.` to quickly repeat, `n` to skip)
+" Credit: http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript
+let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
+nnoremap cn *``cgn
+nnoremap cN *``cgN
+vnoremap <expr> cn g:mc . "``cgn"
+vnoremap <expr> cN g:mc . "``cgN"
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
@@ -504,7 +512,7 @@ augroup VimrcGroup
   autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 
   " auto-reload vimrc
-  autocmd BufWritePost {.vimrc,vimrc} nested source %
+  autocmd BufWritePost {.vimrc,vimrc,.vimrc.local} nested source %
 
   " fix awful red colorcolumns in certain themes
   " autocmd ColorScheme * highlight ColorColumn guibg=#222222 ctermbg=235
