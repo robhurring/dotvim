@@ -91,15 +91,6 @@ Plug 'benekastah/neomake'
 let g:neomake_javascript_enabled_makers = []
 let g:neomake_ruby_enabled_makers = []
 
-if executable('eslint')
-  let g:neomake_javascript_enabled_makers += ['eslint']
-end
-if executable('rubocop')
-  let g:neomake_ruby_enabled_makers += ['rubocop']
-endif
-if executable('reek')
-  let g:neomake_ruby_enabled_makers += ['reek']
-endif
 let g:neomake_warning_sign = {'text': "\u25CF", 'texthl': 'LintWarning'}
 let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
 
@@ -289,6 +280,24 @@ if executable('dash')
   set keywordprg=dash
 endif
 
+if executable('eslint')
+  let g:neomake_javascript_enabled_makers += ['eslint']
+end
+
+if executable('xo')
+  let g:neomake_javascript_enabled_makers = ['xo']
+  let g:formatters_javascript = ['xo_javascript']
+end
+
+if executable('rubocop')
+  let g:neomake_ruby_enabled_makers += ['rubocop']
+  let g:formatters_ruby = ['rubocop', 'rbeautify']
+endif
+
+if executable('reek')
+  let g:neomake_ruby_enabled_makers += ['reek']
+endif
+
 if has('nvim')
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set viminfo='100,/100,h,\"500,:100
@@ -400,6 +409,7 @@ vnoremap @ :normal! @
 
 " search/replace settings
 nnoremap <silent> <leader>/ :noh<CR>
+
 nnoremap <localleader>/ :%s/\<<c-r><c-w>\>//Ic<left><left><left>
 vnoremap <localleader>/ "zy:%s/<C-r>z//gc<left><left><left>
 vnoremap // "zy/<C-r>=escape(@z,'/\.*$^~[]()')<CR><CR>N
@@ -408,14 +418,24 @@ nnoremap // /<C-r>/
 " search/replace similar to sublime (use `.` to quickly repeat, `n` to skip)
 " Credit: http://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript
 let g:mc = "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>"
+
 nnoremap cn *``cgn
 nnoremap cN *``cgN
 vnoremap <expr> cn g:mc . "``cgn"
 vnoremap <expr> cN g:mc . "``cgN"
 
+" search/replace macros
+function! SetupCR()
+  nnoremap <Enter> :nnoremap <lt>Enter> n@z<CR>q:<C-u>let @z=strpart(@z,0,strlen(@z)-1)<CR>n@z
+endfunction
+
+nnoremap cq :call SetupCR()<CR>*``qz
+nnoremap cQ :call SetupCR()<CR>#``qz
+vnoremap <expr> cq ":\<C-u>call SetupCR()\<CR>" . "gv" . g:mc . "``qz"
+vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '?', 'g') . "``qz"
+
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
-command! -nargs=* Lag Grepper -noquickfix -tool lag -query '<args>'
 
 if executable('rg')
   command! -nargs=* -complete=file Ag Grepper -tool rg -query <args>
@@ -500,18 +520,6 @@ augroup VimrcGroup
   " <C-X>= for #{}
   autocmd FileType ruby inoremap <buffer> <C-X>= #{}<Esc>i
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
-
-  " formatprgs
-  if executable('ruby-beautify')
-    autocmd FileType ruby,eruby setlocal formatprg=ruby-beautify\ --spaces\ --indent_count=2
-  end
-
-  if executable('js-beautify')
-    autocmd FileType javascript setlocal formatprg=js-beautify\ -
-  end
-
-  " clojure
-  autocmd FileType clojure RainbowParentheses
 
   " whitespace language tweaks
   autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
