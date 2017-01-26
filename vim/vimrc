@@ -19,8 +19,11 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 
 " misc plugins
 Plug 'tommcdo/vim-lion'
+let b:lion_squeeze_spaces = 1
+
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
@@ -124,7 +127,7 @@ let g:vim_markdown_conceal = 0
 let g:jsx_ext_required = 0
 
 " markdown/etc
-let g:markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
+let g:vim_markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
 Plug 'davinche/godown-vim', {'for': 'markdown'}
 
 " html/css/js
@@ -360,8 +363,10 @@ vnoremap \ zf
 
 " ctrlp.vim <C-Space>
 nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
-nmap <NUL> <Plug>QuickOpen
+" nmap <NUL> <Plug>QuickOpen
+" nmap <C-t> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
+nmap <C-@> <C-Space>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
