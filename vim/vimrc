@@ -79,9 +79,6 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger       = '<Tab>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 
-Plug 'bronson/vim-trailing-whitespace'
-let g:extra_whitespace_ignored_filetypes = []
-
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
 let g:NERDTreeQuitOnOpen = 1
@@ -489,7 +486,7 @@ vmap <C-Down> ]egv
 
 " autoformat / fix-whitespace
 nmap <silent> <leader>= :Autoformat<CR>
-nmap <silent> <F1> :FixWhitespace<CR>
+nmap <silent> <F1> :RemoveTrailingSpaces<CR>
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
