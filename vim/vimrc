@@ -311,6 +311,7 @@ let g:netrw_liststyle = 3
 try
   execute 'set colorcolumn=' . join(range(81,200), ',')
   set background=dark
+  let g:jellybeans_overrides = {'ColorColumn': { 'guibg': '191919', 'ctermbg': 'none' }}
   colorscheme jellybeans
 catch
   echom 'Missing color scheme!'
