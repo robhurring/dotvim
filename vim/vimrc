@@ -76,7 +76,7 @@ let g:grepper = {
       \}
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger       = '<Tab>'
+let g:UltiSnipsExpandTrigger      = '<Tab>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 
 Plug 'scrooloose/nerdtree'

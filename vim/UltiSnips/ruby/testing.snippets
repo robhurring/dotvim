@@ -43,11 +43,19 @@ be_kind_of(${1:Klass})$0
 endsnippet
 
 snippet let
-let(${1::object}) { $2 }$0
+let(${1::object}) { ${2:${VISUAL}} }$0
 endsnippet
 
 snippet letb
 let(${1::object}) do
 	${2:${VISUAL}}
+end
+endsnippet
+
+# --> minitest
+
+snippet should "should"
+should "${1:do something}" do
+	$0
 end
 endsnippet
