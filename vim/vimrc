@@ -503,6 +503,9 @@ nnoremap <leader>E :NERDTreeFind<cr>
 " tagbar
 nnoremap <leader>b :TagbarToggle<cr>
 
+" ycm GoTo
+nnoremap <Leader>] :YcmCompleter GoTo<CR>
+
 " }}}1 /Mappings
 
 " Augroups {{{
