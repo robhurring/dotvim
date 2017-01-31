@@ -147,7 +147,7 @@ let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out ~/.vim/tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer --tern-completer' }
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --gocode-completer --tern-completer --racer-completer' }
 let g:ycm_key_list_select_completion   = ['<C-j>']
 let g:ycm_key_list_previous_completion = ['<C-k>']
 let g:ycm_completion_confirm_key       = '<CR>'
@@ -161,6 +161,9 @@ let g:ycm_echo_current_diagnostic = 0
 let g:ycm_enable_diagnostic_signs = 0 
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_cache_omnifunc = 0
+
+" rust
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
 " clojure
 " Plug 'tpope/vim-fireplace', {'for': 'clojure'}
@@ -311,7 +314,11 @@ let g:netrw_liststyle = 3
 try
   execute 'set colorcolumn=' . join(range(81,200), ',')
   set background=dark
-  let g:jellybeans_overrides = {'ColorColumn': { 'guibg': '191919', 'ctermbg': 'none' }}
+  let g:jellybeans_overrides = {
+        \ 'ColorColumn': { 'guibg': '191919', 'ctermbg': 'none' },
+        \ 'SignColumn': { 'guibg': '151515', 'ctermbg': 'none' },
+        \ 'CursorLine': { 'guibg': '1c1c1c', 'ctermbg': 'none' }
+        \ }
   colorscheme jellybeans
 catch
   echom 'Missing color scheme!'
