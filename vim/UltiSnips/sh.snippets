@@ -17,11 +17,13 @@ endsnippet
 
 snippet flags "Script flags block"
 usage() {
-	echo "Usage: $(basename $0) [FLAGS] <ARGS>"
-	echo "Flags:"
-	echo "  -h    Print help"
-	echo
-	exit 1
+cat << EOU
+Usage: $(basename $0) [FLAGS] <ARGS>
+Flags:
+	-h		Print Help
+EOU
+echo
+exit 1
 }
 
 while getopts ":h" opt; do
