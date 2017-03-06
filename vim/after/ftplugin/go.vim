@@ -7,3 +7,5 @@ nmap <buffer> <localleader>gi <Plug>(go-implements)
 nmap <buffer> <localleader>i <Plug>(go-info)
 nmap <buffer> <localleader>I <Plug>(go-import)
 
+" run go-import from insert mode on previous <cword>
+inoremap <buffer> <c-i> <Esc>:execute <C-u>call go#import#SwitchImport(1, '', expand('<cword>'), '')<CR>a
