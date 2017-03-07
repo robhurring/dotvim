@@ -21,6 +21,7 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 Plug 'tommcdo/vim-lion'
 let b:lion_squeeze_spaces = 1
 
+Plug 'rizzatti/dash.vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'Chiel92/vim-autoformat'
 Plug 'skywind3000/asyncrun.vim'
@@ -78,6 +79,7 @@ let g:grepper = {
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger      = '<Tab>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
+let g:UltiSnipsListSnippets       = '<C-l>'
 
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
@@ -134,7 +136,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_dispatch_enabled = 1
-let g:go_fmt_experimental = 1
+let g:go_fmt_experimental = 0
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = 'goimports'
 
