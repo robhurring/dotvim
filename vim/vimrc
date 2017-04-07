@@ -250,8 +250,6 @@ set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*.bak,*/undo/*,*/swap/*
 set wildignore+=tags,cscope.*
 set wildmenu
 
-set keywordprg=:Dash
-
 " SEE: https://gist.github.com/XVilka/8346728
 " NOTE: not working with vim/tmux currently
 if has('termguicolors')
@@ -549,6 +547,9 @@ augroup VimrcGroup
   " auto-mark some common files
   autocmd BufLeave {.vimrc,vimrs}      normal mV
   autocmd BufLeave .zshrc              normal mZ
+
+  " use dash for these languages
+  autocmd FileType * setlocal keywordprg=:Dash
 augroup END
 
 " }}} /augroups
