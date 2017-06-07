@@ -11,7 +11,7 @@ let g:lightline = {
       \'colorscheme': 'jellybeans',
       \'active': {
       \   'left': [['shortmode', 'paste'], ['root', 'ctrlpmark'], ['readonly', 'filename', 'modified']],
-      \   'right': [['trailing', 'neomake', 'mylineinfo'], ['filetype', 'spell']]
+      \   'right': [['trailing', 'linter', 'mylineinfo'], ['filetype', 'spell']]
       \ },
       \'component': {
       \   'fugitive': '%{exists("*fugitive#head")?"\ue0a0 ".fugitive#head():""}',
@@ -26,11 +26,11 @@ let g:lightline = {
       \ },
       \ 'component_expand': {
       \   'trailing': 'LLTrailingSpaceWarning',
-      \   'neomake': 'LLNeomake'
+      \   'linter': 'LinterStatus'
       \ },
       \ 'component_type': {
       \   'trailing': 'error',
-      \   'neomake': 'error'
+      \   'linter': 'error'
       \ },
       \'component_visible_condition': {
       \   'readonly': '(&filetype!="help"&& &readonly)',
@@ -46,7 +46,7 @@ augroup END
 
 function! s:flags()
   call LLTrailingSpaceWarning()
-  call LLNeomake()
+  call LinterStatus()
   call lightline#update()
 endfunction
 
@@ -56,15 +56,28 @@ function! LLTrailingSpaceWarning()
 endfunction
 
 function! LLNeomake()
-  let l:counts = neomake#statusline#LoclistCounts()
-  let l:warnings = get(l:counts, 'W', 0)
-  let l:errors = get(l:counts, 'E', 0)
+  " let l:counts = neomake#statusline#LoclistCounts()
+  " let l:warnings = get(l:counts, 'W', 0)
+  " let l:errors = get(l:counts, 'E', 0)
 
-  if l:warnings > 0
-    return "\uf00d ".string(l:warnings + l:errors)
-  endif
+  " if l:warnings > 0
+  "   return "\uf00d ".string(l:warnings + l:errors)
+  " endif
 
   return ''
+endfunction
+
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '' : printf(
+        \   "\%dW %dE",
+        \   all_non_errors,
+        \   all_errors
+        \)
 endfunction
 
 " ---> CtrlP format
