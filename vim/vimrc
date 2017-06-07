@@ -23,7 +23,7 @@ let b:lion_squeeze_spaces = 1
 
 Plug 'rizzatti/dash.vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -86,12 +86,16 @@ let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.s
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeMinimalUI = 1
 
-Plug 'benekastah/neomake'
-let g:neomake_javascript_enabled_makers = []
-let g:neomake_ruby_enabled_makers = []
-
-let g:neomake_warning_sign = {'text': "\u25CF", 'texthl': 'LintWarning'}
-let g:neomake_error_sign = {'text': "\u25CF", 'texthl': 'LintError'}
+Plug 'w0rp/ale'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 0
+let g:ale_sign_error = "\u25CF"
+let g:ale_sign_warning = "\u25CF"
+let g:ale_linters = {
+      \   'javascript': [],
+      \   'ruby': []
+      \}
 
 Plug 'ludovicchabant/vim-gutentags'
 let g:gutentags_define_advanced_commands = 1
@@ -128,8 +132,6 @@ let g:user_emmet_leader_key='<C-e>'
 
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
-let g:formatdef_goimports = '"goimports"'
-let g:formatters_go = ['goimports', 'gofmt_2'] " dep: vim-autoformat
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -160,7 +162,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
 let g:ycm_echo_current_diagnostic = 0
-let g:ycm_enable_diagnostic_signs = 0 
+let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_cache_omnifunc = 0
 
@@ -229,7 +231,7 @@ set sessionoptions-=help
 set shiftround
 set shiftwidth=2
 set shortmess+=A
-set showbreak=↪\ 
+set showbreak=↪\
 set showmatch
 set smartcase
 set smartindent
@@ -278,22 +280,18 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
-if executable('eslint')
-  let g:neomake_javascript_enabled_makers += ['eslint']
-end
-
-if executable('xo')
-  let g:neomake_javascript_enabled_makers = ['xo']
-  let g:formatters_javascript = ['xo_javascript']
-end
+if executable('prettier')
+  let g:neoformat_enabled_javascript = ['prettier']
+  let g:ale_linters['javascript'] += ['prettier']
+endif
 
 if executable('rubocop')
-  let g:neomake_ruby_enabled_makers += ['rubocop']
-  let g:formatters_ruby = ['rubocop', 'rbeautify']
+  let g:ale_linters['ruby'] += ['rubocop']
+  let g:neoformat_enabled_ruby = ['rubocop']
 endif
 
 if executable('reek')
-  let g:neomake_ruby_enabled_makers += ['reek']
+  let g:ale_linters['ruby'] += ['reek']
 endif
 
 if has('nvim')
@@ -330,9 +328,9 @@ endtry
 " Theme overrides
 " http://www.colorpicker.com
 
-" neomake highlightings
-highlight LintError   ctermfg=205 guifg=#e5786d
-highlight link LintWarning LineNr
+" linter highlightings
+highlight ALEErrorSign ctermfg=205 guifg=#e5786d
+highlight link ALEWarningSign LineNr
 
 " highlight trailing white space (via conceal)
 highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
@@ -490,9 +488,9 @@ nmap <C-down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" autoformat / fix-whitespace
-nmap <silent> <leader>= :Autoformat<CR>
-nmap <silent> <F1> :RemoveTrailingSpaces<CR>
+" neoformat / fix-whitespace
+nmap <silent> <leader>= :Neoformat<CR>
+" nmap <silent> <F1> :RemoveTrailingSpaces<CR>
 
 " nerdtree
 nnoremap <leader>e :NERDTreeToggle<cr>
@@ -540,9 +538,9 @@ augroup VimrcGroup
   " autocmd ColorScheme * highlight ColorColumn guibg=#222222 ctermbg=235
 
   " linters -- set b:skip_linters to run manually
-  " NOTE: can be used with `autocmd` to disable Neomake for specific paths
+  " NOTE: can be used with `autocmd` to disable linting for specific paths
   "       (put in .vimrc.local)
-  autocmd BufWritePost * if !exists('b:skip_linters') | Neomake | endif
+  autocmd BufWritePost * if !exists('b:skip_linters') | ALELint | endif
 
   " auto-mark some common files
   autocmd BufLeave {.vimrc,vimrs}      normal mV
