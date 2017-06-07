@@ -221,7 +221,7 @@ set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set mouse=a
 set nowrap
 set number
-set relativenumber
+set norelativenumber
 set scrolloff=3
 set sidescroll=1
 set sidescrolloff=3
