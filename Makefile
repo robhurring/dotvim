@@ -4,23 +4,21 @@ CWD=$(shell pwd)
 
 DOTFILES=vim
 TARGETS=$(DOTFILES:%=$(HOME)/.%)
-MYVIM?=vim
+USEVIM?=vim
 
 all: $(TARGETS)
 	@make bundle
 
-install: $(TARGETS) bootstrap
+install: $(TARGETS) homebrew
 	@make bundle
 
-neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim bootstrap-neovim
+neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim homebrew
+	[[ $(shell which pip2) ]] && pip2 install --upgrade neovim
+	[[ $(shell which pip3) ]] && pip3 install --upgrade neovim
 	@make bundle
 
 uninstall:
 	rm -f $(TARGETS)
-
-bootstrap: .vim
-
-bootstrap-neovim: .neovim
 
 # ---> plugin commands
 
@@ -29,17 +27,17 @@ update: snapshot
 	@make bundle-update
 
 clean:
-	$(MYVIM) +PlugClean! +qall
+	$(USEVIM) +PlugClean! +qall
 
 bundle:
-	$(MYVIM) +PlugInstall +PlugClean! +qall
+	$(USEVIM) +PlugInstall +PlugClean! +qall
 
 bundle-update:
-	$(MYVIM) +PlugUpgrade +PlugUpdate +PlugClean!
+	$(USEVIM) +PlugUpgrade +PlugUpdate +PlugClean!
 
 snapshot:
 	@mkdir -p $(SNAPSHOTS_HOME)
-	$(MYVIM) +"PlugSnapshot $(SNAPSHOTS_HOME)/plugins.$(shell date +%y-%m-%d).snapshot" +qall
+	$(USEVIM) +"PlugSnapshot $(SNAPSHOTS_HOME)/plugins.$(shell date +%y-%m-%d).snapshot" +qall
 
 # ---> file targets
 
@@ -57,15 +55,8 @@ $(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vim/vimrc
 
 # ---> dependencies
 
-.vim:
-	brew install lua
-	brew install vim --with-luajit --with-lua --with-python3
+homebrew:
+	@type brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	@brew bundle check || brew bundle
 
-# https://neovim.io/doc/user/nvim_python.html
-.neovim:
-	brew tap neovim/neovim
-	brew upgrade neovim
-	[[ $(shell which pip2) ]] && pip2 install --upgrade neovim
-	[[ $(shell which pip3) ]] && pip3 install --upgrade neovim
-	nvim +UpdateRemotePlugins +qall
-
+.PHONY: all install neovim uninstall update clean bundle bundle-update snapshot homebrew

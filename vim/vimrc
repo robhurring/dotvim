@@ -285,6 +285,10 @@ if executable('prettier')
   let g:ale_linters['javascript'] += ['prettier']
 endif
 
+if executable('shfmt')
+  let g:neoformat_enabled_sh = ['shfmt']
+endif
+
 if executable('rubocop')
   let g:ale_linters['ruby'] += ['rubocop']
   let g:neoformat_enabled_ruby = ['rubocop']
