@@ -252,6 +252,11 @@ set wildignore+=*/tmp/*,*/log/*,*.zip,*.so,*.swp,*.bak,*/undo/*,*/swap/*
 set wildignore+=tags,cscope.*
 set wildmenu
 
+" neovim specific options
+if has('nvim')
+  set inccommand=split
+end
+
 " SEE: https://gist.github.com/XVilka/8346728
 " NOTE: not working with vim/tmux currently
 if has('termguicolors')
