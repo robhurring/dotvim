@@ -37,7 +37,6 @@ Plug 'benmills/vimux'                   " dep for: vim-test
 Plug 'jszakmeister/vim-togglecursor'    " only needed for vim/mvim
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'Konfekt/FastFold'
 let g:fastfold_savehook = 0
 
