@@ -37,6 +37,12 @@ class << ${1:self}
 end
 endsnippet
 
+snippet ns "namespace"
+module ${1:Namespace}
+	${0:${VISUAL}}
+end
+endsnippet
+
 snippet mod "module .. ClassMethods .. end"
 module ${1:Concern}
 	def self.included(base)

@@ -1,5 +1,3 @@
-tap 'neovim/neovim'
-
 # dependencies
 brew 'lua'
 brew 'python'
@@ -9,5 +7,5 @@ brew 'universal-ctags/universal-ctags/universal-ctags', args: ['HEAD']
 
 # vims
 brew 'neovim'
-brew 'macvim', args: ['with-lua', 'with-luajit']
+# brew 'macvim', args: ['with-lua', 'with-luajit']
 brew 'vim', args: ['HEAD', 'with-lua', 'with-luajit']

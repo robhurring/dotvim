@@ -189,6 +189,8 @@ call ctrlp_bdelete#init()
 " NOTE: some are unnecessary in neovim, but needed for vim compatibility
 " http://vimdoc.sourceforge.net/htmldoc/quickref.html
 
+set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
+
 set autoindent
 set autoread
 set backspace=indent,eol,start
@@ -205,11 +207,10 @@ set cursorline
 set diffopt=filler,iwhite,vertical
 set directory=~/.vim/swap
 set expandtab
-set nofoldenable
 set foldlevel=1
-set foldnestmax=10
 set foldmethod=indent
-set guifont=Hasklig:h15
+set foldnestmax=10
+"set guifont=Hasklig-Regular:h15
 set guioptions-=r
 set hidden
 set hlsearch
@@ -221,29 +222,30 @@ set linebreak
 set list
 set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set mouse=a
+set nofoldenable
+set norelativenumber
 set nowrap
 set number
-set norelativenumber
 set scrolloff=3
-set sidescroll=1
-set sidescrolloff=3
 set sessionoptions-=help
 set shiftround
 set shiftwidth=2
 set shortmess+=A
 set showbreak=↪\
 set showmatch
+set sidescroll=1
+set sidescrolloff=3
 set smartcase
 set smartindent
 set smarttab
 set splitbelow
 set splitright
-set t_ut= " see: http://sunaku.github.io/vim-256color-bce.html
 set tabstop=2
 set tags+=./tags,./git/tags
 set undodir=~/.vim/undo
 set undofile
 set updatetime=750
+set virtualedit=block
 set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
 set wildignore+=*.tar.*
 set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
@@ -272,7 +274,7 @@ endif
 " if executable('zsh')
 "   set shell=zsh
 " endif
-" set shellcmdflag=-lc
+set shellcmdflag=-lc
 
 if executable('ag')
   set grepprg=ag\ -f\ --vimgrep\ $*
@@ -304,6 +306,7 @@ if executable('reek')
 endif
 
 if has('nvim')
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set viminfo='100,/100,h,\"500,:100
 else
