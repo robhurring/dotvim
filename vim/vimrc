@@ -560,6 +560,9 @@ augroup VimrcGroup
 
   " use dash for these languages
   autocmd FileType * setlocal keywordprg=:Dash
+
+  " update marks
+  autocmd FileType terraform setlocal commentstring=#\ %s
 augroup END
 
 " }}} /augroups
