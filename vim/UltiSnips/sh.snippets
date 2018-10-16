@@ -11,6 +11,17 @@ main() {
 main
 endsnippet
 
+snippet getopts "Getopts"
+while getopts ":h" opt; do
+	case $opt in
+		\?|h)
+			echo "<usage>"
+			;;$1
+	esac
+done
+shift $((OPTIND-1))$0
+endsnippet
+
 snippet pwd "Current script pwd"
 source "$(cd "$(dirname "$0")" && pwd)/${1:helpers.sh}"
 endsnippet
