@@ -31,7 +31,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-projectionist'
 Plug 'benmills/vimux'                   " dep for: vim-test
 " SEE: https://github.com/mhinz/dotfiles/blob/master/vim/vimrc#L349-L359
 Plug 'jszakmeister/vim-togglecursor'    " only needed for vim/mvim
@@ -169,13 +169,8 @@ let g:ycm_cache_omnifunc = 0
 " rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
-" clojure
-" Plug 'tpope/vim-fireplace', {'for': 'clojure'}
-" Plug 'tpope/vim-salve', {'for': 'clojure'}
-" Plug 'tpope/vim-classpath', {'for': 'clojure'}
-" Plug 'tpope/vim-sexp-mappings-for-regular-people', {'for': 'clojure'}
-" Plug 'guns/vim-sexp', {'for': 'clojure'}
-" Plug 'junegunn/rainbow_parentheses.vim'
+" typescript
+Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 
 " local bundles
 if filereadable(s:local_plugins)
@@ -266,6 +261,7 @@ if has('termguicolors')
 end
 
 if has('gui_running')
+  set ballooneval
   set macligatures
 endif
 
