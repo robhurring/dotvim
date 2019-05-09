@@ -9,3 +9,5 @@ nmap <buffer> <localleader>I <Plug>(go-import)
 
 " run go-import from insert mode on previous <cword>
 inoremap <buffer> <c-g>i <Esc>:execute <C-u>call go#import#SwitchImport(1, '', expand('<cword>'), '')<CR>a
+
+setlocal keywordprg=:GoDoc
