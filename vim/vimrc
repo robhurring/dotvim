@@ -25,7 +25,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'sbdchd/neoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -38,6 +38,12 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'Konfekt/FastFold'
 let g:fastfold_savehook = 0
+
+" NOTE: installing before `ctrlp` will use <c-p> as CtrlP, otherwise you will
+"       have <c-p> as YankRing's cycle through paste. (Or you can override
+"       like `Y` below.)
+Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = '$HOME/.vim/tmp'
 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'd11wtq/ctrlp_bdelete.vim'
@@ -52,12 +58,6 @@ if executable('rg')
   let g:ctrlp_user_command = 'rg %s --hidden --files-with-matches --files -g "!.git"'
 end
 let g:ctrlp_use_caching = 0
-
-" NOTE: installing before `ctrlp` will use <c-p> as CtrlP, otherwise you will
-"       have <c-p> as YankRing's cycle through paste. (Or you can override
-"       like `Y` below.)
-Plug 'vim-scripts/YankRing.vim'
-let g:yankring_history_dir = '$HOME/.vim/tmp'
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -127,7 +127,7 @@ Plug 'davinche/godown-vim', {'for': 'markdown'}
 " html/css/js
 Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
 Plug 'tpope/vim-ragtag'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', {'for': ['javascript', 'html']}
 let g:user_emmet_leader_key='<C-e>'
 
 " go
@@ -510,9 +510,6 @@ nnoremap <leader>b :TagbarToggle<cr>
 " ycm GoTo
 nnoremap <Leader>] :YcmCompleter GoTo<CR>
 
-" dash
-nnoremap <localleader>d :Dash<CR>
-
 " }}}1 /Mappings
 
 " Augroups {{{
@@ -560,10 +557,6 @@ augroup VimrcGroup
   let dontMark = ['nerdtree']
   autocmd BufLeave * if index(dontMark, &ft) < 0 | normal mL
 
-  " use dash for these languages
-  " autocmd FileType * setlocal keywordprg=:Dash
-
-  " update marks
   autocmd FileType terraform setlocal commentstring=#\ %s
 augroup END
 

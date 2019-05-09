@@ -11,6 +11,12 @@ main() {
 main
 endsnippet
 
+snippet #!
+#!/usr/bin/env ${1:bash}
+
+$0
+endsnippet
+
 snippet getopts "Getopts"
 while getopts ":h" opt; do
 	case $opt in
@@ -22,7 +28,7 @@ done
 shift $((OPTIND-1))$0
 endsnippet
 
-snippet pwd "Current script pwd"
+snippet req "Current script pwd"
 source "$(cd "$(dirname "$0")" && pwd)/${1:helpers.sh}"
 endsnippet
 
@@ -53,7 +59,7 @@ fi
 $0
 endsnippet
 
-snippet support "Shell support"
+snippet colors "Shell support"
 colorize() {
 	printf "\033[\${1}m\${2}\033[0m\n" "${@:3}"
 }
