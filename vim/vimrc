@@ -529,7 +529,7 @@ augroup VimrcGroup
   " " odd file extensions
   autocmd BufNewFile,BufRead {*.ejs}    set filetype=html
   autocmd BufNewFile,BufRead {*.js.erb} set filetype=javascript
-  autocmd BufRead,BufNewFile {Procfile} set filetype=ruby
+  autocmd BufRead,BufNewFile {Procfile} set filetype=yaml
 
   " <C-X>= for #{}
   autocmd FileType ruby       inoremap <buffer> <C-X>= #{}<Esc>i
