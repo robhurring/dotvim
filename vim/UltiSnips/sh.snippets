@@ -125,3 +125,15 @@ prompt() {
 	echo
 }
 endsnippet
+
+snippet xdg "XDG_CONFIG_HOME"
+${XDG_CONFIG_HOME:-$HOME/.config}
+endsnippet
+
+snippet xdg "XDG_CACHE_HOME"
+${XDG_CACHE_HOME:-$HOME/.cache}
+endsnippet
+
+snippet xdg "XDG_DATA_HOME"
+${XDG_DATA_HOME:-$HOME/.local/share}
+endsnippet

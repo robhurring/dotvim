@@ -267,9 +267,9 @@ endif
 
 " use zsh on where available
 " NOTE: causes considerable lag
-" if executable('zsh')
-"   set shell=zsh
-" endif
+if executable('zsh')
+  set shell=zsh
+endif
 set shellcmdflag=-lc
 
 if executable('ag')
@@ -385,6 +385,7 @@ nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 " nmap <C-t> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
 nmap <C-@> <C-Space>
+nnoremap <C-m> :CtrlPMRUFiles<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
@@ -398,6 +399,7 @@ nmap <silent> <localleader>cd :execute 'cd '.helpers#projectroot()<CR>
 " saving (keep imap to avoid vim-surround from binding it)
 inoremap <C-s> <Esc>:update<CR>
 nnoremap <C-s> <Esc>:update<CR>
+cmap w!! w !sudo tee > /dev/null %
 
 " splits and such
 nnoremap <C-j> <C-w>j
@@ -551,8 +553,10 @@ augroup VimrcGroup
   autocmd BufWritePost * if !exists('b:skip_linters') | ALELint | endif
 
   " auto-mark some common files
-  autocmd BufLeave {.vimrc,vimrc} normal mV
-  autocmd BufLeave .zshrc         normal mZ
+  autocmd BufLeave {.vimrc,vimrc,init.vim} normal mV
+  autocmd BufLeave .zshrc normal mZ
+  autocmd BufLeave .zshenv normal mE
+  autocmd BufLeave */.config/* normal mC
 
   let dontMark = ['nerdtree']
   autocmd BufLeave * if index(dontMark, &ft) < 0 | normal mL
