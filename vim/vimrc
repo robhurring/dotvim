@@ -557,7 +557,6 @@ augroup VimrcGroup
   autocmd BufLeave {.vimrc,vimrc,init.vim} normal mV
   autocmd BufLeave .zshrc normal mZ
   autocmd BufLeave .zshenv normal mE
-  autocmd BufLeave */.config/* normal mC
 
   let dontMark = ['nerdtree']
   autocmd BufLeave * if index(dontMark, &ft) < 0 | normal mL
