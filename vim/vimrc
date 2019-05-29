@@ -532,6 +532,7 @@ augroup VimrcGroup
   autocmd BufRead,BufNewFile {Procfile} set filetype=yaml
 
   " <C-X>= for #{}
+  autocmd FileType yaml,eruby inoremap <buffer> <C-X>= <%=  %><Esc>hhi
   autocmd FileType ruby       inoremap <buffer> <C-X>= #{}<Esc>i
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
