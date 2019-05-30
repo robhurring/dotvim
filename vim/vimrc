@@ -25,7 +25,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'sbdchd/neoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' " git mergetool
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
