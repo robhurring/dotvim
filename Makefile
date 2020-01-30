@@ -13,6 +13,7 @@ install: $(TARGETS) homebrew
 	@make bundle
 
 neovim: $(XDG_CONFIG_HOME)/nvim $(XDG_CONFIG_HOME)/nvim/init.vim homebrew
+	[[ $(shell which pip) ]] && pip install --upgrade neovim
 	[[ $(shell which pip2) ]] && pip2 install --upgrade neovim
 	[[ $(shell which pip3) ]] && pip3 install --upgrade neovim
 	@make bundle
