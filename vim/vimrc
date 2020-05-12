@@ -363,7 +363,7 @@ nnoremap * *``
 " buffers / windows
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
-nnoremap <leader><leader> :CtrlPBuffer<CR>
+nnoremap <leader><leader> :CtrlPMRUFiles<CR>
 nnoremap <localleader><localleader> :b#<CR>
 
 " fuzzy tags
@@ -385,7 +385,7 @@ nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 " nmap <C-t> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
 nmap <C-@> <C-Space>
-nnoremap <C-m> :CtrlPMRUFiles<CR>
+nnoremap <C-m> :CtrlPBuffer<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
