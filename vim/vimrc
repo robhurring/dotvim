@@ -97,9 +97,9 @@ let g:ale_linters = {
       \   'ruby': []
       \}
 
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_cache_dir = '~/.cache/tags'
+" Plug 'ludovicchabant/vim-gutentags'
+" let g:gutentags_define_advanced_commands = 1
+" let g:gutentags_cache_dir = '~/.cache/tags'
 
 " NOTE: this fails from the res/ctags.options file since ripper-tags
 "       doesn't allow the --options flag
