@@ -21,6 +21,7 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 Plug 'tommcdo/vim-lion'
 let b:lion_squeeze_spaces = 1
 
+Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'sbdchd/neoformat'
 Plug 'skywind3000/asyncrun.vim'
@@ -30,7 +31,7 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-" Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'
 Plug 'benmills/vimux'                   " dep for: vim-test
 " SEE: https://github.com/mhinz/dotfiles/blob/master/vim/vimrc#L349-L359
 Plug 'jszakmeister/vim-togglecursor'    " only needed for vim/mvim
@@ -39,27 +40,16 @@ Plug 'itchyny/lightline.vim'
 Plug 'Konfekt/FastFold'
 let g:fastfold_savehook = 0
 
-" NOTE: installing before `ctrlp` will use <c-p> as CtrlP, otherwise you will
-"       have <c-p> as YankRing's cycle through paste. (Or you can override
-"       like `Y` below.)
-Plug 'vim-scripts/YankRing.vim'
-let g:yankring_history_dir = '$HOME/.vim/tmp'
+Plug 'junegunn/vim-peekaboo'
+let g:peekaboo_delay = 0
+let g:peekaboo_compact = 1
+let g:peekaboo_window = "bel bo 10new"
 
-Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'd11wtq/ctrlp_bdelete.vim'
-Plug 'JazzCore/ctrlp-cmatcher', {'do': './install.sh' }
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_open_multiple_files = 'ijr'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s --hidden --files-with-matches --nocolor -g ""'
-end
-if executable('rg')
-  let g:ctrlp_user_command = 'rg %s --hidden --files-with-matches --files -g "!.git"'
-end
-let g:ctrlp_use_caching = 0
+" finder
+Plug 'liuchengxu/vista.vim'
+let g:vista_close_on_jump = 1
 
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#magic = '\v'
@@ -97,16 +87,16 @@ let g:ale_linters = {
       \   'ruby': []
       \}
 
-" Plug 'ludovicchabant/vim-gutentags'
-" let g:gutentags_define_advanced_commands = 1
-" let g:gutentags_cache_dir = '~/.cache/tags'
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_define_advanced_commands = 1
+let g:gutentags_cache_dir = '~/.cache/tags'
 
 " NOTE: this fails from the res/ctags.options file since ripper-tags
 "       doesn't allow the --options flag
 " SEE: https://github.com/ludovicchabant/vim-gutentags/issues/56
-" if executable('ripper-tags')
-"   let g:gutentags_ctags_executable_ruby = 'ripper-tags'
-" endif
+if executable('ripper-tags')
+  let g:gutentags_ctags_executable_ruby = 'ripper-tags'
+endif
 
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
@@ -152,20 +142,21 @@ let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out ~/.vim/tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --js-completer' }
-let g:ycm_key_list_select_completion   = ['<C-j>']
-let g:ycm_key_list_previous_completion = ['<C-k>']
-let g:ycm_completion_confirm_key       = '<CR>'
-let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_min_num_identifier_candidate_chars = 3
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
-let g:ycm_echo_current_diagnostic = 0
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_cache_omnifunc = 0
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'Valloric/YouCompleteMe', {'do': './install.py --js-completer' }
+" let g:ycm_key_list_select_completion   = ['<C-j>']
+" let g:ycm_key_list_previous_completion = ['<C-k>']
+" let g:ycm_completion_confirm_key       = '<CR>'
+" let g:ycm_min_num_of_chars_for_completion = 3
+" let g:ycm_min_num_identifier_candidate_chars = 3
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_seed_identifiers_with_syntax = 1
+" let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
+" let g:ycm_echo_current_diagnostic = 0
+" let g:ycm_enable_diagnostic_signs = 0
+" let g:ycm_enable_diagnostic_highlighting = 0
+" let g:ycm_cache_omnifunc = 0
 
 " rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
@@ -178,7 +169,6 @@ if filereadable(s:local_plugins)
   exec 'source ' . s:local_plugins
 endif
 call plug#end()
-call ctrlp_bdelete#init()
 " }}} /plugins
 
 " Options {{{
@@ -349,11 +339,23 @@ highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 " Mappings {{{
 
 " make Y behave like D
-" SEE: http://stackoverflow.com/a/30650556
-function! YRRunAfterMaps()
-  nnoremap <silent> Y :<C-U>YRYankCount 'y$'<CR>
-endfunction
 nnoremap Y y$
+
+" autocomplete
+inoremap <silent><expr> <C-j>
+      \ pumvisible() ? "\<C-n>" :
+      \ coc#refresh()
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <silent><expr> <c-space> coc#refresh()
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " yank current file + line
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
@@ -364,11 +366,11 @@ nnoremap * *``
 " buffers / windows
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
-nnoremap <leader><leader> :CtrlPMRUFiles<CR>
+nnoremap <leader><leader> :Clap buffers<CR>
 nnoremap <localleader><localleader> :b#<CR>
 
 " fuzzy tags
-nnoremap <C-t> :CtrlPTag<CR>
+nnoremap <C-t> :Clap tags<CR>
 
 " up/down on displayed lines, not real lines. (except when using counts)
 noremap gk k
@@ -380,13 +382,12 @@ noremap <expr> j (v:count > 1 ? "m'" . v:count . 'j': 'gj')
 nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
 vnoremap \ zf
 
-" ctrlp.vim <C-Space>
-nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
+" finder mappings
+nnoremap <Plug>QuickOpen :NERDTreeClose\|:Clap files<cr>
 " nmap <NUL> <Plug>QuickOpen
 " nmap <C-t> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
 nmap <C-@> <C-Space>
-nnoremap <C-m> :CtrlPBuffer<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
@@ -458,7 +459,10 @@ nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 
 " incsearch.vim
+" nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 map / <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 
@@ -489,7 +493,7 @@ nnoremap gJ :SplitjoinJoin<cr>
 map <C-_> gcc<Esc>
 
 " yankring
-nmap <Leader>y :YRShow<CR>
+" nmap <Leader>y :YRShow<CR>
 
 " vim-unimpaired / line bubbling
 imap <C-Up> <Esc>[egi
@@ -508,10 +512,13 @@ nnoremap <leader>e :NERDTreeToggle<cr>
 nnoremap <leader>E :NERDTreeFind<cr>
 
 " tagbar
-nnoremap <leader>b :TagbarToggle<cr>
+nnoremap <localleader>t :Vista!!<cr>
 
 " ycm GoTo
-nnoremap <Leader>] :YcmCompleter GoTo<CR>
+" nnoremap <Leader>] :YcmCompleter GoTo<CR>
+
+" Tab complete
+" imap <Tab> <C-P>
 
 " }}}1 /Mappings
 
