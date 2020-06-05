@@ -35,6 +35,8 @@ Plug 'tpope/vim-projectionist'
 Plug 'benmills/vimux'                   " dep for: vim-test
 " SEE: https://github.com/mhinz/dotfiles/blob/master/vim/vimrc#L349-L359
 Plug 'jszakmeister/vim-togglecursor'    " only needed for vim/mvim
+let g:togglecursor_force = 'xterm'
+
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'Konfekt/FastFold'
@@ -142,21 +144,8 @@ let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out ~/.vim/tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
+" autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'Valloric/YouCompleteMe', {'do': './install.py --js-completer' }
-" let g:ycm_key_list_select_completion   = ['<C-j>']
-" let g:ycm_key_list_previous_completion = ['<C-k>']
-" let g:ycm_completion_confirm_key       = '<CR>'
-" let g:ycm_min_num_of_chars_for_completion = 3
-" let g:ycm_min_num_identifier_candidate_chars = 3
-" let g:ycm_complete_in_comments = 1
-" let g:ycm_collect_identifiers_from_tags_files = 1
-" let g:ycm_seed_identifiers_with_syntax = 1
-" let g:ycm_show_diagnostics_ui = 0 " hopefully speed YCM up a bit
-" let g:ycm_echo_current_diagnostic = 0
-" let g:ycm_enable_diagnostic_signs = 0
-" let g:ycm_enable_diagnostic_highlighting = 0
-" let g:ycm_cache_omnifunc = 0
 
 " rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
@@ -258,10 +247,10 @@ endif
 
 " use zsh on where available
 " NOTE: causes considerable lag
-if executable('zsh')
-  set shell=zsh
-endif
-set shellcmdflag=-lc
+" if executable('zsh')
+"   set shell=zsh
+" endif
+" set shellcmdflag=-lc
 
 if executable('ag')
   set grepprg=ag\ -f\ --vimgrep\ $*
@@ -342,13 +331,18 @@ highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 nnoremap Y y$
 
 " autocomplete
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>qf  <Plug>(coc-fix-current)
 inoremap <silent><expr> <C-j>
       \ pumvisible() ? "\<C-n>" :
       \ coc#refresh()
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <C-Space> coc#refresh()
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -356,6 +350,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+nmap <Right> 10zl
+nmap <Left> 10zh
 
 " yank current file + line
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
@@ -513,9 +510,6 @@ nnoremap <leader>E :NERDTreeFind<cr>
 
 " tagbar
 nnoremap <localleader>t :Vista!!<cr>
-
-" ycm GoTo
-" nnoremap <Leader>] :YcmCompleter GoTo<CR>
 
 " Tab complete
 " imap <Tab> <C-P>
