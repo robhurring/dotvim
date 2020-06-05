@@ -469,9 +469,10 @@ noremap gv `[v`]
 " don't move cursor when joining
 nnoremap J mzJ`z
 
-" paste from last yank register
+" yanks
 xnoremap <leader>p "0p
 xnoremap <leader>P "0P
+nmap <Leader>y :Clap yanks<CR>
 
 " vim-test
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -488,9 +489,6 @@ nnoremap gJ :SplitjoinJoin<cr>
 
 " vim-commentary <C-/>
 map <C-_> gcc<Esc>
-
-" yankring
-" nmap <Leader>y :YRShow<CR>
 
 " vim-unimpaired / line bubbling
 imap <C-Up> <Esc>[egi
