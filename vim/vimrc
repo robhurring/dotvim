@@ -89,9 +89,9 @@ let g:ale_linters = {
       \   'ruby': []
       \}
 
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_cache_dir = '~/.cache/tags'
+" Plug 'ludovicchabant/vim-gutentags'
+" let g:gutentags_define_advanced_commands = 1
+" let g:gutentags_cache_dir = '~/.cache/tags'
 
 " NOTE: this fails from the res/ctags.options file since ripper-tags
 "       doesn't allow the --options flag
@@ -330,7 +330,7 @@ highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 " make Y behave like D
 nnoremap Y y$
 
-" autocomplete
+" autocomplete / intellisense
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -350,7 +350,20 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
+" Map function and class text objects
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" horizontal moves
 nmap <Right> 10zl
 nmap <Left> 10zh
 
