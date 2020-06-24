@@ -69,8 +69,8 @@ let g:grepper = {
       \ }
       \}
 
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
+" Plug 'SirVer/ultisnips'
+" let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
 " let g:UltiSnipsExpandTrigger      = '<C-e>'
 " let g:UltiSnipsListSnippets       = '<C-l>'
 
