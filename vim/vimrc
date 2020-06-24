@@ -27,6 +27,7 @@ Plug 'sbdchd/neoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive' " git mergetool
+Plug 'tpope/vim-rhubarb' " git mergetool
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -69,9 +70,9 @@ let g:grepper = {
       \}
 
 Plug 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger      = '<Tab>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
-let g:UltiSnipsListSnippets       = '<C-l>'
+" let g:UltiSnipsExpandTrigger      = '<C-e>'
+" let g:UltiSnipsListSnippets       = '<C-l>'
 
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
@@ -89,9 +90,9 @@ let g:ale_linters = {
       \   'ruby': []
       \}
 
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_define_advanced_commands = 1
-let g:gutentags_cache_dir = '~/.cache/tags'
+" Plug 'ludovicchabant/vim-gutentags'
+" let g:gutentags_define_advanced_commands = 1
+" let g:gutentags_cache_dir = '~/.cache/tags'
 
 " NOTE: this fails from the res/ctags.options file since ripper-tags
 "       doesn't allow the --options flag
@@ -121,7 +122,6 @@ Plug 'davinche/godown-vim', {'for': 'markdown'}
 Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
 Plug 'tpope/vim-ragtag'
 Plug 'mattn/emmet-vim', {'for': ['javascript', 'html']}
-let g:user_emmet_leader_key='<C-e>'
 
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -146,6 +146,7 @@ let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r 
 
 " autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = ['coc-ultisnips', 'coc-json', 'coc-actions', 'coc-snippets']
 
 " rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
@@ -330,19 +331,32 @@ highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 " make Y behave like D
 nnoremap Y y$
 
-" autocomplete
+" autocomplete / intellisense
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>qf  <Plug>(coc-fix-current)
-inoremap <silent><expr> <C-j>
-      \ pumvisible() ? "\<C-n>" :
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <silent><expr> <C-Space> coc#refresh()
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -351,6 +365,23 @@ function! s:show_documentation()
   endif
 endfunction
 
+augroup CocGroup
+  autocmd!
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup END
+
+" Map function and class text objects
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" horizontal moves
 nmap <Right> 10zl
 nmap <Left> 10zh
 
@@ -534,6 +565,7 @@ augroup VimrcGroup
   " <C-X>= for #{}
   autocmd FileType yaml,eruby inoremap <buffer> <C-X>= <%=  %><Esc>hhi
   autocmd FileType ruby       inoremap <buffer> <C-X>= #{}<Esc>i
+  autocmd FileType javascript inoremap <buffer> <C-X>= ${}<Esc>i
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
   " whitespace language tweaks
