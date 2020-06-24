@@ -69,11 +69,6 @@ let g:grepper = {
       \ }
       \}
 
-" Plug 'SirVer/ultisnips'
-" let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
-" let g:UltiSnipsExpandTrigger      = '<C-e>'
-" let g:UltiSnipsListSnippets       = '<C-l>'
-
 Plug 'scrooloose/nerdtree'
 let g:NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '^\.git$']
 let g:NERDTreeQuitOnOpen = 1
@@ -352,7 +347,7 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <silent><expr> <C-Space> coc#refresh()
 nnoremap <silent> K :call <SID>show_documentation()<CR>
