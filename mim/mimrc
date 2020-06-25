@@ -114,6 +114,9 @@ vmap <C-Down> ]egv
 nnoremap <Plug>QuickOpen :NERDTreeClose\|:CtrlP<.><cr>
 nmap <NUL> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
+
+nnoremap <leader>e :NERDTreeToggle<cr>
+nnoremap <leader>E :NERDTreeFind<cr>
 " }}}
 
 " Bootstrap {{{

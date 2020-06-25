@@ -63,7 +63,7 @@ let g:grepper = {
       \'jump': 0,
       \'tools': ['rg', 'ag', 'lag', 'git', 'grep', 'findstr'],
       \ 'lag': {
-      \   'grepprg': 'ag --vimgrep $* $.',
+      \   'grepprg': 'rg --vimgrep $* $.',
       \   'grepformat': '%f:%l:%c:%m,%f:%l:%m',
       \   'escape': '\^$.*+?()[]%#'
       \ }
@@ -143,6 +143,11 @@ let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = ['coc-ultisnips', 'coc-json', 'coc-actions', 'coc-snippets']
 
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
+let g:UltiSnipsExpandTrigger      = '<Tab>'
+let g:UltiSnipsListSnippets       = '<C-l>'
+
 " rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
 
@@ -217,7 +222,7 @@ set undodir=~/.vim/undo
 set undofile
 set updatetime=750
 set virtualedit=block
-set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
+set wildignore+=*.pyc,*.class,*.cache,*.min.*
 set wildignore+=*.tar.*
 set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
 set wildignore+=*/min/*,*/vendor/*,*/node_modules/*,*/bower_components/*
@@ -415,7 +420,7 @@ nmap <C-@> <C-Space>
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
 nmap <silent> <leader>l <Plug>(toggle-only-location-list)
-nmap <silent> <leader>q <Plug>(toggle-only-quickfix-list)
+nmap <silent><nowait> <leader>q <Plug>(toggle-only-quickfix-list)
 
 " cd to buffer's project root directory
 " SEE: autoload/helpers.vim
@@ -472,6 +477,7 @@ vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
+command! Todo Grepper -noprompt -tool git -grepprg git grep -nIi '\(TODO\|FIXME|HACK\):'
 
 if executable('rg')
   command! -nargs=* -complete=file Ag Grepper -tool rg -query <args>
