@@ -420,6 +420,7 @@ nmap <C-@> <C-Space>
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
 nmap <silent> <leader>l <Plug>(toggle-only-location-list)
+nmap <silent> <leader>c <Plug>(toggle-only-quickfix-list)
 nmap <silent><nowait> <leader>q <Plug>(toggle-only-quickfix-list)
 
 " cd to buffer's project root directory
