@@ -199,7 +199,7 @@ set list
 set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set mouse=a
 set nofoldenable
-set norelativenumber
+set relativenumber
 set nowrap
 set number
 set scrolloff=3
@@ -554,6 +554,10 @@ augroup VimrcGroup
 
   " pickup where you left off
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+  " no relative numbers in insert
+  autocmd InsertEnter * set norelativenumber
+  autocmd InsertLeave * set relativenumber
 
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
