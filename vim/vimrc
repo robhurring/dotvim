@@ -184,7 +184,7 @@ set diffopt=filler,iwhite,vertical
 set directory=~/.vim/swap
 set expandtab
 set foldlevel=1
-set foldmethod=indent
+set foldmethod=syntax
 set foldnestmax=10
 "set guifont=Hasklig-Regular:h15
 set guioptions-=r
@@ -384,6 +384,10 @@ omap ac <Plug>(coc-classobj-a)
 " horizontal moves
 nmap <Right> 10zl
 nmap <Left> 10zh
+nnoremap gL L
+nnoremap gH H
+nnoremap L zL
+nnoremap H zH
 
 " yank current file + line
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
@@ -519,6 +523,10 @@ nnoremap <silent> <leader>sc :cg ~/.vim/tmp/quickfix.out\|copen<CR>
 " splitjoin
 nnoremap gS :SplitjoinSplit<cr>
 nnoremap gJ :SplitjoinJoin<cr>
+
+" vim-fugitive
+nnoremap <localleader>gb :Gblame<CR>
+nnoremap <localleader>gs :G<CR>
 
 " vim-commentary <C-/>
 map <C-_> gcc<Esc>
