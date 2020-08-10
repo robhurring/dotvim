@@ -52,7 +52,13 @@ let g:peekaboo_window = "bel bo 10new"
 Plug 'liuchengxu/vista.vim'
 let g:vista_close_on_jump = 1
 
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+let g:clap_disable_run_rooter = 1
+
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#magic = '\v'
@@ -107,7 +113,12 @@ let g:AutoPairsShortcutJump = '<M-n>'
 Plug 'sheerun/vim-polyglot'
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
 let g:jsx_ext_required = 0
+
+" terraform
+Plug 'hashivim/vim-terraform'
 
 " markdown/etc
 let g:vim_markdown_fenced_languages = ['javascript', 'ruby', 'sh', 'yaml', 'html', 'vim', 'json']
@@ -336,13 +347,27 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+nnoremap <silent> <leader>d :<C-u>CocList diagnostics<cr>
+nmap <leader>qf <Plug>(coc-fix-current)
+nmap <leader>do <Plug>(coc-codeaction)
+
+" shifting
+nmap <TAB> >>
+nmap <S-TAB> <<
+vmap <TAB> >>
+vmap <S-TAB> <<
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
 function! s:check_back_space() abort
@@ -494,9 +519,9 @@ xmap gs  <plug>(GrepperOperator)
 
 " incsearch.vim
 " nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
-map / <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
+" map / <Plug>(incsearch-forward)
+" map ?  <Plug>(incsearch-backward)
+" map g/ <Plug>(incsearch-stay)
 map n  <Plug>(incsearch-nohl-n)
 map N  <Plug>(incsearch-nohl-N)
 
@@ -600,15 +625,15 @@ augroup VimrcGroup
   autocmd BufWritePost * if !exists('b:skip_linters') | ALELint | endif
 
   " auto-mark some common files
-  autocmd BufLeave {.vimrc,vimrc,init.vim} normal mV
+  autocmd BufLeave .vimrc,vimrc,init.vim normal mV
   autocmd BufLeave .zshrc normal mZ
   autocmd BufLeave .zshenv normal mE
-  autocmd BufLeave {.ideavimrc,ideavimrc} normal mI
-
-  let dontMark = ['nerdtree']
-  autocmd BufLeave * if index(dontMark, &ft) < 0 | normal mL
+  autocmd BufLeave .ideavimrc,ideavimrc normal mI
 
   autocmd FileType terraform setlocal commentstring=#\ %s
+
+  " write on focus lost
+  autocmd FocusLost * :w
 augroup END
 
 " }}} /augroups
