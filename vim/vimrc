@@ -55,6 +55,17 @@ let g:vista_close_on_jump = 1
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+let g:fzf_preview_window = ['right:60%', 'ctrl-/']
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -437,11 +448,12 @@ nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
 vnoremap \ zf
 
 " finder mappings
-nnoremap <Plug>QuickOpen :NERDTreeClose\|:Files<cr>
-" nmap <NUL> <Plug>QuickOpen
-" nmap <C-t> <Plug>QuickOpen
-nmap <C-Space> <Plug>QuickOpen
+nnoremap <expr> <Plug>ProjectFiles (len(system('git rev-parse')) ? ':NERDTreeClose\|:Files' : ':NERDTreeClose\|:GFiles --exclude-standard --others --cached')."\<cr>"
+nmap <C-Space> <Plug>ProjectFiles
 nmap <C-@> <C-Space>
+
+" snippets
+nnoremap <localleader>s :Snippets<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
