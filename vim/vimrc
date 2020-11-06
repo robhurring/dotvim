@@ -43,6 +43,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'Konfekt/FastFold'
 let g:fastfold_savehook = 0
 
+" registers
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 0
 let g:peekaboo_compact = 1
@@ -52,12 +53,8 @@ let g:peekaboo_window = "bel bo 10new"
 Plug 'liuchengxu/vista.vim'
 let g:vista_close_on_jump = 1
 
-" fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-let g:clap_disable_run_rooter = 1
 
 Plug 'haya14busa/incsearch.vim'
 let g:incsearch#auto_nohlsearch = 1
@@ -210,7 +207,6 @@ set list
 set listchars=tab:-\ ,nbsp:∙,extends:»,precedes:«
 set mouse=a
 set nofoldenable
-set relativenumber
 set nowrap
 set number
 set scrolloff=3
@@ -277,6 +273,7 @@ endif
 
 if executable('prettier')
   let g:neoformat_enabled_javascript = ['prettier']
+  let g:neoformat_enabled_html = ['prettier']
   let g:ale_linters['javascript'] += ['prettier']
 endif
 
@@ -423,11 +420,11 @@ nnoremap * *``
 " buffers / windows
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
-nnoremap <leader><leader> :Clap buffers<CR>
+nnoremap <leader><leader> :Buffers<CR>
 nnoremap <localleader><localleader> :b#<CR>
 
 " fuzzy tags
-nnoremap <C-t> :Clap tags<CR>
+nnoremap <C-t> :Tags<CR>
 
 " up/down on displayed lines, not real lines. (except when using counts)
 noremap gk k
@@ -440,7 +437,7 @@ nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
 vnoremap \ zf
 
 " finder mappings
-nnoremap <Plug>QuickOpen :NERDTreeClose\|:Clap files<cr>
+nnoremap <Plug>QuickOpen :NERDTreeClose\|:Files<cr>
 " nmap <NUL> <Plug>QuickOpen
 " nmap <C-t> <Plug>QuickOpen
 nmap <C-Space> <Plug>QuickOpen
@@ -534,7 +531,7 @@ nnoremap J mzJ`z
 " yanks
 xnoremap <leader>p "0p
 xnoremap <leader>P "0P
-nmap <Leader>y :Clap yanks<CR>
+" nmap <Leader>y :Clap yanks<CR>
 
 " vim-test
 nnoremap <silent> <Leader>t :TestFile<CR>
@@ -587,10 +584,6 @@ augroup VimrcGroup
 
   " pickup where you left off
   autocmd BufReadPost * if &filetype !~ '^git\c' && line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
-  " no relative numbers in insert
-  autocmd InsertEnter * set norelativenumber
-  autocmd InsertLeave * set relativenumber
 
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
