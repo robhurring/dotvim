@@ -21,8 +21,10 @@ Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 Plug 'tommcdo/vim-lion'
 let b:lion_squeeze_spaces = 1
 
+Plug 'editorconfig/editorconfig-vim'
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'sbdchd/neoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
@@ -52,6 +54,8 @@ let g:peekaboo_window = "bel bo 10new"
 " finder
 Plug 'liuchengxu/vista.vim'
 let g:vista_close_on_jump = 1
+let g:vista_fzf_preview = ['up:50%']
+let g:vista_keep_fzf_colors = 1
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -98,17 +102,6 @@ let g:ale_linters = {
       \   'javascript': [],
       \   'ruby': []
       \}
-
-" Plug 'ludovicchabant/vim-gutentags'
-" let g:gutentags_define_advanced_commands = 1
-" let g:gutentags_cache_dir = '~/.cache/tags'
-
-" NOTE: this fails from the res/ctags.options file since ripper-tags
-"       doesn't allow the --options flag
-" SEE: https://github.com/ludovicchabant/vim-gutentags/issues/56
-if executable('ripper-tags')
-  let g:gutentags_ctags_executable_ruby = 'ripper-tags'
-endif
 
 Plug 'jiangmiao/auto-pairs'
 let g:AutoPairsMapSpace = 0
@@ -169,9 +162,6 @@ let g:UltiSnipsListSnippets       = '<C-l>'
 
 " rust
 Plug 'rust-lang/rust.vim', {'for': 'rust'}
-
-" typescript
-Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
 
 " local bundles
 if filereadable(s:local_plugins)
@@ -343,6 +333,11 @@ highlight link ALEWarningSign LineNr
 " highlight trailing white space (via conceal)
 highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+
+" coc popup highlights
+highlight CocFloating   ctermbg=190 guibg=#111111 guifg=#d6d6d6
+highlight NormalFloat   ctermbg=190 guibg=#111111 guifg=#d6d6d6
+" highlight CocErrorFloat ctermfg=red
 "}}}
 
 " Mappings {{{
@@ -435,7 +430,7 @@ nnoremap <leader><leader> :Buffers<CR>
 nnoremap <localleader><localleader> :b#<CR>
 
 " fuzzy tags
-nnoremap <C-t> :Tags<CR>
+nnoremap <C-t> :Vista finder fzf<CR>
 
 " up/down on displayed lines, not real lines. (except when using counts)
 noremap gk k
