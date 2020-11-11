@@ -18,6 +18,16 @@ Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
 
 " misc plugins
+Plug 'morhetz/gruvbox'
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_improved_warnings = 1
+
+Plug 'nanotech/jellybeans.vim'
+let g:jellybeans_use_term_italics = 1
+let g:indent_guides_auto_colors = 1
+let g:jellybeans_use_lowcolor_black = 1
+
 Plug 'tommcdo/vim-lion'
 let b:lion_squeeze_spaces = 1
 
@@ -25,7 +35,7 @@ Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'sbdchd/neoformat'
+Plug 'Chiel92/vim-autoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive' " git mergetool
@@ -195,7 +205,7 @@ set expandtab
 set foldlevel=1
 set foldmethod=syntax
 set foldnestmax=10
-"set guifont=Hasklig-Regular:h15
+set guifont=Hasklig-Regular:h15
 set guioptions-=r
 set hidden
 set hlsearch
@@ -273,18 +283,11 @@ if executable('rg')
 endif
 
 if executable('prettier')
-  let g:neoformat_enabled_javascript = ['prettier']
-  let g:neoformat_enabled_html = ['prettier']
   let g:ale_linters['javascript'] += ['prettier']
-endif
-
-if executable('shfmt')
-  let g:neoformat_enabled_sh = ['shfmt']
 endif
 
 if executable('rubocop')
   let g:ale_linters['ruby'] += ['rubocop']
-  let g:neoformat_enabled_ruby = ['rubocop']
 endif
 
 if executable('reek')
@@ -313,6 +316,7 @@ try
         \ 'SignColumn': { 'guibg': '151515', 'ctermbg': 'none' },
         \ 'CursorLine': { 'guibg': '1c1c1c', 'ctermbg': 'none' }
         \ }
+
   colorscheme jellybeans
 catch
   echom 'Missing color scheme!'
@@ -427,7 +431,7 @@ nnoremap * *``
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
 nnoremap <leader><leader> :Buffers<CR>
-nnoremap <localleader><localleader> :b#<CR>
+nnoremap <silent> <localleader><localleader> :b#<CR>
 
 " fuzzy tags
 nnoremap <C-t> :Vista finder fzf<CR>
@@ -446,9 +450,6 @@ vnoremap \ zf
 nnoremap <expr> <Plug>ProjectFiles (len(system('git rev-parse')) ? ':NERDTreeClose\|:Files' : ':NERDTreeClose\|:GFiles --exclude-standard --others --cached')."\<cr>"
 nmap <C-Space> <Plug>ProjectFiles
 nmap <C-@> <C-Space>
-
-" snippets
-nnoremap <localleader>s :Snippets<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
@@ -568,8 +569,8 @@ nmap <C-down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" neoformat / fix-whitespace
-nmap <silent> <leader>= :Neoformat<CR>
+" formatting / fix-whitespace
+nmap <silent> <leader>= :Autoformat<CR>
 " nmap <silent> <F1> :RemoveTrailingSpaces<CR>
 
 " nerdtree
