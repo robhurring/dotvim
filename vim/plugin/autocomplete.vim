@@ -9,8 +9,8 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " nnoremap <silent> <leader>d :<C-u>CocList diagnostics<cr>
-nmap <leader>qf <Plug>(coc-fix-current)
-nmap <leader>do <Plug>(coc-codeaction)
+" nmap <localleader>fi <Plug>(coc-fix-current)
+nmap <C-i> <Plug>(coc-codeaction)
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
