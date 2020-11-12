@@ -16,13 +16,9 @@ call plug#begin('~/.vim/plugged')
 " dependencies
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-dispatch'    " dep for: vim-test(O), vim-go(O)
+let g:dispatch_no_maps = 1
 
 " misc plugins
-Plug 'morhetz/gruvbox'
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_invert_selection = 0
-let g:gruvbox_improved_warnings = 1
-
 Plug 'nanotech/jellybeans.vim'
 let g:jellybeans_use_term_italics = 1
 let g:indent_guides_auto_colors = 1
@@ -38,8 +34,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'Chiel92/vim-autoformat'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive' " git mergetool
-Plug 'tpope/vim-rhubarb' " git mergetool
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -52,8 +47,8 @@ let g:togglecursor_force = 'xterm'
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'Konfekt/FastFold'
-let g:fastfold_savehook = 0
+" Plug 'Konfekt/FastFold'
+" let g:fastfold_savehook = 0
 
 " registers
 Plug 'junegunn/vim-peekaboo'
@@ -80,10 +75,6 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
-
-Plug 'haya14busa/incsearch.vim'
-let g:incsearch#auto_nohlsearch = 1
-let g:incsearch#magic = '\v'
 
 Plug 'mhinz/vim-grepper'
 let g:grepper = {
@@ -138,7 +129,7 @@ Plug 'davinche/godown-vim', {'for': 'markdown'}
 " html/css/js
 Plug 'tpope/vim-jdaddy', {'for': ['json', 'javascript']}
 Plug 'tpope/vim-ragtag'
-Plug 'mattn/emmet-vim', {'for': ['javascript', 'html']}
+Plug 'mattn/emmet-vim'
 
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -161,9 +152,10 @@ let g:test#strategy = 'vimux'
 let g:test#ruby#rspec#executable = 'auto-bundle-exec rspec --require=~/.vim/config/rspec_vim_formatter.rb --format VimFormatter --out ~/.vim/tmp/quickfix.out --format progress'
 let g:test#ruby#cucumber#executable = 'auto-bundle-exec cucumber --backtrace -r features'
 
-" autocomplete
+" autocomplete (see autocomplete.vim for bindings)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = ['coc-ultisnips', 'coc-json', 'coc-actions', 'coc-snippets']
+let g:coc_snippet_next = '<tab>'
 
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips', $HOME.'/.vim/snippets']
@@ -205,6 +197,7 @@ set expandtab
 set foldlevel=1
 set foldmethod=syntax
 set foldnestmax=10
+set formatoptions+=j
 set guifont=Hasklig-Regular:h15
 set guioptions-=r
 set hidden
@@ -234,11 +227,14 @@ set smartindent
 set smarttab
 set splitbelow
 set splitright
+set ttimeout
+set ttimeoutlen=100
 set tabstop=2
 set tags+=./tags,./git/tags
 set undodir=~/.vim/undo
 set undofile
-set updatetime=750
+" set updatetime=750
+set updatetime=2000
 set virtualedit=block
 set wildignore+=*.pyc,*.class,*.cache,*.min.*
 set wildignore+=*.tar.*
@@ -261,7 +257,7 @@ end
 
 if has('gui_running')
   set ballooneval
-  set macligatures
+  " set macligatures
 endif
 
 " use zsh on where available
@@ -339,9 +335,9 @@ highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 
 " coc popup highlights
-highlight CocFloating   ctermbg=190 guibg=#111111 guifg=#d6d6d6
 highlight NormalFloat   ctermbg=190 guibg=#111111 guifg=#d6d6d6
-" highlight CocErrorFloat ctermfg=red
+highlight CocFloating   ctermbg=190 guibg=#111111 guifg=#d6d6d6
+highlight CocErrorFloat ctermfg=red
 "}}}
 
 " Mappings {{{
@@ -349,69 +345,11 @@ highlight NormalFloat   ctermbg=190 guibg=#111111 guifg=#d6d6d6
 " make Y behave like D
 nnoremap Y y$
 
-" autocomplete / intellisense
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> <leader>rn <Plug>(coc-rename)
-
-nnoremap <silent> <leader>d :<C-u>CocList diagnostics<cr>
-nmap <leader>qf <Plug>(coc-fix-current)
-nmap <leader>do <Plug>(coc-codeaction)
-
 " shifting
 nmap <TAB> >>
 nmap <S-TAB> <<
 vmap <TAB> >>
 vmap <S-TAB> <<
-
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
-inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <silent><expr> <C-Space> coc#refresh()
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-augroup CocGroup
-  autocmd!
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup END
-
-" Map function and class text objects
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
 
 " horizontal moves
 nmap <Right> 10zl
@@ -522,14 +460,6 @@ endif
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 
-" incsearch.vim
-" nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
-" map / <Plug>(incsearch-forward)
-" map ?  <Plug>(incsearch-backward)
-" map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-
 " re-select pasted text
 noremap gv `[v`]
 
@@ -555,7 +485,7 @@ nnoremap gS :SplitjoinSplit<cr>
 nnoremap gJ :SplitjoinJoin<cr>
 
 " vim-fugitive
-nnoremap <localleader>gb :Gblame<CR>
+nnoremap <localleader>ga :Gblame<CR>
 nnoremap <localleader>gs :G<CR>
 
 " vim-commentary <C-/>
@@ -579,9 +509,6 @@ nnoremap <leader>E :NERDTreeFind<cr>
 
 " tagbar
 nnoremap <localleader>t :Vista!!<cr>
-
-" Tab complete
-" imap <Tab> <C-P>
 
 " }}}1 /Mappings
 
@@ -608,9 +535,6 @@ augroup VimrcGroup
   autocmd FileType javascript inoremap <buffer> <C-X>= ${}<Esc>i
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
 
-  " whitespace language tweaks
-  autocmd FileType python,go setlocal nolist tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
-
   " wrap markdown
   autocmd FileType markdown setlocal wrap
 
@@ -630,6 +554,8 @@ augroup VimrcGroup
   autocmd BufLeave .zshrc normal mZ
   autocmd BufLeave .zshenv normal mE
   autocmd BufLeave .ideavimrc,ideavimrc normal mI
+
+  autocmd BufLeave .editorconfig EditorConfigReload
 
   autocmd FileType terraform setlocal commentstring=#\ %s
 
