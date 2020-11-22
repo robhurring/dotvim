@@ -62,6 +62,7 @@ let g:vista_close_on_jump = 1
 let g:vista_fzf_preview = ['up:50%']
 let g:vista_keep_fzf_colors = 1
 
+Plug 'antoinemadec/coc-fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 let g:fzf_preview_window = ['right:60%', 'ctrl-/']
@@ -190,7 +191,7 @@ set foldlevel=1
 set foldmethod=syntax
 set foldnestmax=10
 set formatoptions+=j
-set guifont=Hasklig-Regular:h15
+"set guifont=Hasklig-Regular:h15
 set guioptions-=r
 set hidden
 set hlsearch
@@ -248,7 +249,7 @@ if has('termguicolors')
 end
 
 if has('gui_running')
-  set ballooneval
+  " set ballooneval
   " set macligatures
 endif
 
@@ -526,9 +527,6 @@ augroup VimrcGroup
   autocmd BufLeave .editorconfig EditorConfigReload
 
   autocmd FileType terraform setlocal commentstring=#\ %s
-
-  " write on focus lost
-  autocmd FocusLost * :w
 augroup END
 
 " }}} /augroups
