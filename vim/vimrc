@@ -5,7 +5,7 @@ let s:local_rc = expand('~/.vimrc.local')
 
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
-inoremap jk <Esc>l
+inoremap jk <Esc>
 
 filetype plugin indent on
 syntax on
@@ -523,6 +523,7 @@ augroup VimrcGroup
   autocmd BufLeave .zshenv normal mE
   autocmd BufLeave .ideavimrc,ideavimrc normal mI
   autocmd BufLeave .gitconfig,git/config normal mG
+  autocmd BufLeave .taskrc normal mT
 
   autocmd BufLeave .editorconfig EditorConfigReload
 
