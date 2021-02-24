@@ -5,7 +5,7 @@ let s:local_rc = expand('~/.vimrc.local')
 
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
-inoremap jk <Esc>
+inoremap jk <Esc>l
 
 filetype plugin indent on
 syntax on
@@ -23,6 +23,10 @@ Plug 'nanotech/jellybeans.vim'
 let g:jellybeans_use_term_italics = 1
 let g:indent_guides_auto_colors = 1
 let g:jellybeans_use_lowcolor_black = 1
+
+Plug 'weirongxu/plantuml-previewer.vim'
+Plug 'aklt/plantuml-syntax' " puml dep
+Plug 'tyru/open-browser.vim' " plantuml dep
 
 Plug 'tommcdo/vim-lion'
 let b:lion_squeeze_spaces = 1
@@ -72,10 +76,10 @@ function! s:build_quickfix_list(lines)
   cc
 endfunction
 let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
 Plug 'mhinz/vim-grepper'
 let g:grepper = {
@@ -365,6 +369,15 @@ vnoremap \ zf
 nnoremap <expr> <Plug>ProjectFiles (len(system('git rev-parse')) ? ':NERDTreeClose\|:Files' : ':NERDTreeClose\|:GFiles --exclude-standard --others --cached')."\<cr>"
 nmap <C-Space> <Plug>ProjectFiles
 nmap <C-@> <C-Space>
+
+" FZF
+" nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <leader>s :BLines<CR>
+nnoremap <silent> <Leader>' :Marks<CR>
+nnoremap <silent> <Leader>H :Helptags<CR>
+nnoremap <silent> <Leader>hh :History<CR>
+nnoremap <silent> <Leader>h: :History:<CR>
+nnoremap <silent> <Leader>h/ :History/<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
