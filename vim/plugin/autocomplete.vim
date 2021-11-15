@@ -1,5 +1,4 @@
 " autocomplete / intellisense
-
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -7,6 +6,7 @@ nmap <silent> gr <Plug>(coc-references)
 
 "refactoring
 nmap <silent> <leader>rn <Plug>(coc-rename)
+nmap <silent> <F6> <Plug>(coc-rename)
 
 " nnoremap <silent> <leader>d :<C-u>CocList diagnostics<cr>
 " nmap <localleader>fi <Plug>(coc-fix-current)
@@ -24,8 +24,6 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 
 " autocomplete list bindings
-inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap <silent><expr> <C-Space> coc#refresh()
 
 " documentation

@@ -28,8 +28,9 @@ Plug 'weirongxu/plantuml-previewer.vim'
 Plug 'aklt/plantuml-syntax' " puml dep
 Plug 'tyru/open-browser.vim' " plantuml dep
 
-Plug 'tommcdo/vim-lion'
-let b:lion_squeeze_spaces = 1
+Plug 'junegunn/vim-easy-align'
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 Plug 'editorconfig/editorconfig-vim'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -184,7 +185,7 @@ set breakat=\ ^I*-+;,/?\(\[\{ " fix syntax
 set breakindent
 set breakindentopt=shift:2
 set clipboard=unnamed
-set colorcolumn=81
+set colorcolumn=101
 set completeopt-=preview
 set concealcursor=nc
 set conceallevel=2
@@ -290,7 +291,7 @@ let g:netrw_liststyle = 3
 
 " Theme"{{{
 try
-  execute 'set colorcolumn=' . join(range(81,200), ',')
+  execute 'set colorcolumn=' . join(range(101,200), ',')
   set background=dark
   let g:jellybeans_overrides = {
         \ 'ColorColumn': { 'guibg': '191919', 'ctermbg': 'none' },
@@ -340,6 +341,10 @@ nnoremap gH H
 nnoremap L zL
 nnoremap H zH
 
+" PUM navigation
+inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
 " yank current file + line
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
 
@@ -371,13 +376,14 @@ nmap <C-Space> <Plug>ProjectFiles
 nmap <C-@> <C-Space>
 
 " FZF
+nnoremap <silent> <Leader>s :Snippets<CR>
 " nnoremap <silent> <Leader>f :Rg<CR>
-nnoremap <silent> <leader>s :BLines<CR>
-nnoremap <silent> <Leader>' :Marks<CR>
-nnoremap <silent> <Leader>H :Helptags<CR>
-nnoremap <silent> <Leader>hh :History<CR>
-nnoremap <silent> <Leader>h: :History:<CR>
-nnoremap <silent> <Leader>h/ :History/<CR>
+" nnoremap <silent> <leader>s :BLines<CR>
+" nnoremap <silent> <Leader>' :Marks<CR>
+" nnoremap <silent> <Leader>H :Helptags<CR>
+" nnoremap <silent> <Leader>hh :History<CR>
+" nnoremap <silent> <Leader>h: :History:<CR>
+" nnoremap <silent> <Leader>h/ :History/<CR>
 
 " toggle quickfix/location
 " SEE: plugins/toggle-quickfix.vim
@@ -433,7 +439,8 @@ vnoremap <expr> cQ ":\<C-u>call SetupCR()\<CR>" . "gv" . substitute(g:mc, '/', '
 
 " searching
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
-command! Todo Grepper -noprompt -tool git -grepprg git grep -nIi '\(TODO\|FIXME|HACK\):'
+" command! Todo Grepper -noprompt -tool git -grepprg git grep -nIi '\(TODO\|FIXME|HACK\):'
+command! Todo Rg (TODO|FIXME|HACK)
 
 if executable('rg')
   command! -nargs=* -complete=file Ag Grepper -tool rg -query <args>
@@ -492,9 +499,6 @@ nnoremap <leader>E :NERDTreeFind<cr>
 
 " tagbar
 nnoremap <localleader>t :Vista!!<cr>
-
-" snippets
-nnoremap <localleader>s :Snippets<CR>
 
 " }}}1 /Mappings
 
