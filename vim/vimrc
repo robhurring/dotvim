@@ -106,6 +106,7 @@ let g:AutoPairsShortcutFastWrap = '<M-e>'
 let g:AutoPairsShortcutJump = '<M-n>'
 
 " languages
+Plug 'doums/darcula'
 Plug 'sheerun/vim-polyglot'
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
@@ -229,7 +230,6 @@ set ttimeoutlen=100
 set tabstop=2
 set tags+=./tags,./git/tags
 set undodir=~/.vim/undo
-set undofile
 " set updatetime=750
 set updatetime=4000
 set virtualedit=block
@@ -468,7 +468,7 @@ nnoremap gS :SplitjoinSplit<cr>
 nnoremap gJ :SplitjoinJoin<cr>
 
 " vim-fugitive
-nnoremap <localleader>ga :Gblame<CR>
+nnoremap <localleader>ga :Git blame<CR>
 nnoremap <localleader>gs :G<CR>
 
 " vim-commentary <C-/>
