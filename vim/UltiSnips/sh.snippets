@@ -61,20 +61,20 @@ endsnippet
 
 snippet colors "Shell support"
 colorize() {
-	printf "\033[\${1}m\${2}\033[0m\n" "${@:3}"
+	printf "\033[38;1;\${1}m\${2}\033[0m\n" "${@:3}"
 }
 
 error() {
-	colorize "1;31" "$@"
+	colorize "9" "$@"
 }
 
 success() {
-	colorize "1;32" "$@"
+	colorize "10" "$@"
 }
 
 run() {
 	local cmd="$*"
-	colorize "1;30" "$ \e[0;37m%s" "$cmd"
+	colorize "240" "$ \e[0;37m%s" "$cmd"
 	eval "$cmd"
 }
 endsnippet
