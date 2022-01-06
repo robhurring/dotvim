@@ -316,9 +316,7 @@ endif
 let g:netrw_liststyle = 3
 
 " telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " }}}
@@ -333,14 +331,7 @@ try
         \ 'CursorLine': { 'guibg': '1c1c1c', 'ctermbg': 'none' }
         \ }
 
-  colorscheme jellybeans
-
-  " LSP
-  highlight CodeInfo   ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
-  hi! link LspDiagnosticsFloatingError CodeInfo
-  hi! link LspDiagnosticsFloatingWarning CodeInfo
-  hi! link LspDiagnosticsFloatingInformation CodeInfo
-  hi! link LspDiagnosticsFloatingHint CodeInfo
+  colorscheme darcula
 catch
   echom 'Missing color scheme!'
 endtry
@@ -386,8 +377,8 @@ nnoremap H zH
 " PUM navigation
 inoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-cnoremap <silent><expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-cnoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+cmap <C-j> <C-n>
+cmap <C-k> <C-p>
 
 " yank current file + line
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
@@ -398,7 +389,7 @@ nnoremap * *``
 " buffers / windows
 nnoremap <silent> <C-x> :bunload<CR>
 nnoremap <silent> <C-q> :bdelete<CR>
-nnoremap <leader><leader> :Buffers<CR>
+nnoremap <leader><leader> :Telescope buffers<CR>
 nnoremap <silent> <localleader><localleader> :b#<CR>
 
 " fuzzy tags
@@ -415,7 +406,8 @@ nnoremap <silent> \ @=(foldlevel('.')?'za':"\\")<CR>
 vnoremap \ zf
 
 " finder mappings
-nnoremap <expr> <Plug>ProjectFiles (len(system('git rev-parse')) ? ':NERDTreeClose\|:Files' : ':NERDTreeClose\|:GFiles --exclude-standard --others --cached')."\<cr>"
+" nnoremap <expr> <Plug>ProjectFiles (len(system('git rev-parse')) ? ':NERDTreeClose\|:Files' : ':NERDTreeClose\|:GFiles --exclude-standard --others --cached')."\<cr>"
+nnoremap <expr> <Plug>ProjectFiles (len(system('git rev-parse')) ? ':NERDTreeClose\|:Telescope find_files' : ':NERDTreeClose\|:Telescope git_files')."\<cr>"
 nmap <C-Space> <Plug>ProjectFiles
 nmap <C-@> <C-Space>
 
