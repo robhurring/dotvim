@@ -4,7 +4,7 @@ CWD=$(shell pwd)
 
 DOTFILES=vim
 TARGETS=$(DOTFILES:%=$(HOME)/.%)
-USEVIM?=vim
+USEVIM?=nvim
 
 all: $(TARGETS)
 	@make bundle
