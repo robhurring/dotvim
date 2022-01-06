@@ -8,7 +8,7 @@ endif
 let g:loaded_lightline_customizations = 1
 
 let g:lightline = {
-      \'colorscheme': 'jellybeans',
+      \'colorscheme': 'darculaOriginal',
       \'active': {
       \   'left': [['shortmode', 'paste'], ['root'], ['readonly', 'filename', 'modified']],
       \   'right': [['trailing', 'linter', 'mylineinfo'], ['filetype', 'spell']]
