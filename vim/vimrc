@@ -179,6 +179,7 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'chrisbra/Colorizer'
 
 " colorschemes
 Plug 'doums/darcula'
@@ -195,6 +196,7 @@ call plug#end()
 lua << EOF
 -- IDE-like: lsp, cmp
 require'ide'
+require 'highlighting'
 EOF
 
 " }}}
@@ -219,7 +221,7 @@ set concealcursor=nc
 set conceallevel=2
 set cursorline
 set diffopt=filler,iwhite,vertical
-set directory=~/.vim/swap
+set directory=~/.local/share/nvim/swap
 set expandtab
 set foldlevel=1
 set foldmethod=syntax
@@ -258,7 +260,8 @@ set ttimeout
 set ttimeoutlen=100
 set tabstop=2
 set tags+=./tags,./git/tags
-set undodir=~/.vim/undo
+set undodir=~/.local/share/nvim/undo
+set undofile
 " set updatetime=750
 set updatetime=4000
 set virtualedit=block
@@ -305,9 +308,9 @@ if executable('rg')
 endif
 
 if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  set viminfo='100,/100,h,\"500,:100
+  " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  " let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  set shada='100,/100,h,\"500,:100
 else
   set viminfo='100,/100,h,\"500,:100,n~/.vim/viminfo
 endif
@@ -347,12 +350,40 @@ endtry
 " highlight trailing white space (via conceal)
 highlight ExtraWhitespace   ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
 highlight Conceal           ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
-
+" NERDTree highlighting
+highlight Directory ctermfg=142 ctermbg=190 guibg=NONE guifg=#BBB529
 " floating windows
-highlight NormalFloat ctermbg=190 guibg=#222222 guifg=#d6d6d6
-" highlight link CocFloating NormalFloat
+" highlight NormalFloat ctermbg=190 guibg=#222222 guifg=#d6d6d6
 highlight link VistaFloat NormalFloat
+" LSP
+highlight LspDiagnosticsUnderlineError ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight LspDiagnosticsUnderlineHint ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight LspDiagnosticsUnderlineInfo ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight LspDiagnosticsUnderlineWarning ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+"
+highlight LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+highlight LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+highlight LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+"
+highlight DiagnosticSignError ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight DiagnosticSignWarn ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight DiagnosticSignInfo ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight DiagnosticSignHint ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0080
+highlight DiagnosticLineNrError guibg=#FF0000 guifg=#FF0000 gui=bold
+highlight DiagnosticLineNrWarn guibg=#FF0000 guifg=#FF0000 gui=bold
+highlight DiagnosticLineNrInfo guibg=NONE guifg=#0000FF gui=bold
+highlight DiagnosticLineNrHint guibg=#FF0000 guifg=#0000FF gui=bold
 
+highlight LspCodeLens ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0000
+highlight LspReferenceText ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0000
+highlight LspReferenceRead ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0000
+highlight LspReferenceWrite ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0000
+highlight DocumentHighlight ctermfg=196 ctermbg=197 guibg=NONE guifg=#FF0000
+
+" sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
+" sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
+" sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
+" sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 "}}}
 
 " Mappings {{{
