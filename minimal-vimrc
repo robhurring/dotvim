@@ -16,7 +16,4 @@ call plug#end()
 " settings
 colorscheme jellybeans
 
-" mappings
-nmap <NUL> :CtrlP<CR>
-nmap <C-Space> :CtrlP<CR>
 

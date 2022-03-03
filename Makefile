@@ -51,8 +51,8 @@ $(XDG_CONFIG_HOME)/nvim: $(HOME)/.vim
 	@mkdir -p $(XDG_CONFIG_HOME)
 	@ln -nsf $< $@
 
-$(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vim/vimrc
-	@ln -nsf $< $@
+# $(XDG_CONFIG_HOME)/nvim/init.vim: $(HOME)/.vim/vimrc
+# 	@ln -nsf $< $@
 
 # ---> dependencies
 
