@@ -164,7 +164,7 @@ set clipboard=unnamed
 set colorcolumn=101
 set completeopt-=preview
 set concealcursor=nc
-set conceallevel=2
+set conceallevel=0
 set cursorline
 set diffopt=filler,iwhite,vertical
 set directory=~/.local/share/nvim/swap
@@ -350,6 +350,7 @@ cmap <C-j> <C-n>
 cmap <C-k> <C-p>
 
 " yank current file + line
+nnoremap <silent> <F4> :let @*=expand("%:p")\|echom "Copied"<CR>
 nnoremap <silent> <F5> :let @*=expand("%").":".line(".")\|echom "Copied"<CR>
 
 " don't move cursor for *
@@ -509,7 +510,7 @@ augroup VimrcGroup
 
   " kick-off conceal extra whitespace
   autocmd BufRead,InsertLeave * syntax match ExtraWhitespace '\s\+$' containedin=ALL conceal cchar=∙
-  autocmd BufReadPost * setlocal conceallevel=2 " some plugins are changing this so no visible whitespace
+  autocmd BufReadPost * setlocal conceallevel=0 " some plugins are changing this so no visible whitespace
 
   " odd file extensions
   autocmd BufNewFile,BufRead {*.ejs}    set filetype=html
@@ -521,6 +522,7 @@ augroup VimrcGroup
   autocmd FileType ruby       inoremap <buffer> <C-X>= #{}<Esc>i
   autocmd FileType javascript inoremap <buffer> <C-X>= ${}<Esc>i
   autocmd FileType ruby,eruby setlocal iskeyword+=?,!
+  autocmd FileType json set formatprg=jq
 
   " wrap markdown
   autocmd FileType markdown setlocal wrap
