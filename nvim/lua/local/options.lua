@@ -1,0 +1,41 @@
+local cache = vim.env.XDG_CACHE_HOME or vim.fn.expand("~/.cache")
+
+vim.opt.autoindent = true
+vim.opt.autoread = true
+vim.opt.backspace = { 'indent', 'eol', 'start' }
+vim.opt.clipboard = 'unnamed'
+vim.opt.colorcolumn = '101'
+vim.opt.cursorline = true
+vim.opt.expandtab = true
+vim.opt.foldenable = false
+vim.opt.hidden = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.mouse = 'a'
+vim.opt.number = true
+vim.opt.scrolloff = 3
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 2
+vim.opt.showmatch = true
+vim.opt.sidescroll = 1
+vim.opt.sidescrolloff = 3
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.smarttab = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.tabstop = 2
+vim.opt.termguicolors = true
+vim.opt.virtualedit = 'block'
+vim.opt.wrap = false
+vim.opt.tags:append({ "./tags", "./git/tags" })
+vim.opt.list = true
+vim.opt.listchars.tab = '-'
+vim.opt.listchars.nbsp = '∙'
+vim.opt.listchars.extends = '»'
+vim.opt.listchars.precedes = '«'
+vim.opt.undofile = true
+
+vim.opt.undodir = { cache .. "/nvim/undo//" }
+vim.opt.backupdir = { cache .. "/nvim/backup//" }
+vim.opt.directory = { cache .. "/nvim/swp//" }
