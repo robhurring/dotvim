@@ -17,3 +17,8 @@ vim.api.nvim_create_autocmd({ 'BufReadPost' }, {
   command = 'normal! g`"'
 })
 
+vim.api.nvim_create_autocmd({ 'BufLeave' }, {
+  pattern = { 'init.lua' },
+  group = localgroup,
+  command = 'normal mC'
+})
