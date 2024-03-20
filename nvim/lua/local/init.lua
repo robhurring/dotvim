@@ -5,8 +5,9 @@ vim.g.maplocalleader = ','
 require("local.options")
 require("local.plugins")
 require("local.keymaps")
-
-vim.cmd [[colorscheme sonokai]]
+require("local.colors").setup({
+  colorscheme = "sonokai"
+})
 
 local localgroup = vim.api.nvim_create_augroup('local.group', { clear = true })
 
