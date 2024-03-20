@@ -23,6 +23,7 @@ require("lazy").setup({
   'folke/lsp-colors.nvim',
   'sainnhe/sonokai',
   'edeneast/nightfox.nvim',
+  'github/copilot.vim',
 
   {
     'nvim-telescope/telescope.nvim',
