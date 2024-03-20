@@ -1,4 +1,4 @@
-vim.keymap.set('i', 'jk', '<Esc>')
+vim.keymap.set('i', 'jk', '<Esc>l')
 vim.keymap.set('t', 'jk', '<C-\\><C-n>')
 
 -- indent
@@ -73,7 +73,9 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 -- misc
 vim.keymap.set({ 'i', 'n' }, '<c-s>', '<esc>:update<cr>')
+vim.keymap.set({ 'i', 'n' }, '<m-s>', '<esc>:update<cr>')
 vim.keymap.set('c', 'w!!', 'w !sudo tee > /dev/null %')
+
 vim.keymap.set('n', '*', '*``')
 vim.keymap.set('n', '<leader>/', vim.cmd.noh, { silent = true })
 vim.keymap.set('v', '.', ':normal .<CR>')
@@ -83,3 +85,4 @@ vim.keymap.set('n', 'gv', '`[v`]')
 vim.keymap.set('n', 'Y', 'y$')
 vim.keymap.set({ 'n', 'v' }, '<tab>', '>>')
 vim.keymap.set({ 'n', 'v' }, '<s-tab>', '<<')
+

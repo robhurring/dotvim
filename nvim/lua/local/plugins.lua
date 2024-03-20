@@ -23,6 +23,7 @@ require("lazy").setup({
   'folke/lsp-colors.nvim',
   'sainnhe/sonokai',
   'edeneast/nightfox.nvim',
+  'github/copilot.vim',
 
   {
     'nvim-telescope/telescope.nvim',
@@ -55,6 +56,11 @@ require("lazy").setup({
     config = function()
       require('Comment').setup()
     end
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
   },
 
   {

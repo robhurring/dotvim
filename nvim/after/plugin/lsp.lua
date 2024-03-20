@@ -1,5 +1,5 @@
 local lsp_zero = require('lsp-zero')
-local builtin = require('telescope.builtin')
+local telescope_builtin = require('telescope.builtin')
 
 local function quickfix()
   vim.lsp.buf.code_action({
@@ -12,17 +12,17 @@ lsp_zero.on_attach(function(_, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
   -- telescope
-  vim.keymap.set("n", "gd", builtin.lsp_definitions, opts)
-  vim.keymap.set("n", "<c-]>", builtin.lsp_implementations, opts)
+  vim.keymap.set("n", "gd", telescope_builtin.lsp_definitions, opts)
+  vim.keymap.set("n", "<c-]>", telescope_builtin.lsp_implementations, opts)
 
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
   vim.keymap.set("n", "<tab>", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("n", "<c-[>", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+vim.keymap.set("n", "<F6>", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
   vim.keymap.set("n", '<leader>=', function() vim.lsp.buf.format() end, opts)
   -- vim.keymap.set('n', '<leader>qf', quickfix, opts)
@@ -49,6 +49,7 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 -- from rafamadriz/friendly-snippets
 require('luasnip.loaders.from_vscode').lazy_load()
 
+-- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 cmp.setup({
   sources = {
     { name = 'path' },
@@ -61,8 +62,21 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<c-k>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<c-j>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<cr>'] = cmp.mapping.confirm({ select = true }),
+    ['<c-e>'] = cmp.mapping.abort(),
+    ['<cr>'] = cmp.mapping.confirm({ select = false }),
     ['<c-space>'] = cmp.mapping.complete(),
+    ["<tab>"] = cmp.mapping(function(fallback)
+      -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+      if cmp.visible() then
+        local entry = cmp.get_selected_entry()
+        if not entry then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        end
+        cmp.confirm()
+      else
+        fallback()
+      end
+    end, { "i", "s", }),
   }),
 })
 
