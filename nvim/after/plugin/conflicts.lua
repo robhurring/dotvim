@@ -9,12 +9,18 @@ require('git-conflict').setup({
   }
 })
 
+-- vim.api.nvim_create_autocmd('User', {
+--   pattern = 'GitConflictDetected',
+--   callback = function()
+--   end
+-- })
+
 -- conflict-marker.vim overrides
-vim.api.nvim_set_hl(0, "ConflictMarkerBegin", { bg = "#2f7366" })
-vim.api.nvim_set_hl(0, "ConflictMarkerOurs", { bg = "#2e5049" })
-vim.api.nvim_set_hl(0, "ConflictMarkerTheirs", { bg = "#344f69" })
-vim.api.nvim_set_hl(0, "ConflictMarkerEnd", { bg = "#2f628e" })
-vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { bg = "#754a81" })
+-- vim.api.nvim_set_hl(0, "ConflictMarkerBegin", { bg = "#2f7366" })
+-- vim.api.nvim_set_hl(0, "ConflictMarkerOurs", { bg = "#ee5049" })
+-- vim.api.nvim_set_hl(0, "ConflictMarkerTheirs", { bg = "#344f69" })
+-- vim.api.nvim_set_hl(0, "ConflictMarkerEnd", { bg = "#2f628e" })
+-- vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { bg = "#754a81" })
 
 -- default mappings
 -- vim.keymap.set('n', 'co', '<Plug>(git-conflict-ours)')
