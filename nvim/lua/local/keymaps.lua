@@ -56,13 +56,16 @@ vim.keymap.set('n', '<leader>l', function()
   require('toggles.location').toggle()
 end)
 
--- comments - <c-/>
-vim.keymap.set('n', '<c-_>', function()
+-- comments - <c-/> & <m-/>
+local toggle_comments = function()
   return vim.v.count == 0
       and '<Plug>(comment_toggle_linewise_current)'
       or '<Plug>(comment_toggle_linewise_count)'
-end, { expr = true })
+end
+vim.keymap.set('n', '<c-_>', toggle_comments, { expr = true })
+vim.keymap.set('n', '<M-/>', toggle_comments, { expr = true })
 vim.keymap.set('x', '<c-_>', '<Plug>(comment_toggle_linewise_visual)')
+vim.keymap.set('x', '<M-/>', '<Plug>(comment_toggle_linewise_visual)')
 
 -- toggles
 local pilot = require('local.pilot')
