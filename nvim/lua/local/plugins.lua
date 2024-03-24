@@ -12,6 +12,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- colors
+  'sainnhe/edge',
+  'sainnhe/sonokai',
+  'edeneast/nightfox.nvim',
+  { 'embark-theme/vim', name = 'embark' },
+  { 'catppuccin/nvim',  name = 'catppuccin' },
+
   'nvim-tree/nvim-tree.lua',
   'mbbill/undotree',
   'wellle/targets.vim',
@@ -21,8 +28,6 @@ require("lazy").setup({
   'tpope/vim-unimpaired',
   'vim-scripts/ReplaceWithRegister',
   'folke/lsp-colors.nvim',
-  'sainnhe/sonokai',
-  'edeneast/nightfox.nvim',
   'github/copilot.vim',
 
   {
@@ -35,11 +40,6 @@ require("lazy").setup({
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" }
-  },
-
-  {
-    "briones-gabriel/darcula-solid.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
   },
 
   {
