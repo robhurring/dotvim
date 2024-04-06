@@ -32,6 +32,7 @@ vim.opt.sidescrolloff = 3
 vim.opt.smartcase = true
 vim.opt.smartindent = true
 vim.opt.smarttab = true
+vim.opt.signcolumn = 'yes'
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.tabstop = 2
@@ -47,3 +48,13 @@ vim.opt.wrap = false
 vim.opt.undodir = { cache .. '/nvim/undo//' }
 vim.opt.backupdir = { cache .. '/nvim/backup//' }
 vim.opt.directory = { cache .. '/nvim/swp//' }
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = false,
+  float = true,
+})
+

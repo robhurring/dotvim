@@ -85,4 +85,3 @@ vim.keymap.set('n', 'gv', '`[v`]')
 vim.keymap.set('n', 'Y', 'y$')
 vim.keymap.set({ 'n', 'v' }, '<tab>', '>>')
 vim.keymap.set({ 'n', 'v' }, '<s-tab>', '<<')
-

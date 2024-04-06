@@ -28,7 +28,13 @@ require('lazy').setup({
   'tpope/vim-unimpaired',
   'vim-scripts/ReplaceWithRegister',
   'folke/lsp-colors.nvim',
-  'github/copilot.vim',
+  -- 'github/copilot.vim',
+
+  {
+    "zbirenbaum/copilot.lua",
+    config = function()
+    end
+  },
 
   {
     'm4xshen/autoclose.nvim',
@@ -36,6 +42,7 @@ require('lazy').setup({
       require('autoclose').setup({
         options = {
           disable_when_touch = false,
+          disable_command_mode = true,
         },
       })
     end
@@ -75,16 +82,15 @@ require('lazy').setup({
   },
 
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
+    'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-      { 'neovim/nvim-lspconfig' },
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'L3MON4D3/LuaSnip' },
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'L3MON4D3/LuaSnip',
     }
+
   },
 
   {
