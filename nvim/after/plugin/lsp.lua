@@ -1,12 +1,12 @@
 local lsp_zero = require('lsp-zero')
 local telescope_builtin = require('telescope.builtin')
 
-local function quickfix()
-  vim.lsp.buf.code_action({
-    filter = function(a) return a.isPreferred end,
-    apply = true
-  })
-end
+-- local function quickfix()
+--   vim.lsp.buf.code_action({
+--     filter = function(a) return a.isPreferred end,
+--     apply = true
+--   })
+-- end
 
 lsp_zero.on_attach(function(_, bufnr)
   local opts = { buffer = bufnr, remap = false }
@@ -23,7 +23,9 @@ lsp_zero.on_attach(function(_, bufnr)
   vim.keymap.set("n", "<tab>", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("n", "<F6>", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-  vim.keymap.set("n", '<leader>=', function() vim.lsp.buf.format() end, opts)
+  vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format() end, opts)
+
+  -- debugger
   -- vim.keymap.set('n', '<leader>qf', quickfix, opts)
 end)
 
@@ -64,7 +66,7 @@ cmp.setup({
     ['<c-e>'] = cmp.mapping.abort(),
     ['<cr>'] = cmp.mapping.confirm({ select = false }),
     ['<c-space>'] = cmp.mapping.complete(),
-    ["<tab>"] = cmp.mapping(function(fallback)
+    ['<tab>'] = cmp.mapping(function(fallback)
       -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
       if cmp.visible() then
         local entry = cmp.get_selected_entry()

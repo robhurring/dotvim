@@ -1,17 +1,17 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
+require('lazy').setup({
   -- colors
   'sainnhe/edge',
   'sainnhe/sonokai',
@@ -31,20 +31,31 @@ require("lazy").setup({
   'github/copilot.vim',
 
   {
+    'm4xshen/autoclose.nvim',
+    config = function()
+      require('autoclose').setup({
+        options = {
+          disable_when_touch = false,
+        },
+      })
+    end
+  },
+
+  {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.5',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" }
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
   },
 
   {
@@ -59,8 +70,8 @@ require("lazy").setup({
   },
 
   {
-    "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
+    'L3MON4D3/LuaSnip',
+    dependencies = { 'rafamadriz/friendly-snippets' },
   },
 
   {
@@ -76,6 +87,16 @@ require("lazy").setup({
     }
   },
 
-  { 'akinsho/git-conflict.nvim', version = "*", config = true }
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio',
+      'leoluz/nvim-dap-go',
+      'theHamsta/nvim-dap-virtual-text',
+    }
+  },
+
+  { 'akinsho/git-conflict.nvim', version = '*', config = true }
 
 })
