@@ -30,11 +30,8 @@ require('lazy').setup({
   'folke/lsp-colors.nvim',
   -- 'github/copilot.vim',
 
-  {
-    "zbirenbaum/copilot.lua",
-    config = function()
-    end
-  },
+  { "zbirenbaum/copilot.lua" },
+  { "zbirenbaum/copilot-cmp" },
 
   {
     'm4xshen/autoclose.nvim',
@@ -88,9 +85,9 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
       'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-cmdline',
       'L3MON4D3/LuaSnip',
     }
-
   },
 
   {

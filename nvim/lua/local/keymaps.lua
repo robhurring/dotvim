@@ -65,8 +65,10 @@ end, { expr = true })
 vim.keymap.set('x', '<c-_>', '<Plug>(comment_toggle_linewise_visual)')
 
 -- toggles
+local pilot = require('local.pilot')
 vim.keymap.set('n', 'cor', ':set relativenumber!<cr>')
 vim.keymap.set('n', 'cow', ':set wrap!<cr>')
+vim.keymap.set('n', 'coc', pilot.toggle)
 
 -- undotree
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
