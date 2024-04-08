@@ -100,6 +100,21 @@ require('lazy').setup({
     }
   },
 
-  { 'akinsho/git-conflict.nvim', version = '*', config = true }
+  { 'akinsho/git-conflict.nvim', version = "*", config = true },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
+
+  {
+    'weirongxu/plantuml-previewer.vim',
+    dependencies = {
+      'tyru/open-browser.vim',
+      'aklt/plantuml-syntax'
+    }
+  },
 
 })
