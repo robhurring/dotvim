@@ -21,6 +21,8 @@ require('dap-go').setup {
   },
 }
 
+require('dap-python').setup('~/.local/share/venv/debugpy/bin/python')
+
 local dapui = require('dapui')
 dapui.setup({
   icons = {
@@ -30,15 +32,15 @@ dapui.setup({
   },
   controls = {
     icons = {
-      pause = "Pause",
-      play = "Play",
-      step_into = "Into",
-      step_over = "Over",
-      step_out = "Out",
-      step_back = "Back",
-      run_last = "RL",
-      terminate = "Term",
-      disconnect = "Disc",
+      pause = "⏯ ",
+      play = "⏵ Play",
+      step_into = "⤸ Into",
+      step_over = "↷ Over",
+      step_out = "↶ Out",
+      step_back = "← Back",
+      run_last = "⟳ RL",
+      terminate = "⊠ Term",
+      disconnect = "⨂  Disc",
     },
   },
 
@@ -59,13 +61,16 @@ end
 
 -- Adding symbols for breakpoints and such
 vim.fn.sign_define('DapBreakpoint', { text = '⬤ ', texthl = 'Error', linehl = '', numhl = '' })
-vim.fn.sign_define('DapStopped', { text = '→', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '🟢', texthl = '', linehl = '', numhl = '' })
 
 -- Keymaps for debugging
 vim.keymap.set('n', 'cod', dap.toggle_breakpoint)
+vim.keymap.set('n', '<f19>', dap.step_out) -- <s-f6>
 vim.keymap.set('n', '<f7>', dap.step_into)
-vim.keymap.set('n', '<f8>', dap.continue)
-vim.keymap.set('n', '<f9>', dap.step_over)
-vim.keymap.set('n', '<f6>', dap.step_out)
+vim.keymap.set('n', '<f8>', dap.step_over)
+vim.keymap.set('n', '<f9>', dap.continue)
+
+vim.keymap.set('n', '<leader>dc', dap.continue)
+vim.keymap.set('n', '<leader>dn', dap.step_over)
 vim.keymap.set('n', '<leader>dr', dap.repl.open)
 vim.keymap.set('n', '<leader>du', dapui.toggle)
