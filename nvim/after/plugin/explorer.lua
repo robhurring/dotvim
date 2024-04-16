@@ -51,4 +51,15 @@ require('nvim-tree').setup({
   },
 })
 
+require('oil').setup({
+  keymaps = {
+    ['o'] = 'actions.select',
+    ['u'] = 'actions.parent',
+    ['g.'] = 'actions.toggle_hidden',
+    ['g\\'] = 'actions.toggle_trash',
+  },
+  show_hidden = true
+})
+
 vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeToggle, { noremap = true })
+vim.keymap.set('n', '-', '<CMD>Oil<CR>')

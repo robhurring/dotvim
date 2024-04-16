@@ -5,7 +5,6 @@ vim.g.maplocalleader = ','
 require("local.options")
 require("local.plugins")
 require("local.keymaps")
-require("local.pilot")
 require("local.colors").setup({
   colorscheme = "sonokai"
 })

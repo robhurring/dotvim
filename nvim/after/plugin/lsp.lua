@@ -36,8 +36,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<F6>', function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
     vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format({ async = true }) end, opts)
-    -- vim.keymap.set('n', '<leader>qf', quickfix, opts)
 
+    -- vim.keymap.set('n', '<leader>qf', quickfix, opts)
     -- vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
     -- vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
   end
@@ -59,8 +59,14 @@ require('mason-lspconfig').setup({
   },
 })
 
--- copilot setup
-require("copilot").setup()
+require("mason-nvim-dap").setup({
+  ensure_installed = { "python", "delve" }
+})
+
+-- co/pilot setup
+local pilot = require("local.pilot").setup({
+  enabled = false,
+})
 require("copilot_cmp").setup()
 
 -- local copilot = require('copilot.suggestion')
@@ -82,27 +88,27 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 --   end
 -- end
 
-local function tab_copilot_non_cmp(fallback)
-  local entry = cmp.get_selected_entry()
-
-  if entry then
-    cmp.confirm()
-  else
-    -- if copilot is visible and no entry is selected, accept the copilot suggestion
-    if copilot.is_visible() then
-      copilot.accept()
-    else
-      if cmp.visible() then
-        -- auto-select first item
-        cmp.select_next_item({ behavior = cmp_select })
-        cmp.confirm()
-      else
-        -- default behavior
-        fallback()
-      end
-    end
-  end
-end
+-- local function tab_copilot_non_cmp(fallback)
+--   local entry = cmp.get_selected_entry()
+--
+--   if entry then
+--     cmp.confirm()
+--   else
+--     -- if copilot is visible and no entry is selected, accept the copilot suggestion
+--     if copilot.is_visible() then
+--       copilot.accept()
+--     else
+--       if cmp.visible() then
+--         -- auto-select first item
+--         cmp.select_next_item({ behavior = cmp_select })
+--         cmp.confirm()
+--       else
+--         -- default behavior
+--         fallback()
+--       end
+--     end
+--   end
+-- end
 
 local has_words_before = function()
   unpack = unpack or table.unpack
@@ -115,7 +121,6 @@ local luasnip = require("luasnip")
 vim.g.cmp_enabled = vim.g.cmp_enabled or true
 
 local copilot = require('copilot.suggestion')
-local pilot = require('local.pilot')
 
 cmp.setup({
   enabled = function()
@@ -158,12 +163,14 @@ cmp.setup({
     ['<c-space>'] = cmp.mapping.complete(),
     ['<Tab>'] = cmp.mapping(function(fallback)
       --@todo clean all this messiness up
+      print("captured")
       if pilot.enabled() then
         if copilot.is_visible() then
           copilot.accept()
         else
           fallback()
         end
+
         return
       end
 
@@ -211,7 +218,7 @@ cmp.setup({
     end,
   },
   experimental = {
-    ghost_text = false,
+    ghost_text = true,
     native_menu = false
   },
 })

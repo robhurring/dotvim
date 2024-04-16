@@ -28,6 +28,7 @@ require('lazy').setup({
   'tpope/vim-unimpaired',
   'vim-scripts/ReplaceWithRegister',
   'folke/lsp-colors.nvim',
+  'stevearc/oil.nvim',
   -- 'github/copilot.vim',
 
   { "zbirenbaum/copilot.lua" },
@@ -83,10 +84,18 @@ require('lazy').setup({
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
       'hrsh7th/nvim-cmp',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-cmdline',
       'L3MON4D3/LuaSnip',
+    }
+  },
+
+  {
+    'mfussenegger/nvim-jdtls',
+    dependencies = {
+      'mfussenegger/nvim-dap',
     }
   },
 
@@ -97,6 +106,7 @@ require('lazy').setup({
       'nvim-neotest/nvim-nio',
       'leoluz/nvim-dap-go',
       'theHamsta/nvim-dap-virtual-text',
+      'mfussenegger/nvim-dap-python'
     }
   },
 
