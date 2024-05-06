@@ -8,6 +8,7 @@ brew 'ripgrep'
 brew 'cmake'
 brew 'ctags'
 brew 'universal-ctags/universal-ctags/universal-ctags', args: ['HEAD']
+brew 'jdtls'
 
 # vims
 brew 'vim'
