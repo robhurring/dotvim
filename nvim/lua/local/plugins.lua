@@ -31,8 +31,12 @@ require('lazy').setup({
   'stevearc/oil.nvim',
   -- 'github/copilot.vim',
 
-  { "zbirenbaum/copilot.lua" },
-  { "zbirenbaum/copilot-cmp" },
+  { 'zbirenbaum/copilot.lua' },
+  { 'zbirenbaum/copilot-cmp' },
+
+  {
+    'serenevoid/kiwi.nvim', dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
   {
     'm4xshen/autoclose.nvim',

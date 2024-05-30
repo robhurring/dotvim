@@ -1,4 +1,7 @@
 require('nvim-tree').setup({
+  update_focused_file = {
+    enable = true
+  },
   sort = {
     sorter = "case_sensitive",
   },
@@ -62,4 +65,5 @@ require('oil').setup({
 })
 
 vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeToggle, { noremap = true })
+vim.keymap.set('n', '<leader>E', vim.cmd.NvimTreeFindFile, { noremap = true })
 vim.keymap.set('n', '-', '<CMD>Oil<CR>')
