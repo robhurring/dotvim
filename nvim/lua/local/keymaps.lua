@@ -27,6 +27,14 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('x', '<leader>p', '"_dP')
 
 -- j/k menu
+vim.keymap.set('c', '<c-k>', function()
+  return vim.fn.pumvisible() == 1 and '<c-p>' or '<Up>'
+end, { expr = true, noremap = true })
+
+vim.keymap.set('c', '<c-j>', function()
+  return vim.fn.pumvisible() == 1 and '<c-n>' or '<Down>'
+end, { expr = true, noremap = true })
+
 vim.keymap.set('i', '<c-k>', function()
   return vim.fn.pumvisible() == 1 and 'k' or '<Up>'
 end, { silent = true, expr = true })
@@ -77,6 +85,8 @@ vim.keymap.set('n', 'coc', pilot.toggle)
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 -- misc
+vim.keymap.set('n', '<localleader>ga', '<esc>:Git blame<cr>')
+
 vim.keymap.set({ 'i', 'n' }, '<c-s>', '<esc>:update<cr>')
 vim.keymap.set({ 'i', 'n' }, '<m-s>', '<esc>:update<cr>')
 vim.keymap.set('c', 'w!!', 'w !sudo tee > /dev/null %')
