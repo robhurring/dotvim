@@ -53,7 +53,7 @@ end
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = { 'tsserver', 'lua_ls', 'gopls', 'jedi_language_server' },
+  ensure_installed = { 'lua_ls', 'gopls', 'jedi_language_server' },
   handlers = {
     default_setup,
   },
