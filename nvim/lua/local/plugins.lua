@@ -23,6 +23,7 @@ require('lazy').setup({
   'mbbill/undotree',
   'wellle/targets.vim',
   'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
   'tpope/vim-endwise',
   'tpope/vim-surround',
   'tpope/vim-unimpaired',
@@ -31,8 +32,8 @@ require('lazy').setup({
   'stevearc/oil.nvim',
   -- 'github/copilot.vim',
 
-  { 'zbirenbaum/copilot.lua' },
-  { 'zbirenbaum/copilot-cmp' },
+  { "zbirenbaum/copilot.lua" },
+  { "zbirenbaum/copilot-cmp" },
 
   {
     'serenevoid/kiwi.nvim', dependencies = { 'nvim-lua/plenary.nvim' }
@@ -125,6 +126,14 @@ require('lazy').setup({
 
   {
     'weirongxu/plantuml-previewer.vim',
+    config = function()
+      -- local handle = io.popen("cat $(which plantuml) | grep plantuml.jar")
+      -- local result = handle and handle:read("*a") or ""
+      -- if handle then handle:close() end
+      --
+      -- local jar_path = result:match([[%s['"]?(%S+plantuml%.jar)]]) or ""
+      vim.g["plantuml_previewer#plantuml_jar_path"] = "/Users/rhurring/plantuml.jar"
+    end,
     dependencies = {
       'tyru/open-browser.vim',
       'aklt/plantuml-syntax'

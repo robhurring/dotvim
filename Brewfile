@@ -9,6 +9,8 @@ brew 'cmake'
 brew 'ctags'
 brew 'universal-ctags/universal-ctags/universal-ctags', args: ['HEAD']
 brew 'jdtls'
+brew 'graphviz'
+brew 'plantuml'
 
 # vims
 brew 'vim'
